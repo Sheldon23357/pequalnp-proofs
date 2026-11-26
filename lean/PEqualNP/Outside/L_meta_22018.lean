@@ -1,5 +1,4 @@
 import PEqualNP.Defs
-import PEqualNP.Library.Helpers.Replay
 
 namespace PEqualNP.Outside.L_meta_22018_aux
 
@@ -21,5 +20,8 @@ end PEqualNP.Outside.L_meta_22018_aux
 
 theorem PEqualNP.Outside.L_meta_22018 : ∃ C : PEqualNP.CircuitLowerBounds.Circuit, PEqualNP.MetaComplexity.FanInTwo C ∧ C.size ≤ 10 ∧ ∀ i j : Fin 6, C.eval (List.ofFn fun k : Fin 6 => decide (k = i ∨ k = j)) = (20413 : ℕ).testBit (6 * min i.val j.val + max i.val j.val) := by
   exact ⟨PEqualNP.Outside.L_meta_22018_aux.circuit,
-    PEqualNP.Library.Helpers.Replay.fanInTwoB_sound (by decide +kernel),
+    by
+      intro gate hgate
+      simp only [PEqualNP.Outside.L_meta_22018_aux.circuit, List.mem_cons, List.not_mem_nil, or_false] at hgate
+      rcases hgate with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> simp,
     by decide +kernel, by decide +kernel⟩

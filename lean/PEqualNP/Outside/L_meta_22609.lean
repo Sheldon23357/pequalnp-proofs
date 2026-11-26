@@ -1,5 +1,4 @@
 import PEqualNP.Defs
-import PEqualNP.Library.Helpers.Replay
 
 namespace PEqualNP.Outside.L_meta_22609_aux
 
@@ -23,5 +22,8 @@ end PEqualNP.Outside.L_meta_22609_aux
 
 theorem PEqualNP.Outside.L_meta_22609 : PEqualNP.Represents.RepSizeAtMost (fun (u : Fin 4) (v : Fin 6) => (4029433 : ℕ).testBit (6 * u.val + v.val)) 13 := by
   exact ⟨PEqualNP.Outside.L_meta_22609_aux.circuit,
-    PEqualNP.Library.Helpers.Replay.monotone2B_sound (by decide +kernel),
+    by
+      intro gate hgate
+      simp only [PEqualNP.Outside.L_meta_22609_aux.circuit, List.mem_cons, List.not_mem_nil, or_false] at hgate
+      rcases hgate with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> simp,
     by decide +kernel, by decide +kernel⟩

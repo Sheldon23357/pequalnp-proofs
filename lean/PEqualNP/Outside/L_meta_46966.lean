@@ -2246,6 +2246,154 @@ end PEqualNP.Outside.L_meta_46966.Model
 namespace PEqualNP.Outside.L_meta_46966
 open PEqualNP.Outside.L_meta_46966.Model PEqualNP.CircuitLowerBounds PEqualNP.MetaComplexity
 
+namespace Prior52376B0
+def R : List Sig := vars 7
+def T : Sig := 0xe8e8e8e8e8e8e8e8
+def P : Nat → Bits
+  | 0 => ((0xbecfbecfbecfbecf : BitVec 64) ++ (0xbecfbecfbecfbecf : BitVec 64))
+  | 1 => ((0xdf73df73df73df73 : BitVec 64) ++ (0xdf73df73df73df73 : BitVec 64))
+  | 2 => ((0xefbcefbcefbcefbc : BitVec 64) ++ (0xefbcefbcefbcefbc : BitVec 64))
+  | _ => 0
+def N : Nat → Bits
+  | 0 => ((0x4205420542054205 : BitVec 64) ++ (0x4205420542054205 : BitVec 64))
+  | 1 => ((0x2412241224122412 : BitVec 64) ++ (0x2412241224122412 : BitVec 64))
+  | 2 => ((0x1828182818281828 : BitVec 64) ++ (0x1828182818281828 : BitVec 64))
+  | _ => 0
+theorem properPN : properPairs T (asRow P) (asRow N) := by unfold properPairs; decide +kernel
+def w0 := inputObserved 7 P N 0
+def w1 := inputObserved 7 P N 1
+def w2 := inputObserved 7 P N 2
+def v0 : Closed T 3 := closeState (raw := R) properPN 3 [w0, w1, w2]
+  (fun _ => ([], [])) (by decide +kernel)
+theorem low : Lower true R T 4 :=
+  fromClosed v0 (by decide +kernel) [(0xaaaaaaaaaaaaaaaa, 2, 3), (0xcccccccccccccccc, 1, 3), (0xf0f0f0f0f0f0f0f0, 1, 5)]
+    (proper_of _ (by decide)) (by decide +kernel) (by decide)
+end Prior52376B0
+
+namespace Prior52376B4
+def R : List Sig := vars 11
+def T : Sig := 0xee88ee88ee88ee88
+theorem low : Lower true R T 4 := by
+  exact lower_map (ms := [swapRows 50]) (by decide +kernel) (proper_of _ (by decide))
+    (by decide) (by decide) (proper_of _ (by decide)) Prior52376B0.low
+end Prior52376B4
+
+namespace Prior52376B6
+def R : List Sig := vars 13
+def T : Sig := 0xfaa0faa0faa0faa0
+theorem low : Lower true R T 4 := by
+  exact lower_map (ms := [swapRows 49]) (by decide +kernel) (proper_of _ (by decide))
+    (by decide) (by decide) (proper_of _ (by decide)) Prior52376B0.low
+end Prior52376B6
+
+namespace Prior52376B7
+def R : List Sig := vars 14
+def T : Sig := 0xfcc0fcc0fcc0fcc0
+theorem low : Lower true R T 4 := by
+  exact lower_map (ms := [swapRows 48]) (by decide +kernel) (proper_of _ (by decide))
+    (by decide) (by decide) (proper_of _ (by decide)) Prior52376B0.low
+end Prior52376B7
+
+namespace Prior52376B10
+def R : List Sig := vars 11
+def T : Sig := 0x8800880088008800
+theorem low : Lower true R T 2 := by
+  exact lower_count (proper_of _ (by decide)) [(0xaaaaaaaaaaaaaaaa, 10, 11), (0xcccccccccccccccc, 9, 11), (0xff00ff00ff00ff00, 3, 11)] (by decide +kernel)
+end Prior52376B10
+
+namespace Prior52376B11
+def R : List Sig := vars 15
+def T : Sig := 0xe880e880e880e880
+def P : Nat → Bits
+  | 0 => ((0xfc7fefee3fff8ff8 : BitVec 64) ++ (0xffdfdc7fff1ff1ff : BitVec 64))
+  | 1 => ((0xff8ff7f7c7fff1ff : BitVec 64) ++ (0x1fefef8fffe3fe3f : BitVec 64))
+  | 2 => ((0x1ff1fbfbf8fffe3f : BitVec 64) ++ (0xe3f7f7f1fffc7fc7 : BitVec 64))
+  | 3 => ((0xe3fe3dfdff1fffc7 : BitVec 64) ++ (0xfc7bfbfe3fff8ff8 : BitVec 64))
+  | _ => 0
+def N : Nat → Bits
+  | 0 => ((0x2436d021c9258248 : BitVec 64) ++ (0x6da043924b0490db : BitVec 64))
+  | 1 => ((0x498b48407a4a9093 : BitVec 64) ++ (0x169080f49521262d : BitVec 64))
+  | 2 => ((0x12d1848097932425 : BitVec 64) ++ (0xa309012f26484b46 : BitVec 64))
+  | 3 => ((0x836c030124fc4906 : BitVec 64) ++ (0xd8060249f8920db0 : BitVec 64))
+  | _ => 0
+theorem properPN : properPairs T (asRow P) (asRow N) := by unfold properPairs; decide +kernel
+def w0 := inputObserved 15 P N 0
+def w1 := inputObserved 15 P N 1
+def w2 := inputObserved 15 P N 2
+def w3 := inputObserved 15 P N 3
+theorem s0 : Slice true R T 0xcccccccccccccccc 4 :=
+  slice_correct (ms := fixRows 0 2) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) Prior52376B6.low
+def p0 : Pool R T := prefixPool s0 [] (by decide +kernel)
+theorem s1 : Slice true R T 0xaaaaaaaaaaaaaaaa 4 :=
+  slice_correct (ms := fixRows 0 1) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) Prior52376B7.low
+def p1 : Pool R T := prefixPool s1 [] (by decide +kernel)
+def w4 := combineObserved 0 w0 w1
+def w5 := combineObserved 0 w0 w2
+def w6 := combineObserved 0 w1 w2
+def v0 : Closed T 3 := closeState (raw := R) properPN 3 [w4, w5, w6, w3]
+  (fun _ => ([(usePool p0), (usePool p1)], [])) (by decide +kernel)
+theorem s2 : Slice true R T 0xff00ff00ff00ff00 4 :=
+  slice_correct (ms := fixRows 0 8) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) Prior52376B0.low
+def p2 : Pool R T := prefixPool s2 [] (by decide +kernel)
+theorem s3 : Slice true R T 0xf0f0f0f0f0f0f0f 2 :=
+  slice_correct (ms := fixRows 4 0) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) Prior52376B10.low
+def p3 : Pool R T := prefixPool s3 [] (by decide +kernel)
+theorem s4 : Slice true R T 0xf0f0f0f0f0f0f0f0 4 :=
+  slice_correct (ms := fixRows 0 4) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) Prior52376B4.low
+def p4 : Pool R T := prefixPool s4 [(0, 0xaaaaaaaaaaaaaaaa, 0xcccccccccccccccc), (3, 0x8080808080808080, 0xff00ff00ff00ff00)] (by decide +kernel)
+def w7 := combineObserved 0 w4 w2
+def v1 : Closed T 4 := closeState (raw := R) properPN 4 [w7, w0, w1, w2, w3]
+  (fun _ => ([(usePool p2), (joinPools p3 p4)], [])) (by decide +kernel)
+def w8 := combineObserved 0 w2 w3
+def w9 := combineObserved 3 w8 w0
+def v2 : Closed T 4 := closeState (raw := R) properPN 4 [w9, w0, w1, w2, w3]
+  (fun _ => ([], [])) (by decide +kernel)
+def p5 : Pool R T := prefixPool s4 [] (by decide +kernel)
+def v3 : Closed T 4 := closeState (raw := R) properPN 4 [w4, w5, w1, w2, w3]
+  (fun h => chooseRoute #[(usePool p0), (usePool p5)] #[v0] ((((0x84 : Nat) >>> ((h % 9) * 2)) &&& 3))) (by decide +kernel)
+def a0 : List Move := [swapRows 33, swapRows 48]
+theorem a0ok : autoOK T a0 = true := by decide +kernel
+def r0 : Closed T 4 := rotateClosed v2 a0 a0ok
+def a1 : List Move := [swapRows 49, swapRows 32]
+theorem a1ok : autoOK T a1 = true := by decide +kernel
+def r1 : Closed T 4 := rotateClosed v2 a1 a1ok
+def a2 : List Move := [swapRows 50]
+theorem a2ok : autoOK T a2 = true := by decide +kernel
+def r2 : Closed T 4 := rotateClosed v1 a2 a2ok
+def a3 : List Move := [swapRows 16]
+theorem a3ok : autoOK T a3 = true := by decide +kernel
+def r3 : Closed T 4 := rotateClosed v3 a3 a3ok
+def r4 : Closed T 4 := rotateClosed v3 a2 a2ok
+def a4 : List Move := [swapRows 50, swapRows 16]
+theorem a4ok : autoOK T a4 = true := by decide +kernel
+def r5 : Closed T 4 := rotateClosed v3 a4 a4ok
+def v4 : Closed T 5 := closeState (raw := R) properPN 5 [w4, w0, w1, w2, w3]
+  (fun h => chooseRoute #[(usePool p0), (usePool p1), (usePool p5), (usePool p2)] #[r0, r1, v1, r2, v3, r3, r4, r5] ((((((0x10b1119302 : Nat) <<< 64) ||| 0x8a21010740315600) >>> (((h / 8 + (((0xec000a : Nat) >>> ((h % 8) * 3)) &&& 7)) % 26) * 4)) &&& 15))) (by decide +kernel)
+def a5 : List Move := [swapRows 32]
+theorem a5ok : autoOK T a5 = true := by decide +kernel
+def r6 : Closed T 5 := rotateClosed v4 a5 a5ok
+def a6 : List Move := [swapRows 33]
+theorem a6ok : autoOK T a6 = true := by decide +kernel
+def r7 : Closed T 5 := rotateClosed v4 a6 a6ok
+def r8 : Closed T 5 := rotateClosed v4 a0 a0ok
+def a7 : List Move := [swapRows 48]
+theorem a7ok : autoOK T a7 = true := by decide +kernel
+def r9 : Closed T 5 := rotateClosed v4 a7 a7ok
+def a8 : List Move := [swapRows 49]
+theorem a8ok : autoOK T a8 = true := by decide +kernel
+def r10 : Closed T 5 := rotateClosed v4 a8 a8ok
+def v5 : Closed T 6 := closeState (raw := R) properPN 6 [w0, w1, w2, w3]
+  (fun h => chooseRoute #[(usePool p1), (usePool p0), (usePool p5), (usePool p2)] #[v4, r6, r7, r8, r9, r10] ((((((0x320367108 : Nat) <<< 64) ||| 0x2350104030391) >>> (((h / 8 + (((0x360b0231 : Nat) >>> ((h % 8) * 4)) &&& 15)) % 25) * 4)) &&& 15))) (by decide +kernel)
+theorem low : Lower true R T 7 :=
+  fromClosed v5 (by decide +kernel) [(0xaaaaaaaaaaaaaaaa, 6, 7), (0xcccccccccccccccc, 5, 7), (0xf0f0f0f0f0f0f0f0, 3, 7), (0xff00ff00ff00ff00, 3, 11)]
+    (proper_of _ (by decide)) (by decide +kernel) (by decide)
+end Prior52376B11
+
 namespace B0
 def R : List Sig := vars 7
 def T : Sig := 0xe8e8e8e8e8e8e8e8
@@ -2406,6 +2554,113 @@ theorem low : Lower true R T 5 := by
   exact h
 end B10
 
+namespace B13
+def R : List Sig := vars 15
+def T : Sig := 0xeaa8eaa8eaa8eaa8
+def P : Nat → Bits
+  | 0 => ((0xf7f7fffe3fffffc7 : BitVec 64) ++ (0xf7f7fffe3fffffc7 : BitVec 64))
+  | 1 => ((0xb9f8e73fc7743579 : BitVec 64) ++ (0xb9f8e73fc7743579 : BitVec 64))
+  | 2 => ((0xdaff07cff878c9ba : BitVec 64) ++ (0xdaff07cff878c9ba : BitVec 64))
+  | 3 => ((0xecfff80fff830e3c : BitVec 64) ++ (0xecfff80fff830e3c : BitVec 64))
+  | _ => 0
+def N : Nat → Bits
+  | 0 => ((0x810000009100007 : BitVec 64) ++ (0x810000009100007 : BitVec 64))
+  | 1 => ((0x46264a4642217558 : BitVec 64) ++ (0x46264a4642217558 : BitVec 64))
+  | 2 => ((0x2542d41a9042d9a8 : BitVec 64) ++ (0x2542d41a9042d9a8 : BitVec 64))
+  | 3 => ((0x138486ad2403ae30 : BitVec 64) ++ (0x138486ad2403ae30 : BitVec 64))
+  | _ => 0
+theorem properPN : properPairs T (asRow P) (asRow N) := by unfold properPairs; decide +kernel
+def w0 := inputObserved 15 P N 0
+def w1 := inputObserved 15 P N 1
+def w2 := inputObserved 15 P N 2
+def w3 := inputObserved 15 P N 3
+def w4 := combineObserved 0 w0 w1
+def w5 := combineObserved 1 w4 w3
+def v0 : Closed T 3 := closeState (raw := R) properPN 3 [w0, w1, w2, w5]
+  (fun _ => ([], [])) (by decide +kernel)
+def w6 := combineObserved 0 w0 w3
+def w7 := combineObserved 3 w6 w1
+def v1 : Closed T 3 := closeState (raw := R) properPN 3 [w7, w0, w2, w3]
+  (fun _ => ([], [])) (by decide +kernel)
+def w8 := combineObserved 1 w0 w2
+def w9 := combineObserved 0 w8 w1
+def v2 : Closed T 3 := closeState (raw := R) properPN 3 [w0, w9, w2, w3]
+  (fun _ => ([], [])) (by decide +kernel)
+def w10 := combineObserved 1 w0 w1
+def w11 := combineObserved 2 w10 w3
+def v3 : Closed T 3 := closeState (raw := R) properPN 3 [w11, w0, w1, w2]
+  (fun _ => ([], [])) (by decide +kernel)
+def w12 := combineObserved 0 w1 w2
+def w13 := combineObserved 1 w1 w2
+def v4 : Closed T 3 := closeState (raw := R) properPN 3 [w0, w12, w13, w3]
+  (fun _ => ([], [])) (by decide +kernel)
+def w14 := combineObserved 2 w1 w2
+def w15 := combineObserved 1 w14 w3
+def v5 : Closed T 3 := closeState (raw := R) properPN 3 [w0, w1, w2, w15]
+  (fun _ => ([], [])) (by decide +kernel)
+def w16 := combineObserved 2 w3 w2
+def w17 := combineObserved 3 w16 w1
+def v6 : Closed T 3 := closeState (raw := R) properPN 3 [w0, w17, w2, w3]
+  (fun _ => ([], [])) (by decide +kernel)
+def a0 : List Move := [swapRows 49]
+theorem a0ok : autoOK T a0 = true := by decide +kernel
+def r0 : Closed T 3 := rotateClosed v1 a0 a0ok
+def a1 : List Move := [swapRows 50, swapRows 33]
+theorem a1ok : autoOK T a1 = true := by decide +kernel
+def r1 : Closed T 3 := rotateClosed v1 a1 a1ok
+def a2 : List Move := [swapRows 50]
+theorem a2ok : autoOK T a2 = true := by decide +kernel
+def r2 : Closed T 3 := rotateClosed v0 a2 a2ok
+def v7 : Closed T 4 := closeState (raw := R) properPN 4 [w4, w0, w1, w2, w3]
+  (fun h => chooseRoute #[] #[r0, r1, v0, r2] ((((0xd08 : Nat) >>> ((h % 13) * 2)) &&& 3))) (by decide +kernel)
+def r3 : Closed T 3 := rotateClosed v3 a2 a2ok
+def a3 : List Move := [swapRows 33]
+theorem a3ok : autoOK T a3 = true := by decide +kernel
+def r4 : Closed T 3 := rotateClosed v2 a3 a3ok
+def a4 : List Move := [swapRows 50, swapRows 49]
+theorem a4ok : autoOK T a4 = true := by decide +kernel
+def r5 : Closed T 3 := rotateClosed v2 a4 a4ok
+def v8 : Closed T 4 := closeState (raw := R) properPN 4 [w0, w1, w10, w2, w3]
+  (fun h => chooseRoute #[] #[v3, r3, r4, r5] ((((0x20043 : Nat) >>> ((h % 10) * 2)) &&& 3))) (by decide +kernel)
+def w18 := combineObserved 2 w0 w3
+def v9 : Closed T 4 := closeState (raw := R) properPN 4 [w18, w0, w1, w2, w3]
+  (fun _ => ([], [])) (by decide +kernel)
+def w19 := combineObserved 3 w0 w1
+def v10 : Closed T 4 := closeState (raw := R) properPN 4 [w19, w0, w1, w2, w3]
+  (fun _ => ([], [])) (by decide +kernel)
+def v11 : Closed T 4 := closeState (raw := R) properPN 4 [w0, w12, w1, w2, w3]
+  (fun _ => ([], [v4])) (by decide +kernel)
+def v12 : Closed T 4 := closeState (raw := R) properPN 4 [w0, w1, w2, w13, w3]
+  (fun _ => ([], [v4])) (by decide +kernel)
+def w20 := combineObserved 2 w1 w3
+def r6 : Closed T 3 := rotateClosed v6 a1 a1ok
+def r7 : Closed T 3 := rotateClosed v5 a2 a2ok
+def v13 : Closed T 4 := closeState (raw := R) properPN 4 [w20, w0, w1, w2, w3]
+  (fun _ => ([], [r6, r7])) (by decide +kernel)
+def r8 : Closed T 4 := rotateClosed v9 a0 a0ok
+def r9 : Closed T 4 := rotateClosed v9 a2 a2ok
+def r10 : Closed T 4 := rotateClosed v13 a3 a3ok
+def r11 : Closed T 4 := rotateClosed v13 a0 a0ok
+def r12 : Closed T 4 := rotateClosed v13 a2 a2ok
+def r13 : Closed T 4 := rotateClosed v13 a1 a1ok
+def r14 : Closed T 4 := rotateClosed v13 a4 a4ok
+def r15 : Closed T 4 := rotateClosed v10 a3 a3ok
+def r16 : Closed T 4 := rotateClosed v10 a0 a0ok
+def r17 : Closed T 4 := rotateClosed v7 a3 a3ok
+def r18 : Closed T 4 := rotateClosed v7 a0 a0ok
+def r19 : Closed T 4 := rotateClosed v11 a0 a0ok
+def r20 : Closed T 4 := rotateClosed v11 a2 a2ok
+def r21 : Closed T 4 := rotateClosed v8 a3 a3ok
+def r22 : Closed T 4 := rotateClosed v8 a0 a0ok
+def r23 : Closed T 4 := rotateClosed v12 a0 a0ok
+def r24 : Closed T 4 := rotateClosed v12 a2 a2ok
+def v14 : Closed T 5 := closeState (raw := R) properPN 5 [w0, w1, w2, w3]
+  (fun h => chooseRoute #[] #[v9, r8, r9, v13, r10, r11, r12, r13, r14, v10, r15, r16, v7, r17, r18, v11, r19, r20, v8, r21, r22, v12, r23, r24] ((((((((0x8 : Nat) <<< 64) ||| 0xe80500c55ab70460) <<< 64) ||| 0x96966e0c96f19006) >>> (((h / 8 + (((0x2300d101 : Nat) >>> ((h % 8) * 4)) &&& 15)) % 27) * 5)) &&& 31))) (by decide +kernel)
+theorem low : Lower true R T 6 :=
+  fromClosed v14 (by decide +kernel) [(0xaaaaaaaaaaaaaaaa, 2, 3), (0xcccccccccccccccc, 1, 3), (0xf0f0f0f0f0f0f0f0, 1, 5), (0xff00ff00ff00ff00, 1, 9)]
+    (proper_of _ (by decide)) (by decide +kernel) (by decide)
+end B13
+
 namespace B24
 def R : List Sig := vars 15
 def T : Sig := 0xe888e888e888e888
@@ -2493,111 +2748,147 @@ theorem s6 : Slice true R T 0x55005500550055 5 :=
 theorem s7 : Slice true R T 0x5500550055005500 5 :=
   slice_correct (ms := [swapRows 64, swapRows 65, swapRows 66, swapRows 83] ++ fixRows 1 8) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B27.low
-theorem s8 : Slice true R T 0xc0c0c0c0c0c0c0c 7 :=
+theorem s8 : Slice true R T 0x555500005555 7 :=
+  slice_correct (ms := [swapRows 64, swapRows 65, swapRows 66, swapRows 67, swapRows 84] ++ fixRows 17 0) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) Prior52376B11.low
+theorem s9 : Slice true R T 0x55555555 7 :=
+  slice_correct (ms := [swapRows 64, swapRows 65, swapRows 66, swapRows 67] ++ fixRows 33 0) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) Prior52376B11.low
+theorem s10 : Slice true R T 0xc0c0c0c0c0c0c0c 7 :=
   slice_correct (ms := [swapRows 65, swapRows 82, swapRows 67, swapRows 84] ++ fixRows 4 2) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B5.low
-theorem s9 : Slice true R T 0x3300330033003300 5 :=
+theorem s11 : Slice true R T 0x3300330033003300 5 :=
   slice_correct (ms := [swapRows 65, swapRows 66, swapRows 83] ++ fixRows 2 8) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B27.low
-theorem s10 : Slice true R T 0xcc00cc00cc00cc 7 :=
+theorem s12 : Slice true R T 0xcc00cc00cc00cc 7 :=
   slice_correct (ms := [swapRows 65, swapRows 66, swapRows 83] ++ fixRows 8 2) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B5.low
-theorem s11 : Slice true R T 0xcccc0000cccc 7 :=
+theorem s13 : Slice true R T 0xcccc0000cccc 7 :=
   slice_correct (ms := [swapRows 65, swapRows 66, swapRows 67, swapRows 84] ++ fixRows 16 2) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B5.low
-theorem s12 : Slice true R T 0xcccccccc 7 :=
+theorem s14 : Slice true R T 0xcccccccc 7 :=
   slice_correct (ms := [swapRows 65, swapRows 66, swapRows 67] ++ fixRows 32 2) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B5.low
-theorem s13 : Slice true R T 0xf000f000f000f00 5 :=
+theorem s15 : Slice true R T 0xf000f000f000f00 5 :=
   slice_correct (ms := [swapRows 66, swapRows 83] ++ fixRows 4 8) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B27.low
-theorem s14 : Slice true R T 0xf0f00000f0f 5 :=
+theorem s16 : Slice true R T 0xf0f00000f0f 5 :=
   slice_correct (ms := [swapRows 33, swapRows 66, swapRows 84] ++ fixRows 20 0) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B24.low
-theorem s15 : Slice true R T 0xf0f00000f0f0 5 :=
+theorem s17 : Slice true R T 0xf0f00000f0f0 5 :=
   slice_correct (ms := [swapRows 66, swapRows 67, swapRows 84] ++ fixRows 16 4) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B38.low
-theorem s16 : Slice true R T 0xf0f0f0f 5 :=
+theorem s18 : Slice true R T 0xf0f0f0f 5 :=
   slice_correct (ms := [swapRows 33, swapRows 66] ++ fixRows 36 0) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B24.low
-theorem s17 : Slice true R T 0xf0f0f0f0 5 :=
+theorem s19 : Slice true R T 0xf0f0f0f0 5 :=
   slice_correct (ms := [swapRows 66, swapRows 67] ++ fixRows 32 4) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B38.low
-theorem s18 : Slice true R T 0xff000000ff00 7 :=
+theorem s20 : Slice true R T 0xff000000ff00 7 :=
   slice_correct (ms := [swapRows 67, swapRows 84] ++ fixRows 16 8) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B5.low
-theorem s19 : Slice true R T 0xff00ff00 7 :=
+theorem s21 : Slice true R T 0xff00ff00 7 :=
   slice_correct (ms := [swapRows 67] ++ fixRows 32 8) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B5.low
-theorem s20 : Slice true R T 0xffff 5 :=
+theorem s22 : Slice true R T 0xffff 5 :=
   slice_correct (ms := [swapRows 33] ++ fixRows 48 0) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B24.low
-theorem s21 : Slice true R T 0xffff00000000 5 :=
+theorem s23 : Slice true R T 0xffff00000000 5 :=
   slice_correct (ms := fixRows 16 32) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B38.low
-theorem s22 : Slice true R T 0xffff0000 5 :=
+theorem s24 : Slice true R T 0xffff0000 5 :=
   slice_correct (ms := fixRows 32 16) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B38.low
-theorem s24 : Slice true R T 0x404040404040404 4 :=
+theorem s26 : Slice true R T 0x404040404040404 4 :=
   slice_correct (ms := [swapRows 48, swapRows 65, swapRows 82] ++ fixRows 5 2) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s33 : Slice true R T 0x444400004444 4 :=
-  slice_correct (ms := [swapRows 48, swapRows 65, swapRows 50, swapRows 67, swapRows 84] ++ fixRows 17 2) (by decide +kernel)
-    (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s36 : Slice true R T 0x44444444 4 :=
+theorem s40 : Slice true R T 0x44444444 4 :=
   slice_correct (ms := [swapRows 48, swapRows 65, swapRows 50, swapRows 67] ++ fixRows 33 2) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s44 : Slice true R T 0x505000005050 4 :=
+theorem s50 : Slice true R T 0x505000005050 4 :=
   slice_correct (ms := [swapRows 48, swapRows 49, swapRows 66, swapRows 84] ++ fixRows 17 4) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s47 : Slice true R T 0x50505050 4 :=
+theorem s54 : Slice true R T 0x50505050 4 :=
   slice_correct (ms := [swapRows 48, swapRows 49, swapRows 66] ++ fixRows 33 4) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s50 : Slice true R T 0x550000005500 4 :=
+theorem s58 : Slice true R T 0x550000005500 4 :=
   slice_correct (ms := [swapRows 48, swapRows 49, swapRows 50, swapRows 67, swapRows 84] ++ fixRows 17 8) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s53 : Slice true R T 0x55005500 4 :=
+theorem s62 : Slice true R T 0x55005500 4 :=
   slice_correct (ms := [swapRows 48, swapRows 49, swapRows 50, swapRows 67] ++ fixRows 33 8) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s55 : Slice true R T 0x555500000000 4 :=
+theorem s65 : Slice true R T 0x555500000000 4 :=
   slice_correct (ms := [swapRows 48, swapRows 49, swapRows 50] ++ fixRows 17 32) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s56 : Slice true R T 0x55550000 4 :=
+theorem s66 : Slice true R T 0x55550000 4 :=
   slice_correct (ms := [swapRows 48, swapRows 49, swapRows 50] ++ fixRows 33 16) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s62 : Slice true R T 0xc000c000c000c 4 :=
+theorem s72 : Slice true R T 0xc000c000c000c 4 :=
   slice_correct (ms := [swapRows 49, swapRows 66, swapRows 83, swapRows 84] ++ fixRows 12 2) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s66 : Slice true R T 0xc0c00000c0c 4 :=
+theorem s76 : Slice true R T 0xc0c00000c0c 4 :=
   slice_correct (ms := [swapRows 49, swapRows 66, swapRows 84] ++ fixRows 20 2) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s70 : Slice true R T 0xc0c0c0c 4 :=
+theorem s80 : Slice true R T 0xc0c0c0c 4 :=
   slice_correct (ms := [swapRows 49, swapRows 66] ++ fixRows 36 2) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s74 : Slice true R T 0x330000003300 4 :=
+theorem s84 : Slice true R T 0x330000003300 4 :=
   slice_correct (ms := [swapRows 49, swapRows 50, swapRows 67, swapRows 84] ++ fixRows 18 8) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s75 : Slice true R T 0xcc000000cc 4 :=
-  slice_correct (ms := [swapRows 49, swapRows 50, swapRows 67, swapRows 84] ++ fixRows 24 2) (by decide +kernel)
-    (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s79 : Slice true R T 0x33003300 4 :=
+theorem s89 : Slice true R T 0x33003300 4 :=
   slice_correct (ms := [swapRows 49, swapRows 50, swapRows 67] ++ fixRows 34 8) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s80 : Slice true R T 0xcc00cc 4 :=
+theorem s90 : Slice true R T 0xcc00cc 4 :=
   slice_correct (ms := [swapRows 49, swapRows 50, swapRows 67] ++ fixRows 40 2) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s86 : Slice true R T 0xcccc 4 :=
+theorem s96 : Slice true R T 0xcccc 4 :=
   slice_correct (ms := [swapRows 49, swapRows 50] ++ fixRows 48 2) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s90 : Slice true R T 0xf0000000f00 4 :=
+theorem s100 : Slice true R T 0xf0000000f00 4 :=
   slice_correct (ms := [swapRows 50, swapRows 67, swapRows 84] ++ fixRows 20 8) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s94 : Slice true R T 0xf000f00 4 :=
+theorem s104 : Slice true R T 0xf000f00 4 :=
   slice_correct (ms := [swapRows 50, swapRows 67] ++ fixRows 36 8) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
-theorem s105 : Slice true R T 0xff00 4 :=
+theorem s116 : Slice true R T 0xff00 4 :=
   slice_correct (ms := fixRows 48 8) (by decide +kernel)
     (by decide +kernel) (proper_of _ (by decide)) B0.low
+theorem s120 : Slice true R T 0x999900009999 6 :=
+  slice_correct (ms := [swapRows 80, swapRows 81, swapRows 82, swapRows 83] ++ fixRows 16 0 ++ [(0x4444444444444444, 0x2222222222222222, 1)]) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) B13.low
+theorem s121 : Slice true R T 0x99999999 6 :=
+  slice_correct (ms := [swapRows 80, swapRows 81, swapRows 82, swapRows 83, swapRows 84] ++ fixRows 32 0 ++ [(0x4444444444444444, 0x2222222222222222, 1)]) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) B13.low
+theorem s124 : Slice true R T 0xa050a050a050a05 6 :=
+  slice_correct (ms := [swapRows 80, swapRows 66, swapRows 83] ++ fixRows 4 0 ++ [(0x5500550055005500, 0xaa00aa00aa00aa, 1)]) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) B13.low
+theorem s125 : Slice true R T 0xaa550000aa55 6 :=
+  slice_correct (ms := [swapRows 80, swapRows 83] ++ fixRows 16 0 ++ [(0x5500550055005500, 0xaa00aa00aa00aa, 1)]) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) B13.low
+theorem s135 : Slice true R T 0xc300c300c300c3 5 :=
+  slice_correct (ms := [swapRows 81, swapRows 82, swapRows 67, swapRows 84] ++ fixRows 8 0 ++ [(0x3030303030303030, 0xc0c0c0c0c0c0c0c, 2)]) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) B27.low
+theorem s139 : Slice true R T 0x4444111144441111 6 :=
+  slice_correct (ms := [swapRows 64, swapRows 81, swapRows 82, swapRows 83] ++ fixRows 1 0 ++ [(0x3333000033330000, 0xcccc0000cccc, 2)]) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) B13.low
+theorem s142 : Slice true R T 0x4444444411111111 6 :=
+  slice_correct (ms := [swapRows 64, swapRows 81, swapRows 82, swapRows 83, swapRows 84] ++ fixRows 1 0 ++ [(0x3333333300000000, 0xcccccccc, 2)]) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) B13.low
+theorem s145 : Slice true R T 0x5005500550055005 6 :=
+  slice_correct (ms := [swapRows 64, swapRows 82, swapRows 67, swapRows 84] ++ fixRows 1 0 ++ [(0xf000f000f000f00, 0xf000f000f000f0, 4)]) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) B13.low
+theorem s152 : Slice true R T 0xf0f00f0f 6 :=
+  slice_correct (ms := [swapRows 16, swapRows 33, swapRows 82, swapRows 84] ++ fixRows 32 0 ++ [(0xf0f00000f0f0000, 0xf0f00000f0f0, 4)]) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) B13.low
+theorem s158 : Slice true R T 0xf0f000000f0f 6 :=
+  slice_correct (ms := [swapRows 16, swapRows 33, swapRows 82] ++ fixRows 16 0 ++ [(0xf0f0f0f00000000, 0xf0f0f0f0, 4)]) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) B13.low
+theorem s162 : Slice true R T 0xff0000ff00000000 5 :=
+  slice_correct (ms := [swapRows 83, swapRows 84] ++ fixRows 0 32 ++ [(0xff000000ff0000, 0xff000000ff00, 8)]) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) B38.low
+theorem s170 : Slice true R T 0xff0000000000ff00 7 :=
+  slice_correct (ms := [swapRows 67, swapRows 84] ++ fixRows 0 8 ++ [(0xffff00000000, 0xffff0000, 16)]) (by decide +kernel)
+    (by decide +kernel) (proper_of _ (by decide)) B5.low
 def Pos : Nat → Bits
   | 0 => ((0xbb33729792d08d89 : BitVec 64) ++ (0xbb33729792d08d89 : BitVec 64))
   | 1 => ((0xd0f895656a6bb366 : BitVec 64) ++ (0xd0f895656a6bb366 : BitVec 64))
@@ -2626,4570 +2917,2835 @@ def w5 := inputObserved 63 Pos Neg 5
 def w6 := combineObserved 0 w0 w1
 def w7 := combineObserved 1 w6 w2
 def w8 := combineObserved 1 w2 w3
-def w9 := combineObserved 1 w2 w4
-def w10 := combineObserved 1 w7 w4
-def w11 := combineObserved 2 w7 w5
-def w12 := combineObserved 1 w3 w4
-def w13 := combineObserved 1 w4 w5
-def w14 := combineObserved 1 w6 w5
-def w15 := combineObserved 1 w2 w5
-def w16 := combineObserved 1 w6 w4
-def w17 := combineObserved 3 w2 w16
-def w18 := combineObserved 1 w3 w5
-def w19 := combineObserved 1 w16 w5
-def w20 := combineObserved 2 w16 w5
-def w21 := combineObserved 3 w6 w8
-def w22 := combineObserved 3 w6 w9
-def w23 := combineObserved 3 w6 w12
-def w24 := combineObserved 3 w6 w13
-def w25 := combineObserved 1 w0 w1
-def w26 := combineObserved 2 w0 w1
-def w27 := combineObserved 1 w26 w3
-def w28 := combineObserved 3 w26 w3
-def w29 := combineObserved 3 w0 w1
-def w30 := combineObserved 2 w29 w2
-def w31 := combineObserved 3 w30 w1
-def w32 := combineObserved 1 w30 w4
-def w33 := combineObserved 2 w30 w5
-def w34 := combineObserved 2 w29 w5
-def w35 := combineObserved 3 w34 w1
-def w36 := combineObserved 1 w34 w2
-def w37 := combineObserved 1 w34 w4
-def w38 := combineObserved 2 w34 w4
-def w39 := combineObserved 2 w1 w2
-def w40 := combineObserved 2 w39 w5
-def w41 := combineObserved 0 w1 w3
-def w42 := combineObserved 1 w41 w2
-def w43 := combineObserved 1 w41 w4
-def w44 := combineObserved 1 w9 w5
-def w45 := combineObserved 3 w0 w44
-def w46 := combineObserved 2 w9 w5
-def w47 := combineObserved 3 w2 w13
-def w48 := combineObserved 1 w47 w41
-def w49 := combineObserved 2 w1 w5
-def w50 := combineObserved 2 w49 w4
-def w51 := combineObserved 0 w29 w8
-def w52 := combineObserved 0 w29 w9
-def w53 := combineObserved 0 w29 w3
-def w54 := combineObserved 0 w29 w12
-def w55 := combineObserved 3 w2 w12
-def w56 := combineObserved 0 w29 w13
-def w57 := combineObserved 0 w0 w2
-def w58 := combineObserved 1 w57 w1
-def w59 := combineObserved 3 w57 w1
-def w60 := combineObserved 0 w3 w4
-def w61 := combineObserved 1 w60 w5
-def w62 := combineObserved 0 w3 w5
-def w63 := combineObserved 3 w62 w4
-def w64 := combineObserved 3 w62 w18
-def w65 := combineObserved 2 w3 w5
-def w66 := combineObserved 3 w3 w5
-def w67 := combineObserved 3 w3 w4
-def w68 := combineObserved 0 w4 w5
-def w69 := combineObserved 3 w68 w13
-def w70 := combineObserved 2 w4 w5
-def w71 := combineObserved 3 w4 w5
-def w72 := combineObserved 1 w57 w3
-def w73 := combineObserved 3 w57 w3
-def w74 := combineObserved 1 w57 w5
-def w75 := combineObserved 1 w60 w74
-def w76 := combineObserved 1 w57 w4
-def w77 := combineObserved 3 w62 w76
-def w78 := combineObserved 0 w3 w76
-def w79 := combineObserved 1 w78 w5
-def w80 := combineObserved 0 w3 w74
-def w81 := combineObserved 3 w80 w4
-def w82 := combineObserved 1 w3 w74
-def w83 := combineObserved 3 w80 w82
-def w84 := combineObserved 1 w3 w76
-def w85 := combineObserved 2 w3 w74
-def w86 := combineObserved 3 w3 w74
-def w87 := combineObserved 3 w3 w76
-def w88 := combineObserved 0 w5 w76
-def w89 := combineObserved 1 w4 w74
-def w90 := combineObserved 3 w88 w89
-def w91 := combineObserved 0 w4 w74
-def w92 := combineObserved 2 w4 w74
-def w93 := combineObserved 3 w4 w74
-def w94 := combineObserved 3 w5 w76
-def w95 := combineObserved 3 w68 w89
-def w96 := combineObserved 3 w57 w4
-def w97 := combineObserved 1 w57 w62
-def w98 := combineObserved 3 w97 w18
-def w99 := combineObserved 1 w57 w60
-def w100 := combineObserved 1 w62 w4
-def w101 := combineObserved 3 w57 w100
-def w102 := combineObserved 1 w63 w57
-def w103 := combineObserved 3 w57 w12
-def w104 := combineObserved 1 w66 w57
-def w105 := combineObserved 1 w67 w57
-def w106 := combineObserved 1 w57 w68
-def w107 := combineObserved 3 w106 w13
-def w108 := combineObserved 3 w57 w13
-def w109 := combineObserved 1 w69 w57
-def w110 := combineObserved 1 w71 w57
-def w111 := combineObserved 1 w70 w57
-def w112 := combineObserved 1 w0 w3
-def w113 := combineObserved 3 w2 w112
-def w114 := combineObserved 1 w0 w2
-def w115 := combineObserved 3 w0 w3
-def w116 := combineObserved 1 w115 w2
-def w117 := combineObserved 1 w115 w4
-def w118 := combineObserved 2 w2 w5
-def w119 := combineObserved 1 w114 w4
-def w120 := combineObserved 2 w114 w5
-def w121 := combineObserved 1 w0 w5
-def w122 := combineObserved 3 w2 w121
-def w123 := combineObserved 1 w0 w4
-def w124 := combineObserved 3 w2 w123
-def w125 := combineObserved 1 w123 w5
-def w126 := combineObserved 3 w0 w4
-def w127 := combineObserved 1 w126 w2
-def w128 := combineObserved 3 w0 w5
-def w129 := combineObserved 1 w128 w4
-def w130 := combineObserved 1 w31 w4
-def w131 := combineObserved 2 w31 w5
-def w132 := combineObserved 3 w31 w12
-def w133 := combineObserved 3 w31 w13
-def w134 := combineObserved 0 w1 w13
-def w135 := combineObserved 1 w0 w134
-def w136 := combineObserved 1 w0 w41
-def w137 := combineObserved 1 w136 w5
-def w138 := combineObserved 1 w136 w4
-def w139 := combineObserved 3 w2 w138
-def w140 := combineObserved 0 w1 w119
-def w141 := combineObserved 1 w114 w5
-def w142 := combineObserved 1 w119 w5
-def w143 := combineObserved 2 w119 w5
-def w144 := combineObserved 1 w120 w4
-def w145 := combineObserved 1 w41 w114
-def w146 := combineObserved 3 w41 w114
-def w147 := combineObserved 3 w41 w9
-def w148 := combineObserved 3 w41 w13
-def w149 := combineObserved 3 w41 w44
-def w150 := combineObserved 3 w41 w119
-def w151 := combineObserved 3 w41 w142
-def w152 := combineObserved 1 w1 w3
-def w153 := combineObserved 0 w151 w152
-def w154 := combineObserved 2 w1 w3
-def w155 := combineObserved 0 w1 w4
-def w156 := combineObserved 1 w0 w155
-def w157 := combineObserved 1 w155 w2
-def w158 := combineObserved 1 w155 w114
-def w159 := combineObserved 0 w1 w5
-def w160 := combineObserved 3 w159 w114
-def w161 := combineObserved 1 w159 w4
-def w162 := combineObserved 2 w114 w4
-def w163 := combineObserved 3 w0 w8
-def w164 := combineObserved 3 w2 w3
-def w165 := combineObserved 1 w164 w0
-def w166 := combineObserved 0 w0 w9
-def w167 := combineObserved 3 w0 w9
-def w168 := combineObserved 0 w1 w9
-def w169 := combineObserved 0 w114 w3
-def w170 := combineObserved 0 w114 w4
-def w171 := combineObserved 1 w170 w5
-def w172 := combineObserved 0 w3 w9
-def w173 := combineObserved 0 w114 w13
-def w174 := combineObserved 3 w0 w15
-def w175 := combineObserved 2 w2 w4
-def w176 := combineObserved 3 w175 w114
-def w177 := combineObserved 1 w118 w4
-def w178 := combineObserved 2 w3 w4
-def w179 := combineObserved 3 w2 w4
-def w180 := combineObserved 1 w179 w0
-def w181 := combineObserved 3 w2 w5
-def w182 := combineObserved 1 w169 w4
-def w183 := combineObserved 1 w114 w3
-def w184 := combineObserved 3 w169 w183
-def w185 := combineObserved 3 w169 w13
-def w186 := combineObserved 0 w1 w183
-def w187 := combineObserved 2 w114 w3
-def w188 := combineObserved 3 w114 w3
-def w189 := combineObserved 0 w114 w5
-def w190 := combineObserved 1 w189 w4
-def w191 := combineObserved 3 w189 w4
-def w192 := combineObserved 3 w189 w141
-def w193 := combineObserved 0 w3 w119
-def w194 := combineObserved 0 w1 w142
-def w195 := combineObserved 3 w162 w1
-def w196 := combineObserved 2 w120 w4
-def w197 := combineObserved 3 w114 w5
-def w198 := combineObserved 3 w114 w4
-def w199 := combineObserved 1 w0 w60
-def w200 := combineObserved 1 w2 w60
-def w201 := combineObserved 1 w114 w60
-def w202 := combineObserved 2 w114 w62
-def w203 := combineObserved 3 w0 w12
-def w204 := combineObserved 0 w1 w12
-def w205 := combineObserved 1 w0 w204
-def w206 := combineObserved 2 w205 w2
-def w207 := combineObserved 1 w204 w2
-def w208 := combineObserved 1 w204 w114
-def w209 := combineObserved 2 w208 w5
-def w210 := combineObserved 0 w1 w18
-def w211 := combineObserved 3 w210 w114
-def w212 := combineObserved 0 w114 w12
-def w213 := combineObserved 3 w114 w12
-def w214 := combineObserved 1 w67 w2
-def w215 := combineObserved 1 w67 w114
-def w216 := combineObserved 3 w66 w114
-def w217 := combineObserved 1 w2 w68
-def w218 := combineObserved 1 w114 w68
-def w219 := combineObserved 2 w114 w68
-def w220 := combineObserved 3 w0 w13
-def w221 := combineObserved 2 w135 w2
-def w222 := combineObserved 1 w134 w2
-def w223 := combineObserved 1 w134 w114
-def w224 := combineObserved 3 w134 w114
-def w225 := combineObserved 3 w114 w13
-def w226 := combineObserved 0 w3 w13
-def w227 := combineObserved 1 w0 w226
-def w228 := combineObserved 2 w114 w226
-def w229 := combineObserved 1 w70 w2
-def w230 := combineObserved 1 w70 w114
-def w231 := combineObserved 3 w71 w114
-def w232 := combineObserved 2 w0 w2
-def w233 := combineObserved 1 w232 w5
-def w234 := combineObserved 1 w232 w4
-def w235 := combineObserved 1 w234 w5
-def w236 := combineObserved 2 w234 w5
-def w237 := combineObserved 3 w0 w2
-def w238 := combineObserved 1 w232 w60
-def w239 := combineObserved 3 w232 w12
-def w240 := combineObserved 1 w67 w232
-def w241 := combineObserved 1 w232 w68
-def w242 := combineObserved 3 w232 w13
-def w243 := combineObserved 1 w70 w232
-def w244 := combineObserved 1 w237 w4
-def w245 := combineObserved 1 w237 w5
-def w246 := combineObserved 1 w244 w5
-def w247 := combineObserved 2 w244 w5
-def w248 := combineObserved 3 w237 w9
-def w249 := combineObserved 1 w237 w60
-def w250 := combineObserved 3 w237 w12
-def w251 := combineObserved 1 w67 w237
-def w252 := combineObserved 1 w237 w68
-def w253 := combineObserved 3 w237 w13
-def w254 := combineObserved 1 w70 w237
-def w255 := combineObserved 0 w0 w3
-def w256 := combineObserved 1 w255 w2
-def w257 := combineObserved 1 w256 w4
-def w258 := combineObserved 2 w256 w5
-def w259 := combineObserved 1 w255 w5
-def w260 := combineObserved 1 w255 w4
-def w261 := combineObserved 3 w2 w260
-def w262 := combineObserved 1 w260 w5
-def w263 := combineObserved 2 w260 w5
-def w264 := combineObserved 3 w255 w112
-def w265 := combineObserved 0 w264 w2
-def w266 := combineObserved 1 w264 w2
-def w267 := combineObserved 2 w264 w2
-def w268 := combineObserved 3 w264 w2
-def w269 := combineObserved 3 w255 w9
-def w270 := combineObserved 1 w118 w255
-def w271 := combineObserved 3 w255 w13
-def w272 := combineObserved 0 w1 w2
-def w273 := combineObserved 1 w0 w272
-def w274 := combineObserved 3 w272 w112
-def w275 := combineObserved 0 w39 w112
-def w276 := combineObserved 0 w1 w112
+def w9 := combineObserved 3 w6 w8
+def w10 := combineObserved 1 w0 w1
+def w11 := combineObserved 2 w0 w1
+def w12 := combineObserved 1 w11 w3
+def w13 := combineObserved 3 w11 w3
+def w14 := combineObserved 3 w0 w1
+def w15 := combineObserved 2 w14 w2
+def w16 := combineObserved 3 w15 w1
+def w17 := combineObserved 1 w15 w4
+def w18 := combineObserved 2 w15 w5
+def w19 := combineObserved 1 w4 w5
+def w20 := combineObserved 2 w14 w5
+def w21 := combineObserved 1 w20 w2
+def w22 := combineObserved 1 w20 w4
+def w23 := combineObserved 2 w20 w4
+def w24 := combineObserved 1 w2 w4
+def w25 := combineObserved 2 w1 w2
+def w26 := combineObserved 2 w25 w5
+def w27 := combineObserved 0 w1 w3
+def w28 := combineObserved 1 w27 w2
+def w29 := combineObserved 1 w27 w4
+def w30 := combineObserved 1 w2 w5
+def w31 := combineObserved 1 w24 w5
+def w32 := combineObserved 3 w0 w31
+def w33 := combineObserved 2 w24 w5
+def w34 := combineObserved 3 w2 w19
+def w35 := combineObserved 1 w34 w27
+def w36 := combineObserved 2 w1 w5
+def w37 := combineObserved 2 w36 w4
+def w38 := combineObserved 0 w14 w8
+def w39 := combineObserved 0 w14 w24
+def w40 := combineObserved 0 w14 w3
+def w41 := combineObserved 1 w3 w4
+def w42 := combineObserved 0 w14 w41
+def w43 := combineObserved 3 w2 w41
+def w44 := combineObserved 0 w14 w19
+def w45 := combineObserved 0 w0 w2
+def w46 := combineObserved 1 w45 w1
+def w47 := combineObserved 3 w45 w1
+def w48 := combineObserved 1 w45 w3
+def w49 := combineObserved 3 w45 w3
+def w50 := combineObserved 1 w45 w5
+def w51 := combineObserved 3 w45 w4
+def w52 := combineObserved 1 w0 w3
+def w53 := combineObserved 3 w2 w52
+def w54 := combineObserved 1 w0 w2
+def w55 := combineObserved 3 w0 w3
+def w56 := combineObserved 1 w55 w2
+def w57 := combineObserved 1 w16 w4
+def w58 := combineObserved 2 w16 w5
+def w59 := combineObserved 1 w54 w4
+def w60 := combineObserved 3 w16 w41
+def w61 := combineObserved 3 w16 w19
+def w62 := combineObserved 0 w1 w19
+def w63 := combineObserved 1 w0 w62
+def w64 := combineObserved 1 w0 w27
+def w65 := combineObserved 1 w64 w5
+def w66 := combineObserved 1 w64 w4
+def w67 := combineObserved 3 w2 w66
+def w68 := combineObserved 0 w1 w59
+def w69 := combineObserved 1 w54 w5
+def w70 := combineObserved 1 w59 w5
+def w71 := combineObserved 2 w59 w5
+def w72 := combineObserved 2 w54 w5
+def w73 := combineObserved 1 w72 w4
+def w74 := combineObserved 1 w27 w54
+def w75 := combineObserved 3 w27 w54
+def w76 := combineObserved 3 w27 w24
+def w77 := combineObserved 3 w27 w19
+def w78 := combineObserved 3 w27 w31
+def w79 := combineObserved 3 w27 w59
+def w80 := combineObserved 3 w27 w70
+def w81 := combineObserved 1 w1 w3
+def w82 := combineObserved 2 w1 w3
+def w83 := combineObserved 2 w54 w4
+def w84 := combineObserved 3 w0 w8
+def w85 := combineObserved 3 w2 w3
+def w86 := combineObserved 1 w85 w0
+def w87 := combineObserved 3 w0 w24
+def w88 := combineObserved 0 w1 w24
+def w89 := combineObserved 0 w54 w3
+def w90 := combineObserved 0 w3 w24
+def w91 := combineObserved 2 w3 w5
+def w92 := combineObserved 0 w54 w19
+def w93 := combineObserved 3 w0 w30
+def w94 := combineObserved 2 w2 w5
+def w95 := combineObserved 1 w94 w4
+def w96 := combineObserved 2 w3 w4
+def w97 := combineObserved 1 w89 w4
+def w98 := combineObserved 1 w54 w3
+def w99 := combineObserved 3 w89 w19
+def w100 := combineObserved 0 w1 w98
+def w101 := combineObserved 2 w54 w3
+def w102 := combineObserved 3 w54 w3
+def w103 := combineObserved 0 w3 w59
+def w104 := combineObserved 3 w83 w1
+def w105 := combineObserved 2 w72 w4
+def w106 := combineObserved 0 w1 w41
+def w107 := combineObserved 1 w0 w106
+def w108 := combineObserved 2 w107 w2
+def w109 := combineObserved 1 w106 w2
+def w110 := combineObserved 1 w106 w54
+def w111 := combineObserved 2 w110 w5
+def w112 := combineObserved 1 w3 w5
+def w113 := combineObserved 0 w1 w112
+def w114 := combineObserved 3 w113 w54
+def w115 := combineObserved 0 w54 w41
+def w116 := combineObserved 3 w54 w41
+def w117 := combineObserved 2 w63 w2
+def w118 := combineObserved 1 w62 w2
+def w119 := combineObserved 1 w62 w54
+def w120 := combineObserved 3 w62 w54
+def w121 := combineObserved 3 w54 w19
+def w122 := combineObserved 0 w3 w19
+def w123 := combineObserved 1 w0 w122
+def w124 := combineObserved 2 w54 w122
+def w125 := combineObserved 2 w0 w2
+def w126 := combineObserved 3 w0 w2
+def w127 := combineObserved 1 w126 w4
+def w128 := combineObserved 1 w126 w5
+def w129 := combineObserved 1 w127 w5
+def w130 := combineObserved 2 w127 w5
+def w131 := combineObserved 3 w126 w41
+def w132 := combineObserved 3 w126 w19
+def w133 := combineObserved 0 w0 w3
+def w134 := combineObserved 1 w133 w2
+def w135 := combineObserved 3 w133 w52
+def w136 := combineObserved 0 w1 w2
+def w137 := combineObserved 1 w0 w136
+def w138 := combineObserved 3 w136 w52
+def w139 := combineObserved 0 w25 w52
+def w140 := combineObserved 0 w1 w52
+def w141 := combineObserved 1 w140 w2
+def w142 := combineObserved 3 w53 w1
+def w143 := combineObserved 2 w0 w3
+def w144 := combineObserved 1 w143 w1
+def w145 := combineObserved 3 w143 w1
+def w146 := combineObserved 1 w143 w2
+def w147 := combineObserved 1 w56 w4
+def w148 := combineObserved 2 w56 w5
+def w149 := combineObserved 1 w55 w4
+def w150 := combineObserved 3 w2 w149
+def w151 := combineObserved 1 w55 w5
+def w152 := combineObserved 1 w149 w5
+def w153 := combineObserved 2 w149 w5
+def w154 := combineObserved 3 w55 w24
+def w155 := combineObserved 3 w55 w1
+def w156 := combineObserved 1 w94 w55
+def w157 := combineObserved 3 w55 w19
+def w158 := combineObserved 0 w0 w4
+def w159 := combineObserved 1 w158 w1
+def w160 := combineObserved 0 w0 w5
+def w161 := combineObserved 3 w160 w1
+def w162 := combineObserved 1 w158 w2
+def w163 := combineObserved 3 w160 w2
+def w164 := combineObserved 1 w158 w3
+def w165 := combineObserved 3 w160 w3
+def w166 := combineObserved 1 w158 w5
+def w167 := combineObserved 3 w160 w4
+def w168 := combineObserved 1 w0 w4
+def w169 := combineObserved 1 w137 w5
+def w170 := combineObserved 1 w137 w4
+def w171 := combineObserved 3 w5 w170
+def w172 := combineObserved 1 w0 w5
+def w173 := combineObserved 1 w168 w5
+def w174 := combineObserved 0 w1 w173
+def w175 := combineObserved 3 w2 w173
+def w176 := combineObserved 1 w136 w5
+def w177 := combineObserved 3 w136 w19
+def w178 := combineObserved 3 w136 w173
+def w179 := combineObserved 3 w136 w3
+def w180 := combineObserved 2 w74 w5
+def w181 := combineObserved 3 w5 w66
+def w182 := combineObserved 1 w27 w5
+def w183 := combineObserved 3 w27 w173
+def w184 := combineObserved 1 w175 w27
+def w185 := combineObserved 0 w2 w3
+def w186 := combineObserved 1 w0 w185
+def w187 := combineObserved 1 w186 w5
+def w188 := combineObserved 1 w186 w4
+def w189 := combineObserved 3 w5 w188
+def w190 := combineObserved 1 w185 w5
+def w191 := combineObserved 3 w185 w19
+def w192 := combineObserved 3 w185 w173
+def w193 := combineObserved 1 w85 w168
+def w194 := combineObserved 3 w85 w173
+def w195 := combineObserved 0 w2 w173
+def w196 := combineObserved 1 w0 w88
+def w197 := combineObserved 2 w196 w5
+def w198 := combineObserved 3 w172 w24
+def w199 := combineObserved 2 w2 w4
+def w200 := combineObserved 1 w199 w5
+def w201 := combineObserved 1 w94 w168
+def w202 := combineObserved 3 w0 w19
+def w203 := combineObserved 0 w2 w19
+def w204 := combineObserved 3 w175 w1
+def w205 := combineObserved 0 w3 w173
+def w206 := combineObserved 2 w0 w5
+def w207 := combineObserved 1 w206 w2
+def w208 := combineObserved 3 w0 w5
+def w209 := combineObserved 1 w206 w185
+def w210 := combineObserved 1 w206 w85
+def w211 := combineObserved 1 w208 w2
+def w212 := combineObserved 1 w211 w4
+def w213 := combineObserved 3 w0 w4
+def w214 := combineObserved 1 w213 w2
+def w215 := combineObserved 2 w214 w5
+def w216 := combineObserved 1 w213 w5
+def w217 := combineObserved 1 w208 w4
+def w218 := combineObserved 3 w2 w217
+def w219 := combineObserved 3 w208 w30
+def w220 := combineObserved 3 w208 w24
+def w221 := combineObserved 1 w94 w213
+def w222 := combineObserved 1 w137 w3
+def w223 := combineObserved 1 w170 w5
+def w224 := combineObserved 2 w137 w5
+def w225 := combineObserved 3 w137 w41
+def w226 := combineObserved 3 w137 w19
+def w227 := combineObserved 1 w136 w4
+def w228 := combineObserved 3 w0 w227
+def w229 := combineObserved 1 w227 w5
+def w230 := combineObserved 2 w227 w5
+def w231 := combineObserved 1 w1 w2
+def w232 := combineObserved 3 w0 w41
+def w233 := combineObserved 3 w136 w41
+def w234 := combineObserved 1 w177 w0
+def w235 := combineObserved 0 w231 w3
+def w236 := combineObserved 2 w231 w3
+def w237 := combineObserved 1 w26 w0
+def w238 := combineObserved 0 w1 w30
+def w239 := combineObserved 1 w26 w4
+def w240 := combineObserved 2 w26 w4
+def w241 := combineObserved 0 w25 w41
+def w242 := combineObserved 0 w25 w19
+def w243 := combineObserved 3 w1 w2
+def w244 := combineObserved 1 w74 w4
+def w245 := combineObserved 2 w244 w5
+def w246 := combineObserved 2 w64 w2
+def w247 := combineObserved 1 w66 w5
+def w248 := combineObserved 3 w2 w247
+def w249 := combineObserved 2 w64 w5
+def w250 := combineObserved 3 w64 w24
+def w251 := combineObserved 3 w64 w31
+def w252 := combineObserved 1 w33 w0
+def w253 := combineObserved 3 w64 w19
+def w254 := combineObserved 1 w34 w0
+def w255 := combineObserved 1 w34 w64
+def w256 := combineObserved 3 w0 w28
+def w257 := combineObserved 1 w28 w4
+def w258 := combineObserved 2 w28 w5
+def w259 := combineObserved 3 w0 w29
+def w260 := combineObserved 3 w2 w29
+def w261 := combineObserved 1 w29 w5
+def w262 := combineObserved 2 w29 w5
+def w263 := combineObserved 3 w27 w81
+def w264 := combineObserved 1 w93 w4
+def w265 := combineObserved 3 w27 w264
+def w266 := combineObserved 1 w76 w0
+def w267 := combineObserved 1 w77 w0
+def w268 := combineObserved 1 w78 w0
+def w269 := combineObserved 0 w1 w31
+def w270 := combineObserved 1 w202 w2
+def w271 := combineObserved 3 w27 w270
+def w272 := combineObserved 3 w0 w35
+def w273 := combineObserved 3 w1 w3
+def w274 := combineObserved 0 w1 w4
+def w275 := combineObserved 1 w274 w2
+def w276 := combineObserved 0 w1 w5
 def w277 := combineObserved 1 w276 w2
-def w278 := combineObserved 3 w113 w1
-def w279 := combineObserved 2 w0 w3
-def w280 := combineObserved 1 w279 w1
-def w281 := combineObserved 3 w279 w1
-def w282 := combineObserved 1 w279 w2
-def w283 := combineObserved 1 w116 w4
-def w284 := combineObserved 2 w116 w5
-def w285 := combineObserved 1 w115 w5
-def w286 := combineObserved 3 w2 w117
-def w287 := combineObserved 1 w117 w5
-def w288 := combineObserved 2 w117 w5
-def w289 := combineObserved 3 w115 w9
-def w290 := combineObserved 3 w115 w1
-def w291 := combineObserved 1 w118 w115
-def w292 := combineObserved 1 w118 w0
-def w293 := combineObserved 3 w115 w13
-def w294 := combineObserved 0 w0 w4
-def w295 := combineObserved 1 w294 w1
-def w296 := combineObserved 0 w0 w5
-def w297 := combineObserved 3 w296 w1
-def w298 := combineObserved 0 w2 w4
-def w299 := combineObserved 1 w298 w5
-def w300 := combineObserved 0 w2 w5
-def w301 := combineObserved 3 w300 w15
-def w302 := combineObserved 3 w294 w1
-def w303 := combineObserved 1 w294 w2
-def w304 := combineObserved 1 w300 w4
-def w305 := combineObserved 0 w303 w5
-def w306 := combineObserved 1 w303 w5
-def w307 := combineObserved 3 w305 w306
-def w308 := combineObserved 1 w296 w2
-def w309 := combineObserved 0 w308 w4
-def w310 := combineObserved 1 w308 w4
-def w311 := combineObserved 2 w303 w5
-def w312 := combineObserved 3 w303 w5
-def w313 := combineObserved 3 w308 w4
-def w314 := combineObserved 3 w300 w306
-def w315 := combineObserved 3 w296 w2
-def w316 := combineObserved 1 w294 w3
-def w317 := combineObserved 3 w296 w3
-def w318 := combineObserved 3 w294 w3
-def w319 := combineObserved 1 w296 w4
-def w320 := combineObserved 1 w294 w5
-def w321 := combineObserved 0 w2 w320
-def w322 := combineObserved 3 w321 w306
-def w323 := combineObserved 0 w2 w319
-def w324 := combineObserved 2 w2 w320
-def w325 := combineObserved 3 w2 w320
-def w326 := combineObserved 3 w2 w319
-def w327 := combineObserved 3 w296 w4
-def w328 := combineObserved 3 w296 w121
-def w329 := combineObserved 0 w2 w123
-def w330 := combineObserved 1 w329 w5
-def w331 := combineObserved 0 w2 w121
-def w332 := combineObserved 3 w331 w4
-def w333 := combineObserved 3 w296 w141
-def w334 := combineObserved 2 w2 w121
-def w335 := combineObserved 3 w294 w123
-def w336 := combineObserved 0 w123 w5
-def w337 := combineObserved 3 w336 w125
-def w338 := combineObserved 3 w296 w125
-def w339 := combineObserved 3 w121 w4
-def w340 := combineObserved 2 w121 w4
-def w341 := combineObserved 2 w123 w5
-def w342 := combineObserved 1 w294 w300
-def w343 := combineObserved 3 w342 w15
-def w344 := combineObserved 1 w296 w298
-def w345 := combineObserved 3 w296 w9
-def w346 := combineObserved 1 w301 w294
-def w347 := combineObserved 1 w175 w296
-def w348 := combineObserved 1 w118 w294
-def w349 := combineObserved 1 w181 w294
-def w350 := combineObserved 0 w2 w3
-def w351 := combineObserved 1 w0 w350
-def w352 := combineObserved 3 w350 w13
-def w353 := combineObserved 1 w126 w5
-def w354 := combineObserved 1 w273 w5
-def w355 := combineObserved 1 w273 w4
-def w356 := combineObserved 3 w5 w355
-def w357 := combineObserved 0 w1 w125
-def w358 := combineObserved 3 w2 w125
-def w359 := combineObserved 1 w272 w5
-def w360 := combineObserved 3 w272 w123
-def w361 := combineObserved 3 w272 w13
-def w362 := combineObserved 3 w272 w125
-def w363 := combineObserved 3 w272 w3
-def w364 := combineObserved 0 w39 w123
-def w365 := combineObserved 2 w145 w5
-def w366 := combineObserved 3 w5 w138
-def w367 := combineObserved 1 w122 w4
-def w368 := combineObserved 1 w341 w2
-def w369 := combineObserved 1 w41 w5
-def w370 := combineObserved 3 w41 w123
-def w371 := combineObserved 3 w41 w125
-def w372 := combineObserved 1 w124 w41
-def w373 := combineObserved 1 w358 w41
-def w374 := combineObserved 3 w41 w368
-def w375 := combineObserved 0 w1 w123
-def w376 := combineObserved 1 w375 w2
-def w377 := combineObserved 1 w35 w4
-def w378 := combineObserved 2 w375 w5
-def w379 := combineObserved 1 w155 w5
-def w380 := combineObserved 1 w159 w123
-def w381 := combineObserved 3 w159 w123
-def w382 := combineObserved 1 w351 w5
-def w383 := combineObserved 1 w351 w4
-def w384 := combineObserved 3 w5 w383
-def w385 := combineObserved 1 w350 w5
-def w386 := combineObserved 3 w350 w123
-def w387 := combineObserved 3 w350 w125
-def w388 := combineObserved 1 w164 w123
-def w389 := combineObserved 3 w164 w123
-def w390 := combineObserved 3 w164 w125
-def w391 := combineObserved 0 w2 w125
-def w392 := combineObserved 3 w179 w123
-def w393 := combineObserved 1 w181 w4
-def w394 := combineObserved 3 w331 w141
-def w395 := combineObserved 3 w122 w1
-def w396 := combineObserved 2 w124 w5
-def w397 := combineObserved 1 w300 w123
-def w398 := combineObserved 3 w300 w123
-def w399 := combineObserved 1 w0 w168
-def w400 := combineObserved 2 w399 w5
-def w401 := combineObserved 0 w123 w15
-def w402 := combineObserved 3 w121 w9
-def w403 := combineObserved 1 w175 w5
-def w404 := combineObserved 1 w118 w123
-def w405 := combineObserved 3 w175 w121
-def w406 := combineObserved 1 w179 w5
-def w407 := combineObserved 1 w181 w123
-def w408 := combineObserved 3 w181 w123
-def w409 := combineObserved 0 w3 w123
-def w410 := combineObserved 2 w3 w121
-def w411 := combineObserved 1 w62 w123
-def w412 := combineObserved 3 w62 w123
-def w413 := combineObserved 0 w0 w13
-def w414 := combineObserved 0 w2 w13
-def w415 := combineObserved 0 w4 w121
-def w416 := combineObserved 3 w71 w121
-def w417 := combineObserved 1 w70 w0
-def w418 := combineObserved 3 w358 w1
-def w419 := combineObserved 0 w3 w125
-def w420 := combineObserved 3 w340 w1
-def w421 := combineObserved 2 w0 w5
-def w422 := combineObserved 1 w421 w2
-def w423 := combineObserved 2 w0 w4
-def w424 := combineObserved 1 w423 w2
-def w425 := combineObserved 1 w422 w4
-def w426 := combineObserved 2 w424 w5
-def w427 := combineObserved 1 w421 w4
-def w428 := combineObserved 1 w423 w5
-def w429 := combineObserved 3 w2 w427
-def w430 := combineObserved 3 w298 w9
-def w431 := combineObserved 1 w421 w350
-def w432 := combineObserved 1 w421 w164
-def w433 := combineObserved 1 w421 w298
-def w434 := combineObserved 3 w0 w299
-def w435 := combineObserved 3 w423 w15
-def w436 := combineObserved 1 w423 w118
-def w437 := combineObserved 1 w421 w179
-def w438 := combineObserved 1 w421 w60
-def w439 := combineObserved 3 w0 w61
-def w440 := combineObserved 1 w128 w2
-def w441 := combineObserved 1 w440 w4
-def w442 := combineObserved 2 w127 w5
-def w443 := combineObserved 3 w2 w129
-def w444 := combineObserved 3 w128 w15
-def w445 := combineObserved 1 w128 w298
-def w446 := combineObserved 3 w128 w9
-def w447 := combineObserved 1 w118 w126
-def w448 := combineObserved 1 w181 w126
-def w449 := combineObserved 3 w128 w13
-def w450 := combineObserved 1 w273 w3
-def w451 := combineObserved 1 w355 w5
-def w452 := combineObserved 2 w273 w5
-def w453 := combineObserved 3 w273 w12
-def w454 := combineObserved 3 w273 w13
-def w455 := combineObserved 1 w272 w4
-def w456 := combineObserved 3 w0 w455
-def w457 := combineObserved 1 w455 w5
-def w458 := combineObserved 2 w455 w5
-def w459 := combineObserved 1 w1 w2
-def w460 := combineObserved 3 w272 w12
-def w461 := combineObserved 1 w361 w0
-def w462 := combineObserved 0 w459 w3
-def w463 := combineObserved 2 w459 w3
-def w464 := combineObserved 1 w40 w0
-def w465 := combineObserved 0 w1 w15
-def w466 := combineObserved 1 w40 w4
-def w467 := combineObserved 2 w40 w4
-def w468 := combineObserved 0 w39 w12
-def w469 := combineObserved 0 w39 w13
-def w470 := combineObserved 3 w1 w2
-def w471 := combineObserved 1 w145 w4
-def w472 := combineObserved 2 w471 w5
-def w473 := combineObserved 2 w136 w2
-def w474 := combineObserved 1 w138 w5
-def w475 := combineObserved 3 w2 w474
-def w476 := combineObserved 2 w136 w5
-def w477 := combineObserved 3 w136 w9
-def w478 := combineObserved 3 w136 w44
-def w479 := combineObserved 1 w46 w0
-def w480 := combineObserved 3 w136 w13
-def w481 := combineObserved 1 w47 w0
-def w482 := combineObserved 1 w47 w136
-def w483 := combineObserved 3 w0 w42
-def w484 := combineObserved 1 w42 w4
-def w485 := combineObserved 2 w42 w5
-def w486 := combineObserved 3 w0 w43
-def w487 := combineObserved 3 w2 w43
-def w488 := combineObserved 1 w43 w5
-def w489 := combineObserved 2 w43 w5
-def w490 := combineObserved 3 w41 w152
-def w491 := combineObserved 1 w174 w4
-def w492 := combineObserved 3 w41 w491
-def w493 := combineObserved 1 w147 w0
-def w494 := combineObserved 1 w148 w0
-def w495 := combineObserved 1 w149 w0
-def w496 := combineObserved 0 w1 w44
-def w497 := combineObserved 1 w220 w2
-def w498 := combineObserved 3 w41 w497
-def w499 := combineObserved 3 w0 w48
-def w500 := combineObserved 3 w1 w3
-def w501 := combineObserved 2 w156 w2
-def w502 := combineObserved 2 w156 w5
-def w503 := combineObserved 3 w0 w157
-def w504 := combineObserved 1 w159 w2
-def w505 := combineObserved 1 w504 w4
-def w506 := combineObserved 2 w157 w5
-def w507 := combineObserved 3 w0 w161
-def w508 := combineObserved 3 w2 w161
-def w509 := combineObserved 3 w159 w9
-def w510 := combineObserved 1 w1 w4
-def w511 := combineObserved 1 w50 w0
-def w512 := combineObserved 1 w50 w2
-def w513 := combineObserved 0 w49 w9
-def w514 := combineObserved 3 w1 w4
-def w515 := combineObserved 1 w514 w5
-def w516 := combineObserved 3 w1 w5
-def w517 := combineObserved 3 w516 w4
-def w518 := combineObserved 1 w383 w5
-def w519 := combineObserved 0 w1 w518
-def w520 := combineObserved 2 w351 w5
-def w521 := combineObserved 2 w0 w13
-def w522 := combineObserved 3 w351 w13
-def w523 := combineObserved 1 w350 w4
-def w524 := combineObserved 3 w0 w523
-def w525 := combineObserved 1 w523 w5
-def w526 := combineObserved 2 w523 w5
-def w527 := combineObserved 1 w521 w350
-def w528 := combineObserved 1 w352 w0
-def w529 := combineObserved 3 w163 w1
-def w530 := combineObserved 0 w1 w8
-def w531 := combineObserved 1 w0 w530
-def w532 := combineObserved 2 w2 w3
-def w533 := combineObserved 1 w532 w0
-def w534 := combineObserved 2 w165 w5
-def w535 := combineObserved 1 w164 w4
-def w536 := combineObserved 3 w0 w535
-def w537 := combineObserved 1 w164 w5
-def w538 := combineObserved 1 w535 w5
-def w539 := combineObserved 2 w535 w5
-def w540 := combineObserved 3 w164 w13
-def w541 := combineObserved 1 w0 w540
-def w542 := combineObserved 1 w0 w298
-def w543 := combineObserved 0 w542 w9
-def w544 := combineObserved 1 w0 w300
-def w545 := combineObserved 3 w544 w15
-def w546 := combineObserved 2 w542 w5
-def w547 := combineObserved 0 w0 w299
-def w548 := combineObserved 3 w547 w1
-def w549 := combineObserved 3 w547 w3
-def w550 := combineObserved 0 w0 w304
-def w551 := combineObserved 1 w298 w121
-def w552 := combineObserved 2 w0 w299
-def w553 := combineObserved 1 w552 w434
-def w554 := combineObserved 3 w0 w304
-def w555 := combineObserved 3 w300 w4
-def w556 := combineObserved 0 w0 w15
-def w557 := combineObserved 3 w556 w1
-def w558 := combineObserved 3 w556 w3
-def w559 := combineObserved 1 w556 w4
-def w560 := combineObserved 1 w166 w5
-def w561 := combineObserved 3 w556 w4
-def w562 := combineObserved 1 w430 w0
-def w563 := combineObserved 3 w300 w141
-def w564 := combineObserved 2 w0 w9
-def w565 := combineObserved 1 w564 w298
-def w566 := combineObserved 2 w0 w15
-def w567 := combineObserved 1 w566 w174
-def w568 := combineObserved 0 w301 w0
-def w569 := combineObserved 3 w568 w1
-def w570 := combineObserved 3 w568 w3
-def w571 := combineObserved 1 w568 w4
-def w572 := combineObserved 3 w568 w4
-def w573 := combineObserved 1 w301 w0
-def w574 := combineObserved 3 w301 w0
-def w575 := combineObserved 0 w301 w4
-def w576 := combineObserved 1 w301 w4
-def w577 := combineObserved 3 w575 w576
-def w578 := combineObserved 2 w430 w5
-def w579 := combineObserved 3 w430 w5
-def w580 := combineObserved 3 w301 w4
-def w581 := combineObserved 0 w4 w15
-def w582 := combineObserved 2 w4 w15
-def w583 := combineObserved 3 w300 w44
-def w584 := combineObserved 0 w9 w5
-def w585 := combineObserved 3 w584 w44
-def w586 := combineObserved 3 w4 w15
-def w587 := combineObserved 3 w9 w5
-def w588 := combineObserved 1 w587 w298
-def w589 := combineObserved 3 w174 w1
-def w590 := combineObserved 1 w399 w5
-def w591 := combineObserved 1 w465 w4
-def w592 := combineObserved 1 w0 w172
-def w593 := combineObserved 1 w172 w5
-def w594 := combineObserved 2 w3 w15
-def w595 := combineObserved 1 w62 w9
-def w596 := combineObserved 3 w62 w9
-def w597 := combineObserved 3 w71 w15
-def w598 := combineObserved 1 w0 w496
-def w599 := combineObserved 0 w3 w44
-def w600 := combineObserved 3 w586 w1
-def w601 := combineObserved 1 w175 w0
-def w602 := combineObserved 2 w601 w5
-def w603 := combineObserved 3 w0 w177
-def w604 := combineObserved 1 w118 w60
-def w605 := combineObserved 3 w2 w61
-def w606 := combineObserved 2 w180 w5
-def w607 := combineObserved 3 w0 w393
-def w608 := combineObserved 3 w181 w13
-def w609 := combineObserved 3 w2 w199
-def w610 := combineObserved 2 w199 w5
-def w611 := combineObserved 3 w0 w200
-def w612 := combineObserved 2 w200 w5
-def w613 := combineObserved 0 w0 w61
-def w614 := combineObserved 3 w613 w1
-def w615 := combineObserved 0 w0 w100
-def w616 := combineObserved 1 w615 w2
-def w617 := combineObserved 3 w613 w2
-def w618 := combineObserved 1 w60 w121
-def w619 := combineObserved 2 w0 w61
-def w620 := combineObserved 3 w0 w100
-def w621 := combineObserved 0 w2 w100
-def w622 := combineObserved 1 w0 w621
-def w623 := combineObserved 0 w2 w61
-def w624 := combineObserved 1 w60 w15
-def w625 := combineObserved 3 w623 w624
-def w626 := combineObserved 2 w2 w61
-def w627 := combineObserved 3 w2 w100
-def w628 := combineObserved 3 w0 w18
-def w629 := combineObserved 3 w628 w1
-def w630 := combineObserved 1 w203 w2
-def w631 := combineObserved 3 w0 w208
-def w632 := combineObserved 1 w55 w0
-def w633 := combineObserved 3 w2 w18
-def w634 := combineObserved 3 w633 w1
-def w635 := combineObserved 1 w67 w0
-def w636 := combineObserved 2 w635 w2
-def w637 := combineObserved 3 w0 w214
-def w638 := combineObserved 1 w0 w68
-def w639 := combineObserved 3 w2 w638
-def w640 := combineObserved 1 w414 w638
-def w641 := combineObserved 0 w638 w13
-def w642 := combineObserved 3 w638 w13
-def w643 := combineObserved 3 w0 w217
-def w644 := combineObserved 1 w0 w414
-def w645 := combineObserved 0 w217 w13
-def w646 := combineObserved 3 w217 w13
-def w647 := combineObserved 3 w413 w1
-def w648 := combineObserved 1 w413 w2
-def w649 := combineObserved 3 w413 w2
-def w650 := combineObserved 3 w413 w3
-def w651 := combineObserved 3 w68 w125
-def w652 := combineObserved 1 w69 w0
-def w653 := combineObserved 1 w521 w68
-def w654 := combineObserved 3 w414 w44
-def w655 := combineObserved 2 w654 w68
-def w656 := combineObserved 3 w68 w44
-def w657 := combineObserved 1 w69 w2
-def w658 := combineObserved 2 w2 w13
-def w659 := combineObserved 1 w658 w68
-def w660 := combineObserved 0 w69 w0
-def w661 := combineObserved 3 w660 w1
-def w662 := combineObserved 1 w660 w2
-def w663 := combineObserved 3 w660 w2
-def w664 := combineObserved 3 w660 w3
-def w665 := combineObserved 3 w69 w0
-def w666 := combineObserved 0 w69 w2
-def w667 := combineObserved 1 w666 w0
-def w668 := combineObserved 3 w69 w2
-def w669 := combineObserved 3 w413 w125
-def w670 := combineObserved 1 w521 w2
-def w671 := combineObserved 3 w220 w1
-def w672 := combineObserved 3 w0 w223
-def w673 := combineObserved 3 w47 w1
-def w674 := combineObserved 1 w2 w226
-def w675 := combineObserved 2 w3 w13
-def w676 := combineObserved 2 w417 w2
-def w677 := combineObserved 3 w0 w229
+def w278 := combineObserved 1 w277 w4
+def w279 := combineObserved 2 w275 w5
+def w280 := combineObserved 1 w274 w5
+def w281 := combineObserved 1 w276 w4
+def w282 := combineObserved 3 w2 w281
+def w283 := combineObserved 3 w276 w24
+def w284 := combineObserved 1 w1 w4
+def w285 := combineObserved 1 w37 w0
+def w286 := combineObserved 1 w37 w2
+def w287 := combineObserved 0 w36 w24
+def w288 := combineObserved 3 w1 w4
+def w289 := combineObserved 1 w288 w5
+def w290 := combineObserved 3 w1 w5
+def w291 := combineObserved 3 w290 w4
+def w292 := combineObserved 1 w188 w5
+def w293 := combineObserved 0 w1 w292
+def w294 := combineObserved 2 w186 w5
+def w295 := combineObserved 3 w186 w19
+def w296 := combineObserved 1 w185 w4
+def w297 := combineObserved 3 w0 w296
+def w298 := combineObserved 1 w296 w5
+def w299 := combineObserved 2 w296 w5
+def w300 := combineObserved 1 w191 w0
+def w301 := combineObserved 3 w84 w1
+def w302 := combineObserved 0 w1 w8
+def w303 := combineObserved 1 w0 w302
+def w304 := combineObserved 2 w2 w3
+def w305 := combineObserved 1 w304 w0
+def w306 := combineObserved 2 w86 w5
+def w307 := combineObserved 1 w85 w4
+def w308 := combineObserved 3 w0 w307
+def w309 := combineObserved 1 w85 w5
+def w310 := combineObserved 1 w307 w5
+def w311 := combineObserved 2 w307 w5
+def w312 := combineObserved 3 w85 w19
+def w313 := combineObserved 1 w0 w312
+def w314 := combineObserved 0 w2 w4
+def w315 := combineObserved 1 w314 w5
+def w316 := combineObserved 0 w2 w5
+def w317 := combineObserved 1 w316 w4
+def w318 := combineObserved 3 w316 w4
+def w319 := combineObserved 3 w316 w30
+def w320 := combineObserved 0 w24 w5
+def w321 := combineObserved 3 w24 w5
+def w322 := combineObserved 1 w321 w314
+def w323 := combineObserved 3 w30 w4
+def w324 := combineObserved 3 w93 w1
+def w325 := combineObserved 1 w196 w5
+def w326 := combineObserved 1 w238 w4
+def w327 := combineObserved 3 w4 w30
+def w328 := combineObserved 3 w2 w4
+def w329 := combineObserved 1 w328 w5
+def w330 := combineObserved 1 w0 w90
+def w331 := combineObserved 1 w90 w5
+def w332 := combineObserved 2 w3 w30
+def w333 := combineObserved 0 w3 w4
+def w334 := combineObserved 1 w333 w5
+def w335 := combineObserved 0 w3 w5
+def w336 := combineObserved 1 w335 w24
+def w337 := combineObserved 3 w335 w24
+def w338 := combineObserved 0 w4 w30
+def w339 := combineObserved 2 w5 w4
+def w340 := combineObserved 3 w339 w30
+def w341 := combineObserved 2 w4 w5
+def w342 := combineObserved 1 w341 w2
+def w343 := combineObserved 1 w0 w269
+def w344 := combineObserved 0 w3 w31
+def w345 := combineObserved 3 w327 w1
+def w346 := combineObserved 1 w199 w0
+def w347 := combineObserved 2 w346 w5
+def w348 := combineObserved 1 w94 w0
+def w349 := combineObserved 3 w0 w95
+def w350 := combineObserved 3 w2 w5
+def w351 := combineObserved 1 w94 w333
+def w352 := combineObserved 1 w350 w4
+def w353 := combineObserved 3 w350 w19
+def w354 := combineObserved 1 w2 w333
+def w355 := combineObserved 2 w354 w5
+def w356 := combineObserved 1 w335 w4
+def w357 := combineObserved 0 w2 w356
+def w358 := combineObserved 1 w333 w30
+def w359 := combineObserved 2 w2 w334
+def w360 := combineObserved 3 w2 w356
+def w361 := combineObserved 3 w335 w4
+def w362 := combineObserved 3 w335 w112
+def w363 := combineObserved 3 w0 w112
+def w364 := combineObserved 3 w363 w1
+def w365 := combineObserved 1 w232 w2
+def w366 := combineObserved 3 w0 w110
+def w367 := combineObserved 1 w43 w0
+def w368 := combineObserved 3 w2 w112
+def w369 := combineObserved 3 w368 w1
+def w370 := combineObserved 3 w3 w5
+def w371 := combineObserved 3 w3 w4
+def w372 := combineObserved 1 w371 w2
+def w373 := combineObserved 0 w4 w5
+def w374 := combineObserved 1 w2 w373
+def w375 := combineObserved 3 w373 w31
+def w376 := combineObserved 2 w2 w19
+def w377 := combineObserved 1 w376 w373
+def w378 := combineObserved 3 w202 w1
+def w379 := combineObserved 3 w0 w119
+def w380 := combineObserved 1 w0 w203
+def w381 := combineObserved 3 w34 w1
+def w382 := combineObserved 1 w2 w122
+def w383 := combineObserved 2 w3 w19
 def x0 : Sig := 0xaaaaaaaaaaaaaaaa
 def x1 : Sig := 0xcccccccccccccccc
 def x2 : Sig := 0x8888888888888888
 def x3 : Sig := 0xf0f0f0f0f0f0f0f0
-def x4 : Sig := 0xffffffff00000000
-def x5 : Sig := 0xa0a0a0a0a0a0a0a0
-def x6 : Sig := 0xffff0000ffff0000
-def x7 : Sig := 0xaaaaaaaa00000000
-def x8 : Sig := 0xc0c0c0c0c0c0c0c0
-def x9 : Sig := 0xcccc0000cccc0000
-def x10 : Sig := 0xffff000000000000
-def x11 : Sig := 0xeeeeeeeeeeeeeeee
-def x12 : Sig := 0xfafafafafafafafa
-def x13 : Sig := 0xffffaaaaffffaaaa
-def x14 : Sig := 0xfcfcfcfcfcfcfcfc
-def x15 : Sig := 0xfffff0f0fffff0f0
-def x16 : Sig := 0xffffffffffff0000
-def x17 : Sig := 0xa0a0a0a0a0a0a0a
-def x18 : Sig := 0xcccc0000cccc
-def x19 : Sig := 0x4444444444444444
-def x20 : Sig := 0x5555000055550000
-def x21 : Sig := 0xf0f00000f0f0000
-def x22 : Sig := 0xf0f0f0f00000000
-def x23 : Sig := 0xff00ff00ff00ff00
-def x24 : Sig := 0xcc00cc00cc00cc00
-def x25 : Sig := 0xf000f000f000f000
+def x4 : Sig := 0xc0c0c0c0c0c0c0c0
+def x5 : Sig := 0xffff0000ffff0000
+def x6 : Sig := 0xffffffff00000000
+def x7 : Sig := 0xcccc0000cccc0000
+def x8 : Sig := 0xeeeeeeeeeeeeeeee
+def x9 : Sig := 0xfafafafafafafafa
+def x10 : Sig := 0xffffaaaaffffaaaa
+def x11 : Sig := 0xfcfcfcfcfcfcfcfc
+def x12 : Sig := 0xfffff0f0fffff0f0
+def x13 : Sig := 0xffffffffffff0000
+def x14 : Sig := 0xa0a0a0a0a0a0a0a
+def x15 : Sig := 0xaaaaaaaa
+def x16 : Sig := 0xcccc0000cccc
+def x17 : Sig := 0x4444444444444444
+def x18 : Sig := 0xf0f00000f0f0000
+def x19 : Sig := 0xff00ff00ff00ff00
+def x20 : Sig := 0xcc00cc00cc00cc00
+def x21 : Sig := 0xf000f000f000f000
+def x22 : Sig := 0xf0f0f0f000000000
+def x23 : Sig := 0xff00ff0000000000
+def x24 : Sig := 0xffff000000000000
+def x25 : Sig := 0xfff0fff0fff0fff0
 def x26 : Sig := 0xf0f00000f0f00000
-def x27 : Sig := 0xf0f0f0f000000000
+def x27 : Sig := 0xfffffffff0f0f0f0
 def x28 : Sig := 0xff000000ff000000
-def x29 : Sig := 0xff00ff0000000000
-def x30 : Sig := 0xfff0fff0fff0fff0
-def x31 : Sig := 0xffffff00ffffff00
-def x32 : Sig := 0xf000f000f000f0
-def x33 : Sig := 0xf0f00000f0f0
-def x34 : Sig := 0xf0f0f0f0
-def x35 : Sig := 0xff000000ff0000
-def x36 : Sig := 0xff00ff00000000
-def x37 : Sig := 0xaaaa0000aaaa0000
-def x38 : Sig := 0xffaaffaaffaaffaa
-def x39 : Sig := 0xffffffffaaaaaaaa
+def x29 : Sig := 0xffffff00ffffff00
+def x30 : Sig := 0xf0f00000f0f0
+def x31 : Sig := 0xf0f0f0f0
+def x32 : Sig := 0xf0f0f0f00000000
+def x33 : Sig := 0xff000000ff0000
+def x34 : Sig := 0xcccccccc00000000
+def x35 : Sig := 0xc0c0c0c0c0c0c0c
+def x36 : Sig := 0xf000f000f000f00
+def x37 : Sig := 0xffaaffaaffaaffaa
+def x38 : Sig := 0xffffffffaaaaaaaa
+def x39 : Sig := 0xffffffffff00ff00
 def x40 : Sig := 0xaa00aa00aa00aa
-def x41 : Sig := 0xaaaa0000aaaa
-def x42 : Sig := 0xaaaaaaaa
-def x43 : Sig := 0xffff0000
-def x44 : Sig := 0x5500550055005500
-def x45 : Sig := 0x5555555500000000
-def x46 : Sig := 0x5050505050505050
-def x47 : Sig := 0xfffffffff0f0f0f0
-def x48 : Sig := 0xf000f000f000f00
-def x49 : Sig := 0xcccccccc00000000
-def x50 : Sig := 0xcccccccc
+def x41 : Sig := 0xffff0000
+def x42 : Sig := 0x5500550055005500
+def x43 : Sig := 0x5555000055550000
+def x44 : Sig := 0x5555555500000000
+def x45 : Sig := 0x5050505050505050
+def x46 : Sig := 0xf000f000f000f0
+def x47 : Sig := 0xcccccccc
 def p0 := prefixPool s0 [] (by decide +kernel)
-def p1 := prefixPool s0 [(0,x0,x1),(1,x2,x3)] (by decide +kernel)
-def p2 := prefixPool s0 [(0,x0,x1),(1,x2,x4)] (by decide +kernel)
+def p1 := prefixPool s0 [(0,x0,x1)] (by decide +kernel)
+def p2 := prefixPool s0 [(0,x0,x1),(1,x2,x3)] (by decide +kernel)
 def p3 := prefixPool s0 [(0,x0,x3)] (by decide +kernel)
-def p4 := prefixPool s0 [(0,x0,x3),(1,x5,x6)] (by decide +kernel)
-def p5 := prefixPool s0 [(0,x0,x3),(1,x5,x4)] (by decide +kernel)
-def p6 := prefixPool s0 [(0,x0,x3),(3,x5,x1)] (by decide +kernel)
-def p7 := prefixPool s0 [(0,x0,x3),(3,x5,x1),(1,x6,x4)] (by decide +kernel)
-def p8 := prefixPool s0 [(0,x0,x6)] (by decide +kernel)
-def p9 := prefixPool s0 [(0,x0,x4),(3,x7,x1)] (by decide +kernel)
-def p10 := prefixPool s0 [(0,x1,x3)] (by decide +kernel)
-def p11 := prefixPool s0 [(0,x1,x3),(0,x8,x6)] (by decide +kernel)
-def p12 := prefixPool s0 [(0,x1,x3),(0,x8,x4)] (by decide +kernel)
-def p13 := prefixPool s0 [(0,x1,x3),(1,x0,x1),(1,x1,x3)] (by decide +kernel)
-def p14 := prefixPool s0 [(0,x1,x3),(1,x8,x0)] (by decide +kernel)
-def p15 := prefixPool s0 [(0,x1,x3),(1,x8,x0),(1,x1,x3)] (by decide +kernel)
-def p16 := prefixPool s0 [(0,x1,x3),(1,x8,x4)] (by decide +kernel)
-def p17 := prefixPool s0 [(0,x1,x3),(1,x1,x3)] (by decide +kernel)
-def p18 := prefixPool s0 [(0,x1,x6),(1,x9,x3)] (by decide +kernel)
-def p19 := prefixPool s0 [(0,x6,x4),(1,x10,x0),(1,x6,x4)] (by decide +kernel)
-def p20 := prefixPool s0 [(0,x6,x4),(1,x6,x4)] (by decide +kernel)
-def p21 := prefixPool s0 [(1,x0,x1)] (by decide +kernel)
-def p22 := prefixPool s0 [(1,x0,x1),(0,x0,x1),(1,x2,x3)] (by decide +kernel)
-def p23 := prefixPool s0 [(1,x0,x1),(1,x0,x3)] (by decide +kernel)
-def p24 := prefixPool s0 [(1,x0,x1),(1,x0,x6)] (by decide +kernel)
-def p25 := prefixPool s0 [(1,x0,x1),(1,x0,x4),(1,x6,x4)] (by decide +kernel)
-def p26 := prefixPool s0 [(1,x0,x1),(1,x11,x3)] (by decide +kernel)
-def p27 := prefixPool s0 [(1,x0,x1),(3,x11,x3)] (by decide +kernel)
-def p28 := prefixPool s0 [(1,x0,x3)] (by decide +kernel)
-def p29 := prefixPool s0 [(1,x0,x3),(0,x12,x1)] (by decide +kernel)
-def p30 := prefixPool s0 [(1,x0,x3),(0,x12,x1),(1,x0,x1)] (by decide +kernel)
-def p31 := prefixPool s0 [(1,x0,x3),(0,x12,x1),(1,x0,x1),(1,x1,x3)] (by decide +kernel)
-def p32 := prefixPool s0 [(1,x0,x3),(1,x3,x6)] (by decide +kernel)
-def p33 := prefixPool s0 [(1,x0,x3),(1,x3,x6),(1,x6,x4)] (by decide +kernel)
-def p34 := prefixPool s0 [(1,x0,x3),(1,x12,x6)] (by decide +kernel)
-def p35 := prefixPool s0 [(1,x0,x3),(1,x12,x6),(1,x6,x4)] (by decide +kernel)
-def p36 := prefixPool s0 [(1,x0,x3),(1,x6,x4)] (by decide +kernel)
-def p37 := prefixPool s0 [(1,x0,x3),(2,x12,x1)] (by decide +kernel)
-def p38 := prefixPool s0 [(1,x0,x3),(2,x12,x6)] (by decide +kernel)
-def p39 := prefixPool s0 [(1,x0,x3),(2,x12,x4)] (by decide +kernel)
-def p40 := prefixPool s0 [(1,x0,x6)] (by decide +kernel)
-def p41 := prefixPool s0 [(1,x0,x6),(0,x13,x1)] (by decide +kernel)
-def p42 := prefixPool s0 [(1,x0,x6),(1,x3,x6)] (by decide +kernel)
-def p43 := prefixPool s0 [(1,x0,x6),(1,x13,x4)] (by decide +kernel)
-def p44 := prefixPool s0 [(1,x0,x6),(2,x13,x1)] (by decide +kernel)
-def p45 := prefixPool s0 [(1,x0,x6),(2,x13,x4)] (by decide +kernel)
-def p46 := prefixPool s0 [(1,x0,x4),(1,x6,x4)] (by decide +kernel)
-def p47 := prefixPool s0 [(1,x1,x3),(1,x14,x6)] (by decide +kernel)
-def p48 := prefixPool s0 [(1,x3,x6)] (by decide +kernel)
-def p49 := prefixPool s0 [(1,x3,x6),(0,x15,x1)] (by decide +kernel)
-def p50 := prefixPool s0 [(1,x3,x6),(1,x6,x4)] (by decide +kernel)
-def p51 := prefixPool s0 [(1,x3,x6),(1,x15,x4)] (by decide +kernel)
-def p52 := prefixPool s0 [(1,x3,x6),(2,x15,x0)] (by decide +kernel)
-def p53 := prefixPool s0 [(1,x3,x6),(2,x15,x1)] (by decide +kernel)
-def p54 := prefixPool s0 [(1,x3,x6),(2,x15,x1),(1,x6,x4)] (by decide +kernel)
-def p55 := prefixPool s0 [(1,x3,x6),(2,x15,x4)] (by decide +kernel)
-def p56 := prefixPool s0 [(1,x3,x4)] (by decide +kernel)
-def p57 := prefixPool s0 [(1,x3,x4),(1,x6,x4)] (by decide +kernel)
-def p58 := prefixPool s0 [(1,x6,x4)] (by decide +kernel)
-def p59 := prefixPool s0 [(1,x6,x4),(0,x16,x1)] (by decide +kernel)
-def p60 := prefixPool s0 [(1,x6,x4),(0,x16,x3)] (by decide +kernel)
-def p61 := prefixPool s0 [(1,x6,x4),(2,x16,x0)] (by decide +kernel)
-def p62 := prefixPool s0 [(1,x6,x4),(2,x16,x1)] (by decide +kernel)
-def p63 := prefixPool s0 [(1,x6,x4),(2,x16,x3)] (by decide +kernel)
-def p64 := prefixPool s0 [(2,x0,x1),(1,x0,x3)] (by decide +kernel)
-def p65 := prefixPool s0 [(2,x0,x3)] (by decide +kernel)
-def p66 := prefixPool s0 [(2,x0,x3),(1,x17,x1)] (by decide +kernel)
-def p67 := prefixPool s0 [(2,x0,x3),(3,x0,x3)] (by decide +kernel)
-def p68 := prefixPool s0 [(2,x0,x3),(3,x0,x3),(1,x6,x4)] (by decide +kernel)
-def p69 := prefixPool s0 [(2,x0,x4),(1,x0,x1)] (by decide +kernel)
-def p70 := prefixPool s0 [(2,x0,x4),(3,x0,x4)] (by decide +kernel)
-def p71 := prefixPool s0 [(2,x1,x3)] (by decide +kernel)
-def p72 := prefixPool s0 [(2,x1,x3),(0,x1,x3)] (by decide +kernel)
-def p73 := prefixPool s0 [(2,x1,x6),(2,x18,x4)] (by decide +kernel)
-def p74 := prefixPool s0 [(2,x1,x4)] (by decide +kernel)
-def p75 := prefixPool s0 [(2,x1,x4),(1,x6,x4)] (by decide +kernel)
-def p76 := prefixPool s0 [(2,x1,x4),(1,x6,x4),(0,x16,x1)] (by decide +kernel)
-def p77 := prefixPool s0 [(2,x1,x4),(3,x0,x1)] (by decide +kernel)
-def p78 := prefixPool s0 [(2,x1,x4),(3,x0,x1),(1,x6,x4)] (by decide +kernel)
-def p79 := prefixPool s0 [(2,x6,x4)] (by decide +kernel)
-def p80 := prefixPool s0 [(2,x6,x4),(0,x0,x3),(3,x5,x1)] (by decide +kernel)
-def p81 := prefixPool s0 [(3,x0,x1)] (by decide +kernel)
-def p82 := prefixPool s0 [(3,x0,x1),(0,x0,x1)] (by decide +kernel)
-def p83 := prefixPool s0 [(3,x0,x1),(1,x0,x1),(1,x1,x3)] (by decide +kernel)
-def p84 := prefixPool s0 [(3,x0,x1),(2,x19,x4)] (by decide +kernel)
-def p85 := prefixPool s0 [(3,x0,x1),(2,x19,x4),(1,x6,x4)] (by decide +kernel)
-def p86 := prefixPool s0 [(3,x0,x3)] (by decide +kernel)
-def p87 := prefixPool s0 [(3,x0,x6),(1,x20,x4)] (by decide +kernel)
-def p88 := prefixPool s0 [(3,x1,x3)] (by decide +kernel)
-def p89 := prefixPool s0 [(3,x1,x3),(1,x0,x3)] (by decide +kernel)
-def p90 := prefixPool s0 [(3,x3,x6),(1,x21,x4)] (by decide +kernel)
-def p91 := prefixPool s0 [(3,x3,x4),(1,x22,x6)] (by decide +kernel)
-def p92 := prefixPool s1 [] (by decide +kernel)
-def p93 := prefixPool s1 [(0,x1,x3)] (by decide +kernel)
-def p94 := prefixPool s1 [(0,x1,x23)] (by decide +kernel)
-def p95 := prefixPool s1 [(0,x1,x23),(1,x24,x0)] (by decide +kernel)
-def p96 := prefixPool s1 [(0,x3,x23)] (by decide +kernel)
-def p97 := prefixPool s1 [(0,x3,x23),(1,x25,x0)] (by decide +kernel)
-def p98 := prefixPool s1 [(1,x0,x3)] (by decide +kernel)
-def p99 := prefixPool s1 [(1,x0,x4)] (by decide +kernel)
-def p100 := prefixPool s1 [(1,x3,x4)] (by decide +kernel)
-def p101 := prefixPool s1 [(2,x1,x4)] (by decide +kernel)
-def p102 := prefixPool s1 [(3,x0,x1)] (by decide +kernel)
-def p103 := prefixPool s1 [(3,x0,x23)] (by decide +kernel)
-def p104 := prefixPool s2 [] (by decide +kernel)
-def p105 := prefixPool s2 [(1,x0,x3)] (by decide +kernel)
-def p106 := prefixPool s2 [(1,x0,x6)] (by decide +kernel)
-def p107 := prefixPool s2 [(1,x3,x6)] (by decide +kernel)
-def p108 := prefixPool s2 [(3,x0,x1)] (by decide +kernel)
-def p109 := prefixPool s2 [(3,x0,x3)] (by decide +kernel)
-def p110 := prefixPool s2 [(3,x0,x23)] (by decide +kernel)
-def p111 := prefixPool s3 [] (by decide +kernel)
-def p112 := prefixPool s3 [(0,x3,x23)] (by decide +kernel)
-def p113 := prefixPool s3 [(0,x3,x23),(0,x25,x4)] (by decide +kernel)
-def p114 := prefixPool s3 [(0,x3,x23),(1,x3,x23)] (by decide +kernel)
-def p115 := prefixPool s3 [(0,x3,x6)] (by decide +kernel)
-def p116 := prefixPool s3 [(0,x3,x6),(1,x26,x4)] (by decide +kernel)
-def p117 := prefixPool s3 [(0,x3,x6),(1,x3,x6)] (by decide +kernel)
-def p118 := prefixPool s3 [(0,x3,x4)] (by decide +kernel)
-def p119 := prefixPool s3 [(0,x3,x4),(1,x27,x23),(1,x3,x4)] (by decide +kernel)
-def p120 := prefixPool s3 [(0,x3,x4),(1,x27,x6)] (by decide +kernel)
-def p121 := prefixPool s3 [(0,x3,x4),(1,x27,x6),(1,x3,x4)] (by decide +kernel)
-def p122 := prefixPool s3 [(0,x3,x4),(1,x3,x4)] (by decide +kernel)
-def p123 := prefixPool s3 [(0,x3,x4),(3,x27,x6)] (by decide +kernel)
-def p124 := prefixPool s3 [(0,x23,x6)] (by decide +kernel)
-def p125 := prefixPool s3 [(0,x23,x6),(1,x28,x4)] (by decide +kernel)
-def p126 := prefixPool s3 [(0,x23,x6),(1,x23,x6)] (by decide +kernel)
-def p127 := prefixPool s3 [(0,x23,x4)] (by decide +kernel)
-def p128 := prefixPool s3 [(0,x23,x4),(1,x29,x3),(1,x23,x4)] (by decide +kernel)
-def p129 := prefixPool s3 [(0,x23,x4),(1,x29,x6)] (by decide +kernel)
-def p130 := prefixPool s3 [(0,x23,x4),(1,x29,x6),(1,x23,x4)] (by decide +kernel)
-def p131 := prefixPool s3 [(0,x23,x4),(3,x29,x6)] (by decide +kernel)
-def p132 := prefixPool s3 [(0,x6,x4)] (by decide +kernel)
-def p133 := prefixPool s3 [(0,x6,x4),(1,x10,x3),(1,x6,x4)] (by decide +kernel)
-def p134 := prefixPool s3 [(0,x6,x4),(1,x10,x23),(1,x6,x4)] (by decide +kernel)
-def p135 := prefixPool s3 [(0,x6,x4),(1,x6,x4)] (by decide +kernel)
-def p136 := prefixPool s3 [(0,x6,x4),(3,x10,x3)] (by decide +kernel)
-def p137 := prefixPool s3 [(1,x3,x23)] (by decide +kernel)
-def p138 := prefixPool s3 [(1,x3,x23),(0,x3,x23),(1,x25,x4)] (by decide +kernel)
-def p139 := prefixPool s3 [(1,x3,x23),(1,x30,x6)] (by decide +kernel)
-def p140 := prefixPool s3 [(1,x3,x23),(3,x30,x6)] (by decide +kernel)
-def p141 := prefixPool s3 [(1,x3,x6)] (by decide +kernel)
-def p142 := prefixPool s3 [(1,x3,x6),(0,x3,x6),(1,x26,x4)] (by decide +kernel)
-def p143 := prefixPool s3 [(1,x3,x6),(0,x15,x23)] (by decide +kernel)
-def p144 := prefixPool s3 [(1,x3,x6),(0,x15,x4),(1,x6,x4)] (by decide +kernel)
-def p145 := prefixPool s3 [(1,x3,x6),(1,x6,x4)] (by decide +kernel)
-def p146 := prefixPool s3 [(1,x3,x6),(1,x15,x4)] (by decide +kernel)
-def p147 := prefixPool s3 [(1,x3,x6),(2,x15,x23)] (by decide +kernel)
-def p148 := prefixPool s3 [(1,x3,x6),(2,x15,x4)] (by decide +kernel)
-def p149 := prefixPool s3 [(1,x3,x6),(3,x15,x4)] (by decide +kernel)
-def p150 := prefixPool s3 [(1,x3,x4)] (by decide +kernel)
-def p151 := prefixPool s3 [(1,x3,x4),(1,x6,x4)] (by decide +kernel)
-def p152 := prefixPool s3 [(1,x23,x6)] (by decide +kernel)
-def p153 := prefixPool s3 [(1,x23,x6),(0,x23,x6),(1,x28,x4)] (by decide +kernel)
-def p154 := prefixPool s3 [(1,x23,x6),(2,x31,x3)] (by decide +kernel)
-def p155 := prefixPool s3 [(1,x23,x6),(3,x31,x4)] (by decide +kernel)
-def p156 := prefixPool s3 [(1,x23,x4)] (by decide +kernel)
-def p157 := prefixPool s3 [(1,x6,x4)] (by decide +kernel)
-def p158 := prefixPool s3 [(1,x6,x4),(0,x16,x3)] (by decide +kernel)
-def p159 := prefixPool s3 [(1,x6,x4),(0,x16,x23)] (by decide +kernel)
-def p160 := prefixPool s3 [(1,x6,x4),(2,x16,x3)] (by decide +kernel)
-def p161 := prefixPool s3 [(1,x6,x4),(2,x16,x23)] (by decide +kernel)
-def p162 := prefixPool s3 [(2,x3,x23)] (by decide +kernel)
-def p163 := prefixPool s3 [(2,x3,x23),(1,x32,x6)] (by decide +kernel)
-def p164 := prefixPool s3 [(2,x3,x23),(2,x32,x6)] (by decide +kernel)
-def p165 := prefixPool s3 [(2,x3,x23),(3,x3,x23)] (by decide +kernel)
-def p166 := prefixPool s3 [(2,x3,x6)] (by decide +kernel)
-def p167 := prefixPool s3 [(2,x3,x6),(2,x33,x4)] (by decide +kernel)
-def p168 := prefixPool s3 [(2,x3,x6),(3,x3,x6)] (by decide +kernel)
-def p169 := prefixPool s3 [(2,x3,x4)] (by decide +kernel)
-def p170 := prefixPool s3 [(2,x3,x4),(1,x34,x6)] (by decide +kernel)
-def p171 := prefixPool s3 [(2,x3,x4),(3,x3,x4)] (by decide +kernel)
-def p172 := prefixPool s3 [(2,x23,x6)] (by decide +kernel)
-def p173 := prefixPool s3 [(2,x23,x4)] (by decide +kernel)
-def p174 := prefixPool s3 [(2,x23,x4),(3,x23,x4)] (by decide +kernel)
-def p175 := prefixPool s3 [(2,x6,x4)] (by decide +kernel)
-def p176 := prefixPool s3 [(2,x6,x4),(1,x3,x6)] (by decide +kernel)
-def p177 := prefixPool s3 [(2,x6,x4),(3,x6,x4)] (by decide +kernel)
-def p178 := prefixPool s3 [(3,x3,x23)] (by decide +kernel)
-def p179 := prefixPool s3 [(3,x3,x6)] (by decide +kernel)
-def p180 := prefixPool s3 [(3,x3,x6),(1,x21,x23)] (by decide +kernel)
-def p181 := prefixPool s3 [(3,x3,x6),(1,x21,x4)] (by decide +kernel)
-def p182 := prefixPool s3 [(3,x3,x6),(1,x23,x6)] (by decide +kernel)
-def p183 := prefixPool s3 [(3,x3,x6),(1,x6,x4)] (by decide +kernel)
-def p184 := prefixPool s3 [(3,x3,x6),(2,x21,x4)] (by decide +kernel)
-def p185 := prefixPool s3 [(3,x3,x4)] (by decide +kernel)
-def p186 := prefixPool s3 [(3,x3,x4),(1,x22,x6)] (by decide +kernel)
-def p187 := prefixPool s3 [(3,x23,x6)] (by decide +kernel)
-def p188 := prefixPool s3 [(3,x23,x6),(1,x35,x3)] (by decide +kernel)
-def p189 := prefixPool s3 [(3,x23,x4),(1,x36,x6)] (by decide +kernel)
-def p190 := prefixPool s3 [(3,x23,x4),(3,x36,x3)] (by decide +kernel)
-def p191 := prefixPool s3 [(3,x6,x4)] (by decide +kernel)
-def p192 := prefixPool s4 [] (by decide +kernel)
-def p193 := prefixPool s5 [] (by decide +kernel)
-def p194 := prefixPool s5 [(1,x6,x4)] (by decide +kernel)
-def p195 := prefixPool s5 [(2,x6,x4)] (by decide +kernel)
-def p196 := prefixPool s6 [] (by decide +kernel)
-def p197 := prefixPool s7 [] (by decide +kernel)
-def p198 := prefixPool s8 [] (by decide +kernel)
-def p199 := prefixPool s8 [(0,x0,x23)] (by decide +kernel)
-def p200 := prefixPool s8 [(0,x0,x23),(1,x0,x23)] (by decide +kernel)
-def p201 := prefixPool s8 [(0,x0,x6)] (by decide +kernel)
-def p202 := prefixPool s8 [(0,x0,x6),(1,x37,x4)] (by decide +kernel)
-def p203 := prefixPool s8 [(0,x0,x6),(1,x0,x6)] (by decide +kernel)
-def p204 := prefixPool s8 [(0,x0,x6),(3,x37,x23)] (by decide +kernel)
-def p205 := prefixPool s8 [(0,x0,x6),(3,x37,x4)] (by decide +kernel)
-def p206 := prefixPool s8 [(0,x0,x4)] (by decide +kernel)
-def p207 := prefixPool s8 [(0,x0,x4),(1,x7,x6)] (by decide +kernel)
-def p208 := prefixPool s8 [(0,x0,x4),(1,x7,x6),(1,x0,x4)] (by decide +kernel)
-def p209 := prefixPool s8 [(0,x0,x4),(1,x0,x4)] (by decide +kernel)
-def p210 := prefixPool s8 [(0,x0,x4),(3,x7,x23)] (by decide +kernel)
-def p211 := prefixPool s8 [(0,x0,x4),(3,x7,x6)] (by decide +kernel)
-def p212 := prefixPool s8 [(0,x23,x6)] (by decide +kernel)
-def p213 := prefixPool s8 [(0,x23,x6),(1,x28,x4)] (by decide +kernel)
-def p214 := prefixPool s8 [(0,x23,x6),(1,x23,x6)] (by decide +kernel)
-def p215 := prefixPool s8 [(0,x23,x4)] (by decide +kernel)
-def p216 := prefixPool s8 [(0,x23,x4),(1,x29,x6)] (by decide +kernel)
-def p217 := prefixPool s8 [(0,x23,x4),(3,x29,x6)] (by decide +kernel)
-def p218 := prefixPool s8 [(0,x6,x4)] (by decide +kernel)
-def p219 := prefixPool s8 [(0,x6,x4),(1,x10,x0),(1,x6,x4)] (by decide +kernel)
-def p220 := prefixPool s8 [(0,x6,x4),(1,x6,x4)] (by decide +kernel)
-def p221 := prefixPool s8 [(0,x6,x4),(3,x10,x0)] (by decide +kernel)
-def p222 := prefixPool s8 [(1,x0,x23)] (by decide +kernel)
-def p223 := prefixPool s8 [(1,x0,x23),(1,x0,x6)] (by decide +kernel)
-def p224 := prefixPool s8 [(1,x0,x23),(1,x0,x4)] (by decide +kernel)
-def p225 := prefixPool s8 [(1,x0,x23),(1,x38,x6)] (by decide +kernel)
-def p226 := prefixPool s8 [(1,x0,x23),(1,x38,x4)] (by decide +kernel)
-def p227 := prefixPool s8 [(1,x0,x23),(3,x38,x6)] (by decide +kernel)
-def p228 := prefixPool s8 [(1,x0,x6)] (by decide +kernel)
-def p229 := prefixPool s8 [(1,x0,x6),(0,x0,x6),(1,x37,x4)] (by decide +kernel)
-def p230 := prefixPool s8 [(1,x0,x6),(1,x0,x4)] (by decide +kernel)
-def p231 := prefixPool s8 [(1,x0,x6),(1,x6,x4)] (by decide +kernel)
-def p232 := prefixPool s8 [(1,x0,x6),(1,x13,x4)] (by decide +kernel)
-def p233 := prefixPool s8 [(1,x0,x6),(2,x13,x23)] (by decide +kernel)
-def p234 := prefixPool s8 [(1,x0,x6),(2,x13,x4)] (by decide +kernel)
-def p235 := prefixPool s8 [(1,x0,x6),(3,x13,x4)] (by decide +kernel)
-def p236 := prefixPool s8 [(1,x0,x4)] (by decide +kernel)
-def p237 := prefixPool s8 [(1,x0,x4),(1,x6,x4)] (by decide +kernel)
-def p238 := prefixPool s8 [(1,x0,x4),(2,x39,x6)] (by decide +kernel)
-def p239 := prefixPool s8 [(1,x23,x6)] (by decide +kernel)
-def p240 := prefixPool s8 [(1,x23,x6),(1,x6,x4)] (by decide +kernel)
-def p241 := prefixPool s8 [(1,x23,x6),(1,x31,x4)] (by decide +kernel)
-def p242 := prefixPool s8 [(1,x23,x6),(2,x31,x0)] (by decide +kernel)
-def p243 := prefixPool s8 [(1,x23,x6),(3,x31,x4)] (by decide +kernel)
-def p244 := prefixPool s8 [(1,x23,x4)] (by decide +kernel)
-def p245 := prefixPool s8 [(1,x6,x4)] (by decide +kernel)
-def p246 := prefixPool s8 [(1,x6,x4),(0,x16,x23)] (by decide +kernel)
-def p247 := prefixPool s8 [(1,x6,x4),(2,x16,x0)] (by decide +kernel)
-def p248 := prefixPool s8 [(1,x6,x4),(2,x16,x23)] (by decide +kernel)
-def p249 := prefixPool s8 [(2,x0,x23)] (by decide +kernel)
-def p250 := prefixPool s8 [(2,x0,x23),(2,x40,x6)] (by decide +kernel)
-def p251 := prefixPool s8 [(2,x0,x23),(3,x0,x23)] (by decide +kernel)
-def p252 := prefixPool s8 [(2,x0,x6)] (by decide +kernel)
-def p253 := prefixPool s8 [(2,x0,x6),(1,x0,x23)] (by decide +kernel)
-def p254 := prefixPool s8 [(2,x0,x6),(2,x41,x4)] (by decide +kernel)
-def p255 := prefixPool s8 [(2,x0,x4)] (by decide +kernel)
-def p256 := prefixPool s8 [(2,x0,x4),(1,x42,x6)] (by decide +kernel)
-def p257 := prefixPool s8 [(2,x0,x4),(3,x0,x4)] (by decide +kernel)
-def p258 := prefixPool s8 [(2,x23,x6)] (by decide +kernel)
-def p259 := prefixPool s8 [(2,x23,x4)] (by decide +kernel)
-def p260 := prefixPool s8 [(2,x23,x4),(3,x23,x4)] (by decide +kernel)
-def p261 := prefixPool s8 [(2,x6,x4)] (by decide +kernel)
-def p262 := prefixPool s8 [(2,x6,x4),(1,x43,x0)] (by decide +kernel)
-def p263 := prefixPool s8 [(2,x6,x4),(1,x0,x6)] (by decide +kernel)
-def p264 := prefixPool s8 [(2,x6,x4),(3,x6,x4)] (by decide +kernel)
-def p265 := prefixPool s8 [(3,x0,x23)] (by decide +kernel)
-def p266 := prefixPool s8 [(3,x0,x23),(1,x44,x6)] (by decide +kernel)
-def p267 := prefixPool s8 [(3,x0,x23),(1,x23,x6)] (by decide +kernel)
-def p268 := prefixPool s8 [(3,x0,x6)] (by decide +kernel)
-def p269 := prefixPool s8 [(3,x0,x6),(0,x20,x4),(1,x6,x4)] (by decide +kernel)
-def p270 := prefixPool s8 [(3,x0,x6),(1,x6,x4)] (by decide +kernel)
-def p271 := prefixPool s8 [(3,x0,x6),(2,x20,x4)] (by decide +kernel)
-def p272 := prefixPool s8 [(3,x0,x4)] (by decide +kernel)
-def p273 := prefixPool s8 [(3,x0,x4),(1,x45,x6)] (by decide +kernel)
-def p274 := prefixPool s8 [(3,x0,x4),(1,x6,x4)] (by decide +kernel)
-def p275 := prefixPool s8 [(3,x23,x6)] (by decide +kernel)
-def p276 := prefixPool s8 [(3,x23,x6),(1,x6,x4)] (by decide +kernel)
-def p277 := prefixPool s8 [(3,x23,x4),(1,x36,x6)] (by decide +kernel)
-def p278 := prefixPool s8 [(3,x23,x4),(1,x6,x4)] (by decide +kernel)
-def p279 := prefixPool s8 [(3,x23,x4),(3,x36,x0)] (by decide +kernel)
-def p280 := prefixPool s8 [(3,x6,x4)] (by decide +kernel)
-def p281 := prefixPool s9 [] (by decide +kernel)
-def p282 := prefixPool s9 [(1,x0,x3)] (by decide +kernel)
-def p283 := prefixPool s9 [(1,x6,x4)] (by decide +kernel)
-def p284 := prefixPool s10 [] (by decide +kernel)
-def p285 := prefixPool s10 [(0,x0,x3)] (by decide +kernel)
-def p286 := prefixPool s10 [(0,x0,x3),(0,x6,x4)] (by decide +kernel)
-def p287 := prefixPool s10 [(0,x0,x3),(1,x5,x6)] (by decide +kernel)
-def p288 := prefixPool s10 [(0,x0,x3),(1,x5,x4)] (by decide +kernel)
-def p289 := prefixPool s10 [(0,x0,x3),(3,x5,x6)] (by decide +kernel)
-def p290 := prefixPool s10 [(0,x0,x3),(3,x5,x4)] (by decide +kernel)
-def p291 := prefixPool s10 [(0,x0,x6)] (by decide +kernel)
-def p292 := prefixPool s10 [(0,x0,x6),(1,x37,x3)] (by decide +kernel)
-def p293 := prefixPool s10 [(0,x0,x6),(1,x0,x6)] (by decide +kernel)
-def p294 := prefixPool s10 [(0,x0,x4)] (by decide +kernel)
-def p295 := prefixPool s10 [(0,x0,x4),(3,x7,x3)] (by decide +kernel)
-def p296 := prefixPool s10 [(0,x3,x6)] (by decide +kernel)
-def p297 := prefixPool s10 [(0,x3,x6),(1,x26,x0)] (by decide +kernel)
-def p298 := prefixPool s10 [(0,x3,x6),(1,x26,x4)] (by decide +kernel)
-def p299 := prefixPool s10 [(0,x3,x6),(1,x3,x6)] (by decide +kernel)
-def p300 := prefixPool s10 [(0,x3,x4)] (by decide +kernel)
-def p301 := prefixPool s10 [(0,x3,x4),(1,x27,x0),(1,x3,x4)] (by decide +kernel)
-def p302 := prefixPool s10 [(0,x3,x4),(1,x3,x4)] (by decide +kernel)
-def p303 := prefixPool s10 [(0,x6,x4)] (by decide +kernel)
-def p304 := prefixPool s10 [(0,x6,x4),(1,x10,x0),(1,x6,x4)] (by decide +kernel)
-def p305 := prefixPool s10 [(0,x6,x4),(1,x10,x3)] (by decide +kernel)
-def p306 := prefixPool s10 [(0,x6,x4),(1,x6,x4)] (by decide +kernel)
-def p307 := prefixPool s10 [(1,x0,x3)] (by decide +kernel)
-def p308 := prefixPool s10 [(1,x0,x3),(0,x12,x4)] (by decide +kernel)
-def p309 := prefixPool s10 [(1,x0,x3),(1,x0,x6)] (by decide +kernel)
-def p310 := prefixPool s10 [(1,x0,x3),(1,x0,x6),(1,x3,x6)] (by decide +kernel)
-def p311 := prefixPool s10 [(1,x0,x3),(1,x0,x6),(1,x13,x4)] (by decide +kernel)
-def p312 := prefixPool s10 [(1,x0,x3),(1,x3,x6)] (by decide +kernel)
-def p313 := prefixPool s10 [(1,x0,x3),(1,x12,x6)] (by decide +kernel)
-def p314 := prefixPool s10 [(1,x0,x3),(1,x12,x4)] (by decide +kernel)
-def p315 := prefixPool s10 [(1,x0,x3),(1,x12,x4),(1,x6,x4)] (by decide +kernel)
-def p316 := prefixPool s10 [(1,x0,x3),(1,x6,x4)] (by decide +kernel)
-def p317 := prefixPool s10 [(1,x0,x3),(2,x12,x6)] (by decide +kernel)
-def p318 := prefixPool s10 [(1,x0,x3),(2,x12,x6),(1,x12,x6)] (by decide +kernel)
-def p319 := prefixPool s10 [(1,x0,x3),(2,x12,x4)] (by decide +kernel)
-def p320 := prefixPool s10 [(1,x0,x3),(3,x12,x6)] (by decide +kernel)
-def p321 := prefixPool s10 [(1,x0,x6)] (by decide +kernel)
-def p322 := prefixPool s10 [(1,x0,x6),(1,x3,x6)] (by decide +kernel)
-def p323 := prefixPool s10 [(1,x0,x6),(1,x6,x4)] (by decide +kernel)
-def p324 := prefixPool s10 [(1,x0,x6),(1,x13,x4)] (by decide +kernel)
-def p325 := prefixPool s10 [(1,x0,x6),(2,x13,x3)] (by decide +kernel)
-def p326 := prefixPool s10 [(1,x0,x6),(2,x13,x4)] (by decide +kernel)
-def p327 := prefixPool s10 [(1,x0,x6),(3,x13,x4)] (by decide +kernel)
-def p328 := prefixPool s10 [(1,x0,x4)] (by decide +kernel)
-def p329 := prefixPool s10 [(1,x0,x4),(1,x3,x4)] (by decide +kernel)
-def p330 := prefixPool s10 [(1,x0,x4),(1,x6,x4)] (by decide +kernel)
-def p331 := prefixPool s10 [(1,x0,x4),(2,x39,x6)] (by decide +kernel)
-def p332 := prefixPool s10 [(1,x3,x6)] (by decide +kernel)
-def p333 := prefixPool s10 [(1,x3,x6),(1,x3,x4),(1,x6,x4)] (by decide +kernel)
-def p334 := prefixPool s10 [(1,x3,x6),(1,x6,x4)] (by decide +kernel)
-def p335 := prefixPool s10 [(1,x3,x6),(1,x15,x4)] (by decide +kernel)
-def p336 := prefixPool s10 [(1,x3,x6),(2,x15,x0)] (by decide +kernel)
-def p337 := prefixPool s10 [(1,x3,x6),(2,x15,x4)] (by decide +kernel)
-def p338 := prefixPool s10 [(1,x3,x4)] (by decide +kernel)
-def p339 := prefixPool s10 [(1,x3,x4),(1,x6,x4)] (by decide +kernel)
-def p340 := prefixPool s10 [(1,x6,x4)] (by decide +kernel)
-def p341 := prefixPool s10 [(1,x6,x4),(0,x16,x3)] (by decide +kernel)
-def p342 := prefixPool s10 [(1,x6,x4),(2,x16,x0)] (by decide +kernel)
-def p343 := prefixPool s10 [(1,x6,x4),(2,x16,x3)] (by decide +kernel)
-def p344 := prefixPool s10 [(2,x0,x3)] (by decide +kernel)
-def p345 := prefixPool s10 [(2,x0,x3),(3,x0,x3)] (by decide +kernel)
-def p346 := prefixPool s10 [(2,x0,x6)] (by decide +kernel)
-def p347 := prefixPool s10 [(2,x0,x6),(1,x41,x3)] (by decide +kernel)
-def p348 := prefixPool s10 [(2,x0,x4)] (by decide +kernel)
-def p349 := prefixPool s10 [(2,x0,x4),(3,x0,x4)] (by decide +kernel)
-def p350 := prefixPool s10 [(2,x3,x6)] (by decide +kernel)
-def p351 := prefixPool s10 [(2,x3,x6),(1,x33,x0)] (by decide +kernel)
-def p352 := prefixPool s10 [(2,x3,x4)] (by decide +kernel)
-def p353 := prefixPool s10 [(2,x3,x4),(1,x34,x0)] (by decide +kernel)
-def p354 := prefixPool s10 [(2,x3,x4),(1,x34,x6)] (by decide +kernel)
-def p355 := prefixPool s10 [(2,x3,x4),(1,x0,x3)] (by decide +kernel)
-def p356 := prefixPool s10 [(2,x3,x4),(3,x3,x4)] (by decide +kernel)
-def p357 := prefixPool s10 [(2,x6,x4)] (by decide +kernel)
-def p358 := prefixPool s10 [(2,x6,x4),(0,x0,x3)] (by decide +kernel)
-def p359 := prefixPool s10 [(2,x6,x4),(3,x6,x4)] (by decide +kernel)
-def p360 := prefixPool s10 [(3,x0,x3)] (by decide +kernel)
-def p361 := prefixPool s10 [(3,x0,x3),(1,x46,x6)] (by decide +kernel)
-def p362 := prefixPool s10 [(3,x0,x3),(1,x3,x6)] (by decide +kernel)
-def p363 := prefixPool s10 [(3,x0,x3),(2,x46,x6)] (by decide +kernel)
-def p364 := prefixPool s10 [(3,x0,x3),(2,x46,x4)] (by decide +kernel)
-def p365 := prefixPool s10 [(3,x0,x6)] (by decide +kernel)
-def p366 := prefixPool s10 [(3,x0,x6),(2,x20,x4)] (by decide +kernel)
-def p367 := prefixPool s10 [(3,x0,x4)] (by decide +kernel)
-def p368 := prefixPool s10 [(3,x0,x4),(1,x3,x4)] (by decide +kernel)
-def p369 := prefixPool s10 [(3,x0,x4),(1,x6,x4)] (by decide +kernel)
-def p370 := prefixPool s10 [(3,x3,x6)] (by decide +kernel)
-def p371 := prefixPool s11 [] (by decide +kernel)
-def p372 := prefixPool s11 [(0,x0,x3)] (by decide +kernel)
-def p373 := prefixPool s11 [(0,x0,x3),(1,x5,x4)] (by decide +kernel)
-def p374 := prefixPool s11 [(0,x0,x3),(3,x5,x23)] (by decide +kernel)
-def p375 := prefixPool s11 [(0,x0,x3),(3,x5,x4)] (by decide +kernel)
-def p376 := prefixPool s11 [(0,x0,x4)] (by decide +kernel)
-def p377 := prefixPool s11 [(0,x0,x4),(1,x7,x3)] (by decide +kernel)
-def p378 := prefixPool s11 [(0,x0,x4),(1,x0,x4)] (by decide +kernel)
-def p379 := prefixPool s11 [(0,x0,x4),(3,x7,x3)] (by decide +kernel)
-def p380 := prefixPool s11 [(0,x0,x4),(3,x7,x23)] (by decide +kernel)
-def p381 := prefixPool s11 [(0,x3,x23)] (by decide +kernel)
-def p382 := prefixPool s11 [(0,x3,x23),(1,x25,x0)] (by decide +kernel)
-def p383 := prefixPool s11 [(0,x3,x4)] (by decide +kernel)
-def p384 := prefixPool s11 [(0,x3,x4),(1,x27,x0)] (by decide +kernel)
-def p385 := prefixPool s11 [(0,x3,x4),(1,x3,x4)] (by decide +kernel)
-def p386 := prefixPool s11 [(0,x3,x4),(3,x27,x0)] (by decide +kernel)
-def p387 := prefixPool s11 [(1,x0,x3)] (by decide +kernel)
-def p388 := prefixPool s11 [(1,x0,x3),(1,x0,x23)] (by decide +kernel)
-def p389 := prefixPool s11 [(1,x0,x3),(1,x0,x4)] (by decide +kernel)
-def p390 := prefixPool s11 [(1,x0,x3),(1,x3,x4)] (by decide +kernel)
-def p391 := prefixPool s11 [(1,x0,x3),(1,x12,x23)] (by decide +kernel)
-def p392 := prefixPool s11 [(1,x0,x3),(1,x12,x4)] (by decide +kernel)
-def p393 := prefixPool s11 [(1,x0,x3),(2,x12,x23)] (by decide +kernel)
-def p394 := prefixPool s11 [(1,x0,x3),(2,x12,x4)] (by decide +kernel)
-def p395 := prefixPool s11 [(1,x0,x3),(3,x12,x4)] (by decide +kernel)
-def p396 := prefixPool s11 [(1,x0,x23)] (by decide +kernel)
-def p397 := prefixPool s11 [(1,x0,x23),(1,x0,x3),(1,x12,x4)] (by decide +kernel)
-def p398 := prefixPool s11 [(1,x0,x23),(1,x0,x4)] (by decide +kernel)
-def p399 := prefixPool s11 [(1,x0,x23),(1,x38,x4)] (by decide +kernel)
-def p400 := prefixPool s11 [(1,x0,x23),(3,x38,x4)] (by decide +kernel)
-def p401 := prefixPool s11 [(1,x0,x4)] (by decide +kernel)
-def p402 := prefixPool s11 [(1,x0,x4),(1,x3,x4)] (by decide +kernel)
-def p403 := prefixPool s11 [(1,x0,x4),(2,x39,x3)] (by decide +kernel)
-def p404 := prefixPool s11 [(1,x0,x4),(2,x39,x23)] (by decide +kernel)
-def p405 := prefixPool s11 [(1,x3,x23)] (by decide +kernel)
-def p406 := prefixPool s11 [(1,x3,x23),(3,x30,x4)] (by decide +kernel)
-def p407 := prefixPool s11 [(1,x3,x4)] (by decide +kernel)
-def p408 := prefixPool s11 [(1,x3,x4),(2,x47,x0)] (by decide +kernel)
-def p409 := prefixPool s11 [(1,x3,x4),(2,x47,x23)] (by decide +kernel)
-def p410 := prefixPool s11 [(2,x0,x3)] (by decide +kernel)
-def p411 := prefixPool s11 [(2,x0,x3),(1,x17,x23)] (by decide +kernel)
-def p412 := prefixPool s11 [(2,x0,x3),(1,x0,x23)] (by decide +kernel)
-def p413 := prefixPool s11 [(2,x0,x3),(2,x17,x23)] (by decide +kernel)
-def p414 := prefixPool s11 [(2,x0,x3),(2,x17,x4)] (by decide +kernel)
-def p415 := prefixPool s11 [(2,x0,x3),(3,x0,x3)] (by decide +kernel)
-def p416 := prefixPool s11 [(2,x0,x23),(2,x40,x4)] (by decide +kernel)
-def p417 := prefixPool s11 [(2,x0,x4)] (by decide +kernel)
-def p418 := prefixPool s11 [(2,x0,x4),(1,x42,x3)] (by decide +kernel)
-def p419 := prefixPool s11 [(2,x0,x4),(1,x0,x3)] (by decide +kernel)
-def p420 := prefixPool s11 [(2,x0,x4),(1,x0,x23)] (by decide +kernel)
-def p421 := prefixPool s11 [(2,x0,x4),(3,x0,x4)] (by decide +kernel)
-def p422 := prefixPool s11 [(2,x3,x23)] (by decide +kernel)
-def p423 := prefixPool s11 [(2,x3,x23),(2,x32,x4)] (by decide +kernel)
-def p424 := prefixPool s11 [(2,x3,x4)] (by decide +kernel)
-def p425 := prefixPool s11 [(2,x3,x4),(1,x0,x3)] (by decide +kernel)
-def p426 := prefixPool s11 [(2,x3,x4),(3,x3,x4)] (by decide +kernel)
-def p427 := prefixPool s11 [(3,x0,x3)] (by decide +kernel)
-def p428 := prefixPool s11 [(3,x0,x3),(2,x46,x23)] (by decide +kernel)
-def p429 := prefixPool s11 [(3,x0,x23)] (by decide +kernel)
-def p430 := prefixPool s11 [(3,x0,x23),(1,x44,x3)] (by decide +kernel)
-def p431 := prefixPool s11 [(3,x0,x4)] (by decide +kernel)
-def p432 := prefixPool s11 [(3,x0,x4),(1,x45,x3)] (by decide +kernel)
-def p433 := prefixPool s11 [(3,x3,x23)] (by decide +kernel)
-def p434 := prefixPool s11 [(3,x3,x4)] (by decide +kernel)
-def p435 := prefixPool s11 [(3,x3,x4),(1,x22,x0)] (by decide +kernel)
-def p436 := prefixPool s11 [(3,x3,x4),(1,x0,x4)] (by decide +kernel)
-def p437 := prefixPool s11 [(3,x23,x4)] (by decide +kernel)
-def p438 := prefixPool s12 [] (by decide +kernel)
-def p439 := prefixPool s12 [(0,x0,x3)] (by decide +kernel)
-def p440 := prefixPool s12 [(0,x0,x3),(1,x5,x6)] (by decide +kernel)
-def p441 := prefixPool s12 [(0,x0,x3),(3,x5,x23)] (by decide +kernel)
-def p442 := prefixPool s12 [(0,x0,x3),(3,x5,x6)] (by decide +kernel)
-def p443 := prefixPool s12 [(0,x0,x6)] (by decide +kernel)
-def p444 := prefixPool s12 [(0,x0,x6),(1,x37,x3)] (by decide +kernel)
-def p445 := prefixPool s12 [(0,x0,x6),(1,x0,x6)] (by decide +kernel)
-def p446 := prefixPool s12 [(0,x0,x6),(3,x37,x23)] (by decide +kernel)
-def p447 := prefixPool s12 [(0,x3,x23),(1,x25,x0)] (by decide +kernel)
-def p448 := prefixPool s12 [(0,x3,x6)] (by decide +kernel)
-def p449 := prefixPool s12 [(0,x3,x6),(1,x3,x6)] (by decide +kernel)
-def p450 := prefixPool s12 [(0,x23,x6)] (by decide +kernel)
-def p451 := prefixPool s12 [(1,x0,x3)] (by decide +kernel)
-def p452 := prefixPool s12 [(1,x0,x3),(1,x0,x23)] (by decide +kernel)
-def p453 := prefixPool s12 [(1,x0,x3),(1,x0,x6)] (by decide +kernel)
-def p454 := prefixPool s12 [(1,x0,x3),(1,x3,x6)] (by decide +kernel)
-def p455 := prefixPool s12 [(1,x0,x3),(1,x12,x23)] (by decide +kernel)
-def p456 := prefixPool s12 [(1,x0,x3),(1,x12,x6)] (by decide +kernel)
-def p457 := prefixPool s12 [(1,x0,x3),(2,x12,x23)] (by decide +kernel)
-def p458 := prefixPool s12 [(1,x0,x3),(2,x12,x6)] (by decide +kernel)
-def p459 := prefixPool s12 [(1,x0,x23)] (by decide +kernel)
-def p460 := prefixPool s12 [(1,x0,x23),(1,x0,x6)] (by decide +kernel)
-def p461 := prefixPool s12 [(1,x0,x23),(1,x38,x6)] (by decide +kernel)
-def p462 := prefixPool s12 [(1,x0,x6)] (by decide +kernel)
-def p463 := prefixPool s12 [(1,x0,x6),(2,x13,x3)] (by decide +kernel)
-def p464 := prefixPool s12 [(1,x0,x6),(2,x13,x23)] (by decide +kernel)
-def p465 := prefixPool s12 [(1,x3,x23)] (by decide +kernel)
-def p466 := prefixPool s12 [(1,x3,x6)] (by decide +kernel)
-def p467 := prefixPool s12 [(1,x3,x6),(2,x15,x0)] (by decide +kernel)
-def p468 := prefixPool s12 [(1,x3,x6),(2,x15,x23)] (by decide +kernel)
-def p469 := prefixPool s12 [(1,x23,x6)] (by decide +kernel)
-def p470 := prefixPool s12 [(2,x0,x3)] (by decide +kernel)
-def p471 := prefixPool s12 [(2,x0,x3),(1,x17,x6)] (by decide +kernel)
-def p472 := prefixPool s12 [(2,x0,x3),(2,x17,x6)] (by decide +kernel)
-def p473 := prefixPool s12 [(2,x0,x3),(3,x0,x3)] (by decide +kernel)
-def p474 := prefixPool s12 [(2,x0,x23),(2,x40,x6)] (by decide +kernel)
-def p475 := prefixPool s12 [(2,x0,x6)] (by decide +kernel)
-def p476 := prefixPool s12 [(2,x0,x6),(1,x0,x3)] (by decide +kernel)
-def p477 := prefixPool s12 [(2,x0,x6),(1,x0,x23)] (by decide +kernel)
-def p478 := prefixPool s12 [(2,x3,x23),(2,x32,x6)] (by decide +kernel)
-def p479 := prefixPool s12 [(2,x3,x6)] (by decide +kernel)
-def p480 := prefixPool s12 [(2,x3,x6),(3,x3,x6)] (by decide +kernel)
-def p481 := prefixPool s12 [(3,x0,x3)] (by decide +kernel)
-def p482 := prefixPool s12 [(3,x0,x3),(1,x46,x6)] (by decide +kernel)
-def p483 := prefixPool s12 [(3,x0,x23)] (by decide +kernel)
-def p484 := prefixPool s12 [(3,x0,x6)] (by decide +kernel)
-def p485 := prefixPool s12 [(3,x0,x6),(1,x20,x3)] (by decide +kernel)
-def p486 := prefixPool s12 [(3,x3,x23),(1,x48,x0)] (by decide +kernel)
-def p487 := prefixPool s12 [(3,x3,x6)] (by decide +kernel)
-def p488 := prefixPool s12 [(3,x3,x6),(1,x21,x23)] (by decide +kernel)
-def p489 := prefixPool s12 [(3,x23,x6)] (by decide +kernel)
-def p490 := prefixPool s13 [] (by decide +kernel)
-def p491 := prefixPool s14 [] (by decide +kernel)
-def p492 := prefixPool s14 [(0,x1,x23)] (by decide +kernel)
-def p493 := prefixPool s14 [(2,x0,x4)] (by decide +kernel)
-def p494 := prefixPool s14 [(3,x0,x4)] (by decide +kernel)
-def p495 := prefixPool s15 [] (by decide +kernel)
-def p496 := prefixPool s15 [(3,x0,x4)] (by decide +kernel)
-def p497 := prefixPool s16 [] (by decide +kernel)
-def p498 := prefixPool s17 [] (by decide +kernel)
-def p499 := prefixPool s17 [(1,x0,x6)] (by decide +kernel)
-def p500 := prefixPool s17 [(3,x0,x1)] (by decide +kernel)
-def p501 := prefixPool s18 [] (by decide +kernel)
-def p502 := prefixPool s18 [(0,x0,x1)] (by decide +kernel)
-def p503 := prefixPool s18 [(0,x0,x1),(1,x2,x3)] (by decide +kernel)
-def p504 := prefixPool s18 [(0,x0,x1),(1,x2,x4)] (by decide +kernel)
-def p505 := prefixPool s18 [(0,x0,x1),(2,x2,x4)] (by decide +kernel)
-def p506 := prefixPool s18 [(0,x0,x1),(3,x2,x4)] (by decide +kernel)
-def p507 := prefixPool s18 [(0,x0,x3)] (by decide +kernel)
-def p508 := prefixPool s18 [(0,x0,x3),(1,x5,x4)] (by decide +kernel)
-def p509 := prefixPool s18 [(0,x0,x3),(2,x5,x4)] (by decide +kernel)
-def p510 := prefixPool s18 [(0,x0,x3),(3,x5,x1)] (by decide +kernel)
-def p511 := prefixPool s18 [(0,x0,x3),(3,x5,x4)] (by decide +kernel)
-def p512 := prefixPool s18 [(0,x0,x4)] (by decide +kernel)
-def p513 := prefixPool s18 [(0,x0,x4),(1,x7,x3)] (by decide +kernel)
-def p514 := prefixPool s18 [(0,x0,x4),(1,x0,x4)] (by decide +kernel)
-def p515 := prefixPool s18 [(0,x0,x4),(3,x7,x1)] (by decide +kernel)
-def p516 := prefixPool s18 [(0,x0,x4),(3,x7,x3)] (by decide +kernel)
-def p517 := prefixPool s18 [(0,x1,x3)] (by decide +kernel)
-def p518 := prefixPool s18 [(0,x1,x3),(1,x8,x0)] (by decide +kernel)
-def p519 := prefixPool s18 [(0,x1,x3),(1,x8,x4)] (by decide +kernel)
-def p520 := prefixPool s18 [(0,x1,x3),(1,x1,x3)] (by decide +kernel)
-def p521 := prefixPool s18 [(0,x1,x3),(3,x8,x4)] (by decide +kernel)
-def p522 := prefixPool s18 [(0,x1,x4)] (by decide +kernel)
-def p523 := prefixPool s18 [(0,x1,x4),(1,x0,x3)] (by decide +kernel)
-def p524 := prefixPool s18 [(0,x1,x4),(1,x49,x0)] (by decide +kernel)
-def p525 := prefixPool s18 [(0,x1,x4),(1,x49,x3)] (by decide +kernel)
-def p526 := prefixPool s18 [(0,x1,x4),(3,x49,x0)] (by decide +kernel)
-def p527 := prefixPool s18 [(0,x1,x4),(3,x49,x3)] (by decide +kernel)
-def p528 := prefixPool s18 [(0,x3,x4)] (by decide +kernel)
-def p529 := prefixPool s18 [(0,x3,x4),(1,x27,x0)] (by decide +kernel)
-def p530 := prefixPool s18 [(0,x3,x4),(1,x3,x4)] (by decide +kernel)
-def p531 := prefixPool s18 [(1,x0,x1)] (by decide +kernel)
-def p532 := prefixPool s18 [(1,x0,x1),(1,x0,x3)] (by decide +kernel)
-def p533 := prefixPool s18 [(1,x0,x1),(1,x0,x4)] (by decide +kernel)
-def p534 := prefixPool s18 [(1,x0,x3)] (by decide +kernel)
-def p535 := prefixPool s18 [(1,x0,x3),(0,x12,x1)] (by decide +kernel)
-def p536 := prefixPool s18 [(1,x0,x3),(0,x12,x1),(1,x0,x1)] (by decide +kernel)
-def p537 := prefixPool s18 [(1,x0,x3),(1,x0,x4)] (by decide +kernel)
-def p538 := prefixPool s18 [(1,x0,x3),(1,x3,x4)] (by decide +kernel)
-def p539 := prefixPool s18 [(1,x0,x3),(1,x12,x4)] (by decide +kernel)
-def p540 := prefixPool s18 [(1,x0,x3),(2,x12,x4)] (by decide +kernel)
-def p541 := prefixPool s18 [(1,x0,x3),(3,x12,x4)] (by decide +kernel)
-def p542 := prefixPool s18 [(1,x0,x4)] (by decide +kernel)
-def p543 := prefixPool s18 [(1,x0,x4),(0,x39,x1)] (by decide +kernel)
-def p544 := prefixPool s18 [(1,x0,x4),(0,x39,x1),(1,x0,x1)] (by decide +kernel)
-def p545 := prefixPool s18 [(1,x0,x4),(0,x39,x3)] (by decide +kernel)
-def p546 := prefixPool s18 [(1,x0,x4),(1,x3,x4)] (by decide +kernel)
-def p547 := prefixPool s18 [(1,x0,x4),(2,x39,x1)] (by decide +kernel)
-def p548 := prefixPool s18 [(1,x0,x4),(2,x39,x3)] (by decide +kernel)
-def p549 := prefixPool s18 [(1,x0,x4),(2,x39,x3),(1,x0,x3)] (by decide +kernel)
-def p550 := prefixPool s18 [(1,x1,x3)] (by decide +kernel)
-def p551 := prefixPool s18 [(1,x3,x4)] (by decide +kernel)
-def p552 := prefixPool s18 [(1,x3,x4),(0,x47,x1)] (by decide +kernel)
-def p553 := prefixPool s18 [(1,x3,x4),(2,x47,x0)] (by decide +kernel)
-def p554 := prefixPool s18 [(2,x0,x3)] (by decide +kernel)
-def p555 := prefixPool s18 [(2,x0,x3),(1,x17,x4)] (by decide +kernel)
-def p556 := prefixPool s18 [(2,x0,x3),(2,x17,x4)] (by decide +kernel)
-def p557 := prefixPool s18 [(2,x0,x3),(3,x0,x3)] (by decide +kernel)
-def p558 := prefixPool s18 [(2,x0,x4)] (by decide +kernel)
-def p559 := prefixPool s18 [(2,x0,x4),(1,x42,x3)] (by decide +kernel)
-def p560 := prefixPool s18 [(2,x0,x4),(1,x0,x3)] (by decide +kernel)
-def p561 := prefixPool s18 [(2,x0,x4),(3,x0,x4)] (by decide +kernel)
-def p562 := prefixPool s18 [(2,x1,x3)] (by decide +kernel)
-def p563 := prefixPool s18 [(2,x1,x3),(3,x0,x1)] (by decide +kernel)
-def p564 := prefixPool s18 [(2,x1,x4)] (by decide +kernel)
-def p565 := prefixPool s18 [(2,x1,x4),(1,x50,x0)] (by decide +kernel)
-def p566 := prefixPool s18 [(2,x3,x4)] (by decide +kernel)
-def p567 := prefixPool s18 [(2,x3,x4),(1,x34,x0)] (by decide +kernel)
-def p568 := prefixPool s18 [(2,x3,x4),(1,x0,x3)] (by decide +kernel)
-def p569 := prefixPool s18 [(2,x3,x4),(1,x3,x4)] (by decide +kernel)
-def p570 := prefixPool s18 [(2,x3,x4),(3,x0,x1)] (by decide +kernel)
-def p571 := prefixPool s18 [(2,x3,x4),(3,x3,x4)] (by decide +kernel)
-def p572 := prefixPool s18 [(3,x0,x1)] (by decide +kernel)
-def p573 := prefixPool s18 [(3,x0,x1),(2,x19,x3)] (by decide +kernel)
-def p574 := prefixPool s18 [(3,x0,x1),(2,x19,x4)] (by decide +kernel)
-def p575 := prefixPool s18 [(3,x0,x3)] (by decide +kernel)
-def p576 := prefixPool s18 [(3,x0,x3),(1,x46,x4)] (by decide +kernel)
-def p577 := prefixPool s18 [(3,x0,x3),(1,x3,x4)] (by decide +kernel)
-def p578 := prefixPool s18 [(3,x0,x3),(3,x46,x4)] (by decide +kernel)
-def p579 := prefixPool s18 [(3,x0,x4)] (by decide +kernel)
-def p580 := prefixPool s18 [(3,x0,x4),(1,x3,x4)] (by decide +kernel)
-def p581 := prefixPool s18 [(3,x3,x4)] (by decide +kernel)
-def p582 := prefixPool s18 [(3,x3,x4),(1,x22,x0)] (by decide +kernel)
-def p583 := prefixPool s18 [(3,x3,x4),(1,x22,x1)] (by decide +kernel)
-def p584 := prefixPool s18 [(3,x3,x4),(1,x0,x4)] (by decide +kernel)
-def p585 := prefixPool s18 [(3,x3,x4),(3,x0,x1)] (by decide +kernel)
-def p586 := prefixPool s19 [] (by decide +kernel)
-def p587 := prefixPool s19 [(0,x0,x1)] (by decide +kernel)
-def p588 := prefixPool s19 [(0,x0,x1),(1,x2,x3)] (by decide +kernel)
-def p589 := prefixPool s19 [(0,x0,x1),(1,x2,x6)] (by decide +kernel)
-def p590 := prefixPool s19 [(0,x0,x1),(3,x2,x6)] (by decide +kernel)
-def p591 := prefixPool s19 [(0,x0,x3)] (by decide +kernel)
-def p592 := prefixPool s19 [(0,x0,x3),(1,x5,x6)] (by decide +kernel)
-def p593 := prefixPool s19 [(0,x0,x3),(1,x0,x3)] (by decide +kernel)
-def p594 := prefixPool s19 [(0,x0,x3),(3,x5,x1)] (by decide +kernel)
-def p595 := prefixPool s19 [(0,x0,x3),(3,x5,x6)] (by decide +kernel)
-def p596 := prefixPool s19 [(0,x0,x6)] (by decide +kernel)
-def p597 := prefixPool s19 [(0,x0,x6),(1,x37,x3)] (by decide +kernel)
-def p598 := prefixPool s19 [(0,x0,x6),(1,x0,x6)] (by decide +kernel)
-def p599 := prefixPool s19 [(0,x0,x6),(3,x37,x1)] (by decide +kernel)
-def p600 := prefixPool s19 [(0,x0,x6),(3,x37,x3)] (by decide +kernel)
-def p601 := prefixPool s19 [(0,x1,x3)] (by decide +kernel)
-def p602 := prefixPool s19 [(0,x1,x3),(1,x8,x0)] (by decide +kernel)
-def p603 := prefixPool s19 [(0,x1,x3),(1,x8,x6)] (by decide +kernel)
-def p604 := prefixPool s19 [(0,x1,x3),(3,x8,x6)] (by decide +kernel)
-def p605 := prefixPool s19 [(0,x1,x6)] (by decide +kernel)
-def p606 := prefixPool s19 [(0,x1,x6),(1,x0,x3)] (by decide +kernel)
-def p607 := prefixPool s19 [(0,x1,x6),(1,x9,x0)] (by decide +kernel)
-def p608 := prefixPool s19 [(0,x1,x6),(1,x9,x3)] (by decide +kernel)
-def p609 := prefixPool s19 [(0,x3,x6)] (by decide +kernel)
-def p610 := prefixPool s19 [(0,x3,x6),(1,x26,x0)] (by decide +kernel)
-def p611 := prefixPool s19 [(0,x3,x6),(1,x3,x6)] (by decide +kernel)
-def p612 := prefixPool s19 [(1,x0,x1)] (by decide +kernel)
-def p613 := prefixPool s19 [(1,x0,x1),(1,x0,x3)] (by decide +kernel)
-def p614 := prefixPool s19 [(1,x0,x3)] (by decide +kernel)
-def p615 := prefixPool s19 [(1,x0,x3),(0,x12,x1)] (by decide +kernel)
-def p616 := prefixPool s19 [(1,x0,x3),(0,x12,x1),(1,x0,x1)] (by decide +kernel)
-def p617 := prefixPool s19 [(1,x0,x3),(1,x0,x6)] (by decide +kernel)
-def p618 := prefixPool s19 [(1,x0,x3),(1,x12,x6)] (by decide +kernel)
-def p619 := prefixPool s19 [(1,x0,x6)] (by decide +kernel)
-def p620 := prefixPool s19 [(1,x0,x6),(0,x13,x1)] (by decide +kernel)
-def p621 := prefixPool s19 [(1,x0,x6),(2,x13,x3)] (by decide +kernel)
-def p622 := prefixPool s19 [(1,x1,x3)] (by decide +kernel)
-def p623 := prefixPool s19 [(1,x3,x6)] (by decide +kernel)
-def p624 := prefixPool s19 [(1,x3,x6),(0,x15,x1)] (by decide +kernel)
-def p625 := prefixPool s19 [(1,x3,x6),(2,x15,x0)] (by decide +kernel)
-def p626 := prefixPool s19 [(2,x0,x3)] (by decide +kernel)
-def p627 := prefixPool s19 [(2,x0,x3),(1,x17,x6)] (by decide +kernel)
-def p628 := prefixPool s19 [(2,x0,x3),(2,x17,x6)] (by decide +kernel)
-def p629 := prefixPool s19 [(2,x0,x3),(3,x0,x3)] (by decide +kernel)
-def p630 := prefixPool s19 [(2,x0,x6)] (by decide +kernel)
-def p631 := prefixPool s19 [(2,x0,x6),(1,x41,x3)] (by decide +kernel)
-def p632 := prefixPool s19 [(2,x0,x6),(1,x0,x3)] (by decide +kernel)
-def p633 := prefixPool s19 [(2,x1,x3)] (by decide +kernel)
-def p634 := prefixPool s19 [(2,x1,x3),(3,x0,x1)] (by decide +kernel)
-def p635 := prefixPool s19 [(2,x1,x6)] (by decide +kernel)
-def p636 := prefixPool s19 [(2,x3,x6)] (by decide +kernel)
-def p637 := prefixPool s19 [(2,x3,x6),(1,x33,x0)] (by decide +kernel)
-def p638 := prefixPool s19 [(3,x0,x1)] (by decide +kernel)
-def p639 := prefixPool s19 [(3,x0,x1),(1,x1,x3)] (by decide +kernel)
-def p640 := prefixPool s19 [(3,x0,x1),(1,x1,x6)] (by decide +kernel)
-def p641 := prefixPool s19 [(3,x0,x1),(1,x3,x6)] (by decide +kernel)
-def p642 := prefixPool s19 [(3,x0,x1),(2,x19,x3)] (by decide +kernel)
-def p643 := prefixPool s19 [(3,x0,x3)] (by decide +kernel)
-def p644 := prefixPool s19 [(3,x0,x3),(1,x46,x6)] (by decide +kernel)
-def p645 := prefixPool s19 [(3,x0,x3),(1,x3,x6)] (by decide +kernel)
-def p646 := prefixPool s19 [(3,x0,x3),(3,x46,x6)] (by decide +kernel)
-def p647 := prefixPool s19 [(3,x0,x6)] (by decide +kernel)
-def p648 := prefixPool s19 [(3,x0,x6),(1,x20,x3)] (by decide +kernel)
-def p649 := prefixPool s19 [(3,x1,x6),(1,x0,x3),(0,x12,x1)] (by decide +kernel)
-def p650 := prefixPool s19 [(3,x3,x6)] (by decide +kernel)
-def p651 := prefixPool s19 [(3,x3,x6),(3,x0,x1)] (by decide +kernel)
-def p652 := prefixPool s20 [] (by decide +kernel)
-def p653 := prefixPool s20 [(0,x1,x23)] (by decide +kernel)
-def p654 := prefixPool s21 [] (by decide +kernel)
-def p655 := prefixPool s21 [(1,x0,x3)] (by decide +kernel)
-def p656 := prefixPool s22 [] (by decide +kernel)
-def p657 := prefixPool s22 [(1,x0,x3)] (by decide +kernel)
-def p658 := prefixPool s24 [] (by decide +kernel)
-def p659 := prefixPool s33 [] (by decide +kernel)
-def p660 := prefixPool s36 [] (by decide +kernel)
-def p661 := prefixPool s44 [] (by decide +kernel)
-def p662 := prefixPool s47 [] (by decide +kernel)
-def p663 := prefixPool s50 [] (by decide +kernel)
-def p664 := prefixPool s53 [] (by decide +kernel)
-def p665 := prefixPool s55 [] (by decide +kernel)
-def p666 := prefixPool s56 [] (by decide +kernel)
-def p667 := prefixPool s62 [] (by decide +kernel)
-def p668 := prefixPool s66 [] (by decide +kernel)
-def p669 := prefixPool s70 [] (by decide +kernel)
-def p670 := prefixPool s74 [] (by decide +kernel)
-def p671 := prefixPool s75 [] (by decide +kernel)
-def p672 := prefixPool s79 [] (by decide +kernel)
-def p673 := prefixPool s80 [] (by decide +kernel)
-def p674 := prefixPool s86 [] (by decide +kernel)
-def p675 := prefixPool s90 [] (by decide +kernel)
-def p676 := prefixPool s94 [] (by decide +kernel)
-def p677 := prefixPool s105 [] (by decide +kernel)
-def cs : Array (ChosenPool R T) := #[
-  usePool p0,
-  usePool p1,
-  usePool p2,
-  usePool p3,
-  usePool p4,
-  usePool p5,
-  usePool p6,
-  usePool p7,
-  usePool p8,
-  usePool p9,
-  usePool p10,
-  usePool p11,
-  usePool p12,
-  usePool p14,
-  usePool p15,
-  usePool p16,
-  usePool p18,
-  usePool p19,
-  usePool p20,
-  usePool p21,
-  usePool p22,
-  usePool p23,
-  usePool p24,
-  usePool p25,
-  usePool p26,
-  usePool p27,
-  usePool p28,
-  usePool p29,
-  usePool p32,
-  usePool p33,
-  usePool p34,
-  usePool p35,
-  usePool p36,
-  usePool p37,
-  usePool p38,
-  usePool p39,
-  usePool p40,
-  usePool p41,
-  usePool p42,
-  usePool p43,
-  usePool p44,
-  usePool p45,
-  usePool p46,
-  usePool p48,
-  usePool p49,
-  usePool p50,
-  usePool p51,
-  usePool p52,
-  usePool p53,
-  usePool p54,
-  usePool p55,
-  usePool p56,
-  usePool p57,
-  usePool p58,
-  usePool p59,
-  usePool p60,
-  usePool p61,
-  usePool p62,
-  usePool p63,
-  usePool p64,
-  usePool p65,
-  usePool p66,
-  usePool p67,
-  usePool p68,
-  usePool p69,
-  usePool p70,
-  usePool p71,
-  usePool p73,
-  usePool p74,
-  usePool p75,
-  usePool p76,
-  usePool p77,
-  usePool p78,
-  usePool p79,
-  usePool p81,
-  usePool p84,
-  usePool p85,
-  usePool p86,
-  usePool p87,
-  usePool p88,
-  usePool p89,
-  usePool p90,
-  usePool p91,
-  usePool p92,
-  usePool p98,
-  usePool p99,
-  usePool p100,
-  usePool p101,
-  usePool p102,
-  usePool p103,
-  usePool p104,
-  usePool p105,
-  usePool p106,
-  usePool p107,
-  usePool p108,
-  usePool p109,
-  usePool p110,
-  usePool p111,
-  usePool p112,
-  usePool p113,
-  usePool p114,
-  usePool p115,
-  usePool p116,
-  usePool p117,
-  usePool p118,
-  usePool p119,
-  usePool p120,
-  usePool p121,
-  usePool p122,
-  usePool p123,
-  usePool p124,
-  usePool p125,
-  usePool p126,
-  usePool p127,
-  usePool p128,
-  usePool p129,
-  usePool p130,
-  usePool p131,
-  usePool p132,
-  usePool p133,
-  usePool p134,
-  usePool p135,
-  usePool p136,
-  usePool p137,
-  usePool p138,
-  usePool p139,
-  usePool p140,
-  usePool p141,
-  usePool p142,
-  usePool p143,
-  usePool p144,
-  usePool p145,
-  usePool p146,
-  usePool p147,
-  usePool p148,
-  usePool p149,
-  usePool p150,
-  usePool p151,
-  usePool p152,
-  usePool p153,
-  usePool p154,
-  usePool p155,
-  usePool p156,
-  usePool p157,
-  usePool p158,
-  usePool p159,
-  usePool p160,
-  usePool p161,
-  usePool p162,
-  usePool p163,
-  usePool p164,
-  usePool p165,
-  usePool p166,
-  usePool p167,
-  usePool p168,
-  usePool p169,
-  usePool p170,
-  usePool p171,
-  usePool p172,
-  usePool p173,
-  usePool p174,
-  usePool p175,
-  usePool p176,
-  usePool p177,
-  usePool p178,
-  usePool p179,
-  usePool p180,
-  usePool p181,
-  usePool p182,
-  usePool p183,
-  usePool p184,
-  usePool p185,
-  usePool p186,
-  usePool p187,
-  usePool p188,
-  usePool p189,
-  usePool p190,
-  usePool p191,
-  usePool p192,
-  usePool p193,
-  usePool p194,
-  usePool p195,
-  usePool p196,
-  usePool p197,
-  usePool p198,
-  usePool p199,
-  usePool p200,
-  usePool p201,
-  usePool p202,
-  usePool p203,
-  usePool p204,
-  usePool p205,
-  usePool p206,
-  usePool p207,
-  usePool p208,
-  usePool p209,
-  usePool p210,
-  usePool p211,
-  usePool p212,
-  usePool p213,
-  usePool p214,
-  usePool p215,
-  usePool p216,
-  usePool p217,
-  usePool p218,
-  usePool p219,
-  usePool p220,
-  usePool p221,
-  usePool p222,
-  usePool p223,
-  usePool p224,
-  usePool p225,
-  usePool p226,
-  usePool p227,
-  usePool p228,
-  usePool p229,
-  usePool p230,
-  usePool p231,
-  usePool p232,
-  usePool p233,
-  usePool p234,
-  usePool p235,
-  usePool p236,
-  usePool p237,
-  usePool p238,
-  usePool p239,
-  usePool p240,
-  usePool p241,
-  usePool p242,
-  usePool p243,
-  usePool p244,
-  usePool p245,
-  usePool p246,
-  usePool p247,
-  usePool p248,
-  usePool p249,
-  usePool p250,
-  usePool p251,
-  usePool p252,
-  usePool p253,
-  usePool p254,
-  usePool p255,
-  usePool p256,
-  usePool p257,
-  usePool p258,
-  usePool p259,
-  usePool p260,
-  usePool p261,
-  usePool p262,
-  usePool p263,
-  usePool p264,
-  usePool p265,
-  usePool p266,
-  usePool p267,
-  usePool p268,
-  usePool p269,
-  usePool p270,
-  usePool p271,
-  usePool p272,
-  usePool p273,
-  usePool p274,
-  usePool p275,
-  usePool p276,
-  usePool p277,
-  usePool p278,
-  usePool p279,
-  usePool p280,
-  usePool p281,
-  usePool p283,
-  usePool p284,
-  joinPools p284 p10,
-  joinPools p284 p81,
-  usePool p285,
-  joinPools p286 p7,
-  usePool p287,
-  usePool p288,
-  usePool p289,
-  usePool p290,
-  usePool p291,
-  usePool p292,
-  usePool p293,
-  usePool p294,
-  usePool p295,
-  usePool p296,
-  usePool p297,
-  usePool p298,
-  usePool p299,
-  usePool p300,
-  usePool p301,
-  usePool p302,
-  usePool p303,
-  usePool p304,
-  usePool p305,
-  usePool p306,
-  usePool p307,
-  joinPools p307 p14,
-  joinPools p307 p29,
-  usePool p308,
-  usePool p309,
-  joinPools p309 p30,
-  joinPools p310 p31,
-  joinPools p311 p282,
-  usePool p312,
-  usePool p313,
-  joinPools p313 p518,
-  joinPools p313 p535,
-  usePool p314,
-  joinPools p315 p616,
-  joinPools p315 p649,
-  joinPools p316 p523,
-  joinPools p316 p606,
-  usePool p317,
-  joinPools p318 p536,
-  usePool p319,
-  usePool p320,
-  usePool p321,
-  usePool p322,
-  joinPools p322 p13,
-  joinPools p322 p83,
-  usePool p323,
-  usePool p324,
-  joinPools p324 p524,
-  joinPools p324 p607,
-  joinPools p324 p620,
-  usePool p325,
-  usePool p326,
-  usePool p327,
-  usePool p328,
-  usePool p329,
-  usePool p330,
-  usePool p331,
-  usePool p332,
-  joinPools p332 p17,
-  joinPools p332 p47,
-  joinPools p332 p517,
-  joinPools p332 p572,
-  usePool p333,
-  usePool p334,
-  joinPools p334 p520,
-  usePool p335,
-  joinPools p335 p624,
-  joinPools p335 p641,
-  usePool p336,
-  usePool p337,
-  joinPools p337 p570,
-  usePool p338,
-  joinPools p338 p16,
-  joinPools p338 p601,
-  usePool p339,
-  joinPools p339 p639,
-  joinPools p339 p640,
-  usePool p340,
-  joinPools p340 p522,
-  joinPools p340 p572,
-  joinPools p340 p605,
-  usePool p341,
-  usePool p342,
-  usePool p343,
-  joinPools p343 p585,
-  joinPools p343 p651,
-  usePool p344,
-  joinPools p344 p72,
-  usePool p345,
-  usePool p346,
-  usePool p347,
-  usePool p348,
-  usePool p349,
-  usePool p350,
-  usePool p351,
-  usePool p352,
-  usePool p353,
-  usePool p354,
-  usePool p355,
-  usePool p356,
-  usePool p357,
-  joinPools p358 p80,
-  usePool p359,
-  usePool p360,
-  joinPools p360 p82,
-  usePool p361,
-  usePool p362,
-  usePool p363,
-  usePool p364,
-  usePool p365,
-  usePool p366,
-  usePool p367,
-  usePool p368,
-  usePool p369,
-  usePool p370,
-  usePool p371,
-  usePool p372,
-  usePool p373,
-  usePool p374,
-  usePool p375,
-  usePool p376,
-  usePool p377,
-  usePool p378,
-  usePool p379,
-  usePool p380,
-  usePool p381,
-  usePool p382,
-  usePool p383,
-  usePool p384,
-  usePool p385,
-  usePool p386,
-  usePool p387,
-  usePool p388,
-  usePool p389,
-  usePool p390,
-  usePool p391,
-  usePool p392,
-  joinPools p392 p94,
-  usePool p393,
-  usePool p394,
-  usePool p395,
-  usePool p396,
-  joinPools p397 p95,
-  usePool p398,
-  usePool p399,
-  usePool p400,
-  usePool p401,
-  usePool p402,
-  usePool p403,
-  joinPools p403 p93,
-  usePool p404,
-  usePool p405,
-  usePool p406,
-  usePool p407,
-  usePool p408,
-  joinPools p408 p94,
-  usePool p409,
-  usePool p410,
-  usePool p411,
-  usePool p412,
-  usePool p413,
-  usePool p414,
-  usePool p415,
-  usePool p416,
-  usePool p417,
-  usePool p418,
-  usePool p419,
-  usePool p420,
-  usePool p421,
-  usePool p422,
-  usePool p423,
-  usePool p424,
-  usePool p425,
-  usePool p426,
-  usePool p427,
-  usePool p428,
-  usePool p429,
-  usePool p430,
-  usePool p431,
-  usePool p432,
-  usePool p433,
-  usePool p434,
-  usePool p435,
-  usePool p436,
-  usePool p437,
-  usePool p438,
-  usePool p439,
-  usePool p440,
-  usePool p441,
-  usePool p442,
-  usePool p443,
-  usePool p444,
-  usePool p445,
-  usePool p446,
-  usePool p447,
-  usePool p448,
-  usePool p449,
-  usePool p450,
-  usePool p451,
-  usePool p452,
-  usePool p453,
-  usePool p454,
-  usePool p455,
-  usePool p456,
-  usePool p457,
-  usePool p458,
-  usePool p459,
-  usePool p460,
-  usePool p461,
-  usePool p462,
-  usePool p463,
-  usePool p464,
-  usePool p465,
-  usePool p466,
-  usePool p467,
-  usePool p468,
-  usePool p469,
-  usePool p470,
-  usePool p471,
-  usePool p472,
-  usePool p473,
-  usePool p474,
-  usePool p475,
-  usePool p476,
-  usePool p477,
-  usePool p478,
-  usePool p479,
-  usePool p480,
-  usePool p481,
-  usePool p482,
-  usePool p483,
-  usePool p484,
-  usePool p485,
-  usePool p486,
-  usePool p487,
-  usePool p488,
-  usePool p489,
-  usePool p490,
-  usePool p491,
-  joinPools p491 p498,
-  usePool p492,
-  joinPools p493 p496,
-  joinPools p494 p194,
-  usePool p495,
-  usePool p497,
-  joinPools p497 p193,
-  joinPools p497 p495,
-  usePool p498,
-  usePool p499,
-  usePool p500,
-  usePool p501,
-  usePool p502,
-  usePool p503,
-  usePool p504,
-  usePool p505,
-  usePool p506,
-  usePool p507,
-  usePool p508,
-  usePool p509,
-  usePool p510,
-  usePool p511,
-  usePool p512,
-  usePool p513,
-  usePool p514,
-  usePool p515,
-  usePool p516,
-  usePool p517,
-  usePool p518,
-  usePool p519,
-  usePool p520,
-  usePool p521,
-  usePool p522,
-  usePool p524,
-  usePool p525,
-  usePool p526,
-  usePool p527,
-  usePool p528,
-  usePool p529,
-  usePool p530,
-  usePool p531,
-  usePool p532,
-  usePool p533,
-  usePool p534,
-  usePool p535,
-  usePool p536,
-  usePool p537,
-  usePool p538,
-  usePool p539,
-  usePool p540,
-  usePool p541,
-  usePool p542,
-  usePool p543,
-  usePool p544,
-  usePool p545,
-  usePool p546,
-  usePool p547,
-  usePool p548,
-  joinPools p548 p96,
-  joinPools p549 p97,
-  usePool p550,
-  usePool p551,
-  usePool p552,
-  usePool p553,
-  usePool p554,
-  usePool p555,
-  usePool p556,
-  usePool p557,
-  usePool p558,
-  usePool p559,
-  usePool p560,
-  usePool p561,
-  usePool p562,
-  usePool p563,
-  usePool p564,
-  usePool p565,
-  usePool p566,
-  usePool p567,
-  usePool p568,
-  usePool p569,
-  usePool p571,
-  usePool p572,
-  usePool p573,
-  usePool p574,
-  usePool p575,
-  usePool p576,
-  usePool p577,
-  usePool p578,
-  usePool p579,
-  usePool p580,
-  usePool p581,
-  usePool p582,
-  usePool p583,
-  usePool p584,
-  usePool p586,
-  usePool p587,
-  usePool p588,
-  usePool p589,
-  usePool p590,
-  usePool p591,
-  usePool p592,
-  usePool p593,
-  usePool p594,
-  usePool p595,
-  usePool p596,
-  usePool p597,
-  usePool p598,
-  usePool p599,
-  usePool p600,
-  usePool p601,
-  usePool p602,
-  usePool p603,
-  usePool p604,
-  usePool p608,
-  usePool p609,
-  usePool p610,
-  usePool p611,
-  usePool p612,
-  usePool p613,
-  usePool p614,
-  usePool p615,
-  usePool p617,
-  usePool p618,
-  usePool p619,
-  usePool p621,
-  usePool p622,
-  usePool p623,
-  usePool p625,
-  usePool p626,
-  usePool p627,
-  usePool p628,
-  usePool p629,
-  usePool p630,
-  usePool p631,
-  usePool p632,
-  usePool p633,
-  usePool p634,
-  usePool p635,
-  usePool p636,
-  usePool p637,
-  usePool p638,
-  usePool p642,
-  usePool p643,
-  usePool p644,
-  usePool p645,
-  usePool p646,
-  usePool p647,
-  usePool p648,
-  usePool p650,
-  usePool p652,
-  usePool p653,
-  usePool p654,
-  usePool p655,
-  usePool p656,
-  usePool p657,
-  usePool p658,
-  usePool p659,
-  usePool p660,
-  usePool p661,
-  usePool p662,
-  usePool p663,
-  usePool p664,
-  usePool p665,
-  usePool p666,
-  usePool p667,
-  usePool p668,
-  usePool p669,
-  usePool p670,
-  usePool p671,
-  usePool p672,
-  usePool p673,
-  usePool p674,
-  usePool p675,
-  usePool p676,
-  usePool p677]
-def rc {k : Nat} (ps : List Nat) (ns : List (Closed T (k-1))) :
-    Nat → List (ChosenPool R T) × List (Closed T (k-1)) :=
-  fun _ => (ps.filterMap (fun i => cs[i]?),ns)
-def cc (k : Nat) (w : List (Observed (asRow Pos) (asRow Neg))) (ps : List Nat)
-    (ns : List (Closed T (k-1))) (h : stateCheck k w (rc (k := k) ps ns) = true) : Closed T k :=
-  closeState (raw := R) correctPairs k w (rc (k := k) ps ns) h
-def n0 := cc 8 [w0,w1,w7,w3,w8,w4,w5] [123,294,526,609] [] (by decide +kernel)
-def n1 := cc 8 [w0,w1,w7,w3,w4,w9,w5] [1,179,405,521] [] (by decide +kernel)
-def n2 := cc 8 [w0,w1,w2,w3,w4,w10,w5] [83,90,127,214,303,405,459,526] [] (by decide +kernel)
-def n3 := cc 8 [w11,w0,w1,w2,w3,w4,w5] [83,90,155,241,313,389,609] [] (by decide +kernel)
-def n4 := cc 8 [w0,w1,w2,w7,w3,w4,w12,w5] [138,178,179,405,609] [] (by decide +kernel)
-def n5 := cc 8 [w0,w1,w2,w7,w3,w4,w5,w13] [83,143,178,231,294,351,517,521,526,609,662] [] (by decide +kernel)
-def v0 : Closed T 8 := rotateClosed n3 auto1 auto1ok
-def v1 : Closed T 8 := rotateClosed n4 auto1 auto1ok
-def v2 : Closed T 8 := rotateClosed n2 auto1 auto1ok
-def v3 : Closed T 8 := rotateClosed n1 auto1 auto1ok
-def n6 := cc 9 [w0,w1,w2,w7,w3,w4,w5] [0,97,178,179,184,294,405,472] [n3,v0,n4,v1,n5,n2,v2,n0,n1,v3] (by decide +kernel)
-def n7 := cc 8 [w0,w1,w2,w3,w4,w14,w15] [2,136,222,664] [] (by decide +kernel)
-def n8 := cc 8 [w17,w0,w1,w2,w3,w4,w5] [0,179,269,431,521] [] (by decide +kernel)
-def n9 := cc 8 [w0,w1,w2,w3,w4,w14,w18] [90,142,179,269,527] [] (by decide +kernel)
-def n10 := cc 8 [w0,w1,w2,w3,w4,w14,w13] [90,143,223,420,517,608,672] [] (by decide +kernel)
-def n11 := cc 8 [w0,w1,w2,w3,w4,w5,w19] [83,90,143,179,184,320,420,483,527] [] (by decide +kernel)
-def n12 := cc 8 [w20,w0,w1,w2,w3,w4,w5] [90,161,325,438,610,666] [] (by decide +kernel)
-def v4 : Closed T 8 := rotateClosed n7 auto1 auto1ok
-def v5 : Closed T 8 := rotateClosed n9 auto1 auto1ok
-def v6 : Closed T 8 := rotateClosed n10 auto1 auto1ok
-def n13 := cc 9 [w0,w1,w2,w3,w4,w16,w5] [97,214,315,389,459,525,666,671] [n12,n8,n2,n11,v4,v5,v6] (by decide +kernel)
-def n14 := cc 8 [w21,w0,w1,w2,w3,w4,w5] [123,251,525,608] [] (by decide +kernel)
-def n15 := cc 9 [w6,w0,w1,w2,w3,w8,w4,w5] [123,184,269,525,608] [n14,n0] (by decide +kernel)
-def n16 := cc 8 [w22,w0,w1,w2,w3,w4,w5] [0,269,448,672] [] (by decide +kernel)
-def n17 := cc 9 [w6,w0,w1,w2,w3,w4,w9,w5] [97,184,331,389,525,672] [n16,n2,v4,n1] (by decide +kernel)
-def n18 := cc 8 [w23,w0,w1,w2,w3,w4,w5] [179,183,184,450,608] [] (by decide +kernel)
-def n19 := cc 9 [w6,w0,w1,w2,w3,w4,w12,w5] [138,179,225,269,389,608] [n18,n4,v5] (by decide +kernel)
-def n20 := cc 8 [w24,w0,w1,w2,w3,w4,w5] [143,184,356,529,611,662,671,672] [] (by decide +kernel)
-def n21 := cc 9 [w6,w0,w1,w2,w3,w4,w5,w13] [83,143,231,351,389,459,525,608,662,671,672] [n20,n5,n11,n10,v6] (by decide +kernel)
-def v7 : Closed T 9 := rotateClosed n17 auto1 auto1ok
-def v8 : Closed T 9 := rotateClosed n19 auto1 auto1ok
-def v9 : Closed T 9 := rotateClosed n13 auto1 auto1ok
-def n22 := cc 10 [w6,w0,w1,w2,w3,w4,w5] [0,97,184,269,389,459] [n15,n17,v7,n19,v8,n21,n6,n13,v9] (by decide +kernel)
-def n23 := cc 10 [w0,w1,w25,w2,w3,w4,w5] [97,184,269,389,459] [] (by decide +kernel)
-def n24 := cc 9 [w0,w1,w2,w27,w4,w5] [0,97,184,389] [] (by decide +kernel)
-def n25 := cc 9 [w0,w1,w28,w2,w4,w5] [97,184,269,389] [] (by decide +kernel)
-def n26 := cc 10 [w26,w0,w1,w2,w3,w4,w5] [97,184,269,389,459] [n25,n24] (by decide +kernel)
-def n27 := cc 8 [w30,w0,w31,w2,w3,w4,w5] [97,179,184,267,517] [] (by decide +kernel)
-def n28 := cc 8 [w0,w1,w2,w3,w4,w32,w5] [83,90,152,238,311,459,595] [] (by decide +kernel)
-def n29 := cc 8 [w33,w0,w1,w2,w3,w4,w5] [83,90,136,222,306,389,472,654] [] (by decide +kernel)
-def n30 := cc 8 [w30,w0,w1,w2,w3,w4,w5,w13] [83,143,294,351,472,517,595,654,662] [] (by decide +kernel)
-def v10 : Closed T 8 := rotateClosed n29 auto1 auto1ok
-def v11 : Closed T 8 := rotateClosed n28 auto1 auto1ok
-def n31 := cc 9 [w30,w0,w1,w2,w3,w4,w5] [0,97,184,267,294,389,472,517,521] [n29,v10,n27,n30,n28,v11] (by decide +kernel)
-def n32 := cc 8 [w34,w0,w35,w2,w3,w4,w5] [97,267,664] [] (by decide +kernel)
-def n33 := cc 8 [w0,w1,w2,w36,w3,w4,w5] [0,171,269,491,517] [] (by decide +kernel)
-def n34 := cc 8 [w0,w1,w2,w3,w4,w37,w5] [83,177,179,224,330,496,596] [] (by decide +kernel)
-def n35 := cc 8 [w38,w0,w1,w2,w3,w4,w5] [83,143,179,218,320,483,596] [] (by decide +kernel)
-def n36 := cc 7 [w34,w0,w1,w2,w3,w9,w13] [45,76,93,131,223,420,512] [] (by decide +kernel)
-def n37 := cc 8 [w34,w0,w1,w2,w3,w4,w9,w5] [43,75,83,127,222,327,331,512,664] [n36] (by decide +kernel)
-def n38 := cc 8 [w34,w0,w1,w2,w3,w4,w13] [90,143,329,420,517,653] [n36] (by decide +kernel)
-def n39 := cc 9 [w34,w0,w1,w2,w3,w4,w5] [97,222,327,389,459,653,664,670] [n35,n29,n32,n37,n38,n33,n34] (by decide +kernel)
-def n40 := cc 8 [w40,w29,w0,w2,w3,w4,w5] [136,269,459,671] [] (by decide +kernel)
-def n41 := cc 8 [w39,w29,w0,w2,w3,w4,w5,w13] [143,231,269,586,649,671,672] [] (by decide +kernel)
-def v12 : Closed T 8 := rotateClosed n40 auto1 auto1ok
-def n42 := cc 9 [w39,w29,w0,w2,w3,w4,w5] [97,184,267,269,389,459] [n40,v12,n41] (by decide +kernel)
-def n43 := cc 8 [w29,w0,w2,w42,w3,w4,w5] [123,269,671,672] [] (by decide +kernel)
-def n44 := cc 8 [w29,w0,w2,w3,w4,w43,w5] [138,179,269,389,676] [] (by decide +kernel)
-def n45 := cc 7 [w29,w0,w41,w2,w3,w4,w15,w13] [137,184,268,349,350,389] [] (by decide +kernel)
-def n46 := cc 6 [w29,w45,w41,w2,w3,w4,w5] [88,94,179] [] (by decide +kernel)
-def n47 := cc 7 [w29,w0,w41,w2,w3,w4,w5,w44] [88,132,179,267,269,341] [n46] (by decide +kernel)
-def n48 := cc 7 [w46,w29,w0,w41,w2,w3,w4,w5] [134,344,523] [] (by decide +kernel)
-def v13 : Closed T 7 := rotateClosed n45 auto1 auto1ok
-def n49 := cc 8 [w29,w0,w41,w2,w3,w4,w9,w5] [127,179,184,267,331,335,459,514,594,675] [n48,n47,v13] (by decide +kernel)
-def n50 := cc 6 [w29,w0,w48,w2,w3,w4,w5] [] [] (by decide +kernel)
-def n51 := cc 7 [w47,w29,w0,w41,w2,w3,w4,w5] [74,146,269,358,359] [n50] (by decide +kernel)
-def n52 := cc 8 [w29,w0,w41,w2,w3,w4,w5,w13] [143,184,267,351,353,459,594,663,671,675] [n51,n47,n45,v13] (by decide +kernel)
-def v14 : Closed T 8 := rotateClosed n49 auto1 auto1ok
-def v15 : Closed T 8 := rotateClosed n44 auto1 auto1ok
-def n53 := cc 9 [w29,w0,w41,w2,w3,w4,w5] [97,184,269,389,459] [n49,v14,n52,n43,n44,v15] (by decide +kernel)
-def n54 := cc 8 [w50,w29,w0,w2,w3,w4,w5] [143,179,267,389,459] [] (by decide +kernel)
-def n55 := cc 7 [w49,w29,w0,w2,w3,w9,w13] [72,131,231,487,662,672] [] (by decide +kernel)
-def n56 := cc 8 [w49,w29,w0,w2,w3,w4,w9,w5] [71,127,179,184,331,389,487] [n55] (by decide +kernel)
-def n57 := cc 8 [w49,w29,w0,w2,w3,w4,w13] [143,351,459,653,675] [n55] (by decide +kernel)
-def n58 := cc 9 [w49,w29,w0,w2,w3,w4,w5] [97,184,269,389,459,653] [n54,n40,n56,n57] (by decide +kernel)
-def n59 := cc 8 [w51,w0,w1,w2,w3,w4,w5] [123,267,594,653] [] (by decide +kernel)
-def n60 := cc 9 [w29,w0,w1,w2,w3,w8,w4,w5] [123,184,271,594,653] [n59] (by decide +kernel)
-def n61 := cc 8 [w52,w0,w1,w2,w3,w4,w5] [127,254,682] [] (by decide +kernel)
-def v16 : Closed T 7 := rotateClosed n36 auto1 auto1ok
-def v17 : Closed T 7 := rotateClosed n55 auto1 auto1ok
-def n62 := cc 8 [w29,w0,w1,w2,w3,w4,w15,w13] [94,137,231,348,653,662,671,680] [v16,v17,n45] (by decide +kernel)
-def n63 := cc 6 [w53,w45,w1,w2,w3,w4,w5] [83,90,179] [] (by decide +kernel)
-def n64 := cc 7 [w29,w45,w1,w2,w3,w4,w5] [132,179,428,488] [n63,n46] (by decide +kernel)
-def n65 := cc 8 [w29,w0,w1,w2,w3,w4,w5,w44] [46,132,179,267,339,427,487] [n64,n47] (by decide +kernel)
-def n66 := cc 8 [w46,w29,w0,w1,w2,w3,w4,w5] [50,90,134,179,247,267,343,445,487,523] [n48] (by decide +kernel)
-def v18 : Closed T 8 := rotateClosed n62 auto1 auto1ok
-def n67 := cc 9 [w29,w0,w1,w2,w3,w4,w9,w5] [127,184,331,389,459,512,594,672] [v10,v12,n37,n56,n66,n61,n49,n65,v18] (by decide +kernel)
-def n68 := cc 8 [w54,w0,w1,w2,w3,w4,w5] [138,179,184,267,450,653] [] (by decide +kernel)
-def n69 := cc 8 [w55,w29,w0,w1,w2,w3,w4,w5] [140,267,454,653] [] (by decide +kernel)
-def n70 := cc 9 [w29,w0,w1,w2,w3,w4,w12,w5] [138,184,267,271,389,653] [n69,n68] (by decide +kernel)
-def n71 := cc 8 [w56,w0,w1,w2,w3,w4,w5] [143,179,184,267,452,505] [] (by decide +kernel)
-def n72 := cc 8 [w47,w29,w0,w1,w2,w3,w4,w5] [58,146,179,267,357,455,508] [n51] (by decide +kernel)
-def v19 : Closed T 8 := rotateClosed n38 auto1 auto1ok
-def v20 : Closed T 8 := rotateClosed n57 auto1 auto1ok
-def n73 := cc 9 [w29,w0,w1,w2,w3,w4,w5,w13] [143,231,351,389,459,594,653,675,684] [n35,n54,n38,v19,n57,v20,n30,n41,n72,n71,n52,n65,n62,v18] (by decide +kernel)
-def v21 : Closed T 9 := rotateClosed n39 auto1 auto1ok
-def v22 : Closed T 9 := rotateClosed n58 auto1 auto1ok
-def v23 : Closed T 9 := rotateClosed n67 auto1 auto1ok
-def v24 : Closed T 9 := rotateClosed n70 auto1 auto1ok
-def n74 := cc 10 [w29,w0,w1,w2,w3,w4,w5] [0,97,184,269,389,459] [n39,v21,n58,v22,n31,n42,n53,n60,n67,v23,n70,v24,n73] (by decide +kernel)
-def n75 := cc 9 [w0,w58,w2,w3,w4,w5] [97,184,269,389] [] (by decide +kernel)
-def n76 := cc 7 [w59,w0,w2,w3,w4,w61] [111,199,273,390] [] (by decide +kernel)
-def n77 := cc 7 [w63,w59,w0,w2,w3,w5] [117,203,375,390] [] (by decide +kernel)
-def n78 := cc 6 [w64,w59,w0,w2,w4] [182,267,533,615] [] (by decide +kernel)
-def v25 : Closed T 6 := rotateClosed n78 auto1 auto1ok
-def n79 := cc 7 [w59,w0,w2,w60,w12,w5] [6,112,200,272] [v25] (by decide +kernel)
-def v26 : Closed T 7 := rotateClosed n77 auto1 auto1ok
-def n80 := cc 8 [w59,w0,w2,w60,w3,w4,w5] [198,272,675] [v26,n79,n76] (by decide +kernel)
-def n81 := cc 8 [w59,w0,w2,w3,w4,w12,w5] [138,225,533,615] [n79] (by decide +kernel)
-def n82 := cc 7 [w65,w66,w59,w0,w2,w4] [6,160,246,272] [n78] (by decide +kernel)
-def n83 := cc 8 [w65,w59,w0,w2,w3,w4,w5] [159,245,272,615] [n82] (by decide +kernel)
-def v27 : Closed T 7 := rotateClosed n82 auto1 auto1ok
-def n84 := cc 8 [w67,w59,w0,w2,w3,w4,w5] [173,261,390,615] [v27] (by decide +kernel)
-def n85 := cc 6 [w69,w59,w0,w2,w3] [512,533,669] [] (by decide +kernel)
-def n86 := cc 7 [w59,w0,w2,w3,w68,w13] [7,206,675] [n85] (by decide +kernel)
-def n87 := cc 8 [w59,w0,w2,w3,w68,w4,w5] [6,118,204,272,390,460] [n86] (by decide +kernel)
-def n88 := cc 8 [w59,w0,w2,w3,w4,w5,w13] [231,272,533,615,675] [n86] (by decide +kernel)
-def n89 := cc 7 [w70,w71,w59,w0,w2,w3] [163,250,390,460] [n85] (by decide +kernel)
-def n90 := cc 8 [w70,w59,w0,w2,w3,w4,w5] [143,161,247,460,533] [n89] (by decide +kernel)
-def v28 : Closed T 8 := rotateClosed n83 auto1 auto1ok
-def v29 : Closed T 8 := rotateClosed n90 auto1 auto1ok
-def v30 : Closed T 8 := rotateClosed n84 auto1 auto1ok
-def v31 : Closed T 8 := rotateClosed n80 auto1 auto1ok
-def v32 : Closed T 8 := rotateClosed n81 auto1 auto1ok
-def n91 := cc 9 [w59,w0,w2,w3,w4,w5] [97,184] [n83,v28,n90,v29,n84,v30,n80,v31,n87,n81,v32,n88] (by decide +kernel)
-def n92 := cc 9 [w0,w1,w2,w72,w4,w5] [97,184,524] [] (by decide +kernel)
-def n93 := cc 6 [w69,w73,w0,w1,w2] [512,669,673] [] (by decide +kernel)
-def n94 := cc 7 [w73,w0,w1,w2,w68,w13] [206,293,675] [n93] (by decide +kernel)
-def n95 := cc 8 [w73,w0,w1,w2,w68,w4,w5] [118,204,290,392,462] [n94] (by decide +kernel)
-def n96 := cc 8 [w73,w0,w1,w2,w4,w5,w13] [143,231,351,392,462] [n94] (by decide +kernel)
-def n97 := cc 7 [w70,w71,w73,w0,w1,w2] [163,250,376,392,462] [n93] (by decide +kernel)
-def n98 := cc 8 [w70,w73,w0,w1,w2,w4,w5] [143,161,247,374,392,462] [n97] (by decide +kernel)
-def v33 : Closed T 8 := rotateClosed n98 auto1 auto1ok
-def n99 := cc 9 [w73,w0,w1,w2,w4,w5] [97,184,269] [n98,v33,n95,n96] (by decide +kernel)
-def n100 := cc 7 [w0,w1,w2,w3,w4,w75] [111,199,275,391] [] (by decide +kernel)
-def n101 := cc 7 [w77,w0,w1,w2,w3,w5] [117,203,274,461] [] (by decide +kernel)
-def n102 := cc 6 [w64,w0,w1,w2,w76] [182,274,511,613] [] (by decide +kernel)
-def v34 : Closed T 6 := rotateClosed n102 auto1 auto1ok
-def n103 := cc 7 [w0,w1,w2,w60,w12,w74] [5,112,200,275] [v34] (by decide +kernel)
-def v35 : Closed T 7 := rotateClosed n101 auto1 auto1ok
-def n104 := cc 8 [w0,w1,w2,w60,w3,w4,w74] [90,110,198,275,391,518] [v35,n103,n100] (by decide +kernel)
-def n105 := cc 8 [w0,w1,w2,w3,w4,w12,w74] [225,531,674] [n103] (by decide +kernel)
-def n106 := cc 7 [w65,w66,w0,w1,w2,w76] [4,160,246,274] [n102] (by decide +kernel)
-def n107 := cc 8 [w65,w0,w1,w2,w3,w76,w5] [159,245,274,613] [n106] (by decide +kernel)
-def v36 : Closed T 7 := rotateClosed n106 auto1 auto1ok
-def n108 := cc 8 [w67,w0,w1,w2,w3,w4,w74] [5,173,261,391,664] [v36] (by decide +kernel)
-def n109 := cc 7 [w0,w1,w2,w3,w76,w79] [111,274,512] [] (by decide +kernel)
-def n110 := cc 7 [w81,w0,w1,w2,w3,w74] [117,203,275,391] [] (by decide +kernel)
-def n111 := cc 6 [w83,w0,w1,w2,w4] [182,275,511,531] [] (by decide +kernel)
-def v37 : Closed T 6 := rotateClosed n111 auto1 auto1ok
-def n112 := cc 7 [w0,w1,w2,w78,w84,w5] [4,112,200,274] [v37] (by decide +kernel)
-def v38 : Closed T 7 := rotateClosed n110 auto1 auto1ok
-def n113 := cc 8 [w0,w1,w2,w78,w3,w76,w5] [198,274,675] [v38,n112,n109] (by decide +kernel)
-def v39 : Closed T 7 := rotateClosed n112 auto1 auto1ok
-def n114 := cc 8 [w0,w1,w2,w3,w4,w74,w82] [90,142,230,531] [v39] (by decide +kernel)
-def n115 := cc 7 [w85,w86,w0,w1,w2,w4] [5,160,246,275] [n111] (by decide +kernel)
-def n116 := cc 8 [w85,w0,w1,w2,w3,w4,w74] [159,245,275,664] [n115] (by decide +kernel)
-def v40 : Closed T 7 := rotateClosed n115 auto1 auto1ok
-def n117 := cc 8 [w87,w0,w1,w2,w3,w76,w5] [83,110,173,261,613] [v40] (by decide +kernel)
-def n118 := cc 6 [w90,w0,w1,w2,w3] [512,613,669] [] (by decide +kernel)
-def v41 : Closed T 6 := rotateClosed n118 auto1 auto1ok
-def n119 := cc 7 [w0,w1,w2,w3,w91,w89] [90,121,206,531] [v41] (by decide +kernel)
-def n120 := cc 8 [w0,w1,w2,w3,w91,w4,w74] [90,118,177,204,391,531] [n119] (by decide +kernel)
-def n121 := cc 8 [w0,w1,w2,w3,w4,w74,w89] [143,231,275,531,664,674] [n119] (by decide +kernel)
-def n122 := cc 7 [w92,w93,w0,w1,w2,w3] [163,391,518] [v41] (by decide +kernel)
-def n123 := cc 8 [w92,w0,w1,w2,w3,w4,w74] [90,161,247,391,531] [n122] (by decide +kernel)
-def v42 : Closed T 7 := rotateClosed n122 auto1 auto1ok
-def n124 := cc 8 [w94,w0,w1,w2,w3,w76,w5] [83,161,274,512,613] [v42] (by decide +kernel)
-def v43 : Closed T 8 := rotateClosed n107 auto1 auto1ok
-def v44 : Closed T 8 := rotateClosed n124 auto1 auto1ok
-def v45 : Closed T 8 := rotateClosed n117 auto1 auto1ok
-def v46 : Closed T 8 := rotateClosed n113 auto1 auto1ok
-def n125 := cc 9 [w0,w1,w2,w3,w4,w74] [97,184] [n116,n123,v43,v44,n108,v45,n104,v46,n120,n105,n114,n121] (by decide +kernel)
-def n126 := cc 7 [w0,w1,w2,w3,w76,w61] [111,274,512] [] (by decide +kernel)
-def n127 := cc 7 [w63,w0,w1,w2,w3,w74] [117,203,275,391] [] (by decide +kernel)
-def v47 : Closed T 7 := rotateClosed n127 auto1 auto1ok
-def n128 := cc 8 [w0,w1,w2,w60,w3,w76,w5] [198,530,675] [v47,n126] (by decide +kernel)
-def n129 := cc 8 [w0,w1,w2,w3,w4,w74,w18] [90,142,230,269,531] [] (by decide +kernel)
-def n130 := cc 8 [w65,w0,w1,w2,w3,w4,w74] [90,159,245,275,612] [] (by decide +kernel)
-def n131 := cc 8 [w67,w0,w1,w2,w3,w76,w5] [83,110,173,261,269,613] [] (by decide +kernel)
-def n132 := cc 6 [w95,w0,w1,w2,w3] [512,531,669] [] (by decide +kernel)
-def n133 := cc 7 [w0,w1,w2,w3,w68,w89] [83,121,206,531] [n132] (by decide +kernel)
-def n134 := cc 8 [w0,w1,w2,w3,w68,w4,w74] [90,118,177,204,391,531] [n133] (by decide +kernel)
-def n135 := cc 8 [w0,w1,w2,w3,w4,w74,w13] [90,143,231,275,389,531,612] [] (by decide +kernel)
-def n136 := cc 8 [w70,w0,w1,w2,w3,w76,w5] [83,118,161,247,390,459,461,530] [] (by decide +kernel)
-def n137 := cc 7 [w70,w93,w0,w1,w2,w3] [83,163,531] [n132] (by decide +kernel)
-def n138 := cc 8 [w70,w0,w1,w2,w3,w4,w74] [90,161,247,391,531] [n137] (by decide +kernel)
-def n139 := cc 8 [w0,w1,w2,w3,w4,w5,w89] [83,143,161,231,269,531,613] [n133] (by decide +kernel)
-def v48 : Closed T 7 := rotateClosed n137 auto1 auto1ok
-def n140 := cc 8 [w94,w0,w1,w2,w3,w4,w5] [83,90,161,247,269,532,613] [v48] (by decide +kernel)
-def v49 : Closed T 8 := rotateClosed n130 auto1 auto1ok
-def v50 : Closed T 8 := rotateClosed n138 auto1 auto1ok
-def v51 : Closed T 8 := rotateClosed n134 auto1 auto1ok
-def v52 : Closed T 8 := rotateClosed n129 auto1 auto1ok
-def v53 : Closed T 8 := rotateClosed n135 auto1 auto1ok
-def n141 := cc 9 [w0,w1,w2,w3,w4,w76,w5] [97,184,269,459,530,666,675] [v49,v50,n136,n140,n131,n128,v51,n139,v52,v53] (by decide +kernel)
-def n142 := cc 9 [w96,w0,w1,w2,w3,w5] [97,184,524] [] (by decide +kernel)
-def n143 := cc 6 [w98,w0,w1,w2,w4] [182,277,511,531] [] (by decide +kernel)
-def v54 : Closed T 6 := rotateClosed n143 auto1 auto1ok
-def n144 := cc 7 [w0,w1,w2,w99,w12,w5] [112,182,200,613] [v54] (by decide +kernel)
-def n145 := cc 8 [w0,w1,w2,w3,w99,w4,w5] [90,182,198,390,459] [n100,n144] (by decide +kernel)
-def n146 := cc 7 [w101,w0,w1,w2,w3,w5] [115,202,276,463] [] (by decide +kernel)
-def v55 : Closed T 7 := rotateClosed n146 auto1 auto1ok
-def n147 := cc 8 [w57,w0,w1,w2,w3,w4,w61] [53,90,111,199,272,390,662] [n76,v55,n100,n126] (by decide +kernel)
-def n148 := cc 7 [w102,w0,w1,w2,w3,w5] [117,203,274,461] [] (by decide +kernel)
-def n149 := cc 8 [w63,w57,w0,w1,w2,w3,w5] [73,117,203,272,390,460] [n77,n127,n148] (by decide +kernel)
-def n150 := cc 7 [w103,w0,w1,w2,w60,w5] [183,200,276] [v54] (by decide +kernel)
-def n151 := cc 7 [w64,w57,w0,w1,w2,w4] [182,272,511,530,612] [n143,n78,n102] (by decide +kernel)
-def v56 : Closed T 7 := rotateClosed n151 auto1 auto1ok
-def n152 := cc 8 [w57,w0,w1,w2,w60,w12,w5] [112,200,272,612] [v56,n79,n150,n103,n144] (by decide +kernel)
-def v57 : Closed T 8 := rotateClosed n149 auto1 auto1ok
-def n153 := cc 9 [w57,w0,w1,w2,w60,w3,w4,w5] [198,272,389,607,675] [v57,n80,n152,n147,n104,n128,n145] (by decide +kernel)
-def n154 := cc 8 [w103,w0,w1,w2,w3,w4,w5] [138,225,276,530,612] [n150] (by decide +kernel)
-def n155 := cc 9 [w57,w0,w1,w2,w3,w4,w12,w5] [138,225,269,530,612] [n81,n154,n152,n105,v52] (by decide +kernel)
-def n156 := cc 7 [w65,w104,w0,w1,w2,w4] [160,246,530,612] [] (by decide +kernel)
-def n157 := cc 8 [w65,w66,w57,w0,w1,w2,w4] [160,246,272,530,607] [n82,n106,n156,n151] (by decide +kernel)
-def n158 := cc 9 [w65,w57,w0,w1,w2,w3,w4,w5] [245,272,524,612,675] [n157,n83,n130,n107] (by decide +kernel)
-def v58 : Closed T 7 := rotateClosed n156 auto1 auto1ok
-def n159 := cc 8 [w105,w0,w1,w2,w3,w4,w5] [173,261,390,612] [v58] (by decide +kernel)
-def v59 : Closed T 8 := rotateClosed n157 auto1 auto1ok
-def n160 := cc 9 [w67,w57,w0,w1,w2,w3,w4,w5] [173,261,269,390,612] [v59,n84,n108,n131,n159] (by decide +kernel)
-def n161 := cc 6 [w107,w0,w1,w2,w3] [393,515,534,662] [] (by decide +kernel)
-def n162 := cc 7 [w0,w1,w2,w3,w106,w13] [121,512,530,662] [n161] (by decide +kernel)
-def n163 := cc 8 [w0,w1,w2,w3,w4,w106,w5] [118,204,460,530] [n162] (by decide +kernel)
-def n164 := cc 7 [w108,w0,w1,w2,w3,w68] [121,206,534,662] [n161] (by decide +kernel)
-def n165 := cc 6 [w109,w0,w1,w2,w3] [512,531,669] [] (by decide +kernel)
-def n166 := cc 7 [w69,w57,w0,w1,w2,w3] [389,512,530,662,664,669] [n161,n85,n93,n165] (by decide +kernel)
-def n167 := cc 8 [w57,w0,w1,w2,w3,w68,w13] [206,389,530,675] [n166,n86,n94,n164,n133,n162] (by decide +kernel)
-def n168 := cc 9 [w57,w0,w1,w2,w3,w68,w4,w5] [3,118,204,272,290,390,460,524] [n87,n95,n167,n134,v51,n163] (by decide +kernel)
-def n169 := cc 8 [w108,w0,w1,w2,w3,w4,w5] [143,231,269,534,616,662] [n164] (by decide +kernel)
-def n170 := cc 9 [w57,w0,w1,w2,w3,w4,w5,w13] [231,272,351,459,524,530,612,675] [n88,n96,n169,n167,n139,n135,v53] (by decide +kernel)
-def n171 := cc 7 [w70,w110,w0,w1,w2,w3] [163,391,518] [n165] (by decide +kernel)
-def v60 : Closed T 7 := rotateClosed n171 auto1 auto1ok
-def n172 := cc 8 [w111,w0,w1,w2,w3,w4,w5] [143,161,461,512,530] [v60] (by decide +kernel)
-def n173 := cc 8 [w70,w71,w57,w0,w1,w2,w3] [163,250,376,390,460,524] [n89,n97,n171,v60,n166] (by decide +kernel)
-def n174 := cc 9 [w70,w57,w0,w1,w2,w3,w4,w5] [90,143,161,247,459,460,530] [n173,n90,n98,n138,n136,n172] (by decide +kernel)
-def v61 : Closed T 9 := rotateClosed n158 auto1 auto1ok
-def v62 : Closed T 9 := rotateClosed n174 auto1 auto1ok
-def v63 : Closed T 9 := rotateClosed n160 auto1 auto1ok
-def v64 : Closed T 9 := rotateClosed n142 auto1 auto1ok
-def v65 : Closed T 9 := rotateClosed n153 auto1 auto1ok
-def v66 : Closed T 9 := rotateClosed n155 auto1 auto1ok
-def v67 : Closed T 9 := rotateClosed n141 auto1 auto1ok
-def v68 : Closed T 9 := rotateClosed n125 auto1 auto1ok
-def n175 := cc 10 [w57,w0,w1,w2,w3,w4,w5] [0,97,184,269,389,459] [n158,v61,n174,v62,n160,v63,n91,n99,n142,v64,n153,v65,n168,n155,v66,n170,n141,v67,n125,v68,n92,n75] (by decide +kernel)
-def n176 := cc 8 [w113,w0,w1,w114,w3,w4,w5] [164,179,556,632] [] (by decide +kernel)
-def n177 := cc 9 [w0,w1,w2,w114,w3,w112,w4,w5] [97,178,179,184,208,269,556,632] [n176] (by decide +kernel)
-def n178 := cc 8 [w0,w1,w116,w114,w3,w4,w5] [179,294,517,521] [] (by decide +kernel)
-def n179 := cc 8 [w0,w1,w2,w114,w3,w4,w117,w5] [138,187,671,674] [] (by decide +kernel)
-def n180 := cc 8 [w115,w0,w1,w114,w3,w4,w9,w5] [183,302,556,672] [] (by decide +kernel)
-def n181 := cc 8 [w118,w115,w0,w1,w114,w3,w4,w5] [251,372,672,674] [] (by decide +kernel)
-def n182 := cc 8 [w115,w0,w1,w2,w3,w4,w119,w5] [303,556,672] [] (by decide +kernel)
-def n183 := cc 8 [w120,w115,w0,w1,w2,w3,w4,w5] [178,313,672,674] [] (by decide +kernel)
-def n184 := cc 8 [w115,w0,w1,w2,w114,w4,w12,w5] [138,178,179,253,294,556,632] [] (by decide +kernel)
-def n185 := cc 8 [w115,w0,w1,w2,w114,w3,w4,w5,w13] [178,294,351,671,672,673,674] [] (by decide +kernel)
-def v69 : Closed T 8 := rotateClosed n181 auto1 auto1ok
-def v70 : Closed T 8 := rotateClosed n183 auto1 auto1ok
-def v71 : Closed T 8 := rotateClosed n184 auto1 auto1ok
-def v72 : Closed T 8 := rotateClosed n182 auto1 auto1ok
-def v73 : Closed T 8 := rotateClosed n180 auto1 auto1ok
-def v74 : Closed T 8 := rotateClosed n179 auto1 auto1ok
-def n186 := cc 9 [w115,w0,w1,w2,w114,w3,w4,w5] [0,97,178,179,184,251,294,556,632] [n181,v69,n183,v70,n185,n184,v71,n182,v72,n180,v73,n179,v74,n178] (by decide +kernel)
-def n187 := cc 8 [w0,w1,w114,w3,w4,w121,w15] [91,136,459,632,670,671] [] (by decide +kernel)
-def n188 := cc 7 [w120,w122,w0,w1,w3,w4] [90,157,517] [] (by decide +kernel)
-def v75 : Closed T 7 := rotateClosed n188 auto1 auto1ok
-def n189 := cc 8 [w124,w0,w1,w114,w3,w4,w5] [165,517,521] [v75] (by decide +kernel)
-def n190 := cc 8 [w120,w0,w1,w2,w3,w4,w121] [155,178,664] [n188] (by decide +kernel)
-def n191 := cc 8 [w0,w1,w2,w3,w4,w119,w5] [30,83,90,127,214,303,405,459] [] (by decide +kernel)
-def n192 := cc 8 [w0,w1,w2,w114,w3,w4,w121,w13] [143,178,329,517,632,672,675] [] (by decide +kernel)
-def n193 := cc 8 [w0,w1,w2,w114,w3,w4,w5,w125] [143,184,294,320,559,671,672,675] [] (by decide +kernel)
-def v76 : Closed T 8 := rotateClosed n190 auto1 auto1ok
-def v77 : Closed T 8 := rotateClosed n192 auto1 auto1ok
-def v78 : Closed T 8 := rotateClosed n187 auto1 auto1ok
-def n194 := cc 9 [w0,w1,w2,w114,w3,w4,w123,w5] [97,184,294,315,389,483,556,671,672,675] [v76,n189,n193,v77,n191,v78] (by decide +kernel)
-def n195 := cc 8 [w0,w1,w127,w114,w3,w4,w5] [127,405,521] [] (by decide +kernel)
-def n196 := cc 8 [w0,w1,w2,w114,w3,w4,w129,w5] [83,84,143,184,472,521,632,662,671] [] (by decide +kernel)
-def n197 := cc 8 [w126,w0,w1,w114,w3,w9,w5] [405,672] [] (by decide +kernel)
-def n198 := cc 8 [w120,w128,w0,w1,w2,w3,w4] [155,178,521,632] [] (by decide +kernel)
-def n199 := cc 8 [w126,w0,w1,w2,w114,w3,w5,w13] [143,178,517,521,556,662,665,670] [] (by decide +kernel)
-def v79 : Closed T 8 := rotateClosed n198 auto1 auto1ok
-def v80 : Closed T 8 := rotateClosed n196 auto1 auto1ok
-def n200 := cc 9 [w126,w0,w1,w2,w114,w3,w4,w5] [97,184,472,505,517,556,675] [v79,n199,n197,v80,n191,n195] (by decide +kernel)
-def n201 := cc 8 [w0,w1,w2,w3,w4,w130,w5] [83,90,127,214,303,405,459,557] [] (by decide +kernel)
-def n202 := cc 8 [w131,w0,w1,w2,w3,w4,w5] [83,90,155,241,313,389,633] [] (by decide +kernel)
-def n203 := cc 8 [w0,w31,w1,w2,w3,w4,w5,w13] [83,90,143,231,472,662,680] [] (by decide +kernel)
-def v81 : Closed T 8 := rotateClosed n202 auto1 auto1ok
-def v82 : Closed T 8 := rotateClosed n201 auto1 auto1ok
-def n204 := cc 9 [w0,w31,w1,w2,w3,w4,w5] [0,97,184,294,389,472,680,682] [n202,v81,n27,n203,n201,v82] (by decide +kernel)
-def n205 := cc 8 [w0,w1,w2,w114,w3,w4,w130,w5] [178,303,405,557,676] [] (by decide +kernel)
-def n206 := cc 8 [w0,w31,w1,w114,w3,w4,w9,w5] [28,178,302,405,521] [] (by decide +kernel)
-def n207 := cc 8 [w0,w31,w1,w2,w3,w4,w119,w5] [27,30,178,303,405,521] [] (by decide +kernel)
-def n208 := cc 7 [w132,w0,w1,w2,w114,w3,w4,w5] [27,33] [] (by decide +kernel)
-def n209 := cc 8 [w0,w31,w1,w2,w114,w3,w4,w12,w5] [27,178,179,267,294,296,405,676] [n208] (by decide +kernel)
-def n210 := cc 7 [w133,w0,w1,w2,w114,w3,w4,w5] [132,146] [] (by decide +kernel)
-def n211 := cc 6 [w31,w135,w2,w114,w3,w4,w5] [] [] (by decide +kernel)
-def n212 := cc 7 [w0,w31,w134,w2,w114,w3,w4,w5] [143,179,675,676] [n211] (by decide +kernel)
-def n213 := cc 8 [w0,w31,w1,w2,w114,w3,w4,w5,w13] [143,178,517,521,675,676] [n210,n212] (by decide +kernel)
-def v83 : Closed T 8 := rotateClosed n209 auto1 auto1ok
-def v84 : Closed T 8 := rotateClosed n207 auto1 auto1ok
-def v85 : Closed T 8 := rotateClosed n206 auto1 auto1ok
-def v86 : Closed T 8 := rotateClosed n205 auto1 auto1ok
-def n214 := cc 9 [w0,w31,w1,w2,w114,w3,w4,w5] [26,97,178,267,294,405,472] [n27,n209,v83,n213,n207,v84,n206,v85,n205,v86] (by decide +kernel)
-def n215 := cc 9 [w30,w0,w1,w2,w114,w3,w4,w5] [26,97,184,267,294,517,521] [n27] (by decide +kernel)
-def n216 := cc 6 [w1,w136,w114,w3,w4,w137,w15] [182,208] [] (by decide +kernel)
-def n217 := cc 6 [w139,w1,w136,w114,w3,w4,w5] [] [] (by decide +kernel)
-def v87 : Closed T 6 := rotateClosed n216 auto1 auto1ok
-def n218 := cc 7 [w1,w136,w2,w114,w3,w4,w138,w5] [211,314,315,406] [n217,v87] (by decide +kernel)
-def n219 := cc 6 [w1,w136,w114,w3,w4,w15,w13] [] [] (by decide +kernel)
-def n220 := cc 6 [w1,w136,w114,w3,w4,w5,w44] [182] [] (by decide +kernel)
-def n221 := cc 6 [w46,w1,w136,w114,w3,w4,w5] [] [] (by decide +kernel)
-def v88 : Closed T 6 := rotateClosed n219 auto1 auto1ok
-def n222 := cc 7 [w1,w136,w114,w3,w4,w9,w5] [182,406,512,668] [n221,n220,v87,v88] (by decide +kernel)
-def n223 := cc 6 [w140,w136,w2,w3,w4,w119,w5] [303,312,558] [] (by decide +kernel)
-def n224 := cc 6 [w1,w136,w2,w3,w4,w141,w13] [307] [] (by decide +kernel)
-def n225 := cc 6 [w1,w136,w2,w3,w4,w5,w142] [269,416] [] (by decide +kernel)
-def n226 := cc 6 [w143,w1,w136,w2,w3,w4,w5] [] [] (by decide +kernel)
-def v89 : Closed T 6 := rotateClosed n224 auto1 auto1ok
-def n227 := cc 7 [w1,w136,w2,w3,w4,w119,w5] [267,303,512,554,668,669] [n226,n223,n225,v89] (by decide +kernel)
-def n228 := cc 6 [w140,w136,w2,w114,w3,w4,w5] [303,312,558] [] (by decide +kernel)
-def n229 := cc 7 [w1,w136,w2,w114,w3,w4,w119,w5] [21,165,213,294,668] [n228] (by decide +kernel)
-def n230 := cc 6 [w1,w136,w2,w3,w4,w144,w5] [] [] (by decide +kernel)
-def n231 := cc 7 [w120,w1,w136,w2,w3,w4,w5] [136,281,668] [n230] (by decide +kernel)
-def n232 := cc 7 [w1,w136,w2,w114,w3,w4,w5,w13] [351,406,668] [n225,n224,v89,n220,n219,v88] (by decide +kernel)
-def v90 : Closed T 7 := rotateClosed n231 auto1 auto1ok
-def v91 : Closed T 7 := rotateClosed n218 auto1 auto1ok
-def v92 : Closed T 7 := rotateClosed n229 auto1 auto1ok
-def v93 : Closed T 7 := rotateClosed n227 auto1 auto1ok
-def v94 : Closed T 7 := rotateClosed n222 auto1 auto1ok
-def n233 := cc 8 [w1,w136,w2,w114,w3,w4,w5] [182,208,294,406,473,668] [n231,v90,n218,v91,n229,v92,n232,n227,v93,n222,v94] (by decide +kernel)
-def n234 := cc 8 [w0,w1,w114,w42,w3,w4,w5] [179,294,517,521] [] (by decide +kernel)
-def n235 := cc 8 [w0,w1,w2,w145,w3,w4,w5] [90,123,208,294,459,517] [] (by decide +kernel)
-def n236 := cc 6 [w146,w0,w1,w3,w4,w15,w13] [178] [] (by decide +kernel)
-def n237 := cc 6 [w146,w0,w1,w3,w4,w5,w44] [] [] (by decide +kernel)
-def n238 := cc 6 [w46,w146,w0,w1,w3,w4,w5] [] [] (by decide +kernel)
-def v95 : Closed T 6 := rotateClosed n236 auto1 auto1ok
-def n239 := cc 7 [w146,w0,w1,w3,w4,w9,w5] [178,399,412] [n238,n237,v95] (by decide +kernel)
-def n240 := cc 6 [w146,w0,w134,w2,w3,w4,w5] [301] [] (by decide +kernel)
-def n241 := cc 7 [w146,w0,w1,w2,w3,w4,w5,w13] [33,83,90,235,294,412,662] [n240,n237,n236,v95] (by decide +kernel)
-def v96 : Closed T 7 := rotateClosed n239 auto1 auto1ok
-def n242 := cc 8 [w146,w0,w1,w2,w3,w4,w5] [83,90,178,294,412,478] [n241,n239,v96] (by decide +kernel)
-def n243 := cc 8 [w0,w1,w2,w114,w3,w4,w43,w5] [178,179,225,294,405,676] [] (by decide +kernel)
-def n244 := cc 6 [w147,w0,w1,w114,w3,w5,w13] [] [] (by decide +kernel)
-def n245 := cc 7 [w147,w0,w1,w114,w3,w4,w5] [91,98,133,512] [n244] (by decide +kernel)
-def n246 := cc 6 [w148,w0,w1,w114,w3,w4,w15] [178] [] (by decide +kernel)
-def v97 : Closed T 6 := rotateClosed n244 auto1 auto1ok
-def n247 := cc 7 [w0,w41,w1,w114,w3,w4,w15,w13] [180,408,668,676] [n236,v97,n246,n219] (by decide +kernel)
-def n248 := cc 6 [w149,w0,w1,w114,w3,w4,w5] [97] [] (by decide +kernel)
-def n249 := cc 7 [w0,w41,w1,w114,w3,w4,w5,w44] [84,91,132,179,408,475] [n237,n248,n220] (by decide +kernel)
-def n250 := cc 7 [w46,w0,w41,w1,w114,w3,w4,w5] [91,134,446,521,667] [n238,n221] (by decide +kernel)
-def v98 : Closed T 7 := rotateClosed n247 auto1 auto1ok
-def n251 := cc 8 [w0,w41,w1,w114,w3,w4,w9,w5] [127,179,302,556,668,675,676,685] [n250,n239,n245,n249,v98,n222] (by decide +kernel)
-def n252 := cc 6 [w150,w0,w1,w2,w3,w5,w13] [459] [] (by decide +kernel)
-def n253 := cc 7 [w150,w0,w1,w2,w3,w4,w5] [10,79,90,126,133,174,412,459] [n252] (by decide +kernel)
-def n254 := cc 7 [w150,w0,w1,w2,w3,w4,w119,w5] [83,129,179,512] [] (by decide +kernel)
-def n255 := cc 7 [w0,w41,w140,w2,w3,w4,w119,w5] [83,179,303,557,668] [n223] (by decide +kernel)
-def n256 := cc 6 [w148,w0,w1,w2,w3,w4,w141] [308] [] (by decide +kernel)
-def v99 : Closed T 6 := rotateClosed n252 auto1 auto1ok
-def n257 := cc 7 [w0,w41,w1,w2,w3,w4,w141,w13] [180,223,268,410,676] [v99,n256,n224] (by decide +kernel)
-def n258 := cc 4 [w153,w0,w2,w4,w5] [] [] (by decide +kernel)
-def n259 := cc 5 [w151,w0,w2,w152,w4,w5] [] [n258] (by decide +kernel)
-def n260 := cc 6 [w151,w0,w1,w2,w3,w4,w5] [0,97] [n259] (by decide +kernel)
-def n261 := cc 7 [w0,w41,w1,w2,w3,w4,w5,w142] [0,83,90,179,218,269,410,411,477] [n260,n225] (by decide +kernel)
-def n262 := cc 7 [w143,w0,w41,w1,w2,w3,w4,w5] [83,90,134,220,413,521] [n226] (by decide +kernel)
-def v100 : Closed T 7 := rotateClosed n257 auto1 auto1ok
-def n263 := cc 8 [w0,w41,w1,w2,w3,w4,w119,w5] [83,127,179,214,267,303,477,556,668,669,675,678] [n262,n254,n253,n255,n261,v100,n227] (by decide +kernel)
-def n264 := cc 7 [w150,w0,w1,w2,w114,w3,w4,w5] [27,33,126,174,213] [] (by decide +kernel)
-def n265 := cc 7 [w0,w41,w140,w2,w114,w3,w4,w5] [26,179,305,668] [n228] (by decide +kernel)
-def n266 := cc 8 [w0,w41,w1,w2,w114,w3,w4,w119,w5] [165,179,254,294,556,668,676] [n264,n265,n229] (by decide +kernel)
-def n267 := cc 7 [w0,w41,w1,w2,w3,w4,w144,w5] [83,156,242,517,664] [n230] (by decide +kernel)
-def n268 := cc 8 [w120,w0,w41,w1,w2,w3,w4,w5] [313,413,472,521,668,676] [n231,n267] (by decide +kernel)
-def v101 : Closed T 6 := rotateClosed n256 auto1 auto1ok
-def v102 : Closed T 6 := rotateClosed n246 auto1 auto1ok
-def n269 := cc 7 [w148,w0,w1,w2,w114,w3,w4,w5] [57,178,179,351,458,510] [n256,v101,n246,v102] (by decide +kernel)
-def n270 := cc 6 [w41,w135,w2,w114,w3,w4,w5] [301,546] [] (by decide +kernel)
-def n271 := cc 7 [w0,w41,w134,w2,w114,w3,w4,w5] [26,54,309,310,351] [n240,n270] (by decide +kernel)
-def n272 := cc 8 [w0,w41,w1,w2,w114,w3,w4,w5,w13] [26,53,231,294,351,405,517,668,675,676,684] [n241,n269,n271,n261,n257,v100,n249,n247,v98,n232] (by decide +kernel)
-def v103 : Closed T 8 := rotateClosed n268 auto1 auto1ok
-def v104 : Closed T 8 := rotateClosed n266 auto1 auto1ok
-def v105 : Closed T 8 := rotateClosed n263 auto1 auto1ok
-def v106 : Closed T 8 := rotateClosed n251 auto1 auto1ok
-def v107 : Closed T 8 := rotateClosed n243 auto1 auto1ok
-def n273 := cc 9 [w0,w41,w1,w2,w114,w3,w4,w5] [0,97,179,184,294,405,472,668] [n268,v103,n242,n266,v104,n272,n263,v105,n251,v106,n243,v107,n235,n234,n233] (by decide +kernel)
-def n274 := cc 9 [w154,w0,w1,w2,w114,w3,w4,w5] [97,184,294,556,632] [] (by decide +kernel)
-def n275 := cc 7 [w1,w156,w2,w114,w3,w5,w13] [217,474,517,556,662,669] [] (by decide +kernel)
-def n276 := cc 8 [w1,w156,w2,w114,w3,w4,w5] [214,556,664,671] [n275] (by decide +kernel)
-def n277 := cc 8 [w0,w1,w114,w157,w3,w4,w5] [16,127,405,521] [] (by decide +kernel)
-def n278 := cc 8 [w0,w1,w2,w158,w3,w4,w5] [127,521,556] [] (by decide +kernel)
-def n279 := cc 8 [w160,w0,w1,w2,w3,w4,w5] [178,472,521,632] [] (by decide +kernel)
-def n280 := cc 8 [w0,w1,w2,w114,w3,w4,w161,w5] [84,143,178,521,632,662] [] (by decide +kernel)
-def n281 := cc 8 [w120,w0,w159,w1,w2,w3,w4] [155,521,632,666] [] (by decide +kernel)
-def n282 := cc 8 [w0,w155,w1,w2,w114,w3,w5,w13] [143,231,472,517,521,556,662,664] [n275] (by decide +kernel)
-def v108 : Closed T 8 := rotateClosed n281 auto1 auto1ok
-def v109 : Closed T 8 := rotateClosed n279 auto1 auto1ok
-def v110 : Closed T 8 := rotateClosed n280 auto1 auto1ok
-def n283 := cc 9 [w0,w155,w1,w2,w114,w3,w4,w5] [97,184,472,517,556,664] [v108,v109,n282,v110,n278,n277,n276] (by decide +kernel)
-def n284 := cc 8 [w50,w0,w1,w2,w114,w3,w4,w5] [26,67,178,179,231,294,351,675] [] (by decide +kernel)
-def n285 := cc 7 [w49,w0,w1,w114,w3,w9,w13] [29,521,668,675] [] (by decide +kernel)
-def n286 := cc 8 [w49,w0,w1,w114,w3,w4,w9,w5] [28,127,302,405,521] [n285] (by decide +kernel)
-def n287 := cc 7 [w49,w0,w1,w2,w3,w119,w13] [31,69,87,131,217,477] [] (by decide +kernel)
-def n288 := cc 8 [w49,w0,w1,w2,w3,w4,w119,w5] [30,68,90,127,303,405,477,521] [n287] (by decide +kernel)
-def n289 := cc 8 [w49,w162,w0,w1,w2,w3,w4,w5] [34,68,87,90,152,238,311,405,479,517,521] [] (by decide +kernel)
-def n290 := cc 8 [w49,w120,w0,w1,w2,w3,w4] [155,241,664] [] (by decide +kernel)
-def n291 := cc 8 [w49,w0,w1,w2,w114,w3,w4,w13] [231,351,472,521,632,668,675] [n287,n285] (by decide +kernel)
-def n292 := cc 9 [w49,w0,w1,w2,w114,w3,w4,w5] [97,184,294,405,472,521,632,668] [n284,n29,n202,n290,n289,n291,n288,n286] (by decide +kernel)
-def n293 := cc 8 [w163,w1,w2,w114,w3,w4,w5] [179,251,556] [] (by decide +kernel)
-def n294 := cc 9 [w0,w1,w2,w114,w3,w8,w4,w5] [97,179,184,269,556,632] [n293] (by decide +kernel)
-def n295 := cc 8 [w165,w1,w2,w114,w3,w4,w5] [179,208,294,517] [] (by decide +kernel)
-def n296 := cc 9 [w164,w0,w1,w2,w114,w3,w4,w5] [0,97,179,184,294,517,521] [n295] (by decide +kernel)
-def n297 := cc 8 [w166,w1,w114,w3,w4,w9,w5] [127,179,512,521] [] (by decide +kernel)
-def n298 := cc 8 [w167,w1,w114,w3,w4,w9,w5] [521,678] [] (by decide +kernel)
-def n299 := cc 8 [w0,w168,w1,w114,w3,w4,w9,w5] [179,521,685] [] (by decide +kernel)
-def n300 := cc 8 [w0,w1,w169,w114,w3,w4,w9,w5] [178,302,521,556] [] (by decide +kernel)
-def n301 := cc 7 [w0,w1,w114,w3,w9,w171] [178,180,405,556] [] (by decide +kernel)
-def n302 := cc 8 [w0,w1,w170,w114,w3,w9,w5] [178,405,521] [n301] (by decide +kernel)
-def n303 := cc 8 [w120,w0,w1,w114,w3,w4,w15] [459,517,668] [] (by decide +kernel)
-def n304 := cc 8 [w0,w1,w114,w172,w3,w4,w9,w5] [179,302,512,521] [] (by decide +kernel)
-def n305 := cc 8 [w65,w0,w1,w114,w3,w4,w9,w5] [302,556,672] [] (by decide +kernel)
-def n306 := cc 7 [w0,w1,w173,w3,w4,w15] [517,668] [] (by decide +kernel)
-def v111 : Closed T 7 := rotateClosed n285 auto1 auto1ok
-def n307 := cc 8 [w0,w1,w114,w3,w4,w15,w13] [137,632,671,675] [v111,n247,n306] (by decide +kernel)
-def n308 := cc 8 [w70,w0,w1,w114,w3,w9,w5] [405,521,671] [] (by decide +kernel)
-def n309 := cc 8 [w0,w1,w114,w3,w4,w5,w44] [97,132,179,517,521,560] [n249] (by decide +kernel)
-def n310 := cc 8 [w46,w0,w1,w114,w3,w4,w5] [134,591,672,675] [n250] (by decide +kernel)
-def v112 : Closed T 8 := rotateClosed n303 auto1 auto1ok
-def v113 : Closed T 8 := rotateClosed n307 auto1 auto1ok
-def n311 := cc 9 [w0,w1,w114,w3,w4,w9,w5] [97,127,184,389,405,556,672,676] [n286,v112,n305,n308,n310,n180,n197,n298,n297,n206,n251,n299,n300,n302,n304,n309,v78,v113] (by decide +kernel)
-def n312 := cc 8 [w167,w1,w2,w114,w3,w4,w5] [254,512,521] [] (by decide +kernel)
-def n313 := cc 7 [w120,w174,w1,w2,w3,w4] [90,179,243,517] [] (by decide +kernel)
-def n314 := cc 8 [w120,w0,w1,w2,w3,w4,w15] [178,241,517] [n313] (by decide +kernel)
-def v114 : Closed T 8 := rotateClosed n314 auto1 auto1ok
-def n315 := cc 9 [w0,w1,w2,w114,w3,w4,w9,w5] [83,97,179,184,294,331,389,521,556] [v114,n312,n191] (by decide +kernel)
-def n316 := cc 8 [w0,w1,w176,w114,w3,w4,w5] [178,184,675] [] (by decide +kernel)
-def n317 := cc 8 [w0,w1,w114,w3,w4,w177,w5] [184,591,672] [] (by decide +kernel)
-def n318 := cc 8 [w0,w1,w114,w3,w4,w9,w5] [179,405,521] [] (by decide +kernel)
-def n319 := cc 8 [w118,w178,w0,w1,w114,w3,w4,w5] [244,372,591,632,674] [] (by decide +kernel)
-def v115 : Closed T 8 := rotateClosed n316 auto1 auto1ok
-def v116 : Closed T 8 := rotateClosed n318 auto1 auto1ok
-def n320 := cc 9 [w118,w0,w1,w114,w3,w4,w5] [97,178,184,521,632,675] [n319,n181,v115,n317,v116] (by decide +kernel)
-def n321 := cc 8 [w180,w1,w2,w114,w3,w4,w5] [179,405,521] [] (by decide +kernel)
-def n322 := cc 8 [w120,w181,w0,w1,w2,w3,w4] [178,472,517] [] (by decide +kernel)
-def v117 : Closed T 8 := rotateClosed n322 auto1 auto1ok
-def n323 := cc 9 [w179,w0,w1,w2,w114,w3,w4,w5] [97,179,184,405,521,556] [v117,n191,n318,n321] (by decide +kernel)
-def n324 := cc 8 [w0,w1,w2,w114,w3,w4,w182,w5] [178,294,517,676] [] (by decide +kernel)
-def n325 := cc 7 [w184,w0,w1,w2,w4,w5] [178,294,556,632] [] (by decide +kernel)
-def n326 := cc 8 [w0,w1,w2,w169,w183,w4,w5] [100,186,294,360,377,556,632] [n325] (by decide +kernel)
-def n327 := cc 8 [w0,w1,w2,w169,w3,w4,w119,w5] [178,303,521,556] [] (by decide +kernel)
-def n328 := cc 7 [w185,w0,w1,w2,w114,w3,w4,w5] [26,132,146] [] (by decide +kernel)
-def n329 := cc 8 [w0,w1,w2,w169,w114,w3,w4,w5,w13] [178,294,517,521,556,675,676] [n328] (by decide +kernel)
-def v118 : Closed T 8 := rotateClosed n327 auto1 auto1ok
-def v119 : Closed T 8 := rotateClosed n324 auto1 auto1ok
-def v120 : Closed T 8 := rotateClosed n300 auto1 auto1ok
-def n330 := cc 9 [w0,w1,w2,w169,w114,w3,w4,w5] [178,294,556,632] [n329,n327,v118,n326,n324,v119,n300,v120] (by decide +kernel)
-def n331 := cc 8 [w0,w186,w1,w2,w114,w3,w4,w5] [179,294,556,632] [] (by decide +kernel)
-def n332 := cc 9 [w0,w1,w2,w114,w3,w183,w4,w5] [179,267,294,556,632] [n176,n293,n331,n326] (by decide +kernel)
-def n333 := cc 8 [w187,w188,w0,w1,w2,w4,w5] [60,77,151,237,294,556,632] [n325] (by decide +kernel)
-def n334 := cc 9 [w187,w0,w1,w2,w114,w3,w4,w5] [269,556,632,668] [n333] (by decide +kernel)
-def n335 := cc 9 [w188,w0,w1,w2,w114,w3,w4,w5] [0,179,294,517,521] [n333,n178,n295] (by decide +kernel)
-def n336 := cc 8 [w120,w0,w1,w2,w3,w4,w5] [35,83,90,155,241,313,389] [] (by decide +kernel)
-def n337 := cc 7 [w0,w1,w2,w3,w190,w141] [180,472,632] [] (by decide +kernel)
-def v121 : Closed T 7 := rotateClosed n337 auto1 auto1ok
-def n338 := cc 8 [w0,w1,w2,w114,w3,w4,w171] [178,405,517,556] [v121,n301] (by decide +kernel)
-def n339 := cc 8 [w0,w1,w2,w114,w3,w4,w190,w5] [178,472,517,521,632] [] (by decide +kernel)
-def n340 := cc 8 [w191,w0,w1,w2,w114,w3,w5] [109,197,405,472,556] [] (by decide +kernel)
-def n341 := cc 7 [w192,w0,w1,w2,w3,w4] [178,472,517,632] [] (by decide +kernel)
-def v122 : Closed T 7 := rotateClosed n341 auto1 auto1ok
-def n342 := cc 8 [w0,w1,w2,w170,w3,w119,w5] [178,405,521] [v122,v121] (by decide +kernel)
-def v123 : Closed T 8 := rotateClosed n336 auto1 auto1ok
-def v124 : Closed T 8 := rotateClosed n340 auto1 auto1ok
-def v125 : Closed T 8 := rotateClosed n339 auto1 auto1ok
-def n343 := cc 9 [w0,w1,w2,w170,w114,w3,w4,w5] [97,178,184,405,472,517,556] [v123,v124,n342,v125,n338,n302] (by decide +kernel)
-def n344 := cc 8 [w167,w0,w1,w2,w3,w4,w5] [0,269,448,672] [] (by decide +kernel)
-def n345 := cc 7 [w124,w167,w1,w3,w4,w5] [83,179,436,580] [] (by decide +kernel)
-def n346 := cc 8 [w167,w1,w2,w3,w4,w119,w5] [0,521,678] [n345] (by decide +kernel)
-def n347 := cc 8 [w0,w140,w1,w2,w3,w4,w5] [127,214,682] [] (by decide +kernel)
-def n348 := cc 8 [w0,w140,w1,w2,w3,w4,w119,w5] [83,127,303,521,557,668] [n255] (by decide +kernel)
-def n349 := cc 8 [w124,w0,w1,w2,w3,w4,w5] [0,165,269,431,521] [] (by decide +kernel)
-def n350 := cc 8 [w124,w0,w1,w3,w4,w119,w5] [0,521,669] [v75,n345] (by decide +kernel)
-def n351 := cc 8 [w0,w1,w2,w193,w3,w4,w119,w5] [303,342,521,556] [] (by decide +kernel)
-def n352 := cc 8 [w65,w0,w1,w2,w3,w4,w119,w5] [90,303,311,342,521,635] [] (by decide +kernel)
-def n353 := cc 8 [w120,w0,w1,w2,w3,w4,w141] [0,517,668] [n188,n313] (by decide +kernel)
-def v126 : Closed T 7 := rotateClosed n287 auto1 auto1ok
-def n354 := cc 8 [w0,w1,w2,w3,w4,w141,w13] [90,137,389,632,671,680] [v126,n257] (by decide +kernel)
-def n355 := cc 8 [w70,w0,w1,w2,w3,w119,w5] [405,448,517,521,556] [] (by decide +kernel)
-def n356 := cc 7 [w0,w194,w2,w3,w4,w5] [83,179,267] [] (by decide +kernel)
-def n357 := cc 8 [w0,w1,w2,w3,w4,w5,w142] [0,83,90,132,179,267,269,561] [n261,n356] (by decide +kernel)
-def n358 := cc 8 [w143,w0,w1,w2,w3,w4,w5] [90,413,562,672] [n262] (by decide +kernel)
-def v127 : Closed T 8 := rotateClosed n353 auto1 auto1ok
-def v128 : Closed T 8 := rotateClosed n354 auto1 auto1ok
-def n359 := cc 9 [w0,w1,w2,w3,w4,w119,w5] [83,127,214,269,405,459,556,672] [v10,n288,v123,v127,n352,n355,n358,n349,n350,n182,n344,n346,n263,n348,n347,n351,n357,v128] (by decide +kernel)
-def n360 := cc 8 [w0,w140,w1,w2,w114,w3,w4,w5] [26,294,405,521,668] [n265] (by decide +kernel)
-def n361 := cc 9 [w0,w1,w2,w114,w3,w4,w119,w5] [179,294,405,517,521,556] [v127,n189,n312,n207,n266,n360,n327,n342] (by decide +kernel)
-def n362 := cc 8 [w0,w195,w1,w2,w3,w4,w5] [90,152,238,267,405,459] [] (by decide +kernel)
-def n363 := cc 8 [w0,w1,w2,w3,w4,w144,w5] [156,562,664,672] [n267] (by decide +kernel)
-def n364 := cc 8 [w196,w0,w1,w2,w3,w4,w5] [0,269,664,668] [] (by decide +kernel)
-def n365 := cc 8 [w120,w178,w0,w1,w2,w3,w4,w5] [313,562,632,664] [] (by decide +kernel)
-def v129 : Closed T 8 := rotateClosed n289 auto1 auto1ok
-def v130 : Closed T 8 := rotateClosed n362 auto1 auto1ok
-def v131 : Closed T 8 := rotateClosed n191 auto1 auto1ok
-def n366 := cc 9 [w120,w0,w1,w2,w3,w4,w5] [97,155,184,241,269,389,521,632,675] [n364,n202,n290,v129,n365,n322,n183,n198,n268,n281,n190,n314,n353,v130,n363,v131] (by decide +kernel)
-def n367 := cc 8 [w120,w197,w0,w1,w2,w3,w4] [178,472,517] [n341] (by decide +kernel)
-def n368 := cc 8 [w120,w178,w0,w1,w2,w114,w3,w4,w5] [244,297,313,517,562] [] (by decide +kernel)
-def n369 := cc 9 [w120,w0,w1,w2,w114,w3,w4,w5] [97,184,517,521,632,668] [n368,n367,n353,n303] (by decide +kernel)
-def v132 : Closed T 8 := rotateClosed n367 auto1 auto1ok
-def n370 := cc 9 [w198,w0,w1,w2,w114,w3,w4,w5] [179,405,521,556] [v132,n191,n195,n321] (by decide +kernel)
-def n371 := cc 8 [w1,w2,w114,w3,w199,w4,w5] [294,671,675] [] (by decide +kernel)
-def n372 := cc 8 [w0,w1,w114,w3,w200,w4,w5] [179,294,405,521] [] (by decide +kernel)
-def n373 := cc 8 [w0,w1,w2,w3,w201,w4,w5] [90,179,294,405,459] [] (by decide +kernel)
-def n374 := cc 8 [w202,w0,w1,w2,w3,w4,w5] [83,178,294,389,472] [] (by decide +kernel)
-def n375 := cc 8 [w0,w1,w2,w114,w3,w4,w61] [294,662,671,675] [] (by decide +kernel)
-def n376 := cc 8 [w0,w1,w2,w114,w3,w4,w100,w5] [294,521,662,676] [] (by decide +kernel)
-def n377 := cc 8 [w63,w0,w1,w2,w114,w3,w5] [117,203,294,405,472] [] (by decide +kernel)
-def n378 := cc 7 [w64,w0,w1,w2,w114,w4] [182,294,511,556,632] [] (by decide +kernel)
-def v133 : Closed T 7 := rotateClosed n378 auto1 auto1ok
-def n379 := cc 8 [w0,w1,w2,w114,w60,w12,w5] [112,200,294,632] [v133] (by decide +kernel)
-def v134 : Closed T 8 := rotateClosed n374 auto1 auto1ok
-def v135 : Closed T 8 := rotateClosed n377 auto1 auto1ok
-def v136 : Closed T 8 := rotateClosed n376 auto1 auto1ok
-def n380 := cc 9 [w0,w1,w2,w114,w60,w3,w4,w5] [97,184,294,632,671,675] [v134,v135,n379,v136,n375,n373,n372,n371] (by decide +kernel)
-def n381 := cc 8 [w203,w0,w1,w2,w114,w3,w4,w5] [138,183,228,556,632] [] (by decide +kernel)
-def n382 := cc 6 [w206,w1,w205,w114,w3,w4,w5] [] [] (by decide +kernel)
-def n383 := cc 7 [w1,w205,w2,w114,w3,w4,w5] [138,211,267,299,406,631] [n382] (by decide +kernel)
-def n384 := cc 6 [w1,w205,w114,w207,w3,w4,w5] [14,20,300] [] (by decide +kernel)
-def n385 := cc 7 [w204,w1,w205,w2,w114,w3,w4,w5] [59,211,267] [n384] (by decide +kernel)
-def n386 := cc 7 [w0,w204,w1,w114,w207,w3,w4,w5] [80,125,267] [n384] (by decide +kernel)
-def n387 := cc 6 [w209,w0,w204,w1,w2,w3,w4] [] [] (by decide +kernel)
-def n388 := cc 7 [w0,w204,w1,w2,w208,w3,w4,w5] [0,311,490] [n387] (by decide +kernel)
-def n389 := cc 7 [w211,w0,w210,w1,w2,w3,w4,w5] [24,33] [] (by decide +kernel)
-def v137 : Closed T 7 := rotateClosed n389 auto1 auto1ok
-def n390 := cc 8 [w0,w204,w1,w2,w114,w3,w4,w5] [138,178,179,225,267,296,405,632] [v137,n388,n386,n385,n383] (by decide +kernel)
-def n391 := cc 8 [w0,w1,w2,w212,w3,w4,w5] [97,178,267,556,632] [] (by decide +kernel)
-def n392 := cc 8 [w213,w0,w1,w2,w3,w4,w5] [97,179,267,556,632] [] (by decide +kernel)
-def n393 := cc 9 [w0,w1,w2,w114,w3,w4,w12,w5] [138,178,225,267,517,556,632] [n392,n184,n381,n209,n390,n391,n379] (by decide +kernel)
-def n394 := cc 8 [w65,w66,w0,w1,w2,w114,w4] [160,246,294,556] [n378] (by decide +kernel)
-def v138 : Closed T 8 := rotateClosed n319 auto1 auto1ok
-def v139 : Closed T 8 := rotateClosed n368 auto1 auto1ok
-def v140 : Closed T 8 := rotateClosed n365 auto1 auto1ok
-def n395 := cc 9 [w65,w0,w1,w2,w114,w3,w4,w5] [245,294,521,632,675] [v138,v139,v140,n394,n352,n305] (by decide +kernel)
-def n396 := cc 8 [w0,w1,w214,w114,w3,w4,w5] [179,405,632] [] (by decide +kernel)
-def n397 := cc 8 [w0,w1,w2,w215,w3,w4,w5] [179,405,632] [] (by decide +kernel)
-def n398 := cc 8 [w0,w1,w2,w216,w3,w4,w5] [176,265,472,556] [] (by decide +kernel)
-def v141 : Closed T 8 := rotateClosed n394 auto1 auto1ok
-def v142 : Closed T 8 := rotateClosed n398 auto1 auto1ok
-def n399 := cc 9 [w67,w0,w1,w2,w114,w3,w4,w5] [184,405,632,671] [v141,v142,n397,n396] (by decide +kernel)
-def n400 := cc 7 [w0,w1,w114,w3,w217,w13] [180,405,556,662] [] (by decide +kernel)
-def n401 := cc 8 [w0,w1,w114,w3,w4,w217,w5] [179,292,405,472] [n400] (by decide +kernel)
-def n402 := cc 7 [w0,w1,w2,w3,w218,w13] [180,405,556,662] [] (by decide +kernel)
-def n403 := cc 8 [w0,w1,w2,w3,w4,w218,w5] [179,405,472,556] [n402] (by decide +kernel)
-def n404 := cc 8 [w219,w0,w1,w2,w3,w4,w5] [122,207,405,472,556] [] (by decide +kernel)
-def n405 := cc 7 [w69,w0,w1,w2,w114,w3] [405,556,662,671,675] [] (by decide +kernel)
-def n406 := cc 7 [w69,w0,w1,w2,w114,w3,w13] [405,517,556,662,675] [] (by decide +kernel)
-def n407 := cc 8 [w0,w1,w2,w114,w3,w68,w13] [405,556,662,671,675] [n405,n406,n402,n400] (by decide +kernel)
-def n408 := cc 9 [w0,w1,w2,w114,w3,w68,w4,w5] [184,472,556,671] [n404,n407,n403,n401] (by decide +kernel)
-def n409 := cc 8 [w220,w0,w1,w2,w114,w3,w4,w5] [26,56,143,184,294,356,672,675] [] (by decide +kernel)
-def n410 := cc 6 [w221,w1,w135,w114,w3,w4,w5] [] [] (by decide +kernel)
-def n411 := cc 7 [w1,w135,w2,w114,w3,w4,w5] [143,218,267,407,474] [n410,n211,n270] (by decide +kernel)
-def n412 := cc 6 [w1,w135,w114,w222,w3,w4,w5] [267] [] (by decide +kernel)
-def n413 := cc 7 [w134,w1,w135,w2,w114,w3,w4,w5] [218,267,675] [n412] (by decide +kernel)
-def n414 := cc 7 [w0,w134,w1,w114,w222,w3,w4,w5] [132,153,267] [n412] (by decide +kernel)
-def n415 := cc 7 [w0,w134,w1,w2,w223,w3,w4,w5] [54,83,351,413] [] (by decide +kernel)
-def n416 := cc 7 [w224,w0,w134,w1,w2,w3,w4,w5] [83,132,143] [] (by decide +kernel)
-def n417 := cc 8 [w0,w134,w1,w2,w114,w3,w4,w5] [26,143,178,179,231,267,294,351,405,459,675] [n416,n212,n271,n415,n414,n413,n411] (by decide +kernel)
-def n418 := cc 7 [w1,w135,w2,w114,w3,w4,w5,w13] [407,662,675,676,680] [] (by decide +kernel)
-def n419 := cc 7 [w224,w0,w1,w2,w3,w4,w5,w13] [410,413,477] [] (by decide +kernel)
-def n420 := cc 8 [w0,w134,w1,w2,w114,w3,w4,w5,w13] [231,472,517,662,675,676,680] [n419,n418] (by decide +kernel)
-def v143 : Closed T 7 := rotateClosed n306 auto1 auto1ok
-def n421 := cc 8 [w0,w1,w2,w173,w3,w4,w5] [0,97,269,389,459,662,668] [n306,v143] (by decide +kernel)
-def n422 := cc 8 [w0,w1,w2,w173,w114,w3,w4,w5,w13] [83,178,231,517,521] [] (by decide +kernel)
-def n423 := cc 8 [w225,w0,w1,w2,w3,w4,w5] [0,179,269,684] [] (by decide +kernel)
-def n424 := cc 7 [w1,w2,w114,w3,w227,w4,w5,w13] [351,634,662,675,676] [] (by decide +kernel)
-def n425 := cc 7 [w228,w0,w1,w2,w3,w4,w5,w13] [410,477,562] [] (by decide +kernel)
-def n426 := cc 8 [w0,w1,w2,w114,w226,w3,w4,w5,w13] [231,351,517,632,662,675,676] [n425,n424] (by decide +kernel)
-def v144 : Closed T 8 := rotateClosed n291 auto1 auto1ok
-def v145 : Closed T 8 := rotateClosed n199 auto1 auto1ok
-def v146 : Closed T 8 := rotateClosed n282 auto1 auto1ok
-def n427 := cc 9 [w0,w1,w2,w114,w3,w4,w5,w13] [143,178,184,231,294,351,389,459,521,556,632,662,671,675,676] [n284,n364,n291,v144,n30,n423,n185,n199,v145,n409,n213,n203,n272,n282,v146,n417,n420,n329,n422,n421,n426,n407,n193,n192,v77,n357,n354,v128,n309,n307,v113] (by decide +kernel)
-def n428 := cc 8 [w0,w1,w229,w114,w3,w4,w5] [179,405,521] [] (by decide +kernel)
-def n429 := cc 8 [w0,w1,w2,w230,w3,w4,w5] [179,405,521,556] [] (by decide +kernel)
-def n430 := cc 8 [w0,w1,w2,w231,w3,w4,w5] [178,472,521,562] [] (by decide +kernel)
-def n431 := cc 8 [w0,w1,w2,w114,w3,w4,w5,w13] [32,84,143,178,294,351,517,521,662] [] (by decide +kernel)
-def n432 := cc 8 [w70,w71,w0,w1,w2,w114,w3] [163,250,405,472,556] [n405] (by decide +kernel)
-def v147 : Closed T 8 := rotateClosed n430 auto1 auto1ok
-def n433 := cc 9 [w70,w0,w1,w2,w114,w3,w4,w5] [184,405,472,556,671,675] [n432,n355,n308,v147,n431,n429,n428] (by decide +kernel)
-def v148 : Closed T 9 := rotateClosed n292 auto1 auto1ok
-def v149 : Closed T 9 := rotateClosed n320 auto1 auto1ok
-def v150 : Closed T 9 := rotateClosed n369 auto1 auto1ok
-def v151 : Closed T 9 := rotateClosed n366 auto1 auto1ok
-def v152 : Closed T 9 := rotateClosed n395 auto1 auto1ok
-def v153 : Closed T 9 := rotateClosed n433 auto1 auto1ok
-def v154 : Closed T 9 := rotateClosed n399 auto1 auto1ok
-def v155 : Closed T 9 := rotateClosed n370 auto1 auto1ok
-def v156 : Closed T 9 := rotateClosed n323 auto1 auto1ok
-def v157 : Closed T 9 := rotateClosed n200 auto1 auto1ok
-def v158 : Closed T 9 := rotateClosed n283 auto1 auto1ok
-def v159 : Closed T 9 := rotateClosed n343 auto1 auto1ok
-def v160 : Closed T 9 := rotateClosed n380 auto1 auto1ok
-def v161 : Closed T 9 := rotateClosed n194 auto1 auto1ok
-def v162 : Closed T 9 := rotateClosed n315 auto1 auto1ok
-def v163 : Closed T 9 := rotateClosed n361 auto1 auto1ok
-def v164 : Closed T 9 := rotateClosed n393 auto1 auto1ok
-def v165 : Closed T 9 := rotateClosed n359 auto1 auto1ok
-def v166 : Closed T 9 := rotateClosed n311 auto1 auto1ok
-def n434 := cc 10 [w0,w1,w2,w114,w3,w4,w5] [0,97,184,269,389,459] [n292,v148,n320,v149,n369,v150,n366,v151,n395,v152,n433,v153,n274,n334,n399,v154,n215,n31,n335,n370,v155,n296,n323,v156,n186,n200,v157,n214,n204,n273,n283,v158,n330,n343,v159,n380,v160,n177,n294,n332,n408,n194,v161,n315,v162,n361,v163,n393,v164,n427,n359,v165,n311,v166] (by decide +kernel)
-def n435 := cc 9 [w0,w1,w2,w114,w3,w4,w5] [26,97,178,179,184,294,405,472] [n336,v123,n431,n191,v131,n318,v116] (by decide +kernel)
-def n436 := cc 8 [w0,w1,w2,w3,w4,w233,w15] [90,136,184,517] [] (by decide +kernel)
-def n437 := cc 8 [w179,w0,w1,w2,w3,w234,w5] [165,184,517,521] [] (by decide +kernel)
-def n438 := cc 8 [w0,w1,w2,w3,w4,w233,w13] [90,143,223,389,517,521,578,641] [] (by decide +kernel)
-def n439 := cc 8 [w70,w0,w1,w2,w3,w234,w5] [83,161,459,517,577] [] (by decide +kernel)
-def n440 := cc 8 [w0,w1,w2,w3,w4,w5,w235] [0,83,90,143,218,269,517,521] [] (by decide +kernel)
-def n441 := cc 8 [w236,w0,w1,w2,w3,w4,w5] [0,90,161,269,517] [] (by decide +kernel)
-def v167 : Closed T 8 := rotateClosed n436 auto1 auto1ok
-def v168 : Closed T 8 := rotateClosed n438 auto1 auto1ok
-def n442 := cc 9 [w0,w1,w2,w3,w4,w234,w5] [97,214,269,459,517,577,666,675] [n439,n441,n437,n349,n191,n440,v167,v168] (by decide +kernel)
-def n443 := cc 7 [w232,w237,w1,w3,w4,w61] [111,199,362,436] [] (by decide +kernel)
-def n444 := cc 7 [w63,w232,w237,w1,w3,w5] [117,203,362,436] [] (by decide +kernel)
-def n445 := cc 6 [w64,w232,w237,w1,w4] [182,362,511,580,644] [] (by decide +kernel)
-def v169 : Closed T 6 := rotateClosed n445 auto1 auto1ok
-def n446 := cc 7 [w232,w237,w1,w60,w12,w5] [62,112,200,362] [v169] (by decide +kernel)
-def v170 : Closed T 7 := rotateClosed n444 auto1 auto1ok
-def n447 := cc 8 [w232,w237,w1,w60,w3,w4,w5] [198,362,675] [v170,n446,n443] (by decide +kernel)
-def n448 := cc 8 [w232,w237,w1,w3,w4,w12,w5] [138,225,580,644] [n446] (by decide +kernel)
-def n449 := cc 7 [w65,w66,w232,w237,w1,w4] [62,160,246,362] [n445] (by decide +kernel)
-def n450 := cc 8 [w65,w232,w237,w1,w3,w4,w5] [159,245,362,644] [n449] (by decide +kernel)
-def v171 : Closed T 7 := rotateClosed n449 auto1 auto1ok
-def n451 := cc 8 [w67,w232,w237,w1,w3,w4,w5] [173,261,436,644] [v171] (by decide +kernel)
-def n452 := cc 6 [w69,w232,w237,w1,w3] [436,512,517,580] [] (by decide +kernel)
-def n453 := cc 7 [w232,w237,w1,w3,w68,w13] [63,206,675] [n452] (by decide +kernel)
-def n454 := cc 8 [w232,w237,w1,w3,w68,w4,w5] [62,118,204,362,436,494] [n453] (by decide +kernel)
-def n455 := cc 8 [w232,w237,w1,w3,w4,w5,w13] [231,362,580,644,675] [n453] (by decide +kernel)
-def n456 := cc 7 [w70,w71,w232,w237,w1,w3] [163,250,436,494] [n452] (by decide +kernel)
-def n457 := cc 8 [w70,w232,w237,w1,w3,w4,w5] [143,161,247,436,494,580] [n456] (by decide +kernel)
-def v172 : Closed T 8 := rotateClosed n450 auto1 auto1ok
-def v173 : Closed T 8 := rotateClosed n457 auto1 auto1ok
-def v174 : Closed T 8 := rotateClosed n451 auto1 auto1ok
-def v175 : Closed T 8 := rotateClosed n447 auto1 auto1ok
-def v176 : Closed T 8 := rotateClosed n448 auto1 auto1ok
-def n458 := cc 9 [w232,w237,w1,w3,w4,w5] [97,184] [n450,v172,n457,v173,n451,v174,n447,v175,n454,n448,v176,n455] (by decide +kernel)
-def n459 := cc 8 [w232,w163,w1,w2,w3,w4,w5] [3,123,251,362,577,641] [] (by decide +kernel)
-def n460 := cc 9 [w232,w0,w1,w2,w3,w8,w4,w5] [123,184,269,577,641] [n459] (by decide +kernel)
-def n461 := cc 8 [w232,w165,w1,w2,w3,w4,w5] [97,179,360,517] [] (by decide +kernel)
-def n462 := cc 9 [w232,w164,w0,w1,w2,w3,w4,w5] [0,164,184,360,517,521] [n461] (by decide +kernel)
-def n463 := cc 8 [w232,w167,w1,w2,w3,w4,w5] [127,512,521] [] (by decide +kernel)
-def n464 := cc 9 [w232,w0,w1,w2,w3,w4,w9,w5] [83,97,179,184,331,360,389,521,577] [n463,n191,v167,n318] (by decide +kernel)
-def n465 := cc 8 [w232,w180,w1,w2,w3,w4,w5] [97,179,431,521] [] (by decide +kernel)
-def n466 := cc 9 [w232,w179,w0,w1,w2,w3,w4,w5] [165,184,521,577] [n465,n437,n349] (by decide +kernel)
-def n467 := cc 8 [w0,w1,w2,w3,w238,w4,w5] [90,182,431,459,517] [] (by decide +kernel)
-def n468 := cc 8 [w232,w1,w2,w3,w199,w4,w5] [110,182,517] [] (by decide +kernel)
-def n469 := cc 8 [w232,w0,w1,w2,w3,w4,w61] [90,111,360,517,662] [n443] (by decide +kernel)
-def n470 := cc 8 [w63,w232,w0,w1,w2,w3,w5] [117,203,294,360,431,491] [n444] (by decide +kernel)
-def n471 := cc 7 [w64,w232,w0,w1,w2,w4] [26,182,360,511,577,641] [n445] (by decide +kernel)
-def v177 : Closed T 7 := rotateClosed n471 auto1 auto1ok
-def n472 := cc 8 [w232,w0,w1,w2,w60,w12,w5] [26,112,200,360,641] [v177,n446] (by decide +kernel)
-def v178 : Closed T 8 := rotateClosed n470 auto1 auto1ok
-def n473 := cc 9 [w232,w0,w1,w2,w60,w3,w4,w5] [97,360,517,675] [v178,n447,n472,n469,n468,n467] (by decide +kernel)
-def n474 := cc 8 [w0,w1,w2,w239,w3,w4,w5] [26,138,183,577,641] [] (by decide +kernel)
-def n475 := cc 9 [w232,w0,w1,w2,w3,w4,w12,w5] [26,138,179,225,269,577,641] [n448,n472,n474] (by decide +kernel)
-def n476 := cc 8 [w65,w66,w232,w0,w1,w2,w4] [26,160,246,360,577] [n449,n471] (by decide +kernel)
-def n477 := cc 9 [w65,w232,w0,w1,w2,w3,w4,w5] [245,294,360,641,675] [n476,n450] (by decide +kernel)
-def n478 := cc 8 [w240,w0,w1,w2,w3,w4,w5] [26,183,431,641] [] (by decide +kernel)
-def v179 : Closed T 8 := rotateClosed n476 auto1 auto1ok
-def n479 := cc 9 [w67,w232,w0,w1,w2,w3,w4,w5] [26,173,179,261,431,641] [v179,n451,n478] (by decide +kernel)
-def n480 := cc 7 [w0,w1,w2,w3,w241,w13] [121,517,577,662] [] (by decide +kernel)
-def n481 := cc 8 [w0,w1,w2,w3,w4,w241,w5] [118,491,517,577] [n480] (by decide +kernel)
-def n482 := cc 7 [w69,w232,w0,w1,w2,w3] [517,577,662,664,669] [n452] (by decide +kernel)
-def n483 := cc 8 [w232,w0,w1,w2,w3,w68,w13] [431,517,577,675] [n482,n453,n480] (by decide +kernel)
-def n484 := cc 9 [w232,w0,w1,w2,w3,w68,w4,w5] [118,179,204,405,491,577] [n454,n483,n481] (by decide +kernel)
-def n485 := cc 8 [w0,w1,w2,w242,w3,w4,w5] [0,143,233,269,517,521,662] [] (by decide +kernel)
-def n486 := cc 9 [w232,w0,w1,w2,w3,w4,w5,w13] [143,231,351,360,389,459,517,521,577,641,675] [n455,n483,n485,n431,n440,n438,v168] (by decide +kernel)
-def n487 := cc 8 [w243,w0,w1,w2,w3,w4,w5] [143,161,517,577] [] (by decide +kernel)
-def n488 := cc 8 [w70,w71,w232,w0,w1,w2,w3] [163,250,405,491,577] [n456,n482] (by decide +kernel)
-def n489 := cc 9 [w70,w232,w0,w1,w2,w3,w4,w5] [90,143,161,491,517,577] [n488,n457,n439,n487] (by decide +kernel)
-def v180 : Closed T 9 := rotateClosed n477 auto1 auto1ok
-def v181 : Closed T 9 := rotateClosed n489 auto1 auto1ok
-def v182 : Closed T 9 := rotateClosed n479 auto1 auto1ok
-def v183 : Closed T 9 := rotateClosed n466 auto1 auto1ok
-def v184 : Closed T 9 := rotateClosed n473 auto1 auto1ok
-def v185 : Closed T 9 := rotateClosed n464 auto1 auto1ok
-def v186 : Closed T 9 := rotateClosed n475 auto1 auto1ok
-def v187 : Closed T 9 := rotateClosed n442 auto1 auto1ok
-def n490 := cc 10 [w232,w0,w1,w2,w3,w4,w5] [0,97,184,269,389,459] [n477,v180,n489,v181,n479,v182,n462,n466,v183,n458,n473,v184,n460,n484,n464,v185,n475,v186,n486,n435,n442,v187] (by decide +kernel)
-def n491 := cc 8 [w115,w0,w1,w2,w3,w4,w244,w5] [379,597,672] [] (by decide +kernel)
-def n492 := cc 8 [w0,w1,w2,w3,w4,w245,w121] [136,222,664] [] (by decide +kernel)
-def n493 := cc 8 [w126,w0,w1,w2,w3,w244,w5] [448,672] [] (by decide +kernel)
-def n494 := cc 8 [w65,w0,w1,w2,w3,w4,w244,w5] [379,597,656,666] [] (by decide +kernel)
-def n495 := cc 8 [w0,w1,w2,w3,w4,w245,w13] [90,231,389,655,671] [] (by decide +kernel)
-def n496 := cc 8 [w70,w0,w1,w2,w3,w244,w5] [247,597,666] [] (by decide +kernel)
-def n497 := cc 8 [w0,w1,w2,w3,w4,w5,w246] [83,90,179,231,269,598] [] (by decide +kernel)
-def n498 := cc 8 [w247,w0,w1,w2,w3,w4,w5] [247,512,672] [] (by decide +kernel)
-def v188 : Closed T 8 := rotateClosed n492 auto1 auto1ok
-def v189 : Closed T 8 := rotateClosed n495 auto1 auto1ok
-def n499 := cc 9 [w0,w1,w2,w3,w4,w244,w5] [83,97,184,269,459,512,597,672] [n494,n496,n498,n491,n493,n344,n191,n497,v188,v189] (by decide +kernel)
-def n500 := cc 8 [w113,w237,w0,w1,w3,w4,w5] [3,164,208,362,597,655] [] (by decide +kernel)
-def n501 := cc 9 [w237,w0,w1,w2,w3,w112,w4,w5] [97,208,269,597,655] [n500] (by decide +kernel)
-def n502 := cc 8 [w237,w0,w1,w116,w3,w4,w5] [97,377,671,672] [] (by decide +kernel)
-def n503 := cc 8 [w237,w0,w1,w2,w3,w4,w117,w5] [252,671,674] [] (by decide +kernel)
-def n504 := cc 8 [w237,w115,w0,w1,w3,w4,w9,w5] [183,380,597,672] [] (by decide +kernel)
-def n505 := cc 8 [w237,w115,w0,w1,w2,w4,w12,w5] [138,179,253,377,597,655] [] (by decide +kernel)
-def n506 := cc 7 [w237,w115,w220,w1,w2,w3,w4,w5] [671,672,673] [] (by decide +kernel)
-def n507 := cc 8 [w237,w115,w0,w1,w2,w3,w4,w5,w13] [251,377,655,671,672,673,674] [n506] (by decide +kernel)
-def v190 : Closed T 8 := rotateClosed n505 auto1 auto1ok
-def v191 : Closed T 8 := rotateClosed n504 auto1 auto1ok
-def v192 : Closed T 8 := rotateClosed n503 auto1 auto1ok
-def v193 : Closed T 8 := rotateClosed n491 auto1 auto1ok
-def n508 := cc 9 [w237,w115,w0,w1,w2,w3,w4,w5] [0,97,251,377,597,655] [n507,n505,v190,n504,v191,n503,v192,n502,n491,v193] (by decide +kernel)
-def n509 := cc 8 [w237,w0,w1,w3,w4,w121,w15] [95,97,222,655,670,671] [] (by decide +kernel)
-def n510 := cc 8 [w124,w237,w0,w1,w3,w4,w5] [97,669,672] [] (by decide +kernel)
-def n511 := cc 8 [w237,w0,w1,w2,w3,w4,w121,w13] [223,655,671,672,675] [] (by decide +kernel)
-def n512 := cc 8 [w237,w0,w1,w2,w3,w4,w5,w125] [77,218,377,671,672,675] [] (by decide +kernel)
-def v194 : Closed T 8 := rotateClosed n511 auto1 auto1ok
-def v195 : Closed T 8 := rotateClosed n509 auto1 auto1ok
-def n513 := cc 9 [w237,w0,w1,w2,w3,w4,w123,w5] [97,214,377,389,597,671,672,675] [n510,n512,v194,v195,n191,v188] (by decide +kernel)
-def n514 := cc 8 [w237,w0,w1,w127,w3,w4,w5] [97,448,672] [] (by decide +kernel)
-def n515 := cc 8 [w237,w0,w1,w2,w3,w4,w129,w5] [143,259,655,671,672] [] (by decide +kernel)
-def n516 := cc 8 [w237,w126,w0,w1,w3,w9,w5] [448,672] [] (by decide +kernel)
-def n517 := cc 8 [w237,w126,w0,w1,w2,w3,w5,w13] [143,256,597,671,672] [] (by decide +kernel)
-def v196 : Closed T 8 := rotateClosed n515 auto1 auto1ok
-def n518 := cc 9 [w237,w126,w0,w1,w2,w3,w4,w5] [97,254,502,597,671] [n517,n516,v196,n514,n493,n344] (by decide +kernel)
-def n519 := cc 8 [w0,w248,w1,w3,w4,w9,w5] [184,390,672] [] (by decide +kernel)
-def n520 := cc 8 [w65,w237,w0,w1,w3,w4,w9,w5] [245,597,672] [] (by decide +kernel)
-def n521 := cc 8 [w237,w0,w1,w3,w4,w15,w13] [231,655,671,675] [] (by decide +kernel)
-def n522 := cc 8 [w70,w237,w0,w1,w3,w9,w5] [231,247,597,671] [] (by decide +kernel)
-def n523 := cc 8 [w237,w0,w1,w3,w4,w5,w44] [179,231,247,266,599,657] [] (by decide +kernel)
-def n524 := cc 8 [w46,w237,w0,w1,w3,w4,w5] [247,512,672] [] (by decide +kernel)
-def v197 : Closed T 8 := rotateClosed n521 auto1 auto1ok
-def n525 := cc 9 [w237,w0,w1,w3,w4,w9,w5] [97,184,512,597,676] [n520,n522,n524,n504,n516,n523,v195,v197,n519,n318] (by decide +kernel)
-def n526 := cc 8 [w0,w1,w2,w3,w249,w4,w5] [90,179,377,448,459] [] (by decide +kernel)
-def n527 := cc 8 [w237,w0,w1,w3,w200,w4,w5] [179,377,448,512] [] (by decide +kernel)
-def n528 := cc 8 [w237,w0,w1,w2,w3,w4,w61] [199,377,671] [n443] (by decide +kernel)
-def n529 := cc 8 [w237,w0,w1,w2,w3,w4,w100,w5] [179,202,597,676] [] (by decide +kernel)
-def n530 := cc 8 [w63,w237,w0,w1,w2,w3,w5] [117,203,294,377,448,502] [n444] (by decide +kernel)
-def n531 := cc 7 [w64,w237,w0,w1,w2,w4] [26,182,377,511,597,655] [n445] (by decide +kernel)
-def v198 : Closed T 7 := rotateClosed n531 auto1 auto1ok
-def n532 := cc 8 [w237,w0,w1,w2,w60,w12,w5] [26,112,200,377,655] [v198,n446] (by decide +kernel)
-def v199 : Closed T 8 := rotateClosed n530 auto1 auto1ok
-def v200 : Closed T 8 := rotateClosed n529 auto1 auto1ok
-def n533 := cc 9 [w237,w0,w1,w2,w60,w3,w4,w5] [198,377,502,671] [v199,n447,n532,v200,n528,n527,n526] (by decide +kernel)
-def n534 := cc 8 [w0,w250,w1,w2,w3,w4,w5] [179,225,597,655] [] (by decide +kernel)
-def n535 := cc 8 [w237,w203,w0,w1,w2,w3,w4,w5] [26,183,228,597,655] [] (by decide +kernel)
-def n536 := cc 9 [w237,w0,w1,w2,w3,w4,w12,w5] [26,138,225,597,655] [n448,n505,n535,n532,n534] (by decide +kernel)
-def n537 := cc 8 [w65,w66,w237,w0,w1,w2,w4] [26,160,246,377,597] [n449,n531] (by decide +kernel)
-def n538 := cc 9 [w65,w237,w0,w1,w2,w3,w4,w5] [245,294,377,655,675] [n537,n450,n520,n494] (by decide +kernel)
-def n539 := cc 8 [w251,w0,w1,w2,w3,w4,w5] [179,261,655] [] (by decide +kernel)
-def n540 := cc 8 [w237,w0,w1,w214,w3,w4,w5] [179,261,655] [] (by decide +kernel)
-def v201 : Closed T 8 := rotateClosed n537 auto1 auto1ok
-def n541 := cc 9 [w67,w237,w0,w1,w2,w3,w4,w5] [261,655,671] [v201,n451,n540,n539] (by decide +kernel)
-def n542 := cc 7 [w0,w1,w2,w3,w252,w13] [180,206,597] [] (by decide +kernel)
-def n543 := cc 8 [w0,w1,w2,w3,w4,w252,w5] [179,448,502,597] [n542] (by decide +kernel)
-def n544 := cc 7 [w237,w0,w1,w3,w217,w13] [180,206,597] [] (by decide +kernel)
-def n545 := cc 8 [w237,w0,w1,w3,w4,w217,w5] [179,204,448,502] [n544] (by decide +kernel)
-def n546 := cc 7 [w69,w237,w0,w1,w2,w3] [448,512,597,671] [n452] (by decide +kernel)
-def n547 := cc 7 [w69,w237,w0,w1,w2,w3,w13] [448,512,597,671,675] [] (by decide +kernel)
-def n548 := cc 8 [w237,w0,w1,w2,w3,w68,w13] [206,597,671] [n546,n547,n453,n544,n542] (by decide +kernel)
-def n549 := cc 9 [w237,w0,w1,w2,w3,w68,w4,w5] [204,502,597,671] [n454,n548,n545,n543] (by decide +kernel)
-def n550 := cc 8 [w0,w253,w1,w2,w3,w4,w5] [179,231,269,600,658] [] (by decide +kernel)
-def n551 := cc 8 [w237,w220,w0,w1,w2,w3,w4,w5] [77,233,377,505,672,675] [n506] (by decide +kernel)
-def n552 := cc 8 [w237,w0,w1,w2,w226,w3,w4,w5,w13] [232,655,662,671,675,676] [] (by decide +kernel)
-def v202 : Closed T 8 := rotateClosed n517 auto1 auto1ok
-def n553 := cc 9 [w237,w0,w1,w2,w3,w4,w5,w13] [97,231,351,377,389,459,597,655,662,675,676] [n455,n507,n517,v202,n551,n552,n548,n512,n511,v194,n523,n521,v197,n550,n431,n497,n495,v189] (by decide +kernel)
-def n554 := cc 8 [w254,w0,w1,w2,w3,w4,w5] [179,247,448,597] [] (by decide +kernel)
-def n555 := cc 8 [w237,w0,w1,w229,w3,w4,w5] [179,247,448,597] [] (by decide +kernel)
-def n556 := cc 8 [w70,w71,w237,w0,w1,w2,w3] [163,250,405,502,597] [n456,n546] (by decide +kernel)
-def n557 := cc 9 [w70,w237,w0,w1,w2,w3,w4,w5] [231,247,502,597,671] [n556,n457,n522,n496,n555,n554] (by decide +kernel)
-def v203 : Closed T 9 := rotateClosed n538 auto1 auto1ok
-def v204 : Closed T 9 := rotateClosed n557 auto1 auto1ok
-def v205 : Closed T 9 := rotateClosed n541 auto1 auto1ok
-def v206 : Closed T 9 := rotateClosed n518 auto1 auto1ok
-def v207 : Closed T 9 := rotateClosed n533 auto1 auto1ok
-def v208 : Closed T 9 := rotateClosed n513 auto1 auto1ok
-def v209 : Closed T 9 := rotateClosed n536 auto1 auto1ok
-def v210 : Closed T 9 := rotateClosed n525 auto1 auto1ok
-def v211 : Closed T 9 := rotateClosed n499 auto1 auto1ok
-def n558 := cc 10 [w237,w0,w1,w2,w3,w4,w5] [0,97,184,269,389,459] [n538,v203,n557,v204,n541,v205,n458,n508,n518,v206,n533,v207,n501,n549,n513,v208,n536,v209,n553,n525,v210,n435,n499,v211] (by decide +kernel)
-def n559 := cc 8 [w0,w1,w256,w3,w4,w9,w5] [97,179,521,556] [] (by decide +kernel)
-def n560 := cc 8 [w118,w0,w1,w256,w3,w4,w5] [155,178,521,632] [] (by decide +kernel)
-def n561 := cc 8 [w0,w1,w2,w3,w4,w257,w5] [83,90,179,331,459,556] [] (by decide +kernel)
-def n562 := cc 8 [w258,w0,w1,w2,w3,w4,w5] [83,90,178,369,389] [] (by decide +kernel)
-def n563 := cc 8 [w0,w1,w2,w256,w3,w4,w5,w13] [351,521,662,675] [] (by decide +kernel)
-def v212 : Closed T 8 := rotateClosed n560 auto1 auto1ok
-def v213 : Closed T 8 := rotateClosed n562 auto1 auto1ok
-def v214 : Closed T 8 := rotateClosed n561 auto1 auto1ok
-def v215 : Closed T 8 := rotateClosed n559 auto1 auto1ok
-def n564 := cc 9 [w0,w1,w2,w256,w3,w4,w5] [97,178,179,269,556,632] [n560,v212,n562,v213,n563,n561,v214,n559,v215] (by decide +kernel)
-def n565 := cc 8 [w0,w1,w2,w3,w4,w259,w15] [179,184,345,664] [] (by decide +kernel)
-def n566 := cc 8 [w261,w0,w1,w2,w3,w4,w5] [165,179,521,577] [] (by decide +kernel)
-def n567 := cc 8 [w0,w1,w2,w3,w4,w259,w13] [90,143,517,564,672] [] (by decide +kernel)
-def n568 := cc 8 [w0,w1,w2,w3,w4,w5,w262] [83,90,143,179,184,564,636] [] (by decide +kernel)
-def n569 := cc 8 [w263,w0,w1,w2,w3,w4,w5] [90,161,581,666] [] (by decide +kernel)
-def v216 : Closed T 8 := rotateClosed n565 auto1 auto1ok
-def v217 : Closed T 8 := rotateClosed n567 auto1 auto1ok
-def n570 := cc 9 [w0,w1,w2,w3,w4,w260,w5] [97,184,459,524,666,675] [n569,n566,n561,n568,v216,v217] (by decide +kernel)
-def n571 := cc 7 [w265,w264,w1,w2,w4,w5] [98,178,182,597,655] [] (by decide +kernel)
-def n572 := cc 7 [w264,w1,w2,w266,w4,w5] [3,123,179,182,577,641] [] (by decide +kernel)
-def n573 := cc 7 [w267,w264,w1,w2,w4,w5] [164,179,182,556,632] [] (by decide +kernel)
-def n574 := cc 7 [w264,w268,w1,w2,w4,w5] [60,148,178,182,530,612] [] (by decide +kernel)
-def n575 := cc 8 [w264,w1,w2,w4,w5] [97,524,607] [n573,n571,n574,n572] (by decide +kernel)
-def n576 := cc 9 [w255,w1,w2,w112,w4,w5] [97,524,607] [n575] (by decide +kernel)
-def n577 := cc 8 [w269,w0,w1,w2,w3,w4,w5] [152,331,672] [] (by decide +kernel)
-def n578 := cc 9 [w255,w0,w1,w2,w3,w4,w9,w5] [127,184,524,672] [n577,n561,v216,n559] (by decide +kernel)
-def n579 := cc 8 [w270,w0,w1,w2,w3,w4,w5] [83,178,369,389,632] [] (by decide +kernel)
-def n580 := cc 9 [w118,w255,w0,w1,w2,w3,w4,w5] [185,369,607,672,675] [n560,n579] (by decide +kernel)
-def n581 := cc 8 [w271,w0,w1,w2,w3,w4,w5] [143,184,351,662,671,672] [] (by decide +kernel)
-def n582 := cc 9 [w255,w0,w1,w2,w3,w4,w5,w13] [185,231,351,389,607,672,675] [n581,n563,n568,n567,v217] (by decide +kernel)
-def v218 : Closed T 9 := rotateClosed n580 auto1 auto1ok
-def v219 : Closed T 9 := rotateClosed n578 auto1 auto1ok
-def v220 : Closed T 9 := rotateClosed n570 auto1 auto1ok
-def n583 := cc 10 [w255,w0,w1,w2,w3,w4,w5] [97,184,269,524,607] [n580,v218,n578,v219,n582,n576,n564,n570,v220] (by decide +kernel)
-def n584 := cc 8 [w1,w273,w2,w3,w112,w4,w5] [208,294,541,623] [] (by decide +kernel)
-def n585 := cc 8 [w274,w0,w1,w2,w3,w4,w5] [164,360,540,622] [] (by decide +kernel)
-def n586 := cc 8 [w113,w0,w272,w1,w3,w4,w5] [79,164,208,540,622] [] (by decide +kernel)
-def n587 := cc 9 [w0,w272,w1,w2,w3,w112,w4,w5] [97,208,269,540,622] [n586,n585,n584] (by decide +kernel)
-def n588 := cc 8 [w275,w0,w1,w2,w3,w4,w5] [10,179,585,648] [] (by decide +kernel)
-def n589 := cc 8 [w39,w113,w0,w1,w3,w4,w5] [164,361,585,648] [] (by decide +kernel)
-def n590 := cc 9 [w39,w0,w1,w2,w3,w112,w4,w5] [97,208,269,585,648] [n588,n589] (by decide +kernel)
-def n591 := cc 8 [w0,w1,w2,w42,w112,w4,w5] [123,208,269,573,638] [] (by decide +kernel)
-def n592 := cc 9 [w0,w41,w1,w2,w112,w4,w5] [97,184,269,524,607] [n591] (by decide +kernel)
-def n593 := cc 8 [w0,w1,w2,w277,w3,w4,w5] [179,208,573,638] [] (by decide +kernel)
-def n594 := cc 8 [w0,w276,w1,w2,w277,w3,w4,w5] [182,208,573,638] [] (by decide +kernel)
-def n595 := cc 9 [w0,w276,w1,w2,w3,w4,w5] [97,182,208,524,607] [n588,n594,n593] (by decide +kernel)
-def n596 := cc 9 [w164,w0,w1,w2,w112,w4,w5] [97,179,184,269,524,607] [] (by decide +kernel)
-def n597 := cc 8 [w0,w278,w1,w2,w3,w4,w5] [164,208,361,540,622] [] (by decide +kernel)
-def n598 := cc 9 [w113,w0,w1,w2,w3,w4,w5] [164,179,269,511,524,607] [n588,n589,n500,n586,n176,n597] (by decide +kernel)
-def n599 := cc 10 [w0,w1,w2,w3,w112,w4,w5] [97,184,269,524,607] [n590,n596,n598,n501,n576,n587,n592,n595,n177] (by decide +kernel)
-def n600 := cc 9 [w0,w280,w2,w3,w4,w5] [0,97,184,389] [] (by decide +kernel)
-def n601 := cc 9 [w0,w281,w2,w3,w4,w5] [97,524,607] [] (by decide +kernel)
-def n602 := cc 9 [w0,w1,w2,w282,w3,w4,w5] [97,524,607] [] (by decide +kernel)
-def n603 := cc 9 [w279,w115,w1,w2,w4,w5] [97,269,524,607] [n575] (by decide +kernel)
-def n604 := cc 10 [w279,w0,w1,w2,w3,w4,w5] [97,184,524,607] [n603,n601,n602,n600] (by decide +kernel)
-def n605 := cc 8 [w0,w1,w2,w3,w4,w283,w5] [83,90,179,331,459,577] [] (by decide +kernel)
-def n606 := cc 8 [w284,w0,w1,w2,w3,w4,w5] [90,369,672] [] (by decide +kernel)
-def n607 := cc 8 [w0,w1,w2,w116,w3,w4,w5,w13] [83,351,641,662,671] [] (by decide +kernel)
-def v221 : Closed T 8 := rotateClosed n606 auto1 auto1ok
-def v222 : Closed T 8 := rotateClosed n605 auto1 auto1ok
-def n608 := cc 9 [w0,w1,w2,w116,w3,w4,w5] [0,97,269,389,641,671,672] [n606,v221,n502,n607,n605,v222,n178] (by decide +kernel)
-def n609 := cc 8 [w0,w1,w2,w3,w4,w285,w121] [142,179,327,664] [] (by decide +kernel)
-def n610 := cc 8 [w286,w0,w1,w2,w3,w4,w5] [179,388,521,556] [] (by decide +kernel)
-def n611 := cc 7 [w0,w1,w2,w3,w117,w15,w13] [86,348,518,671] [] (by decide +kernel)
-def n612 := cc 8 [w0,w1,w2,w3,w4,w117,w5,w15] [345,518,666,671] [n611] (by decide +kernel)
-def n613 := cc 8 [w118,w0,w1,w2,w3,w4,w117,w5] [252,521,589,674] [] (by decide +kernel)
-def v223 : Closed T 7 := rotateClosed n611 auto1 auto1ok
-def n614 := cc 8 [w0,w1,w2,w3,w4,w285,w13] [90,351,389,517,673] [v223] (by decide +kernel)
-def n615 := cc 8 [w0,w1,w2,w3,w4,w5,w287] [83,90,179,183,184,351] [] (by decide +kernel)
-def n616 := cc 8 [w288,w0,w1,w2,w3,w4,w5] [90,374,564,674] [] (by decide +kernel)
-def v224 : Closed T 8 := rotateClosed n609 auto1 auto1ok
-def v225 : Closed T 8 := rotateClosed n614 auto1 auto1ok
-def n617 := cc 9 [w0,w1,w2,w3,w4,w117,w5] [184,269,459,524,674,681] [n613,n616,n610,n503,n179,n612,n605,n615,v224,v225] (by decide +kernel)
-def n618 := cc 8 [w115,w0,w1,w2,w3,w4,w121,w15] [183,251,328,607,670,671] [] (by decide +kernel)
-def n619 := cc 8 [w115,w0,w1,w2,w3,w4,w121,w13] [53,329,672,674,675] [] (by decide +kernel)
-def n620 := cc 8 [w115,w0,w1,w2,w3,w4,w5,w125] [83,218,251,320,636,672,675] [] (by decide +kernel)
-def v226 : Closed T 8 := rotateClosed n618 auto1 auto1ok
-def v227 : Closed T 8 := rotateClosed n619 auto1 auto1ok
-def n621 := cc 9 [w115,w0,w1,w2,w3,w4,w123,w5] [251,315,524,636,673,675] [n182,n620,v226,v227,v224] (by decide +kernel)
-def n622 := cc 9 [w115,w0,w1,w2,w8,w4,w5] [97,179,184,269,524,607] [] (by decide +kernel)
-def n623 := cc 8 [w0,w289,w1,w2,w3,w4,w5] [331,530,674] [] (by decide +kernel)
-def n624 := cc 8 [w115,w167,w0,w1,w2,w3,w4,w5] [342,597,672] [] (by decide +kernel)
-def n625 := cc 8 [w115,w0,w1,w2,w3,w4,w15,w13] [251,348,607,671,673,675] [n611] (by decide +kernel)
-def n626 := cc 6 [w45,w290,w1,w2,w3,w4,w5] [] [] (by decide +kernel)
-def n627 := cc 6 [w115,w45,w41,w1,w2,w4,w5] [89,96,179] [] (by decide +kernel)
-def n628 := cc 7 [w115,w45,w1,w2,w3,w4,w5] [179,576,640] [n63,n627,n626] (by decide +kernel)
-def n629 := cc 8 [w115,w0,w1,w2,w3,w4,w5,w44] [179,183,339,574,639] [n628] (by decide +kernel)
-def n630 := cc 8 [w46,w115,w0,w1,w2,w3,w4,w5] [90,343,589,672] [] (by decide +kernel)
-def v228 : Closed T 8 := rotateClosed n625 auto1 auto1ok
-def v229 : Closed T 8 := rotateClosed n612 auto1 auto1ok
-def n631 := cc 9 [w115,w0,w1,w2,w3,w4,w9,w5] [97,251,331,504,512,524,672] [n630,n504,n624,n182,n629,v226,v228,n180,n623,v229,n605] (by decide +kernel)
-def n632 := cc 8 [w291,w0,w1,w2,w3,w4,w5] [83,183,251,389,641] [] (by decide +kernel)
-def n633 := cc 8 [w115,w0,w292,w1,w2,w3,w4,w5] [178,370,672,674] [] (by decide +kernel)
-def n634 := cc 8 [w115,w0,w1,w2,w3,w4,w177,w5] [183,371,589,672] [] (by decide +kernel)
-def n635 := cc 9 [w118,w115,w0,w1,w2,w3,w4,w5] [97,251,369,450,607,675] [n181,n613,n633,n634,n632] (by decide +kernel)
-def n636 := cc 8 [w55,w115,w0,w1,w2,w4,w5] [179,388,524,607] [] (by decide +kernel)
-def n637 := cc 9 [w115,w0,w1,w2,w4,w12,w5] [138,269,524,607] [n636,n505,n184] (by decide +kernel)
-def n638 := cc 8 [w0,w293,w1,w2,w3,w4,w5] [179,183,184,351,535,617] [] (by decide +kernel)
-def n639 := cc 8 [w115,w220,w0,w1,w2,w3,w4,w5] [251,356,505,672,674,675] [n506] (by decide +kernel)
-def n640 := cc 8 [w47,w115,w0,w1,w2,w3,w4,w5] [179,183,357,603,661] [] (by decide +kernel)
-def n641 := cc 9 [w115,w0,w1,w2,w3,w4,w5,w13] [97,231,251,351,524,607,675,687] [n640,n507,n639,n185,n620,n629,n619,v227,n625,v228,n638,n607,n615,n614,v225] (by decide +kernel)
-def v230 : Closed T 9 := rotateClosed n635 auto1 auto1ok
-def v231 : Closed T 9 := rotateClosed n621 auto1 auto1ok
-def v232 : Closed T 9 := rotateClosed n631 auto1 auto1ok
-def v233 : Closed T 9 := rotateClosed n637 auto1 auto1ok
-def v234 : Closed T 9 := rotateClosed n617 auto1 auto1ok
-def n642 := cc 10 [w115,w0,w1,w2,w3,w4,w5] [97,184,269,524,607] [n635,v230,n603,n508,n186,n621,v231,n631,v232,n641,n622,n637,v233,n608,n617,v234] (by decide +kernel)
-def n643 := cc 9 [w0,w295,w2,w3,w4,w5] [97,184,269,389] [] (by decide +kernel)
-def n644 := cc 7 [w297,w0,w2,w3,w4,w299] [102,192,538] [] (by decide +kernel)
-def n645 := cc 6 [w301,w302,w0,w3,w4] [512,620,668] [] (by decide +kernel)
-def v235 : Closed T 6 := rotateClosed n645 auto1 auto1ok
-def n646 := cc 7 [w297,w0,w298,w3,w9,w5] [103,179,538] [v235] (by decide +kernel)
-def n647 := cc 8 [w297,w0,w298,w2,w3,w4,w5] [9,101,192,281,394,469] [n646,n644] (by decide +kernel)
-def n648 := cc 8 [w297,w0,w2,w3,w4,w9,w5] [127,192,394,639] [n646] (by decide +kernel)
-def n649 := cc 7 [w118,w181,w302,w0,w3,w4] [157,187,447,464] [n645] (by decide +kernel)
-def n650 := cc 8 [w118,w302,w0,w2,w3,w4,w5] [136,155,187,464,589] [n649] (by decide +kernel)
-def v236 : Closed T 7 := rotateClosed n649 auto1 auto1ok
-def n651 := cc 8 [w179,w297,w0,w2,w3,w4,w5] [127,165,192,508,538] [v236] (by decide +kernel)
-def v237 : Closed T 8 := rotateClosed n650 auto1 auto1ok
-def n652 := cc 9 [w297,w0,w2,w3,w4,w5] [97,607] [v237,n651,n647,n648] (by decide +kernel)
-def n653 := cc 7 [w0,w1,w303,w3,w304,w5] [178,465,550] [] (by decide +kernel)
-def n654 := cc 6 [w307,w0,w1,w3,w4] [178,465,512,618] [] (by decide +kernel)
-def v238 : Closed T 6 := rotateClosed n654 auto1 auto1ok
-def n655 := cc 7 [w0,w1,w309,w3,w310,w5] [103,179,536] [v238] (by decide +kernel)
-def v239 : Closed T 7 := rotateClosed n653 auto1 auto1ok
-def n656 := cc 8 [w0,w1,w309,w308,w3,w4,w5] [178,469,536] [n655,v239] (by decide +kernel)
-def v240 : Closed T 7 := rotateClosed n655 auto1 auto1ok
-def n657 := cc 8 [w0,w1,w303,w3,w4,w5,w306] [136,178,465,574] [v240] (by decide +kernel)
-def n658 := cc 7 [w311,w312,w0,w1,w3,w4] [157,178,465,593] [n654] (by decide +kernel)
-def n659 := cc 8 [w311,w0,w1,w303,w3,w4,w5] [136,178,445,465,589] [n658] (by decide +kernel)
-def v241 : Closed T 7 := rotateClosed n658 auto1 auto1ok
-def n660 := cc 8 [w313,w0,w1,w308,w3,w4,w5] [127,165,178,395,508,536] [v241] (by decide +kernel)
-def v242 : Closed T 8 := rotateClosed n660 auto1 auto1ok
-def v243 : Closed T 8 := rotateClosed n656 auto1 auto1ok
-def n661 := cc 9 [w0,w1,w303,w3,w4,w5] [97,524] [n659,v242,v243,n657] (by decide +kernel)
-def n662 := cc 6 [w314,w0,w1,w3,w4] [178,188,512,618] [] (by decide +kernel)
-def v244 : Closed T 6 := rotateClosed n662 auto1 auto1ok
-def n663 := cc 7 [w0,w1,w298,w3,w310,w5] [83,103,536] [v244] (by decide +kernel)
-def n664 := cc 8 [w0,w1,w298,w308,w3,w4,w5] [178,469,536] [n663,v239] (by decide +kernel)
-def n665 := cc 8 [w0,w1,w303,w3,w4,w5,w15] [136,178,459,465,574] [] (by decide +kernel)
-def n666 := cc 8 [w118,w0,w1,w303,w3,w4,w5] [136,178,445,459,589] [] (by decide +kernel)
-def n667 := cc 7 [w311,w181,w0,w1,w3,w4] [90,157,465,593] [n662] (by decide +kernel)
-def v245 : Closed T 7 := rotateClosed n667 auto1 auto1ok
-def n668 := cc 8 [w179,w0,w1,w308,w3,w4,w5] [127,165,178,395,508,536] [v245] (by decide +kernel)
-def n669 := cc 8 [w0,w1,w2,w3,w4,w310,w5] [83,127,165,193,639] [n663] (by decide +kernel)
-def n670 := cc 8 [w311,w0,w1,w2,w3,w4,w5] [90,178,445,589] [n667] (by decide +kernel)
-def v246 : Closed T 8 := rotateClosed n668 auto1 auto1ok
-def v247 : Closed T 8 := rotateClosed n664 auto1 auto1ok
-def v248 : Closed T 8 := rotateClosed n669 auto1 auto1ok
-def n671 := cc 9 [w0,w1,w2,w303,w3,w4,w5] [97,178,179,459,524] [n666,n670,v246,v247,v248,n665] (by decide +kernel)
-def n672 := cc 9 [w315,w0,w1,w3,w4,w5] [97,184,607] [] (by decide +kernel)
-def n673 := cc 9 [w0,w1,w2,w316,w4,w5] [97,389,607] [] (by decide +kernel)
-def n674 := cc 7 [w317,w0,w1,w2,w4,w299] [102,196,285,398] [] (by decide +kernel)
-def n675 := cc 6 [w301,w318,w0,w1,w4] [190,512,672] [] (by decide +kernel)
-def v249 : Closed T 6 := rotateClosed n675 auto1 auto1ok
-def n676 := cc 7 [w317,w0,w1,w298,w9,w5] [103,179,196,286,470] [v249] (by decide +kernel)
-def n677 := cc 8 [w317,w0,w1,w298,w2,w4,w5] [101,196,283,398,469] [n676,n674] (by decide +kernel)
-def n678 := cc 8 [w317,w0,w1,w2,w4,w9,w5] [127,196,331,398,487] [n676] (by decide +kernel)
-def n679 := cc 7 [w118,w181,w318,w0,w1,w4] [157,190,373,447,467] [n675] (by decide +kernel)
-def n680 := cc 8 [w118,w318,w0,w1,w2,w4,w5] [136,155,190,369,445,467] [n679] (by decide +kernel)
-def v250 : Closed T 7 := rotateClosed n679 auto1 auto1ok
-def n681 := cc 8 [w179,w317,w0,w1,w2,w4,w5] [127,165,196,388,398,508] [v250] (by decide +kernel)
-def v251 : Closed T 8 := rotateClosed n680 auto1 auto1ok
-def n682 := cc 9 [w317,w0,w1,w2,w4,w5] [97,269,459] [v251,n681,n677,n678] (by decide +kernel)
-def n683 := cc 7 [w0,w1,w2,w3,w319,w299] [102,193,469,535] [] (by decide +kernel)
-def n684 := cc 6 [w322,w0,w1,w3,w4] [188,512,672] [] (by decide +kernel)
-def v252 : Closed T 6 := rotateClosed n684 auto1 auto1ok
-def n685 := cc 7 [w0,w1,w323,w3,w310,w5] [83,103,193,629] [v252] (by decide +kernel)
-def n686 := cc 8 [w0,w1,w323,w2,w3,w319,w5] [83,101,165,193,627] [n685,n683] (by decide +kernel)
-def v253 : Closed T 7 := rotateClosed n685 auto1 auto1ok
-def n687 := cc 8 [w0,w1,w2,w3,w4,w320,w306] [90,136,171,188,574] [v253] (by decide +kernel)
-def n688 := cc 7 [w324,w325,w0,w1,w3,w4] [157,179,188,593] [n684] (by decide +kernel)
-def n689 := cc 8 [w324,w0,w1,w2,w3,w4,w320] [90,155,188,589] [n688] (by decide +kernel)
-def v254 : Closed T 7 := rotateClosed n688 auto1 auto1ok
-def n690 := cc 8 [w326,w0,w1,w2,w3,w319,w5] [83,165,193,661] [v254] (by decide +kernel)
-def v255 : Closed T 8 := rotateClosed n690 auto1 auto1ok
-def v256 : Closed T 8 := rotateClosed n686 auto1 auto1ok
-def n691 := cc 9 [w0,w1,w2,w3,w4,w320] [97,524] [n689,v255,v256,n687] (by decide +kernel)
-def n692 := cc 8 [w0,w1,w298,w2,w3,w319,w5] [83,101,165,193,469,535] [n663,n683] (by decide +kernel)
-def n693 := cc 8 [w0,w1,w2,w3,w4,w320,w15] [90,136,171,184,574] [] (by decide +kernel)
-def n694 := cc 7 [w118,w325,w0,w1,w3,w4] [157,179,188,593] [n662] (by decide +kernel)
-def n695 := cc 8 [w118,w0,w1,w2,w3,w4,w320] [90,155,188,589] [n694] (by decide +kernel)
-def n696 := cc 8 [w179,w0,w1,w2,w3,w319,w5] [83,101,165,184,193,394,508,535] [] (by decide +kernel)
-def v257 : Closed T 7 := rotateClosed n694 auto1 auto1ok
-def n697 := cc 8 [w326,w0,w1,w2,w3,w4,w5] [83,165,193,661] [v257] (by decide +kernel)
-def v258 : Closed T 8 := rotateClosed n695 auto1 auto1ok
-def v259 : Closed T 8 := rotateClosed n693 auto1 auto1ok
-def n698 := cc 9 [w0,w1,w2,w3,w4,w319,w5] [83,97,184,607,662] [v258,n696,n697,n692,n669,v259] (by decide +kernel)
-def n699 := cc 9 [w327,w0,w1,w2,w3,w5] [97,459,524] [] (by decide +kernel)
-def n700 := cc 8 [w328,w1,w2,w3,w4,w121] [] [] (by decide +kernel)
-def n701 := cc 7 [w294,w1,w2,w3,w123,w330] [189,531,669] [] (by decide +kernel)
-def n702 := cc 7 [w332,w296,w1,w2,w3,w121] [] [] (by decide +kernel)
-def v260 : Closed T 7 := rotateClosed n702 auto1 auto1ok
-def n703 := cc 8 [w294,w1,w329,w2,w3,w123,w5] [189,466,530,664,669] [v260,n701] (by decide +kernel)
-def n704 := cc 7 [w328,w1,w2,w3,w4,w141] [] [] (by decide +kernel)
-def n705 := cc 7 [w333,w1,w2,w3,w4,w121] [] [] (by decide +kernel)
-def v261 : Closed T 7 := rotateClosed n704 auto1 auto1ok
-def v262 : Closed T 7 := rotateClosed n705 auto1 auto1ok
-def n706 := cc 8 [w294,w1,w2,w3,w123,w119,w5] [83,127,179,466,556,664] [v261,v262] (by decide +kernel)
-def n707 := cc 8 [w334,w296,w1,w2,w3,w4,w121] [] [] (by decide +kernel)
-def n708 := cc 7 [w124,w335,w1,w2,w3,w5] [179,577,669] [] (by decide +kernel)
-def n709 := cc 7 [w334,w122,w296,w1,w3,w4] [] [] (by decide +kernel)
-def v263 : Closed T 7 := rotateClosed n709 auto1 auto1ok
-def n710 := cc 8 [w124,w294,w1,w2,w3,w123,w5] [179,466,577,664,669] [v263,n708] (by decide +kernel)
-def n711 := cc 6 [w301,w294,w1,w3,w123] [178,189,619,666] [] (by decide +kernel)
-def n712 := cc 7 [w294,w1,w300,w3,w123,w15] [108,179,666] [n711] (by decide +kernel)
-def n713 := cc 8 [w294,w1,w300,w2,w3,w123,w5] [189,550,666] [n712] (by decide +kernel)
-def n714 := cc 8 [w294,w1,w2,w3,w123,w5,w15] [136,574,664,671] [n712] (by decide +kernel)
-def n715 := cc 7 [w118,w181,w294,w1,w3,w123] [157,189,666] [n711] (by decide +kernel)
-def n716 := cc 8 [w118,w294,w1,w2,w3,w123,w5] [189,589,675] [n715] (by decide +kernel)
-def n717 := cc 8 [w179,w296,w1,w2,w3,w4,w121] [] [] (by decide +kernel)
-def n718 := cc 6 [w337,w294,w1,w2,w3] [466,619,662,666] [] (by decide +kernel)
-def n719 := cc 7 [w294,w1,w2,w3,w336,w125] [83,121,466,537] [n718] (by decide +kernel)
-def n720 := cc 8 [w294,w1,w2,w3,w336,w123,w5] [179,189,466,535,666] [n719] (by decide +kernel)
-def n721 := cc 7 [w338,w1,w2,w3,w4,w121] [] [] (by decide +kernel)
-def v264 : Closed T 7 := rotateClosed n721 auto1 auto1ok
-def n722 := cc 8 [w294,w1,w2,w3,w123,w5,w125] [143,179,189,564,664,666] [v264,n719] (by decide +kernel)
-def n723 := cc 7 [w339,w340,w296,w1,w2,w3] [] [] (by decide +kernel)
-def v265 : Closed T 7 := rotateClosed n723 auto1 auto1ok
-def n724 := cc 8 [w341,w294,w1,w2,w3,w123,w5] [161,581,664,666] [v265] (by decide +kernel)
-def n725 := cc 8 [w339,w296,w1,w2,w3,w4,w121] [] [] (by decide +kernel)
-def v266 : Closed T 8 := rotateClosed n707 auto1 auto1ok
-def v267 : Closed T 8 := rotateClosed n725 auto1 auto1ok
-def v268 : Closed T 8 := rotateClosed n717 auto1 auto1ok
-def v269 : Closed T 8 := rotateClosed n700 auto1 auto1ok
-def n726 := cc 9 [w294,w1,w2,w3,w123,w5] [97,524] [v266,v267,n716,n724,v268,n710,v269,n703,n713,n720,n706,n714,n722] (by decide +kernel)
-def n727 := cc 6 [w343,w0,w1,w3,w4] [178,191,512,621] [] (by decide +kernel)
-def v270 : Closed T 6 := rotateClosed n727 auto1 auto1ok
-def n728 := cc 7 [w0,w1,w344,w3,w9,w5] [103,178,179,535] [v270] (by decide +kernel)
-def n729 := cc 8 [w0,w1,w2,w344,w3,w4,w5] [101,192,469,535] [n728] (by decide +kernel)
-def v271 : Closed T 7 := rotateClosed n644 auto1 auto1ok
-def v272 : Closed T 7 := rotateClosed n674 auto1 auto1ok
-def v273 : Closed T 7 := rotateClosed n683 auto1 auto1ok
-def n730 := cc 8 [w294,w0,w1,w2,w3,w304,w5] [106,187,254,464,550,607] [v271,v272,v273,n653] (by decide +kernel)
-def n731 := cc 7 [w345,w0,w1,w298,w3,w5] [103,179,539] [v270] (by decide +kernel)
-def n732 := cc 6 [w0,w346,w1,w3,w4] [178,188,512,618] [] (by decide +kernel)
-def n733 := cc 7 [w301,w294,w0,w1,w3,w4] [178,187,512,518,521,617] [n727,n645,n675,n711,n732] (by decide +kernel)
-def v274 : Closed T 7 := rotateClosed n646 auto1 auto1ok
-def v275 : Closed T 7 := rotateClosed n676 auto1 auto1ok
-def v276 : Closed T 7 := rotateClosed n731 auto1 auto1ok
-def v277 : Closed T 7 := rotateClosed n663 auto1 auto1ok
-def v278 : Closed T 7 := rotateClosed n728 auto1 auto1ok
-def n734 := cc 8 [w294,w0,w1,w300,w3,w4,w15] [108,179,187,552,607] [n733,v274,v275,v276,n712,v277,v278] (by decide +kernel)
-def v279 : Closed T 8 := rotateClosed n647 auto1 auto1ok
-def v280 : Closed T 8 := rotateClosed n677 auto1 auto1ok
-def v281 : Closed T 8 := rotateClosed n692 auto1 auto1ok
-def v282 : Closed T 8 := rotateClosed n729 auto1 auto1ok
-def n735 := cc 9 [w294,w0,w1,w300,w2,w3,w4,w5] [8,104,187,278,287,401,464,607] [v279,v280,n734,n730,n713,v281,v247,v282] (by decide +kernel)
-def n736 := cc 8 [w345,w0,w1,w2,w3,w4,w5] [127,197,397,639] [n731] (by decide +kernel)
-def v283 : Closed T 8 := rotateClosed n648 auto1 auto1ok
-def v284 : Closed T 8 := rotateClosed n678 auto1 auto1ok
-def v285 : Closed T 8 := rotateClosed n736 auto1 auto1ok
-def n737 := cc 9 [w294,w0,w1,w2,w3,w4,w5,w15] [90,155,179,184,427,459,464,574,607] [v283,v284,v285,n734,n714,v248,n693,n665] (by decide +kernel)
-def v286 : Closed T 6 := rotateClosed n732 auto1 auto1ok
-def n738 := cc 7 [w179,w0,w347,w1,w3,w5] [154,178,536] [v286] (by decide +kernel)
-def v287 : Closed T 7 := rotateClosed n738 auto1 auto1ok
-def n739 := cc 8 [w348,w0,w1,w2,w3,w4,w5] [136,178,445,465,589] [v287] (by decide +kernel)
-def n740 := cc 7 [w118,w0,w349,w1,w3,w4] [157,179,188,593] [n732] (by decide +kernel)
-def n741 := cc 8 [w118,w181,w294,w0,w1,w3,w4] [157,187,373,447,464,607] [n649,n679,n715,n740,v287,n733] (by decide +kernel)
-def n742 := cc 9 [w118,w294,w0,w1,w2,w3,w4,w5] [90,136,155,187,464,589,607] [n741,n650,n680,n716,n695,n666,n739] (by decide +kernel)
-def n743 := cc 8 [w0,w349,w1,w2,w3,w4,w5] [179,455,464,603] [n740] (by decide +kernel)
-def v288 : Closed T 8 := rotateClosed n741 auto1 auto1ok
-def v289 : Closed T 8 := rotateClosed n743 auto1 auto1ok
-def n744 := cc 9 [w179,w296,w0,w1,w2,w3,w4,w5] [179,184,394,508,535] [v288,n651,n681,n696,n668,v289] (by decide +kernel)
-def v290 : Closed T 9 := rotateClosed n744 auto1 auto1ok
-def v291 : Closed T 9 := rotateClosed n652 auto1 auto1ok
-def v292 : Closed T 9 := rotateClosed n672 auto1 auto1ok
-def v293 : Closed T 9 := rotateClosed n682 auto1 auto1ok
-def v294 : Closed T 9 := rotateClosed n699 auto1 auto1ok
-def v295 : Closed T 9 := rotateClosed n698 auto1 auto1ok
-def n745 := cc 10 [w294,w0,w1,w2,w3,w4,w5] [97,184,459,524] [n742,v290,v291,v292,v293,v294,n735,n737,n726,n671,v295,n691,n673,n661,n643] (by decide +kernel)
-def n746 := cc 6 [w1,w2,w351,w3,w123,w121,w13] [178,205] [] (by decide +kernel)
-def n747 := cc 7 [w1,w2,w351,w3,w4,w123,w5,w121] [218,671,672] [n746] (by decide +kernel)
-def n748 := cc 6 [w352,w0,w1,w2,w3,w123,w121] [97] [] (by decide +kernel)
-def n749 := cc 7 [w0,w1,w350,w2,w3,w123,w121,w13] [85,92,98,564,669,670] [n748,n746] (by decide +kernel)
-def n750 := cc 8 [w0,w1,w350,w2,w3,w4,w123,w5,w121] [218,664,666,671,672] [n749,n747] (by decide +kernel)
-def n751 := cc 8 [w0,w1,w2,w3,w123,w121,w13] [143,389,564,671,672,675] [n749] (by decide +kernel)
-def n752 := cc 7 [w341,w340,w0,w1,w2,w3] [83,163,671] [] (by decide +kernel)
-def n753 := cc 8 [w341,w0,w1,w2,w3,w4,w121] [90,161,671] [n752] (by decide +kernel)
-def n754 := cc 8 [w0,w1,w2,w3,w4,w5,w125] [39,83,90,143,179,184,320,420,483] [] (by decide +kernel)
-def v296 : Closed T 8 := rotateClosed n753 auto1 auto1ok
-def n755 := cc 9 [w0,w1,w2,w3,w4,w123,w5,w121] [97,214,222,315,327,389,459,564,671,672,675] [n753,v296,n750,n754,n751] (by decide +kernel)
-def n756 := cc 8 [w0,w1,w2,w3,w4,w353,w121] [90,143,420,517,564,672] [] (by decide +kernel)
-def n757 := cc 8 [w126,w0,w1,w2,w3,w121,w13] [143,517,564,664,672] [] (by decide +kernel)
-def n758 := cc 8 [w341,w128,w0,w1,w2,w3,w4] [636,666,669] [] (by decide +kernel)
-def v297 : Closed T 8 := rotateClosed n758 auto1 auto1ok
-def n759 := cc 9 [w126,w0,w1,w2,w3,w4,w5,w121] [97,222,254,459,564,664,671,672] [v297,n757,n754,n756] (by decide +kernel)
-def n760 := cc 6 [w1,w273,w2,w3,w123,w354,w13] [178,205] [] (by decide +kernel)
-def n761 := cc 6 [w356,w1,w273,w2,w3,w4,w121] [] [] (by decide +kernel)
-def v298 : Closed T 6 := rotateClosed n761 auto1 auto1ok
-def n762 := cc 7 [w1,w273,w2,w3,w4,w123,w5,w354] [221,410] [v298,n760] (by decide +kernel)
-def v299 : Closed T 6 := rotateClosed n760 auto1 auto1ok
-def n763 := cc 7 [w1,w273,w2,w3,w4,w121,w13] [178,223,407,623,662,670] [v299] (by decide +kernel)
-def n764 := cc 6 [w357,w273,w2,w3,w4,w5,w125] [218] [] (by decide +kernel)
-def n765 := cc 6 [w358,w1,w273,w3,w4,w5,w125] [144] [] (by decide +kernel)
-def n766 := cc 7 [w1,w273,w2,w3,w4,w5,w125] [13,218,662,669,670] [n765,n764] (by decide +kernel)
-def n767 := cc 7 [w1,w273,w2,w3,w4,w123,w5,w125] [177,214,414,669,671,680] [] (by decide +kernel)
-def n768 := cc 7 [w341,w1,w273,w2,w3,w4,w5] [13,143,192,220,669] [] (by decide +kernel)
-def v300 : Closed T 7 := rotateClosed n763 auto1 auto1ok
-def n769 := cc 8 [w1,w273,w2,w3,w4,w123,w5] [178,214,298,405,474,541,669] [n768,n762,n767,n766,v300] (by decide +kernel)
-def n770 := cc 8 [w0,w1,w2,w3,w4,w121,w359] [15,136,222,664] [] (by decide +kernel)
-def n771 := cc 8 [w0,w1,w2,w3,w4,w355,w5] [83,90,127,214,303,405,459,541] [] (by decide +kernel)
-def n772 := cc 8 [w360,w0,w1,w2,w3,w4,w5] [0,214,269,675] [] (by decide +kernel)
-def n773 := cc 7 [w361,w0,w1,w2,w3,w4,w121] [104,132,146,625,662] [] (by decide +kernel)
-def n774 := cc 8 [w0,w272,w1,w2,w3,w4,w121,w13] [90,143,223,329,420,622,670,676,684] [n773,n763] (by decide +kernel)
-def n775 := cc 7 [w362,w0,w1,w2,w3,w4,w5] [11,12,132,135,146,167,170,172,269] [] (by decide +kernel)
-def n776 := cc 7 [w362,w0,w1,w2,w3,w4,w5,w125] [83,90,144,662] [] (by decide +kernel)
-def n777 := cc 7 [w0,w272,w357,w2,w3,w4,w5,w125] [83,90,218,423,671] [n764] (by decide +kernel)
-def n778 := cc 6 [w358,w363,w0,w1,w3,w4,w5] [] [] (by decide +kernel)
-def n779 := cc 7 [w358,w0,w272,w1,w3,w4,w5] [179,218,422,484] [n778] (by decide +kernel)
-def n780 := cc 7 [w358,w0,w272,w1,w3,w4,w5,w125] [83,90,218,423] [n765] (by decide +kernel)
-def n781 := cc 8 [w0,w272,w1,w2,w3,w4,w5,w125] [39,83,90,143,218,267,320,420,483,669,670,684] [n779,n780,n775,n776,n777,n766] (by decide +kernel)
-def n782 := cc 7 [w362,w0,w1,w2,w3,w4,w123,w5] [101,135,146,165,172,414] [] (by decide +kernel)
-def n783 := cc 8 [w0,w272,w1,w2,w3,w4,w123,w5,w125] [83,143,177,214,452,483,664,669,671,680] [n782,n767] (by decide +kernel)
-def n784 := cc 8 [w341,w0,w272,w1,w2,w3,w4,w5] [10,41,220,325,483,666,669] [n768] (by decide +kernel)
-def v301 : Closed T 8 := rotateClosed n774 auto1 auto1ok
-def v302 : Closed T 8 := rotateClosed n770 auto1 auto1ok
-def n785 := cc 9 [w0,w272,w1,w2,w3,w4,w123,w5] [83,97,214,315,389,483,540,669,675] [n784,n772,n783,n781,v301,n771,v302,n769] (by decide +kernel)
-def n786 := cc 8 [w364,w0,w1,w2,w3,w4,w5] [0,179,269,431,521] [] (by decide +kernel)
-def n787 := cc 8 [w39,w0,w1,w2,w3,w4,w121,w13] [223,517,648,672,684] [] (by decide +kernel)
-def n788 := cc 8 [w39,w0,w1,w2,w3,w4,w5,w125] [66,218,269,670,671,684] [] (by decide +kernel)
-def v303 : Closed T 8 := rotateClosed n787 auto1 auto1ok
-def n789 := cc 9 [w39,w0,w1,w2,w3,w4,w123,w5] [97,214,315,459,585,671] [v10,n786,n788,v303] (by decide +kernel)
-def n790 := cc 6 [w1,w136,w145,w3,w4,w121,w15] [182,288] [] (by decide +kernel)
-def n791 := cc 6 [w365,w1,w136,w2,w3,w4,w121] [] [] (by decide +kernel)
-def v304 : Closed T 6 := rotateClosed n791 auto1 auto1ok
-def v305 : Closed T 6 := rotateClosed n790 auto1 auto1ok
-def n792 := cc 7 [w1,w136,w2,w145,w3,w4,w123,w5] [22,209,381,409,415] [v304,v305] (by decide +kernel)
-def n793 := cc 6 [w1,w136,w2,w3,w123,w137,w13] [182,291] [] (by decide +kernel)
-def n794 := cc 6 [w366,w1,w136,w2,w3,w4,w121] [] [] (by decide +kernel)
-def v306 : Closed T 6 := rotateClosed n794 auto1 auto1ok
-def n795 := cc 7 [w1,w136,w2,w3,w4,w123,w5,w137] [326,418] [v306,n793] (by decide +kernel)
-def n796 := cc 6 [w1,w136,w2,w3,w4,w15,w125] [] [] (by decide +kernel)
-def n797 := cc 6 [w341,w1,w136,w2,w3,w9,w5] [] [] (by decide +kernel)
-def n798 := cc 6 [w1,w136,w2,w3,w4,w121,w44] [182] [] (by decide +kernel)
-def n799 := cc 6 [w46,w1,w136,w2,w3,w123,w5] [] [] (by decide +kernel)
-def v307 : Closed T 6 := rotateClosed n797 auto1 auto1ok
-def v308 : Closed T 6 := rotateClosed n799 auto1 auto1ok
-def n800 := cc 7 [w1,w136,w2,w3,w4,w121,w15] [182,210,518,670] [v307,v308,n798,n796,n790] (by decide +kernel)
-def n801 := cc 7 [w1,w136,w2,w3,w4,w123,w119,w5] [152,315,449,669,680] [] (by decide +kernel)
-def n802 := cc 6 [w1,w136,w2,w3,w4,w367,w5] [] [] (by decide +kernel)
-def n803 := cc 6 [w124,w1,w136,w2,w3,w5,w13] [] [] (by decide +kernel)
-def v309 : Closed T 6 := rotateClosed n802 auto1 auto1ok
-def n804 := cc 7 [w124,w1,w136,w2,w3,w4,w5] [127,272,669] [n803,v309] (by decide +kernel)
-def n805 := cc 6 [w1,w136,w2,w3,w123,w15,w13] [] [] (by decide +kernel)
-def v310 : Closed T 6 := rotateClosed n798 auto1 auto1ok
-def n806 := cc 7 [w1,w136,w2,w3,w4,w123,w5,w15] [209,427,669] [n225,v310,n796,n805] (by decide +kernel)
-def n807 := cc 6 [w47,w1,w136,w2,w3,w4,w121] [] [] (by decide +kernel)
-def v311 : Closed T 6 := rotateClosed n803 auto1 auto1ok
-def v312 : Closed T 6 := rotateClosed n793 auto1 auto1ok
-def v313 : Closed T 6 := rotateClosed n805 auto1 auto1ok
-def n808 := cc 7 [w1,w136,w2,w3,w4,w121,w13] [23,182,417,662,670] [v311,n807,n798,n224,v312,v313] (by decide +kernel)
-def n809 := cc 6 [w357,w136,w2,w3,w4,w5,w125] [320,566] [] (by decide +kernel)
-def n810 := cc 6 [w358,w1,w136,w2,w3,w4,w5] [] [] (by decide +kernel)
-def v314 : Closed T 6 := rotateClosed n796 auto1 auto1ok
-def n811 := cc 7 [w1,w136,w2,w3,w4,w5,w125] [267,320,481,555,662,669,670] [n810,n809,n225,n796,v314] (by decide +kernel)
-def n812 := cc 7 [w1,w136,w2,w3,w4,w123,w5,w125] [177,315,419,669,680] [] (by decide +kernel)
-def n813 := cc 6 [w1,w136,w2,w368,w3,w4,w5] [269] [] (by decide +kernel)
-def n814 := cc 7 [w341,w1,w136,w2,w3,w4,w5] [143,281,669] [n797,n813] (by decide +kernel)
-def v315 : Closed T 7 := rotateClosed n800 auto1 auto1ok
-def v316 : Closed T 7 := rotateClosed n808 auto1 auto1ok
-def n815 := cc 8 [w1,w136,w2,w3,w4,w123,w5] [22,182,209,415,481,669] [n814,n804,n792,n801,n795,n806,n812,n227,n811,v315,v316] (by decide +kernel)
-def n816 := cc 7 [w124,w0,w1,w2,w3,w43,w5] [168,269,666] [] (by decide +kernel)
-def v317 : Closed T 7 := rotateClosed n816 auto1 auto1ok
-def n817 := cc 8 [w0,w1,w2,w3,w4,w121,w369] [142,179,327,664] [v317] (by decide +kernel)
-def n818 := cc 8 [w0,w1,w2,w3,w4,w138,w5] [138,179,184,315,415,666] [] (by decide +kernel)
-def n819 := cc 8 [w370,w0,w1,w2,w3,w4,w5] [315,671,675] [] (by decide +kernel)
-def n820 := cc 6 [w147,w0,w1,w2,w3,w5,w125] [] [] (by decide +kernel)
-def n821 := cc 6 [w341,w147,w0,w1,w2,w3,w5] [] [] (by decide +kernel)
-def n822 := cc 7 [w147,w0,w1,w2,w3,w123,w5] [92,110,133,512] [n821,n820] (by decide +kernel)
-def n823 := cc 6 [w371,w0,w1,w2,w3,w4,w15] [184] [] (by decide +kernel)
-def v318 : Closed T 6 := rotateClosed n820 auto1 auto1ok
-def n824 := cc 7 [w0,w41,w1,w2,w3,w4,w15,w125] [86,180,218,421] [v318,n823,n796] (by decide +kernel)
-def n825 := cc 7 [w341,w0,w41,w1,w2,w3,w9,w5] [93,181,220,666] [n821,n797] (by decide +kernel)
-def n826 := cc 6 [w149,w0,w1,w2,w3,w4,w121] [97] [] (by decide +kernel)
-def n827 := cc 7 [w0,w41,w1,w2,w3,w4,w121,w44] [85,90,132,223,421,672] [n826,n798] (by decide +kernel)
-def n828 := cc 7 [w46,w0,w41,w1,w2,w3,w123,w5] [83,92,249,522,671] [n799] (by decide +kernel)
-def v319 : Closed T 7 := rotateClosed n825 auto1 auto1ok
-def v320 : Closed T 7 := rotateClosed n828 auto1 auto1ok
-def v321 : Closed T 7 := rotateClosed n822 auto1 auto1ok
-def n829 := cc 8 [w0,w41,w1,w2,w3,w4,w121,w15] [90,136,222,328,421,670,672,676,679,686] [v319,v320,v321,n827,n824,n800] (by decide +kernel)
-def n830 := cc 7 [w150,w0,w1,w2,w3,w4,w123,w5] [37,40,133,149,150,449] [] (by decide +kernel)
-def n831 := cc 8 [w0,w41,w1,w2,w3,w4,w123,w119,w5] [83,127,152,179,214,315,448,669,680] [n830,n801] (by decide +kernel)
-def n832 := cc 6 [w0,w1,w372,w2,w3,w5,w13] [459] [] (by decide +kernel)
-def n833 := cc 7 [w0,w1,w372,w2,w3,w4,w5] [0,90,166,211,432,459] [n832] (by decide +kernel)
-def n834 := cc 7 [w0,w41,w1,w2,w3,w4,w367,w5] [83,172,492,517,664] [n802] (by decide +kernel)
-def n835 := cc 6 [w124,w148,w0,w1,w2,w3,w5] [] [] (by decide +kernel)
-def n836 := cc 7 [w124,w0,w41,w1,w2,w3,w5,w13] [53,484,675] [n835,n803,n832] (by decide +kernel)
-def v322 : Closed T 7 := rotateClosed n834 auto1 auto1ok
-def n837 := cc 8 [w124,w0,w41,w1,w2,w3,w4,w5] [0,214,324,484,669,675] [n836,n816,n804,v322,n833] (by decide +kernel)
-def n838 := cc 6 [w147,w0,w1,w2,w3,w121,w13] [512] [] (by decide +kernel)
-def n839 := cc 7 [w147,w0,w1,w2,w3,w4,w5,w121] [90,443,670] [n820,n838] (by decide +kernel)
-def n840 := cc 6 [w148,w0,w1,w2,w3,w123,w15] [] [] (by decide +kernel)
-def v323 : Closed T 6 := rotateClosed n838 auto1 auto1ok
-def n841 := cc 7 [w0,w41,w1,w2,w3,w123,w15,w13] [86,217,669,671,680] [v323,n840,n805] (by decide +kernel)
-def v324 : Closed T 7 := rotateClosed n839 auto1 auto1ok
-def v325 : Closed T 7 := rotateClosed n827 auto1 auto1ok
-def n842 := cc 8 [w0,w41,w1,w2,w3,w4,w123,w5,w15] [136,214,315,483,664,666,669,671,679,680] [v324,n261,v325,n824,n841,n806] (by decide +kernel)
-def v326 : Closed T 6 := rotateClosed n835 auto1 auto1ok
-def v327 : Closed T 6 := rotateClosed n840 auto1 auto1ok
-def n843 := cc 7 [w148,w0,w1,w2,w3,w4,w121] [113,147,179,662] [v326,n256,v327] (by decide +kernel)
-def n844 := cc 6 [w0,w1,w48,w2,w3,w4,w121] [] [] (by decide +kernel)
-def n845 := cc 7 [w47,w0,w41,w1,w2,w3,w4,w121] [90,457,672,676] [n807,n844] (by decide +kernel)
-def v328 : Closed T 7 := rotateClosed n836 auto1 auto1ok
-def v329 : Closed T 7 := rotateClosed n841 auto1 auto1ok
-def n846 := cc 8 [w0,w41,w1,w2,w3,w4,w121,w13] [90,143,223,329,564,670,671,676,687] [v328,n845,n843,n827,n257,v329,n808] (by decide +kernel)
-def v330 : Closed T 6 := rotateClosed n823 auto1 auto1ok
-def n847 := cc 7 [w371,w0,w1,w2,w3,w4,w5] [147,179,184,320,485,569] [n823,v330] (by decide +kernel)
-def n848 := cc 7 [w371,w0,w1,w2,w3,w4,w5,w125] [83,90,145,662] [] (by decide +kernel)
-def n849 := cc 7 [w0,w41,w357,w2,w3,w4,w5,w125] [83,320,323,565] [n809] (by decide +kernel)
-def n850 := cc 6 [w0,w1,w373,w2,w3,w4,w5] [83] [] (by decide +kernel)
-def n851 := cc 7 [w358,w0,w41,w1,w2,w3,w4,w5] [0,83,90,179,218,269,422,484] [n810,n850] (by decide +kernel)
-def v331 : Closed T 7 := rotateClosed n824 auto1 auto1ok
-def n852 := cc 8 [w0,w41,w1,w2,w3,w4,w5,w125] [83,90,143,218,267,320,483,564,669,670,671,684] [n851,n847,n848,n849,n261,n824,v331,n811] (by decide +kernel)
-def n853 := cc 7 [w371,w0,w1,w2,w3,w4,w123,w5] [37,40,141,147,175,419] [] (by decide +kernel)
-def n854 := cc 8 [w0,w41,w1,w2,w3,w4,w123,w5,w125] [83,143,177,315,452,483,664,669,680] [n853,n812] (by decide +kernel)
-def n855 := cc 6 [w374,w0,w1,w2,w3,w4,w5] [] [] (by decide +kernel)
-def n856 := cc 7 [w0,w41,w1,w2,w368,w3,w4,w5] [0,179,220,269,439,666] [n855,n813] (by decide +kernel)
-def n857 := cc 8 [w341,w0,w41,w1,w2,w3,w4,w5] [220,325,483,666,669,671] [n825,n814,n856] (by decide +kernel)
-def v332 : Closed T 8 := rotateClosed n829 auto1 auto1ok
-def v333 : Closed T 8 := rotateClosed n846 auto1 auto1ok
-def v334 : Closed T 8 := rotateClosed n817 auto1 auto1ok
-def n858 := cc 9 [w0,w41,w1,w2,w3,w4,w123,w5] [83,97,214,315,389,483,669,671,675] [n857,n837,n819,n831,n842,n854,n263,n852,v332,v333,n818,v334,n815] (by decide +kernel)
-def n859 := cc 8 [w0,w1,w2,w376,w3,w4,w5] [127,152,269,521,526] [] (by decide +kernel)
-def n860 := cc 8 [w0,w1,w2,w3,w4,w377,w5] [83,143,179,218,320,420,483,565] [] (by decide +kernel)
-def n861 := cc 8 [w378,w0,w1,w2,w3,w4,w5] [90,161,179,220,325,438,528] [] (by decide +kernel)
-def n862 := cc 8 [w0,w375,w1,w2,w3,w5,w13] [83,143,217,319,483,521,525,671] [] (by decide +kernel)
-def v335 : Closed T 8 := rotateClosed n32 auto1 auto1ok
-def v336 : Closed T 8 := rotateClosed n860 auto1 auto1ok
-def n863 := cc 9 [w0,w375,w1,w2,w3,w4,w5] [97,214,315,389,483,525,671,675] [v335,n861,n786,n862,n859,v336] (by decide +kernel)
-def n864 := cc 9 [w0,w375,w1,w2,w3,w4,w123,w5] [97,315,525,671,675] [v335] (by decide +kernel)
-def n865 := cc 9 [w34,w0,w1,w2,w3,w4,w5,w121] [97,222,327,459,653,664,670] [n32] (by decide +kernel)
-def n866 := cc 7 [w1,w156,w2,w3,w121,w13] [420,564,664,671] [] (by decide +kernel)
-def n867 := cc 8 [w1,w156,w2,w3,w4,w5,w121] [483,564,664,671] [n866] (by decide +kernel)
-def n868 := cc 8 [w0,w1,w2,w3,w4,w121,w379] [90,143,179,420,517,564] [] (by decide +kernel)
-def n869 := cc 8 [w0,w1,w2,w3,w4,w380,w5] [83,143,179,218,320,420,483,546] [] (by decide +kernel)
-def n870 := cc 8 [w381,w0,w1,w2,w3,w4,w5] [161,179,220,325,438,548,666] [] (by decide +kernel)
-def n871 := cc 8 [w0,w155,w1,w2,w3,w121,w13] [143,517,564,664,672] [n866] (by decide +kernel)
-def v337 : Closed T 8 := rotateClosed n870 auto1 auto1ok
-def v338 : Closed T 8 := rotateClosed n869 auto1 auto1ok
-def n872 := cc 9 [w0,w155,w1,w2,w3,w4,w5,w121] [97,222,459,517,564,664,672] [v337,n871,v338,n868,n867] (by decide +kernel)
-def n873 := cc 8 [w49,w0,w1,w2,w3,w123,w9,w5] [38,127,214,316,666] [] (by decide +kernel)
-def n874 := cc 8 [w49,w0,w1,w2,w3,w123,w13] [319,483,587,675] [n287] (by decide +kernel)
-def n875 := cc 9 [w49,w0,w1,w2,w3,w4,w123,w5] [97,214,315,483,587,675] [n35,n861,n288,n873,n874] (by decide +kernel)
-def n876 := cc 6 [w1,w2,w351,w3,w123,w382,w13] [178,205] [] (by decide +kernel)
-def n877 := cc 6 [w384,w1,w2,w351,w3,w4,w121] [] [] (by decide +kernel)
-def v339 : Closed T 6 := rotateClosed n877 auto1 auto1ok
-def n878 := cc 7 [w1,w2,w351,w3,w4,w123,w5,w382] [221,561] [v339,n876] (by decide +kernel)
-def v340 : Closed T 6 := rotateClosed n876 auto1 auto1ok
-def n879 := cc 7 [w1,w2,w351,w3,w4,w121,w13] [178,223,559,662,672] [v340] (by decide +kernel)
-def n880 := cc 6 [w358,w1,w351,w3,w4,w5,w125] [184,572] [] (by decide +kernel)
-def n881 := cc 7 [w1,w2,w351,w3,w4,w5,w125] [218,320,559,662,671,672] [n880] (by decide +kernel)
-def n882 := cc 7 [w1,w2,w351,w3,w4,w123,w5,w125] [214,315,563,671,672] [] (by decide +kernel)
-def n883 := cc 7 [w341,w1,w2,w351,w3,w4,w5] [192,218,220,269,671] [] (by decide +kernel)
-def v341 : Closed T 7 := rotateClosed n879 auto1 auto1ok
-def n884 := cc 8 [w1,w2,w351,w3,w4,w123,w5] [178,214,556,634,671] [n883,n878,n882,n881,v341] (by decide +kernel)
-def n885 := cc 7 [w0,w1,w2,w351,w3,w4,w121,w13] [85,178,223,260,559] [n746] (by decide +kernel)
-def n886 := cc 7 [w0,w1,w2,w351,w3,w4,w5,w125] [26,179,218,233,269] [] (by decide +kernel)
-def v342 : Closed T 7 := rotateClosed n885 auto1 auto1ok
-def n887 := cc 8 [w0,w1,w2,w351,w3,w4,w123,w5] [178,315,634,664,671] [n886,v342,n747] (by decide +kernel)
-def n888 := cc 8 [w0,w1,w2,w3,w4,w121,w385] [97,222,258,327,664] [] (by decide +kernel)
-def n889 := cc 8 [w0,w1,w2,w3,w4,w383,w5] [214,254,315,666] [] (by decide +kernel)
-def n890 := cc 8 [w386,w0,w1,w2,w3,w4,w5] [214,315,675] [] (by decide +kernel)
-def n891 := cc 7 [w352,w0,w1,w2,w3,w4,w121] [99,223,662] [n748] (by decide +kernel)
-def n892 := cc 8 [w0,w1,w350,w2,w3,w4,w121,w13] [90,98,223,564,672,676,687] [n891,n749,n885,n879] (by decide +kernel)
-def n893 := cc 7 [w387,w0,w1,w2,w3,w4,w5] [0,218,220,224,233,269] [] (by decide +kernel)
-def n894 := cc 7 [w387,w0,w1,w2,w3,w4,w5,w125] [83,90,218,662] [] (by decide +kernel)
-def n895 := cc 7 [w358,w0,w1,w350,w3,w4,w5] [179,218,570,637] [] (by decide +kernel)
-def n896 := cc 7 [w358,w0,w1,w350,w3,w4,w5,w125] [83,90,184,570,571] [n880] (by decide +kernel)
-def n897 := cc 8 [w0,w1,w350,w2,w3,w4,w5,w125] [83,90,143,218,320,564,636,671,672,687] [n895,n896,n893,n894,n886,n881] (by decide +kernel)
-def n898 := cc 7 [w387,w0,w1,w2,w3,w4,w123,w5] [83,218,563,570] [] (by decide +kernel)
-def n899 := cc 8 [w0,w1,w350,w2,w3,w4,w123,w5,w125] [83,221,315,483,564,601,664,671,672] [n898,n882] (by decide +kernel)
-def n900 := cc 8 [w341,w0,w1,w350,w2,w3,w4,w5] [325,636,666,671] [n883] (by decide +kernel)
-def v343 : Closed T 8 := rotateClosed n892 auto1 auto1ok
-def v344 : Closed T 8 := rotateClosed n888 auto1 auto1ok
-def n901 := cc 9 [w0,w1,w350,w2,w3,w4,w123,w5] [83,97,98,214,524,636,671,675] [n900,n890,n750,n899,n897,v343,n887,n889,v344,n884] (by decide +kernel)
-def n902 := cc 8 [w0,w1,w2,w3,w4,w388,w5] [101,179,315,383,666] [] (by decide +kernel)
-def n903 := cc 8 [w0,w1,w2,w389,w3,w4,w5] [315,511,675] [] (by decide +kernel)
-def n904 := cc 8 [w164,w0,w1,w2,w3,w4,w121,w13] [90,329,564,672,676,687] [] (by decide +kernel)
-def n905 := cc 7 [w0,w1,w2,w390,w3,w4,w5,w125] [269] [] (by decide +kernel)
-def n906 := cc 7 [w164,w0,w1,w391,w3,w4,w5,w125] [83,570] [] (by decide +kernel)
-def n907 := cc 8 [w164,w0,w1,w2,w3,w4,w5,w125] [83,320,511,671,672,687] [n906,n905] (by decide +kernel)
-def v345 : Closed T 8 := rotateClosed n904 auto1 auto1ok
-def n908 := cc 9 [w164,w0,w1,w2,w3,w4,w123,w5] [315,524,636,671,675] [n907,v345,n903,n902] (by decide +kernel)
-def n909 := cc 8 [w166,w1,w2,w3,w123,w9,w5] [127,179,512,666] [] (by decide +kernel)
-def n910 := cc 8 [w167,w1,w2,w3,w123,w9,w5] [97,666,678] [] (by decide +kernel)
-def n911 := cc 8 [w0,w168,w1,w2,w3,w123,w9,w5] [127,666,685] [] (by decide +kernel)
-def n912 := cc 8 [w0,w1,w329,w3,w123,w9,w5] [666,669] [] (by decide +kernel)
-def n913 := cc 8 [w124,w0,w1,w3,w123,w9,w5] [184,666,669] [] (by decide +kernel)
-def n914 := cc 8 [w65,w0,w1,w2,w3,w123,w9,w5] [159,245,316,666,672] [] (by decide +kernel)
-def n915 := cc 8 [w0,w1,w2,w172,w3,w123,w9,w5] [179,316,512,666] [] (by decide +kernel)
-def n916 := cc 8 [w0,w1,w2,w3,w4,w15,w125] [90,137,184,568,671] [n824] (by decide +kernel)
-def n917 := cc 8 [w341,w0,w1,w2,w3,w9,w5] [162,581,666,671] [n825] (by decide +kernel)
-def n918 := cc 8 [w0,w1,w2,w3,w4,w121,w44] [97,132,179,568,664] [n827] (by decide +kernel)
-def n919 := cc 8 [w46,w0,w1,w2,w3,w123,w5] [134,589,666,672] [n828] (by decide +kernel)
-def v346 : Closed T 8 := rotateClosed n873 auto1 auto1ok
-def v347 : Closed T 8 := rotateClosed n914 auto1 auto1ok
-def v348 : Closed T 8 := rotateClosed n917 auto1 auto1ok
-def v349 : Closed T 8 := rotateClosed n919 auto1 auto1ok
-def v350 : Closed T 8 := rotateClosed n913 auto1 auto1ok
-def v351 : Closed T 8 := rotateClosed n910 auto1 auto1ok
-def v352 : Closed T 8 := rotateClosed n909 auto1 auto1ok
-def v353 : Closed T 8 := rotateClosed n911 auto1 auto1ok
-def v354 : Closed T 8 := rotateClosed n912 auto1 auto1ok
-def v355 : Closed T 8 := rotateClosed n915 auto1 auto1ok
-def n920 := cc 9 [w0,w1,w2,w3,w4,w121,w15] [97,136,184,222,607,664,671,672] [v346,v347,v348,v349,v350,n509,n618,v351,v352,n829,v353,v354,v355,n918,n916,n187] (by decide +kernel)
-def n921 := cc 8 [w167,w1,w2,w3,w4,w123,w5] [83,448,512,597] [n345] (by decide +kernel)
-def n922 := cc 8 [w124,w0,w1,w3,w4,w9,w5] [83,179,431,577] [n345] (by decide +kernel)
-def n923 := cc 9 [w0,w1,w2,w3,w4,w123,w9,w5] [97,184,389,524,666,671] [n922,n921,n191] (by decide +kernel)
-def n924 := cc 8 [w292,w1,w2,w3,w4,w5,w121] [90,222,521,632] [] (by decide +kernel)
-def n925 := cc 8 [w0,w1,w2,w3,w4,w121,w15] [136,222,664] [] (by decide +kernel)
-def n926 := cc 8 [w118,w122,w0,w1,w3,w4,w5] [222,521,641,664] [] (by decide +kernel)
-def n927 := cc 9 [w118,w0,w1,w2,w3,w4,w5,w121] [97,222,459,664,672] [n926,v131,n925,n924] (by decide +kernel)
-def n928 := cc 8 [w0,w1,w392,w2,w3,w123,w5] [101,178,675] [] (by decide +kernel)
-def n929 := cc 8 [w0,w1,w2,w3,w4,w393,w121] [459,607,670,671] [] (by decide +kernel)
-def n930 := cc 8 [w179,w0,w1,w2,w3,w5,w125] [83,169,180,218,452,564,664] [] (by decide +kernel)
-def n931 := cc 8 [w341,w179,w0,w1,w2,w3,w5] [184,581,664,666,669] [] (by decide +kernel)
-def v356 : Closed T 8 := rotateClosed n929 auto1 auto1ok
-def v357 : Closed T 8 := rotateClosed n925 auto1 auto1ok
-def n932 := cc 9 [w179,w0,w1,w2,w3,w123,w5] [97,214,389,524,672,675] [n931,n930,n928,v356,v357] (by decide +kernel)
-def n933 := cc 8 [w0,w1,w2,w3,w4,w123,w330] [214,673,675] [n701] (by decide +kernel)
-def n934 := cc 8 [w332,w0,w1,w2,w3,w5,w121] [109,222,463,564] [] (by decide +kernel)
-def n935 := cc 7 [w394,w0,w1,w3,w4,w5] [222,664,672] [] (by decide +kernel)
-def v358 : Closed T 7 := rotateClosed n935 auto1 auto1ok
-def n936 := cc 8 [w0,w1,w329,w3,w4,w119,w5] [666,669] [v358] (by decide +kernel)
-def v359 : Closed T 8 := rotateClosed n934 auto1 auto1ok
-def n937 := cc 9 [w0,w1,w329,w2,w3,w4,w123,w5] [97,214,389,673,675] [v359,n349,n703,n936,n912,n933] (by decide +kernel)
-def n938 := cc 8 [w0,w140,w1,w2,w3,w4,w123,w5] [214,666,680] [] (by decide +kernel)
-def n939 := cc 9 [w0,w1,w2,w3,w4,w123,w119,w5] [214,315,556,666,671] [v76,n350,n921,n706,n831,n938,n936] (by decide +kernel)
-def n940 := cc 8 [w334,w122,w0,w1,w3,w4,w5] [664,670] [n935] (by decide +kernel)
-def n941 := cc 9 [w334,w0,w1,w2,w3,w4,w5,w121] [222,664,672] [n940,v131,n492,n924] (by decide +kernel)
-def n942 := cc 8 [w0,w395,w1,w2,w3,w4,w5] [171,222,680] [] (by decide +kernel)
-def n943 := cc 8 [w0,w1,w2,w3,w4,w367,w5] [83,492,642,671] [n834] (by decide +kernel)
-def n944 := cc 8 [w396,w0,w1,w2,w3,w4,w5] [0,90,179,269,669] [] (by decide +kernel)
-def n945 := cc 8 [w124,w0,w1,w2,w3,w5,w13] [169,459,577,672,675,682] [n836] (by decide +kernel)
-def n946 := cc 8 [w70,w124,w0,w1,w2,w3,w5] [73,521,669] [] (by decide +kernel)
-def v360 : Closed T 8 := rotateClosed n926 auto1 auto1ok
-def v361 : Closed T 8 := rotateClosed n942 auto1 auto1ok
-def v362 : Closed T 8 := rotateClosed n943 auto1 auto1ok
-def n947 := cc 9 [w124,w0,w1,w2,w3,w4,w5] [97,214,269,389,459,577,669,672,673,675] [n944,v360,n946,n786,n510,n837,n945,n189,n922,n350,v361,v362,n191] (by decide +kernel)
-def v363 : Closed T 8 := rotateClosed n940 auto1 auto1ok
-def n948 := cc 9 [w124,w0,w1,w2,w3,w4,w123,w5] [83,97,179,214,389,669,673,675] [v363,n710,n350,n913] (by decide +kernel)
-def n949 := cc 8 [w0,w1,w2,w3,w4,w121,w299] [90,97,222,258,564] [] (by decide +kernel)
-def n950 := cc 8 [w0,w1,w2,w3,w4,w397,w5] [83,106,214,254,636] [] (by decide +kernel)
-def n951 := cc 8 [w398,w0,w1,w2,w3,w4,w5] [109,214,404,636] [] (by decide +kernel)
-def n952 := cc 7 [w301,w0,w1,w3,w4,w123] [214,636,666,671] [n711] (by decide +kernel)
-def v364 : Closed T 7 := rotateClosed n952 auto1 auto1ok
-def n953 := cc 8 [w0,w1,w298,w3,w9,w5,w121] [222,564,672] [v364] (by decide +kernel)
-def v365 : Closed T 8 := rotateClosed n951 auto1 auto1ok
-def v366 : Closed T 8 := rotateClosed n950 auto1 auto1ok
-def n954 := cc 9 [w0,w1,w298,w2,w3,w4,w5,w121] [222,459,564,675] [v365,n953,v366,n949] (by decide +kernel)
-def n955 := cc 6 [w400,w1,w399,w2,w3,w4,w121] [] [] (by decide +kernel)
-def n956 := cc 6 [w1,w399,w2,w3,w121,w13] [477,682] [] (by decide +kernel)
-def n957 := cc 7 [w1,w399,w2,w3,w4,w5,w121] [127,216,407,682] [n955,n956] (by decide +kernel)
-def n958 := cc 7 [w0,w168,w1,w2,w3,w121,w13] [672,676,682] [n956] (by decide +kernel)
-def n959 := cc 8 [w0,w168,w1,w2,w3,w4,w5,w121] [90,420,672,682] [n958,n957] (by decide +kernel)
-def n960 := cc 7 [w0,w1,w2,w3,w401,w13] [452,518,669,673] [] (by decide +kernel)
-def v367 : Closed T 7 := rotateClosed n958 auto1 auto1ok
-def n961 := cc 8 [w0,w1,w2,w3,w123,w15,w13] [137,574,671,675] [v16,n841,v367,n960] (by decide +kernel)
-def n962 := cc 8 [w0,w1,w2,w3,w4,w401,w5] [0,97,184,269,518,669] [n960] (by decide +kernel)
-def n963 := cc 8 [w402,w0,w1,w2,w3,w4,w5] [672,678] [] (by decide +kernel)
-def v368 : Closed T 8 := rotateClosed n37 auto1 auto1ok
-def v369 : Closed T 8 := rotateClosed n963 auto1 auto1ok
-def v370 : Closed T 8 := rotateClosed n959 auto1 auto1ok
-def v371 : Closed T 8 := rotateClosed n953 auto1 auto1ok
-def v372 : Closed T 8 := rotateClosed n918 auto1 auto1ok
-def n964 := cc 9 [w0,w1,w2,w3,w4,w123,w5,w15] [136,315,345,389,459,574,671,675] [n944,v368,v369,n714,n842,v370,v371,n962,n357,v372,n916,n961] (by decide +kernel)
-def n965 := cc 8 [w0,w1,w2,w3,w4,w403,w121] [90,222,671] [] (by decide +kernel)
-def n966 := cc 8 [w0,w1,w2,w3,w4,w404,w5] [0,83,214,269,672] [] (by decide +kernel)
-def n967 := cc 8 [w0,w1,w2,w3,w4,w405,w5] [0,269,517,670] [] (by decide +kernel)
-def n968 := cc 8 [w118,w181,w0,w1,w3,w4,w123] [157,214,447,636] [n715,n952] (by decide +kernel)
-def v373 : Closed T 8 := rotateClosed n967 auto1 auto1ok
-def v374 : Closed T 8 := rotateClosed n965 auto1 auto1ok
-def n969 := cc 9 [w118,w0,w1,w2,w3,w4,w123,w5] [214,315,369,389,589,675] [n968,n716,v373,n966,v374] (by decide +kernel)
-def n970 := cc 8 [w0,w1,w2,w3,w4,w406,w121] [81,420,672] [] (by decide +kernel)
-def n971 := cc 8 [w0,w1,w2,w3,w4,w407,w5] [83,101,179,483,505,636] [] (by decide +kernel)
-def n972 := cc 8 [w0,w1,w408,w2,w3,w4,w5] [636,666,669] [] (by decide +kernel)
-def n973 := cc 8 [w179,w0,w1,w2,w3,w121,w13] [42,420,664,672] [] (by decide +kernel)
-def v375 : Closed T 8 := rotateClosed n968 auto1 auto1ok
-def v376 : Closed T 8 := rotateClosed n972 auto1 auto1ok
-def v377 : Closed T 8 := rotateClosed n971 auto1 auto1ok
-def n974 := cc 9 [w179,w0,w1,w2,w3,w4,w5,w121] [420,459,564,672] [v375,n930,n973,v376,v377,n970] (by decide +kernel)
-def n975 := cc 9 [w0,w1,w2,w409,w3,w4,w123,w5] [315,524,671,675] [] (by decide +kernel)
-def n976 := cc 9 [w410,w0,w1,w2,w3,w4,w5,w121] [327,607,664,674] [n609] (by decide +kernel)
-def n977 := cc 8 [w0,w1,w2,w3,w4,w121,w61] [90,199,327,385,420,671] [] (by decide +kernel)
-def n978 := cc 8 [w0,w1,w2,w3,w4,w411,w5] [83,184,383,483,564,672] [] (by decide +kernel)
-def n979 := cc 8 [w412,w0,w1,w2,w3,w4,w5] [315,666,669] [] (by decide +kernel)
-def v378 : Closed T 8 := rotateClosed n979 auto1 auto1ok
-def v379 : Closed T 8 := rotateClosed n978 auto1 auto1ok
-def n980 := cc 9 [w0,w1,w2,w60,w3,w4,w5,w121] [198,222,327,517,607,672,675] [v378,v379,n977] (by decide +kernel)
-def n981 := cc 9 [w65,w0,w1,w2,w3,w4,w123,w5] [245,315,524,636,675] [n352,n914] (by decide +kernel)
-def n982 := cc 8 [w413,w1,w2,w3,w4,w121,w13] [90,143,672,687] [] (by decide +kernel)
-def n983 := cc 8 [w220,w1,w2,w3,w4,w121,w13] [97,676,684,687] [] (by decide +kernel)
-def n984 := cc 8 [w0,w134,w1,w2,w3,w4,w121,w13] [90,143,223,671,676,687] [] (by decide +kernel)
-def n985 := cc 8 [w0,w1,w414,w2,w3,w4,w121,w13] [42,179,223,329,662,675,676] [] (by decide +kernel)
-def n986 := cc 8 [w47,w0,w1,w2,w3,w4,w121] [146,606,671,672] [n845] (by decide +kernel)
-def n987 := cc 8 [w47,w0,w1,w2,w3,w4,w121,w13] [42,90,329,420,676,684] [] (by decide +kernel)
-def n988 := cc 8 [w0,w1,w2,w226,w3,w4,w121,w13] [90,223,329,564,662,671,676] [] (by decide +kernel)
-def n989 := cc 8 [w0,w1,w2,w3,w415,w121,w13] [90,564,670,672] [] (by decide +kernel)
-def n990 := cc 8 [w341,w0,w1,w2,w3,w123,w13] [459,666,669,671] [] (by decide +kernel)
-def v380 : Closed T 8 := rotateClosed n874 auto1 auto1ok
-def v381 : Closed T 8 := rotateClosed n990 auto1 auto1ok
-def v382 : Closed T 8 := rotateClosed n945 auto1 auto1ok
-def v383 : Closed T 8 := rotateClosed n862 auto1 auto1ok
-def v384 : Closed T 8 := rotateClosed n961 auto1 auto1ok
-def n991 := cc 9 [w0,w1,w2,w3,w4,w121,w13] [97,143,389,607,675,676] [n38,v380,v381,n787,n904,n973,v382,n986,n987,n511,n619,n757,n983,n982,n774,n846,n871,v383,n984,n892,n985,n192,n988,n989,n918,n354,n751,v384] (by decide +kernel)
-def n992 := cc 7 [w341,w220,w1,w2,w3,w4] [83,90,442,584,662] [] (by decide +kernel)
-def n993 := cc 8 [w220,w1,w2,w3,w4,w123,w5] [83,452,601,662,671] [n992] (by decide +kernel)
-def n994 := cc 8 [w341,w0,w1,w2,w3,w4,w13] [83,517,581,669] [n992] (by decide +kernel)
-def n995 := cc 9 [w0,w1,w2,w3,w4,w123,w5,w13] [97,214,389,459,524,666,671,675] [n994,n993,n754] (by decide +kernel)
-def n996 := cc 8 [w0,w1,w2,w229,w3,w123,w5] [179,389,666] [] (by decide +kernel)
-def n997 := cc 8 [w0,w1,w2,w3,w416,w4,w121] [118,179,607,664] [] (by decide +kernel)
-def n998 := cc 8 [w0,w1,w2,w3,w4,w121,w13] [42,90,143,223,420,517,672] [] (by decide +kernel)
-def v385 : Closed T 8 := rotateClosed n997 auto1 auto1ok
-def v386 : Closed T 8 := rotateClosed n998 auto1 auto1ok
-def n999 := cc 9 [w70,w0,w1,w2,w3,w123,w5] [97,389,483,524,671,675] [n946,n355,n996,v385,v386] (by decide +kernel)
-def n1000 := cc 8 [w417,w1,w2,w3,w4,w5,w121] [90,420,564,666] [] (by decide +kernel)
-def n1001 := cc 8 [w70,w340,w0,w1,w2,w3,w5] [564,664,670] [] (by decide +kernel)
-def n1002 := cc 9 [w70,w0,w1,w2,w3,w4,w5,w121] [97,222,247,420,459,517,564,672,675] [n1001,n754,n998,n1000] (by decide +kernel)
-def n1003 := cc 8 [w341,w0,w1,w2,w3,w4,w5] [41,90,161,325,438,666] [] (by decide +kernel)
-def n1004 := cc 7 [w337,w0,w1,w2,w3,w4] [636,666,669] [n718] (by decide +kernel)
-def v387 : Closed T 7 := rotateClosed n1004 auto1 auto1ok
-def n1005 := cc 8 [w0,w1,w2,w3,w415,w5,w125] [90,420,672] [v387] (by decide +kernel)
-def v388 : Closed T 8 := rotateClosed n1003 auto1 auto1ok
-def n1006 := cc 9 [w0,w1,w2,w3,w415,w4,w5,w121] [97,420,459,564,672] [v388,n1005,n989] (by decide +kernel)
-def n1007 := cc 8 [w220,w0,w1,w2,w3,w4,w5] [0,143,233,269,662,671,672] [] (by decide +kernel)
-def n1008 := cc 8 [w220,w1,w2,w3,w4,w5,w125] [0,83,90,684,687] [n992] (by decide +kernel)
-def n1009 := cc 8 [w0,w357,w1,w2,w3,w4,w5] [143,179,184,267,420,483] [] (by decide +kernel)
-def n1010 := cc 7 [w358,w0,w357,w1,w2,w3,w4,w5] [179,218,423] [] (by decide +kernel)
-def n1011 := cc 8 [w0,w357,w1,w2,w3,w4,w5,w125] [83,90,143,218,320,420,483,565,671] [n1010,n777,n849] (by decide +kernel)
-def n1012 := cc 8 [w0,w1,w391,w2,w3,w4,w5,w125] [83,179,218,320,483,567,675,677] [n906] (by decide +kernel)
-def n1013 := cc 8 [w358,w0,w1,w2,w3,w4,w5] [83,90,179,267,269,422,637] [n779,n851,n895] (by decide +kernel)
-def n1014 := cc 7 [w0,w418,w1,w2,w3,w4,w5,w125] [83,90,144,146,423,684] [] (by decide +kernel)
-def n1015 := cc 7 [w358,w0,w1,w2,w419,w3,w4,w5] [39,179,218,269,571] [] (by decide +kernel)
-def n1016 := cc 8 [w358,w0,w1,w2,w3,w4,w5,w125] [83,90,218,320,420,570,671] [n780,n1010,n896,n1015,n1014] (by decide +kernel)
-def n1017 := cc 8 [w0,w1,w2,w419,w3,w4,w5,w125] [83,90,218,320,356,564,636,671,677] [n1015] (by decide +kernel)
-def n1018 := cc 8 [w341,w0,w1,w2,w3,w4,w125] [0,83,669,671] [n752,n992] (by decide +kernel)
-def v389 : Closed T 8 := rotateClosed n1018 auto1 auto1ok
-def v390 : Closed T 8 := rotateClosed n930 auto1 auto1ok
-def v391 : Closed T 8 := rotateClosed n916 auto1 auto1ok
-def n1019 := cc 9 [w0,w1,w2,w3,w4,w5,w125] [83,143,184,269,483,564,675] [n35,n1003,v388,n1018,v389,n788,n907,n930,v390,n1013,n1016,n512,n620,n1007,n1008,n781,n852,n1009,n1011,n897,n1012,n193,n1017,n357,n916,v391] (by decide +kernel)
-def n1020 := cc 8 [w0,w357,w1,w2,w3,w4,w123,w5] [83,179,218,483,669,680] [] (by decide +kernel)
-def v392 : Closed T 8 := rotateClosed n1005 auto1 auto1ok
-def n1021 := cc 9 [w0,w1,w2,w3,w4,w123,w5,w125] [214,315,483,564,666,671,675] [v296,n1018,n993,n722,n783,n854,n1020,n899,v392] (by decide +kernel)
-def n1022 := cc 8 [w0,w420,w1,w2,w3,w4,w5] [177,179,184,267,420,496] [] (by decide +kernel)
-def n1023 := cc 8 [w0,w1,w2,w368,w3,w4,w5] [90,179,267,269,477,517,582] [n856] (by decide +kernel)
-def v393 : Closed T 8 := rotateClosed n1001 auto1 auto1ok
-def v394 : Closed T 8 := rotateClosed n1022 auto1 auto1ok
-def n1024 := cc 9 [w341,w0,w1,w2,w3,w4,w5] [90,97,161,184,269,389,483,581,666,671,673] [n944,n861,v393,n931,n758,n784,n857,n900,n753,n994,n1018,n917,v394,n1023,n754] (by decide +kernel)
-def n1025 := cc 8 [w339,w340,w0,w1,w2,w3,w5] [564,664,670] [v387] (by decide +kernel)
-def v395 : Closed T 8 := rotateClosed n1025 auto1 auto1ok
-def n1026 := cc 9 [w341,w0,w1,w2,w3,w4,w123,w5] [97,389,459,666,669,671] [v395,n724,n1018,n990] (by decide +kernel)
-def n1027 := cc 9 [w339,w0,w1,w2,w3,w4,w5,w121] [222,420,512,564,671,672,675] [n1025,n754,n756,n1000] (by decide +kernel)
-def v396 : Closed T 9 := rotateClosed n865 auto1 auto1ok
-def v397 : Closed T 9 := rotateClosed n941 auto1 auto1ok
-def v398 : Closed T 9 := rotateClosed n976 auto1 auto1ok
-def v399 : Closed T 9 := rotateClosed n1027 auto1 auto1ok
-def v400 : Closed T 9 := rotateClosed n927 auto1 auto1ok
-def v401 : Closed T 9 := rotateClosed n1002 auto1 auto1ok
-def v402 : Closed T 9 := rotateClosed n974 auto1 auto1ok
-def v403 : Closed T 9 := rotateClosed n759 auto1 auto1ok
-def v404 : Closed T 9 := rotateClosed n872 auto1 auto1ok
-def v405 : Closed T 9 := rotateClosed n954 auto1 auto1ok
-def v406 : Closed T 9 := rotateClosed n980 auto1 auto1ok
-def v407 : Closed T 9 := rotateClosed n1006 auto1 auto1ok
-def v408 : Closed T 9 := rotateClosed n920 auto1 auto1ok
-def v409 : Closed T 9 := rotateClosed n991 auto1 auto1ok
-def n1028 := cc 10 [w0,w1,w2,w3,w4,w123,w5] [97,184,269,389,459,524] [v21,v396,v397,v398,v399,n875,n969,v400,n981,v401,n999,n1026,n1024,n789,n908,v402,n932,n948,n947,n513,n621,v403,n726,n785,n858,v404,n864,n863,n901,v405,n937,n194,v406,n975,v407,n923,n939,n755,n964,n995,n1021,n359,n1019,v408,v409] (by decide +kernel)
-def n1029 := cc 8 [w0,w1,w422,w3,w4,w9,w5] [127,179,389,517,521] [] (by decide +kernel)
-def n1030 := cc 8 [w118,w0,w1,w424,w3,w4,w5] [155,178,521,591] [] (by decide +kernel)
-def n1031 := cc 8 [w0,w1,w422,w3,w4,w5,w15] [97,179,472,517] [] (by decide +kernel)
-def n1032 := cc 8 [w118,w0,w1,w422,w3,w4,w5] [178,472,521,632] [] (by decide +kernel)
-def n1033 := cc 8 [w0,w1,w2,w3,w4,w425,w5] [83,90,127,179,269,517,635] [] (by decide +kernel)
-def n1034 := cc 8 [w426,w0,w1,w2,w3,w4,w5] [83,90,155,178,269,562] [] (by decide +kernel)
-def n1035 := cc 8 [w65,w0,w1,w2,w424,w3,w4,w5] [159,364,556,646] [] (by decide +kernel)
-def n1036 := cc 8 [w0,w1,w2,w422,w3,w4,w5,w13] [90,143,178,517,521,632] [] (by decide +kernel)
-def v410 : Closed T 8 := rotateClosed n1030 auto1 auto1ok
-def v411 : Closed T 8 := rotateClosed n1034 auto1 auto1ok
-def v412 : Closed T 8 := rotateClosed n1035 auto1 auto1ok
-def n1037 := cc 9 [w0,w1,w2,w422,w3,w4,w5] [97,178,269,389,517,632] [n1032,v410,v411,n336,v412,n1036,n1033,v131,n1029,n1031] (by decide +kernel)
-def n1038 := cc 7 [w1,w2,w351,w3,w4,w427,w5] [98,178,634] [] (by decide +kernel)
-def n1039 := cc 8 [w0,w1,w350,w2,w3,w4,w427,w5] [83,98,242,581,636,664] [n1038] (by decide +kernel)
-def n1040 := cc 8 [w0,w1,w2,w3,w4,w428,w15] [136,179,184,664] [] (by decide +kernel)
-def n1041 := cc 8 [w179,w0,w1,w2,w3,w427,w5] [83,90,101,179,420,438,581] [] (by decide +kernel)
-def n1042 := cc 8 [w429,w0,w1,w2,w3,w4,w5] [0,165,179,269,517,521] [] (by decide +kernel)
-def n1043 := cc 8 [w0,w1,w2,w3,w4,w428,w13] [83,90,143,179,420,517,564] [] (by decide +kernel)
-def n1044 := cc 8 [w70,w0,w1,w2,w3,w427,w5] [161,179,517,581,664] [] (by decide +kernel)
-def v413 : Closed T 8 := rotateClosed n1040 auto1 auto1ok
-def v414 : Closed T 8 := rotateClosed n1043 auto1 auto1ok
-def n1045 := cc 9 [w0,w1,w2,w3,w4,w427,w5] [83,97,184,269,636,664,671] [n1044,n1003,n1041,n1042,n1039,n1033,n754,v413,v414] (by decide +kernel)
-def n1046 := cc 9 [w0,w1,w2,w3,w4,w123,w5] [36,97,214,315,389,459,666,671] [n1003,n349,n191,n754,v357,v386] (by decide +kernel)
-def n1047 := cc 6 [w421,w430,w128,w1,w3] [178,243,518,584] [] (by decide +kernel)
-def n1048 := cc 7 [w421,w128,w1,w298,w3,w9] [103,179,470,584] [n1047] (by decide +kernel)
-def n1049 := cc 8 [w421,w128,w1,w298,w2,w3,w4] [65,101,243,366,442,469] [n1048] (by decide +kernel)
-def n1050 := cc 8 [w421,w128,w1,w2,w3,w4,w9] [127,243,442,639] [n1048] (by decide +kernel)
-def n1051 := cc 7 [w421,w175,w179,w128,w1,w3] [154,243,442,501] [n1047] (by decide +kernel)
-def n1052 := cc 8 [w421,w175,w128,w1,w2,w3,w4] [127,152,243,366,500,584] [n1051] (by decide +kernel)
-def n1053 := cc 8 [w421,w179,w128,w1,w2,w3,w4] [127,165,243,442,508,584] [n1051] (by decide +kernel)
-def n1054 := cc 9 [w421,w128,w1,w2,w3,w4] [97,607] [n1052,n1053,n1049,n1050] (by decide +kernel)
-def n1055 := cc 8 [w0,w1,w431,w2,w3,w4,w5] [83,178,365,389,632] [] (by decide +kernel)
-def n1056 := cc 8 [w421,w1,w2,w351,w3,w4,w5] [178,365,632] [n1038] (by decide +kernel)
-def n1057 := cc 9 [w421,w0,w1,w350,w2,w3,w4,w5] [98,241,581,607,676] [n1056,n1039,n1055] (by decide +kernel)
-def n1058 := cc 8 [w432,w0,w1,w2,w3,w4,w5] [83,179,365,389,655] [] (by decide +kernel)
-def n1059 := cc 9 [w421,w164,w0,w1,w2,w3,w4,w5] [97,365,607,671] [n1058] (by decide +kernel)
-def n1060 := cc 7 [w0,w1,w433,w3,w9,w5] [103,178,179,581] [] (by decide +kernel)
-def n1061 := cc 8 [w0,w1,w433,w2,w3,w4,w5] [178,222,438,581] [n1060] (by decide +kernel)
-def n1062 := cc 7 [w421,w434,w1,w2,w3,w4] [102,243,518,584] [] (by decide +kernel)
-def n1063 := cc 8 [w421,w0,w1,w2,w3,w4,w299] [90,102,241,581] [n1062] (by decide +kernel)
-def n1064 := cc 7 [w421,w430,w0,w1,w3,w5] [178,241,512,517,581,664] [n1047] (by decide +kernel)
-def n1065 := cc 8 [w421,w0,w1,w298,w3,w9,w5] [103,179,222,470,581] [n1064,n1048,n1060] (by decide +kernel)
-def n1066 := cc 9 [w421,w0,w1,w298,w2,w3,w4,w5] [90,101,222,241,459,469,581] [n1049,n1065,n1063,n1061] (by decide +kernel)
-def n1067 := cc 8 [w0,w1,w2,w3,w4,w435,w5] [136,518,671] [] (by decide +kernel)
-def v415 : Closed T 8 := rotateClosed n1067 auto1 auto1ok
-def n1068 := cc 9 [w421,w0,w1,w2,w3,w4,w9,w5] [127,184,331,365,389,581,671,672] [n1050,n1065,v415,n1033,v413,n1029] (by decide +kernel)
-def n1069 := cc 8 [w436,w0,w1,w2,w3,w4,w5] [155,178,521,590] [] (by decide +kernel)
-def n1070 := cc 8 [w421,w175,w179,w0,w1,w3,w5] [154,222,241,501,581] [n1051,n1064] (by decide +kernel)
-def v416 : Closed T 8 := rotateClosed n1069 auto1 auto1ok
-def n1071 := cc 9 [w421,w175,w0,w1,w2,w3,w4,w5] [83,127,152,222,241,365,367,581,651,664] [n1070,n1052,v410,v416] (by decide +kernel)
-def n1072 := cc 8 [w437,w0,w1,w2,w3,w4,w5] [127,165,581,664] [] (by decide +kernel)
-def n1073 := cc 9 [w421,w179,w0,w1,w2,w3,w4,w5] [165,179,581,664] [n1070,n1053,n1041,n1072] (by decide +kernel)
-def n1074 := cc 8 [w421,w174,w1,w2,w3,w4,w5] [90,179,502,655] [] (by decide +kernel)
-def n1075 := cc 9 [w421,w0,w1,w2,w3,w4,w5,w15] [97,179,184,459,607,664] [n1074,v131,n925,n1031] (by decide +kernel)
-def n1076 := cc 8 [w421,w292,w1,w2,w3,w4,w5] [178,472,632] [] (by decide +kernel)
-def n1077 := cc 9 [w421,w118,w0,w1,w2,w3,w4,w5] [155,241,607,664] [n1076,n1032,n336] (by decide +kernel)
-def n1078 := cc 8 [w0,w1,w2,w438,w3,w4,w5] [179,182,184,438,636] [] (by decide +kernel)
-def n1079 := cc 7 [w421,w439,w1,w2,w3,w4] [111,366,662] [] (by decide +kernel)
-def n1080 := cc 8 [w421,w0,w1,w2,w3,w4,w61] [90,111,199,365,438,517] [n1079] (by decide +kernel)
-def n1081 := cc 9 [w421,w0,w1,w2,w60,w3,w4,w5] [110,179,198,241,365,438,517,607] [n1080,n1078] (by decide +kernel)
-def n1082 := cc 9 [w421,w178,w0,w1,w2,w3,w4,w5] [158,244,365,581,607] [v412] (by decide +kernel)
-def n1083 := cc 8 [w421,w220,w1,w2,w3,w4,w5] [90,143,659,662,672] [] (by decide +kernel)
-def n1084 := cc 9 [w421,w0,w1,w2,w3,w4,w5,w13] [143,231,241,389,607,664,672] [n1083,n1036,n754,v414,n998] (by decide +kernel)
-def n1085 := cc 8 [w421,w417,w1,w2,w3,w4,w5] [161,581,666] [] (by decide +kernel)
-def n1086 := cc 9 [w421,w70,w0,w1,w2,w3,w4,w5] [97,459,581,671] [n1085,n1044,n1003] (by decide +kernel)
-def v417 : Closed T 9 := rotateClosed n1046 auto1 auto1ok
-def n1087 := cc 10 [w421,w0,w1,w2,w3,w4,w5] [97,184,269,389,607] [n1077,n1086,n1071,n1082,n1059,n1073,n1054,n1057,n1066,n1081,n1068,n1075,n1084,n1037,n1045,v417] (by decide +kernel)
-def n1088 := cc 8 [w0,w1,w2,w3,w4,w441,w5] [83,179,487,639] [] (by decide +kernel)
-def n1089 := cc 8 [w442,w0,w1,w2,w3,w4,w5] [134,512,521,589] [] (by decide +kernel)
-def n1090 := cc 8 [w0,w1,w2,w127,w3,w5,w13] [389,459,524,662,672] [] (by decide +kernel)
-def v418 : Closed T 8 := rotateClosed n1088 auto1 auto1ok
-def n1091 := cc 9 [w0,w1,w2,w127,w3,w4,w5] [97,389,459,524,672] [n1089,n514,n344,n1090,v418,n191,n195] (by decide +kernel)
-def n1092 := cc 8 [w126,w0,w1,w2,w3,w129,w5] [143,521,601,662,671] [] (by decide +kernel)
-def n1093 := cc 8 [w0,w1,w2,w3,w4,w353,w15] [78,90,184,427,671] [] (by decide +kernel)
-def n1094 := cc 8 [w179,w0,w1,w2,w3,w129,w5] [452,469,601,672] [] (by decide +kernel)
-def n1095 := cc 8 [w443,w0,w1,w2,w3,w4,w5] [83,179,269,508,563] [] (by decide +kernel)
-def n1096 := cc 8 [w0,w1,w2,w3,w4,w129,w15] [184,459,607,662,671] [] (by decide +kernel)
-def v419 : Closed T 8 := rotateClosed n756 auto1 auto1ok
-def v420 : Closed T 8 := rotateClosed n1093 auto1 auto1ok
-def n1097 := cc 9 [w0,w1,w2,w3,w4,w129,w5] [83,143,184,459,607,662] [n1094,n1095,n515,n1092,n1007,n196,n1096,n1088,n754,v419,v420] (by decide +kernel)
-def n1098 := cc 8 [w126,w128,w0,w1,w2,w3,w13] [143,179,517,521,601,662] [] (by decide +kernel)
-def v421 : Closed T 8 := rotateClosed n1092 auto1 auto1ok
-def n1099 := cc 9 [w126,w128,w0,w1,w2,w3,w4,w5] [97,254,258,452,505,601,671,672] [n1098,n1092,v421,n1007] (by decide +kernel)
-def n1100 := cc 8 [w0,w444,w1,w2,w3,w4,w15] [178,459,521,607] [] (by decide +kernel)
-def n1101 := cc 8 [w126,w0,w1,w2,w3,w5,w44] [179,427,445,574] [] (by decide +kernel)
-def n1102 := cc 8 [w46,w126,w0,w1,w2,w3,w5] [445,672] [] (by decide +kernel)
-def v422 : Closed T 8 := rotateClosed n1100 auto1 auto1ok
-def v423 : Closed T 8 := rotateClosed n1096 auto1 auto1ok
-def n1103 := cc 9 [w126,w0,w1,w2,w3,w9,w5] [97,184,389,524,672] [n1102,n516,n1101,n197,v422,v423,v357] (by decide +kernel)
-def n1104 := cc 8 [w0,w1,w2,w445,w3,w4,w5] [102,222,452,518,601] [] (by decide +kernel)
-def n1105 := cc 8 [w126,w0,w1,w2,w3,w304,w5] [83,106,187,254,401,505,550] [] (by decide +kernel)
-def n1106 := cc 7 [w301,w126,w0,w1,w3,w4] [254,518,659,671,672] [] (by decide +kernel)
-def n1107 := cc 8 [w126,w0,w1,w300,w3,w4,w15] [254,552,671] [n1106] (by decide +kernel)
-def v424 : Closed T 8 := rotateClosed n1104 auto1 auto1ok
-def n1108 := cc 9 [w126,w0,w1,w300,w2,w3,w4,w5] [254,550,676] [n1107,n1105,v424] (by decide +kernel)
-def n1109 := cc 8 [w446,w0,w1,w2,w3,w4,w5] [487,512,521,639,666] [] (by decide +kernel)
-def n1110 := cc 8 [w126,w0,w1,w2,w3,w15,w13] [427,574,664,671] [] (by decide +kernel)
-def v425 : Closed T 8 := rotateClosed n1109 auto1 auto1ok
-def n1111 := cc 9 [w126,w0,w1,w2,w3,w4,w5,w15] [427,459,574,664,671] [n1107,n1101,n1110,v425,v418,n1093] (by decide +kernel)
-def n1112 := cc 8 [w447,w0,w1,w2,w3,w4,w5] [254,445,521,589] [] (by decide +kernel)
-def n1113 := cc 8 [w126,w0,w1,w2,w3,w177,w5] [445,672] [] (by decide +kernel)
-def n1114 := cc 8 [w118,w181,w126,w0,w1,w3,w4] [157,214,254,447,505,593] [n1106] (by decide +kernel)
-def n1115 := cc 9 [w118,w126,w0,w1,w2,w3,w4,w5] [254,589,675] [n1114,n1113,n1112] (by decide +kernel)
-def n1116 := cc 8 [w448,w0,w1,w2,w3,w4,w5] [505,603,671] [] (by decide +kernel)
-def n1117 := cc 8 [w126,w0,w1,w2,w3,w393,w5] [82,505,671] [] (by decide +kernel)
-def n1118 := cc 8 [w179,w128,w0,w1,w2,w3,w13] [452,601,662,672] [] (by decide +kernel)
-def v426 : Closed T 8 := rotateClosed n1114 auto1 auto1ok
-def v427 : Closed T 8 := rotateClosed n1117 auto1 auto1ok
-def v428 : Closed T 8 := rotateClosed n1116 auto1 auto1ok
-def n1119 := cc 9 [w179,w128,w0,w1,w2,w3,w4,w5] [452,459,601,672] [n1053,v426,n1118,n1094,v427,v428] (by decide +kernel)
-def n1120 := cc 8 [w0,w449,w1,w2,w3,w4,w13] [459,535,666,669] [] (by decide +kernel)
-def n1121 := cc 8 [w47,w126,w0,w1,w2,w3,w5] [179,455,662] [] (by decide +kernel)
-def v429 : Closed T 8 := rotateClosed n1118 auto1 auto1ok
-def v430 : Closed T 8 := rotateClosed n1120 auto1 auto1ok
-def n1122 := cc 9 [w126,w0,w1,w2,w3,w5,w13] [143,389,459,524,662,664] [v429,n1121,n517,n1098,n199,n1101,n757,n1110,v430,n1090,v386] (by decide +kernel)
-def v431 : Closed T 9 := rotateClosed n1119 auto1 auto1ok
-def v432 : Closed T 9 := rotateClosed n1097 auto1 auto1ok
-def n1123 := cc 10 [w126,w0,w1,w2,w3,w4,w5] [97,184,389,459,524] [n1115,v431,n518,n1099,n1108,n200,n759,n1111,n1103,n1122,n1091,v432,n1046] (by decide +kernel)
-def n1124 := cc 8 [w0,w1,w273,w2,w3,w450,w4,w5] [164,208,251,294,541,623] [] (by decide +kernel)
-def n1125 := cc 6 [w0,w1,w2,w3,w355,w354,w13] [107,119,128] [] (by decide +kernel)
-def n1126 := cc 7 [w0,w1,w2,w3,w4,w355,w5,w354] [83,90,405,472] [n1125] (by decide +kernel)
-def n1127 := cc 7 [w0,w1,w273,w2,w3,w4,w354,w13] [178,260,410] [n1125,n760] (by decide +kernel)
-def n1128 := cc 7 [w0,w1,w273,w2,w3,w4,w5,w451] [13,146,179,233,294] [] (by decide +kernel)
-def n1129 := cc 7 [w356,w0,w1,w273,w2,w3,w4,w5] [90,257,477] [n761] (by decide +kernel)
-def v433 : Closed T 7 := rotateClosed n1127 auto1 auto1ok
-def v434 : Closed T 7 := rotateClosed n762 auto1 auto1ok
-def n1130 := cc 8 [w0,w1,w273,w2,w3,w4,w355,w5] [178,303,405,477,512,541] [n1129,n1128,v433,n1126,v434] (by decide +kernel)
-def n1131 := cc 8 [w452,w0,w1,w2,w3,w4,w5] [83,90,155,241,313,389,623] [] (by decide +kernel)
-def n1132 := cc 7 [w453,w0,w1,w273,w2,w3,w4,w5] [211] [] (by decide +kernel)
-def n1133 := cc 8 [w0,w1,w273,w2,w3,w4,w12,w5] [138,178,225,294,295,405,623,681] [n1132] (by decide +kernel)
-def n1134 := cc 7 [w1,w273,w2,w3,w4,w5,w13,w125] [231,407,440,497,662] [] (by decide +kernel)
-def n1135 := cc 7 [w454,w0,w1,w273,w2,w3,w4,w5] [218] [] (by decide +kernel)
-def n1136 := cc 8 [w0,w1,w273,w2,w3,w4,w5,w13] [83,90,143,178,231,294,351,405,472,541,623,662] [n1135,n1128,n1127,v433,n1134,n766,n763,v300] (by decide +kernel)
-def v435 : Closed T 8 := rotateClosed n1131 auto1 auto1ok
-def v436 : Closed T 8 := rotateClosed n1130 auto1 auto1ok
-def v437 : Closed T 8 := rotateClosed n1133 auto1 auto1ok
-def v438 : Closed T 8 := rotateClosed n771 auto1 auto1ok
-def v439 : Closed T 8 := rotateClosed n769 auto1 auto1ok
-def n1137 := cc 9 [w0,w1,w273,w2,w3,w4,w5] [0,97,178,184,294,405,472] [n1131,v435,n1124,n1130,v436,n1133,v437,n1136,n771,v438,n584,n769,v439] (by decide +kernel)
-def n1138 := cc 8 [w456,w0,w1,w2,w3,w4,w5] [254,512,676] [] (by decide +kernel)
-def n1139 := cc 8 [w0,w1,w2,w3,w4,w359,w18] [184,345,346,675] [] (by decide +kernel)
-def n1140 := cc 8 [w0,w1,w2,w3,w4,w359,w13] [231,389,622,675] [] (by decide +kernel)
-def n1141 := cc 8 [w0,w1,w2,w3,w4,w5,w457] [83,231,269,542,675] [] (by decide +kernel)
-def n1142 := cc 8 [w458,w0,w1,w2,w3,w4,w5] [90,247,343,445,624,666] [] (by decide +kernel)
-def v440 : Closed T 8 := rotateClosed n1139 auto1 auto1ok
-def v441 : Closed T 8 := rotateClosed n1140 auto1 auto1ok
-def n1143 := cc 9 [w0,w1,w2,w3,w4,w455,w5] [97,184,331,389,459,540,676] [n1142,n1138,n771,n1141,v302,v440,v441] (by decide +kernel)
-def n1144 := cc 9 [w0,w272,w459,w3,w4,w5] [97,184,269,389] [] (by decide +kernel)
-def n1145 := cc 8 [w203,w0,w272,w1,w2,w3,w4,w5] [138,228,622,676,681] [] (by decide +kernel)
-def n1146 := cc 8 [w460,w0,w1,w2,w3,w4,w5] [225,267,622,681] [] (by decide +kernel)
-def n1147 := cc 9 [w0,w272,w1,w2,w3,w4,w12,w5] [138,225,269,270,389,622] [n1146,n1145,n1133,v440] (by decide +kernel)
-def n1148 := cc 7 [w362,w0,w1,w2,w3,w4,w5,w13] [144,146,422,435,493] [] (by decide +kernel)
-def n1149 := cc 7 [w358,w0,w272,w1,w3,w4,w5,w13] [83,90,422] [] (by decide +kernel)
-def n1150 := cc 8 [w0,w272,w1,w2,w3,w4,w5,w13,w125] [83,90,143,231,420,438,496,680,684] [n1149,n1148,n1134] (by decide +kernel)
-def n1151 := cc 8 [w220,w0,w272,w1,w2,w3,w4,w5] [10,56,143,233,356,675,676,684] [] (by decide +kernel)
-def n1152 := cc 7 [w0,w461,w1,w2,w3,w4,w5] [0,132,146,269,662] [] (by decide +kernel)
-def v442 : Closed T 7 := rotateClosed n773 auto1 auto1ok
-def n1153 := cc 8 [w361,w0,w1,w2,w3,w4,w5] [97,231,357,544,625,662] [n773,v442,n1152] (by decide +kernel)
-def n1154 := cc 9 [w0,w272,w1,w2,w3,w4,w5,w13] [83,143,231,351,389,459,540,622,684] [n1153,n1151,n1150,n781,n774,v301,n1136,n1141,n1140,v441] (by decide +kernel)
-def v443 : Closed T 9 := rotateClosed n785 auto1 auto1ok
-def v444 : Closed T 9 := rotateClosed n1147 auto1 auto1ok
-def v445 : Closed T 9 := rotateClosed n1143 auto1 auto1ok
-def n1155 := cc 10 [w0,w272,w1,w2,w3,w4,w5] [0,97,184,269,389,459] [n587,n785,v443,n1147,v444,n1154,n1144,n1137,n1143,v445] (by decide +kernel)
-def n1156 := cc 9 [w0,w1,w2,w462,w4,w5] [97,184,269,389] [] (by decide +kernel)
-def n1157 := cc 9 [w463,w0,w1,w2,w4,w5] [0,97,184,389] [] (by decide +kernel)
-def n1158 := cc 10 [w0,w1,w2,w459,w3,w4,w5] [97,184,269,389,459] [n1157,n1144,n1156] (by decide +kernel)
-def n1159 := cc 8 [w0,w464,w1,w2,w3,w4,w5] [0,269,502,671] [] (by decide +kernel)
-def n1160 := cc 8 [w40,w0,w465,w2,w3,w4,w5] [90,179,184,267,459] [] (by decide +kernel)
-def n1161 := cc 8 [w0,w1,w2,w3,w4,w466,w5] [83,500,671] [] (by decide +kernel)
-def n1162 := cc 8 [w467,w0,w1,w2,w3,w4,w5] [0,179,269,427,487] [] (by decide +kernel)
-def n1163 := cc 8 [w40,w0,w1,w2,w3,w4,w13] [90,427,648,671] [] (by decide +kernel)
-def n1164 := cc 9 [w40,w0,w1,w2,w3,w4,w5] [97,184,345,389,459,648,671] [n1162,n29,n40,n1160,n1163,n1159,n1161] (by decide +kernel)
-def n1165 := cc 8 [w468,w0,w1,w2,w3,w4,w5] [179,225,648] [] (by decide +kernel)
-def n1166 := cc 8 [w39,w203,w0,w1,w2,w3,w4,w5] [228,267,450,648] [] (by decide +kernel)
-def n1167 := cc 9 [w39,w0,w1,w2,w3,w4,w12,w5] [97,225,267,269,389,648] [n1165,n1166] (by decide +kernel)
-def n1168 := cc 8 [w469,w0,w1,w2,w3,w4,w5] [0,179,269,455,508] [] (by decide +kernel)
-def n1169 := cc 8 [w39,w0,w1,w2,w3,w4,w5,w13,w125] [83,90,231,420,438,496,517,684] [] (by decide +kernel)
-def n1170 := cc 8 [w39,w220,w0,w1,w2,w3,w4,w5] [66,233,269,671,684] [] (by decide +kernel)
-def v446 : Closed T 8 := rotateClosed n1163 auto1 auto1ok
-def n1171 := cc 9 [w39,w0,w1,w2,w3,w4,w5,w13] [83,143,231,351,389,459,585,648,684] [n1162,n1163,v446,n30,n1168,n41,n1170,n1169,n788,n787,v303] (by decide +kernel)
-def v447 : Closed T 9 := rotateClosed n1164 auto1 auto1ok
-def v448 : Closed T 9 := rotateClosed n789 auto1 auto1ok
-def v449 : Closed T 9 := rotateClosed n1167 auto1 auto1ok
-def n1172 := cc 10 [w39,w0,w1,w2,w3,w4,w5] [0,97,184,269,389,459] [n1164,v447,n31,n42,n590,n789,v448,n1167,v449,n1171] (by decide +kernel)
-def n1173 := cc 10 [w470,w0,w1,w2,w3,w4,w5] [97,184,269,389,459] [] (by decide +kernel)
-def n1174 := cc 6 [w0,w1,w145,w3,w4,w137,w15] [105,114,124] [] (by decide +kernel)
-def v450 : Closed T 6 := rotateClosed n1174 auto1 auto1ok
-def n1175 := cc 7 [w0,w1,w2,w145,w3,w4,w138,w5] [83,179,208,415] [v450] (by decide +kernel)
-def n1176 := cc 7 [w0,w1,w136,w145,w3,w4,w9,w5] [182,380,409,415] [v450,v305] (by decide +kernel)
-def n1177 := cc 6 [w472,w0,w1,w136,w2,w3,w4] [] [] (by decide +kernel)
-def n1178 := cc 7 [w0,w1,w136,w2,w3,w4,w471,w5] [19,133,342,480] [n1177] (by decide +kernel)
-def n1179 := cc 7 [w365,w0,w1,w136,w2,w3,w4,w5] [64,90,382,476] [n791] (by decide +kernel)
-def v451 : Closed T 7 := rotateClosed n1179 auto1 auto1ok
-def v452 : Closed T 7 := rotateClosed n1178 auto1 auto1ok
-def v453 : Closed T 7 := rotateClosed n1176 auto1 auto1ok
-def v454 : Closed T 7 := rotateClosed n1175 auto1 auto1ok
-def v455 : Closed T 7 := rotateClosed n792 auto1 auto1ok
-def n1180 := cc 8 [w0,w1,w136,w2,w145,w3,w4,w5] [182,208,409,415,476,480,668,677] [n1179,v451,n1178,v452,n1176,v453,n1175,v454,n792,v455] (by decide +kernel)
-def n1181 := cc 8 [w473,w0,w1,w2,w3,w4,w5] [90,179,360,459,517] [] (by decide +kernel)
-def n1182 := cc 6 [w0,w1,w2,w3,w138,w137,w13] [116,120,139] [] (by decide +kernel)
-def n1183 := cc 7 [w0,w1,w2,w3,w4,w138,w5,w137] [83,90,415,480] [n1182] (by decide +kernel)
-def n1184 := cc 7 [w0,w1,w136,w2,w3,w4,w137,w15] [182,212,386] [n1174,n216] (by decide +kernel)
-def n1185 := cc 7 [w139,w0,w1,w136,w2,w3,w4,w5] [179,211,314] [n217] (by decide +kernel)
-def n1186 := cc 7 [w0,w1,w136,w2,w3,w4,w137,w13] [182,387,418] [n1182,n793] (by decide +kernel)
-def n1187 := cc 6 [w475,w0,w1,w136,w3,w4,w5] [] [] (by decide +kernel)
-def n1188 := cc 7 [w0,w1,w136,w2,w3,w4,w5,w474] [19,147,208,356] [n1187] (by decide +kernel)
-def n1189 := cc 7 [w366,w0,w1,w136,w2,w3,w4,w5] [90,384,482] [n794] (by decide +kernel)
-def v456 : Closed T 7 := rotateClosed n1184 auto1 auto1ok
-def v457 : Closed T 7 := rotateClosed n1186 auto1 auto1ok
-def v458 : Closed T 7 := rotateClosed n795 auto1 auto1ok
-def n1190 := cc 8 [w0,w1,w136,w2,w3,w4,w138,w5] [182,211,415,482,680] [n1189,n1185,n1178,n1188,v456,v457,n1175,n1183,n218,v458] (by decide +kernel)
-def n1191 := cc 8 [w476,w0,w1,w2,w3,w4,w5] [159,179,184,365,664] [] (by decide +kernel)
-def n1192 := cc 7 [w1,w136,w2,w3,w4,w9,w119,w5] [209,239,331,433,512,680] [] (by decide +kernel)
-def n1193 := cc 7 [w477,w0,w1,w136,w2,w3,w4,w5] [303] [] (by decide +kernel)
-def n1194 := cc 7 [w0,w1,w136,w2,w3,w4,w15,w13] [86,180,208,415,518,662] [n796,n224,n805,n219] (by decide +kernel)
-def n1195 := cc 6 [w478,w0,w1,w2,w3,w4,w5] [] [] (by decide +kernel)
-def n1196 := cc 7 [w0,w1,w136,w2,w3,w4,w5,w44] [83,90,179,182,231,427,487] [n1195,n225,n798,v310,n220] (by decide +kernel)
-def n1197 := cc 6 [w479,w1,w136,w2,w3,w4,w5] [90] [] (by decide +kernel)
-def n1198 := cc 7 [w46,w0,w1,w136,w2,w3,w4,w5] [83,90,97,247,445,521] [n799,n221,n1197] (by decide +kernel)
-def v459 : Closed T 7 := rotateClosed n1194 auto1 auto1ok
-def v460 : Closed T 7 := rotateClosed n806 auto1 auto1ok
-def n1199 := cc 8 [w0,w1,w136,w2,w3,w4,w9,w5] [83,127,179,182,208,331,415,480,487,512,664] [n1198,n1193,n1178,n1196,v456,v459,n1176,v460,n1192,n227,v315,n222] (by decide +kernel)
-def n1200 := cc 7 [w1,w136,w2,w3,w4,w5,w13,w125] [351,417,441,498,662,680] [] (by decide +kernel)
-def n1201 := cc 7 [w480,w0,w1,w136,w2,w3,w4,w5] [320] [] (by decide +kernel)
-def n1202 := cc 6 [w481,w1,w136,w2,w3,w4,w5] [179] [] (by decide +kernel)
-def n1203 := cc 6 [w0,w1,w482,w2,w3,w4,w5] [83] [] (by decide +kernel)
-def v461 : Closed T 6 := rotateClosed n807 auto1 auto1ok
-def n1204 := cc 7 [w47,w0,w1,w136,w2,w3,w4,w5] [19,83,90,179,182,231,455,508] [n807,v461,n1203,n1202] (by decide +kernel)
-def n1205 := cc 8 [w0,w1,w136,w2,w3,w4,w5,w13] [83,90,143,182,208,231,351,415,480,517,662] [n1204,n1201,n1188,n1196,n1186,v457,n1194,v459,n232,n1200,n811,n808,v316] (by decide +kernel)
-def v462 : Closed T 8 := rotateClosed n1191 auto1 auto1ok
-def v463 : Closed T 8 := rotateClosed n1190 auto1 auto1ok
-def v464 : Closed T 8 := rotateClosed n1199 auto1 auto1ok
-def v465 : Closed T 8 := rotateClosed n818 auto1 auto1ok
-def v466 : Closed T 8 := rotateClosed n815 auto1 auto1ok
-def n1206 := cc 9 [w0,w1,w136,w2,w3,w4,w5] [97,182,208,269,415,480] [n1191,v462,n1181,n1180,n1190,v463,n1199,v464,n1205,n235,n818,v465,n233,n815,v466] (by decide +kernel)
-def n1207 := cc 8 [w483,w0,w1,w2,w3,w4,w5] [90,251,377,459,671] [] (by decide +kernel)
-def n1208 := cc 7 [w0,w168,w42,w3,w4,w5] [179,267,338,543] [] (by decide +kernel)
-def n1209 := cc 8 [w0,w1,w42,w3,w4,w9,w5] [179,331,425,521] [n1208] (by decide +kernel)
-def n1210 := cc 8 [w0,w1,w2,w3,w4,w484,w5] [83,90,179,333,425,459] [] (by decide +kernel)
-def n1211 := cc 8 [w485,w0,w1,w2,w3,w4,w5] [90,369,672] [] (by decide +kernel)
-def n1212 := cc 8 [w0,w1,w2,w42,w3,w4,w5,w13] [83,231,351,521,662,671] [] (by decide +kernel)
-def v467 : Closed T 8 := rotateClosed n1211 auto1 auto1ok
-def v468 : Closed T 8 := rotateClosed n1210 auto1 auto1ok
-def v469 : Closed T 8 := rotateClosed n1209 auto1 auto1ok
-def n1213 := cc 9 [w0,w1,w2,w42,w3,w4,w5] [97,184,269,389,486,671,672] [n1211,v467,n43,n1207,n1212,n591,n235,n1210,v468,n234,n1209,v469] (by decide +kernel)
-def n1214 := cc 8 [w486,w0,w1,w2,w3,w4,w5] [179,184,383,450,676] [] (by decide +kernel)
-def n1215 := cc 8 [w0,w1,w2,w3,w4,w369,w15] [230,269,347,675] [] (by decide +kernel)
-def n1216 := cc 8 [w487,w0,w1,w2,w3,w4,w5] [98,179,454,521] [] (by decide +kernel)
-def n1217 := cc 7 [w0,w1,w2,w3,w43,w15,w13] [226,348,518,676] [] (by decide +kernel)
-def n1218 := cc 8 [w0,w1,w2,w3,w4,w43,w5,w15] [90,225,345,427,518,676] [n1217] (by decide +kernel)
-def n1219 := cc 7 [w47,w0,w1,w2,w3,w4,w369] [357,675] [] (by decide +kernel)
-def v470 : Closed T 7 := rotateClosed n1217 auto1 auto1ok
-def n1220 := cc 8 [w0,w1,w2,w3,w4,w369,w13] [351,354,389,517,675] [n1219,v470] (by decide +kernel)
-def n1221 := cc 8 [w0,w1,w2,w3,w4,w5,w488] [0,83,179,184,351,490,675] [] (by decide +kernel)
-def n1222 := cc 8 [w489,w0,w1,w2,w3,w4,w5] [374,666,675] [] (by decide +kernel)
-def v471 : Closed T 8 := rotateClosed n1215 auto1 auto1ok
-def v472 : Closed T 8 := rotateClosed n1220 auto1 auto1ok
-def n1223 := cc 9 [w0,w1,w2,w3,w4,w43,w5] [97,225,269,459,524,676,680] [n1222,n1216,n44,n1214,n243,n1218,n818,n1210,n1221,v334,v471,v472] (by decide +kernel)
-def n1224 := cc 8 [w490,w0,w2,w4,w5] [97,184,269,389] [] (by decide +kernel)
-def n1225 := cc 9 [w0,w41,w2,w152,w4,w5] [97,184,269,389] [n1224] (by decide +kernel)
-def n1226 := cc 7 [w150,w0,w1,w2,w3,w4,w9,w5] [44,48,127,219,236,434] [] (by decide +kernel)
-def n1227 := cc 8 [w0,w41,w1,w2,w3,w4,w9,w119,w5] [83,127,179,214,238,331,431,678,680,685] [n1226,n1192] (by decide +kernel)
-def n1228 := cc 6 [w492,w0,w1,w2,w3,w4,w5] [] [] (by decide +kernel)
-def n1229 := cc 7 [w0,w41,w1,w2,w3,w4,w491,w5] [0,83,179,259,269,429,503,664] [n1228] (by decide +kernel)
-def n1230 := cc 6 [w148,w167,w0,w1,w2,w3,w5] [] [] (by decide +kernel)
-def n1231 := cc 7 [w167,w0,w41,w1,w2,w3,w5,w13] [180,268,488,512,675] [n1230] (by decide +kernel)
-def v473 : Closed T 7 := rotateClosed n1229 auto1 auto1ok
-def n1232 := cc 8 [w167,w0,w41,w1,w2,w3,w4,w5] [127,179,267,342,459,675,676,678] [n1231,v473] (by decide +kernel)
-def n1233 := cc 6 [w0,w493,w1,w2,w3,w5,w13] [459] [] (by decide +kernel)
-def n1234 := cc 7 [w0,w493,w1,w2,w3,w4,w5] [0,90,133,459,512] [n1233] (by decide +kernel)
-def n1235 := cc 6 [w147,w220,w0,w1,w2,w3,w5] [] [] (by decide +kernel)
-def n1236 := cc 7 [w147,w0,w1,w2,w3,w5,w13] [49,471,489,512] [n1235,n820,n838,n244,n1233] (by decide +kernel)
-def n1237 := cc 8 [w147,w0,w1,w2,w3,w4,w5] [90,133,331,489,512] [n839,n822,n1236,n245,n1234] (by decide +kernel)
-def n1238 := cc 7 [w0,w41,w399,w2,w3,w4,w5] [179,303,304,682] [] (by decide +kernel)
-def n1239 := cc 8 [w0,w41,w168,w2,w3,w4,w5] [184,331,334,540,682] [n1238,n1208] (by decide +kernel)
-def v474 : Closed T 6 := rotateClosed n1235 auto1 auto1ok
-def n1240 := cc 7 [w220,w0,w41,w1,w2,w3,w4,w15] [180,233,662,675,676] [v474] (by decide +kernel)
-def n1241 := cc 6 [w0,w494,w1,w2,w3,w4,w15] [184] [] (by decide +kernel)
-def v475 : Closed T 6 := rotateClosed n1230 auto1 auto1ok
-def n1242 := cc 7 [w148,w0,w1,w2,w3,w4,w15] [201,234,662] [v475,n256,n840,n246,n1241] (by decide +kernel)
-def v476 : Closed T 7 := rotateClosed n1236 auto1 auto1ok
-def v477 : Closed T 7 := rotateClosed n1231 auto1 auto1ok
-def n1243 := cc 8 [w0,w41,w1,w2,w3,w4,w15,w13] [90,137,231,348,517,574,680,686,687] [v476,n1242,n45,v477,n1240,n824,n257,n841,n247,n1194,n1217] (by decide +kernel)
-def n1244 := cc 7 [w45,w0,w41,w1,w2,w3,w4,w5] [83,90,179,233,267,269,428,488] [n1195,n63,n46,n627] (by decide +kernel)
-def n1245 := cc 6 [w0,w495,w1,w2,w3,w4,w5] [0,97] [] (by decide +kernel)
-def v478 : Closed T 6 := rotateClosed n826 auto1 auto1ok
-def n1246 := cc 7 [w149,w0,w1,w2,w3,w4,w5] [0,97,234,430,489] [n1195,n826,v478,n248,n1245] (by decide +kernel)
-def n1247 := cc 7 [w149,w0,w1,w2,w3,w4,w5,w44] [83,90,179,232,262,264] [] (by decide +kernel)
-def n1248 := cc 7 [w0,w41,w496,w2,w3,w4,w5,w44] [83,179,339,340,575] [] (by decide +kernel)
-def n1249 := cc 8 [w0,w41,w1,w2,w3,w4,w5,w44] [83,90,97,179,231,267,339,487,574,678,679,684] [n1246,n1247,n47,n1244,n1248,n261,n827,v325,n249,n1196] (by decide +kernel)
-def n1250 := cc 7 [w149,w0,w1,w2,w3,w4,w9,w5] [44,48,229,234,263,426] [] (by decide +kernel)
-def n1251 := cc 8 [w0,w41,w1,w2,w3,w4,w9,w5,w44] [83,179,266,339,455,487,574,664,678,680,685] [n1250] (by decide +kernel)
-def n1252 := cc 7 [w0,w479,w41,w1,w2,w3,w4,w5] [248,521,666,675] [n1197] (by decide +kernel)
-def n1253 := cc 8 [w46,w0,w41,w1,w2,w3,w4,w5] [134,343,487,521,589,666,678] [n48,n828,n250,n1198,n1252] (by decide +kernel)
-def v479 : Closed T 8 := rotateClosed n842 auto1 auto1ok
-def v480 : Closed T 8 := rotateClosed n1243 auto1 auto1ok
-def v481 : Closed T 8 := rotateClosed n1218 auto1 auto1ok
-def n1254 := cc 9 [w0,w41,w1,w2,w3,w4,w9,w5] [83,127,184,331,487,524,685] [n1253,n1237,n49,n1232,n1239,v479,n1227,n1251,n263,n1249,v332,v480,n251,n1199,v481,n1210,v471,n1209] (by decide +kernel)
-def n1255 := cc 7 [w371,w0,w1,w2,w3,w4,w5,w13] [54,57,143,424,437,495] [] (by decide +kernel)
-def n1256 := cc 8 [w0,w41,w1,w2,w3,w4,w5,w13,w125] [83,90,143,351,420,438,496,680,684,687] [n1255,n1200] (by decide +kernel)
-def n1257 := cc 6 [w498,w0,w1,w2,w3,w4,w5] [] [] (by decide +kernel)
-def n1258 := cc 7 [w0,w41,w1,w2,w497,w3,w4,w5] [179,233,267,269,675,676] [n1257] (by decide +kernel)
-def v482 : Closed T 7 := rotateClosed n1240 auto1 auto1ok
-def n1259 := cc 8 [w220,w0,w41,w1,w2,w3,w4,w5] [143,233,267,356,671,675,676,684] [n1240,v482,n1258] (by decide +kernel)
-def v483 : Closed T 6 := rotateClosed n1241 auto1 auto1ok
-def n1260 := cc 7 [w0,w494,w1,w2,w3,w4,w5] [0,147,179,184,662] [n1241,v483] (by decide +kernel)
-def v484 : Closed T 7 := rotateClosed n843 auto1 auto1ok
-def v485 : Closed T 7 := rotateClosed n1242 auto1 auto1ok
-def n1261 := cc 8 [w148,w0,w1,w2,w3,w4,w5] [147,179,234,351,662] [n269,n843,v484,n1242,v485,n1260] (by decide +kernel)
-def n1262 := cc 7 [w0,w41,w135,w2,w3,w4,w5] [143,267,320,321,322] [n270] (by decide +kernel)
-def n1263 := cc 8 [w0,w41,w134,w2,w3,w4,w5] [143,231,267,351,352,354,459,545] [n271,n1262] (by decide +kernel)
-def n1264 := cc 7 [w149,w0,w1,w2,w3,w4,w5,w13] [54,57,231,430,444,499] [] (by decide +kernel)
-def n1265 := cc 8 [w0,w41,w1,w2,w3,w4,w5,w13,w44] [83,90,231,351,427,445,500,517,680,684,687] [n1264] (by decide +kernel)
-def n1266 := cc 7 [w0,w481,w41,w1,w2,w3,w4,w5] [0,179,269,456,675,676] [n1203,n1202] (by decide +kernel)
-def n1267 := cc 6 [w499,w0,w1,w2,w3,w4,w5] [] [] (by decide +kernel)
-def v486 : Closed T 6 := rotateClosed n844 auto1 auto1ok
-def n1268 := cc 7 [w0,w1,w48,w2,w3,w4,w5] [97,227,357,509,605] [n50,n1267,n844,v486,n1203] (by decide +kernel)
-def v487 : Closed T 7 := rotateClosed n845 auto1 auto1ok
-def v488 : Closed T 7 := rotateClosed n1219 auto1 auto1ok
-def n1269 := cc 8 [w47,w0,w41,w1,w2,w3,w4,w5] [146,231,357,603,684] [n51,n845,v487,n1204,n1219,v488,n1266,n1268] (by decide +kernel)
-def n1270 := cc 9 [w0,w41,w1,w2,w3,w4,w5,w13] [83,143,231,351,459,524,687] [n1269,n1261,n52,n1259,n1263,n272,n1256,n1265,n852,n1249,n846,v333,n1243,v480,n1205,n1212,n1221,n1220,v472] (by decide +kernel)
-def v489 : Closed T 9 := rotateClosed n858 auto1 auto1ok
-def v490 : Closed T 9 := rotateClosed n1254 auto1 auto1ok
-def v491 : Closed T 9 := rotateClosed n1223 auto1 auto1ok
-def n1271 := cc 10 [w0,w41,w1,w2,w3,w4,w5] [97,184,269,389,459] [n53,n273,n858,v489,n1254,v490,n1270,n592,n1225,n1206,n1213,n1223,v491] (by decide +kernel)
-def n1272 := cc 10 [w0,w1,w2,w3,w152,w4,w5] [0,97,184,389,459] [n1225] (by decide +kernel)
-def n1273 := cc 9 [w154,w500,w0,w2,w4,w5] [0,97,184,389] [n1224] (by decide +kernel)
-def n1274 := cc 10 [w154,w0,w1,w2,w3,w4,w5] [97,184,269,524,607] [n1273,n274] (by decide +kernel)
-def n1275 := cc 10 [w500,w0,w1,w2,w3,w4,w5] [97,184,269,389,459] [n1273] (by decide +kernel)
-def n1276 := cc 8 [w501,w0,w1,w2,w3,w4,w5] [165,521,577] [] (by decide +kernel)
-def n1277 := cc 8 [w502,w0,w1,w2,w3,w4,w5] [90,161,179,184,438,581] [] (by decide +kernel)
-def n1278 := cc 8 [w0,w1,w156,w2,w3,w5,w13] [143,217,483,521,524,662,671] [n275,n866] (by decide +kernel)
-def n1279 := cc 9 [w0,w1,w156,w2,w3,w4,w5] [97,214,483,524,671,675] [n1277,n1276,n1278,n278,v338,n276,n867] (by decide +kernel)
-def n1280 := cc 8 [w503,w0,w1,w2,w3,w4,w5] [448,597,672] [] (by decide +kernel)
-def n1281 := cc 7 [w0,w1,w157,w3,w15,w13] [180,231,574] [] (by decide +kernel)
-def n1282 := cc 8 [w0,w1,w157,w3,w4,w5,w15] [179,487,574] [n1281] (by decide +kernel)
-def n1283 := cc 8 [w0,w1,w2,w3,w4,w505,w5] [0,179,269,427,487] [] (by decide +kernel)
-def n1284 := cc 8 [w506,w0,w1,w2,w3,w4,w5] [90,247,445,521,589] [] (by decide +kernel)
-def n1285 := cc 8 [w0,w1,w2,w157,w3,w5,w13] [231,459,524,672] [n1281] (by decide +kernel)
-def v492 : Closed T 8 := rotateClosed n1283 auto1 auto1ok
-def n1286 := cc 9 [w0,w1,w2,w157,w3,w4,w5] [97,184,459,524,672] [n1284,n1280,n1285,n278,v492,n277,n1282] (by decide +kernel)
-def n1287 := cc 8 [w507,w0,w1,w2,w3,w4,w5] [0,143,233,269,662,672] [] (by decide +kernel)
-def n1288 := cc 8 [w0,w1,w2,w3,w4,w379,w15] [231,574,671] [] (by decide +kernel)
-def n1289 := cc 8 [w508,w0,w1,w2,w3,w4,w5] [0,179,269,455,508] [] (by decide +kernel)
-def v493 : Closed T 8 := rotateClosed n868 auto1 auto1ok
-def v494 : Closed T 8 := rotateClosed n1288 auto1 auto1ok
-def n1290 := cc 9 [w0,w1,w2,w3,w4,w161,w5] [83,143,231,389,607,662] [n1289,n1287,n280,n869,n1283,v493,v494] (by decide +kernel)
-def n1291 := cc 8 [w509,w0,w1,w2,w3,w4,w5] [134,343,487,512,521,549,666] [] (by decide +kernel)
-def n1292 := cc 8 [w0,w155,w1,w2,w3,w15,w13] [231,459,574,671] [n1281] (by decide +kernel)
-def v495 : Closed T 8 := rotateClosed n1291 auto1 auto1ok
-def n1293 := cc 9 [w0,w155,w1,w2,w3,w4,w5,w15] [184,459,574,671] [v495,n1292,v492,n1288,n1282] (by decide +kernel)
-def n1294 := cc 9 [w0,w155,w1,w2,w3,w5,w13] [143,231,389,459,524,662,664] [n282,n871,n1292,n1278,n1285] (by decide +kernel)
-def v496 : Closed T 9 := rotateClosed n1290 auto1 auto1ok
-def n1295 := cc 10 [w0,w155,w1,w2,w3,w4,w5] [97,184,389,459,524] [n283,n872,n1293,n1294,n1279,n1286,v496] (by decide +kernel)
-def n1296 := cc 10 [w0,w1,w2,w3,w4,w510,w5] [97,184,269,389,459] [] (by decide +kernel)
-def n1297 := cc 8 [w0,w511,w1,w2,w3,w4,w5] [143,179,233,356,588,675] [] (by decide +kernel)
-def n1298 := cc 8 [w50,w0,w134,w2,w3,w4,w5] [267,389,459,675] [] (by decide +kernel)
-def n1299 := cc 8 [w0,w1,w2,w512,w3,w4,w5] [0,179,269,455,508] [] (by decide +kernel)
-def n1300 := cc 9 [w50,w0,w1,w2,w3,w4,w5] [97,231,351,389,459,587,675,684] [n1162,n35,n54,n1298,n284,n1297,n1299] (by decide +kernel)
-def n1301 := cc 8 [w513,w0,w1,w2,w3,w4,w5] [0,247,269,675] [] (by decide +kernel)
-def n1302 := cc 7 [w49,w167,w0,w1,w2,w3,w13] [69,87,256,488,675] [] (by decide +kernel)
-def n1303 := cc 8 [w49,w167,w0,w1,w2,w3,w4,w5] [47,68,127,179,342,448,488,512,521] [n1302] (by decide +kernel)
-def n1304 := cc 7 [w49,w0,w134,w2,w3,w9,w13] [70,662,675] [] (by decide +kernel)
-def n1305 := cc 8 [w49,w0,w1,w2,w3,w9,w13] [231,337,487,512,587,672,675,684] [n36,n55,n1302,n1304,n287,n285] (by decide +kernel)
-def n1306 := cc 9 [w49,w0,w1,w2,w3,w4,w9,w5] [97,184,331,389,487,512,587,672] [n1162,n37,n1301,n56,n1303,n288,n873,n1305,n286] (by decide +kernel)
-def n1307 := cc 8 [w49,w0,w134,w2,w3,w4,w13] [231,268,351,662,675] [n1304] (by decide +kernel)
-def n1308 := cc 9 [w49,w0,w1,w2,w3,w4,w13] [231,351,389,459,607,675,684] [n1163,n38,n57,n1307,n291,n874,n1305] (by decide +kernel)
-def n1309 := cc 10 [w49,w0,w1,w2,w3,w4,w5] [97,184,269,389,459,607] [n1300,n1164,n39,n58,n292,n875,n1306,n1308] (by decide +kernel)
-def n1310 := cc 9 [w0,w1,w2,w3,w4,w515] [97,184,269,389] [] (by decide +kernel)
-def n1311 := cc 9 [w0,w517,w1,w2,w3,w5] [97,184,269,389] [] (by decide +kernel)
-def n1312 := cc 9 [w49,w516,w0,w2,w3,w4] [] [] (by decide +kernel)
-def v497 : Closed T 9 := rotateClosed n1312 auto1 auto1ok
-def v498 : Closed T 9 := rotateClosed n1311 auto1 auto1ok
-def n1313 := cc 10 [w514,w0,w1,w2,w3,w4,w5] [97,184,269,389,459] [v497,v498,n1310] (by decide +kernel)
-def n1314 := cc 6 [w0,w1,w2,w3,w383,w382,w13] [194,205,215] [] (by decide +kernel)
-def n1315 := cc 7 [w0,w1,w2,w3,w4,w383,w5,w382] [83,90,400,468] [n1314] (by decide +kernel)
-def n1316 := cc 7 [w0,w1,w2,w351,w3,w4,w382,w13] [178,260,561] [n1314,n876] (by decide +kernel)
-def n1317 := cc 6 [w0,w519,w2,w351,w3,w4,w5] [] [] (by decide +kernel)
-def n1318 := cc 7 [w0,w1,w2,w351,w3,w4,w5,w518] [26,179,233] [n1317] (by decide +kernel)
-def n1319 := cc 7 [w384,w0,w1,w2,w351,w3,w4,w5] [90,257,635] [n877] (by decide +kernel)
-def v499 : Closed T 7 := rotateClosed n1316 auto1 auto1ok
-def v500 : Closed T 7 := rotateClosed n878 auto1 auto1ok
-def n1320 := cc 8 [w0,w1,w2,w351,w3,w4,w383,w5] [178,315,512,556,635] [n1319,n1318,v499,n1315,v500] (by decide +kernel)
-def n1321 := cc 8 [w520,w0,w1,w2,w3,w4,w5] [83,90,178,365,389] [] (by decide +kernel)
-def n1322 := cc 7 [w1,w2,w351,w3,w4,w5,w13,w125] [231,351,559,583,647,662] [] (by decide +kernel)
-def n1323 := cc 7 [w521,w1,w2,w351,w3,w4,w5,w13] [559,583,634,662] [] (by decide +kernel)
-def n1324 := cc 7 [w220,w0,w1,w2,w351,w3,w4,w5] [218,233] [] (by decide +kernel)
-def n1325 := cc 7 [w522,w0,w1,w2,w351,w3,w4,w5] [218] [] (by decide +kernel)
-def n1326 := cc 8 [w0,w1,w2,w351,w3,w4,w5,w13] [83,90,178,231,556,632,662] [n1323,n1325,n1324,n886,n1318,n885,v342,n1316,v499,n1322,n881,n879,v341] (by decide +kernel)
-def v501 : Closed T 8 := rotateClosed n1056 auto1 auto1ok
-def v502 : Closed T 8 := rotateClosed n1321 auto1 auto1ok
-def v503 : Closed T 8 := rotateClosed n887 auto1 auto1ok
-def v504 : Closed T 8 := rotateClosed n1320 auto1 auto1ok
-def v505 : Closed T 8 := rotateClosed n889 auto1 auto1ok
-def v506 : Closed T 8 := rotateClosed n884 auto1 auto1ok
-def n1327 := cc 9 [w0,w1,w2,w351,w3,w4,w5] [178,184,269,556,632] [n1056,v501,n1321,v502,n887,v503,n1320,v504,n1326,n889,v505,n884,v506] (by decide +kernel)
-def n1328 := cc 8 [w524,w0,w1,w2,w3,w4,w5] [254,383,676] [] (by decide +kernel)
-def n1329 := cc 8 [w0,w1,w2,w3,w4,w385,w13] [231,574,675] [] (by decide +kernel)
-def n1330 := cc 8 [w0,w1,w2,w3,w4,w5,w525] [231,351,675] [] (by decide +kernel)
-def n1331 := cc 8 [w526,w0,w1,w2,w3,w4,w5] [90,247,589,666] [] (by decide +kernel)
-def v507 : Closed T 8 := rotateClosed n1329 auto1 auto1ok
-def n1332 := cc 9 [w0,w1,w2,w3,w4,w523,w5] [97,184,459,524,676] [n1331,n1328,n889,n1330,v344,v507] (by decide +kernel)
-def n1333 := cc 9 [w0,w1,w350,w8,w4,w5] [184,524,607] [] (by decide +kernel)
-def n1334 := cc 7 [w387,w0,w1,w2,w3,w4,w5,w13] [55,58,143,570,579,643] [] (by decide +kernel)
-def n1335 := cc 7 [w358,w0,w1,w350,w3,w4,w5,w13] [83,90,570] [] (by decide +kernel)
-def n1336 := cc 8 [w0,w1,w350,w2,w3,w4,w5,w13,w125] [83,90,143,231,351,564,581,645,687] [n1335,n1334,n1322] (by decide +kernel)
-def n1337 := cc 7 [w0,w1,w527,w2,w3,w4,w5,w13] [58,240,561,582,635] [] (by decide +kernel)
-def n1338 := cc 8 [w521,w0,w1,w350,w2,w3,w4,w5,w13] [83,90,143,231,564,581,636,687] [n1323,n1337] (by decide +kernel)
-def n1339 := cc 8 [w220,w0,w1,w350,w2,w3,w4,w5] [218,233,675,676,687] [n1324] (by decide +kernel)
-def n1340 := cc 7 [w0,w528,w1,w2,w3,w4,w5] [0,218,269,662] [] (by decide +kernel)
-def v508 : Closed T 7 := rotateClosed n891 auto1 auto1ok
-def n1341 := cc 8 [w352,w0,w1,w2,w3,w4,w5] [97,231,351,662] [n891,v508,n1340] (by decide +kernel)
-def n1342 := cc 9 [w0,w1,w350,w2,w3,w4,w5,w13] [83,98,143,231,524,607,687] [n1338,n1341,n1339,n1336,n897,n892,v343,n1326,n1330,n1329,v507] (by decide +kernel)
-def v509 : Closed T 9 := rotateClosed n1057 auto1 auto1ok
-def v510 : Closed T 9 := rotateClosed n901 auto1 auto1ok
-def v511 : Closed T 9 := rotateClosed n1332 auto1 auto1ok
-def n1343 := cc 10 [w0,w1,w350,w2,w3,w4,w5] [97,184,269,524,607] [n1057,v509,n901,v510,n1342,n1333,n1327,n1332,v511] (by decide +kernel)
-def n1344 := cc 8 [w529,w0,w1,w2,w3,w4,w5] [123,251,378,525,608] [] (by decide +kernel)
-def n1345 := cc 9 [w163,w0,w1,w2,w3,w4,w5] [123,179,251,269,524,607,677] [n459,n59,n293,n1344] (by decide +kernel)
-def n1346 := cc 8 [w0,w1,w531,w2,w3,w4,w5] [123,208,267,553,630] [] (by decide +kernel)
-def n1347 := cc 8 [w0,w530,w1,w531,w2,w3,w4,w5] [123,208,267,553,630] [] (by decide +kernel)
-def n1348 := cc 9 [w0,w530,w1,w2,w3,w4,w5] [123,184,267,269,271,524,607] [n59,n1347,n1346] (by decide +kernel)
-def n1349 := cc 10 [w0,w1,w2,w3,w8,w4,w5] [97,184,269,524,607] [n460,n60,n622,n1345,n15,n1348,n1333,n294] (by decide +kernel)
-def n1350 := cc 9 [w0,w533,w1,w2,w3,w4,w5] [184,524,607] [] (by decide +kernel)
-def n1351 := cc 10 [w532,w0,w1,w2,w3,w4,w5] [97,184,524,607] [n1350] (by decide +kernel)
-def n1352 := cc 8 [w534,w0,w1,w2,w3,w4,w5] [83,90,179,365,389] [] (by decide +kernel)
-def n1353 := cc 8 [w0,w165,w1,w2,w3,w4,w5,w13] [83,90,351,507,662,671] [] (by decide +kernel)
-def v512 : Closed T 8 := rotateClosed n1352 auto1 auto1ok
-def v513 : Closed T 8 := rotateClosed n902 auto1 auto1ok
-def n1354 := cc 9 [w0,w165,w1,w2,w3,w4,w5] [0,208,269,389,655,671,672] [n1352,v512,n461,n1353,n902,v513,n295] (by decide +kernel)
-def n1355 := cc 8 [w536,w0,w1,w2,w3,w4,w5] [383,671,676] [] (by decide +kernel)
-def n1356 := cc 8 [w0,w1,w2,w3,w4,w537,w15] [179,230,345,517] [] (by decide +kernel)
-def n1357 := cc 8 [w0,w1,w2,w3,w4,w537,w13] [351,389,517,521,675] [] (by decide +kernel)
-def n1358 := cc 8 [w0,w1,w2,w3,w4,w5,w538] [351,511,675] [] (by decide +kernel)
-def n1359 := cc 8 [w539,w0,w1,w2,w3,w4,w5] [374,517,574,666] [] (by decide +kernel)
-def v514 : Closed T 8 := rotateClosed n1356 auto1 auto1ok
-def v515 : Closed T 8 := rotateClosed n1357 auto1 auto1ok
-def n1360 := cc 9 [w0,w1,w2,w3,w4,w535,w5] [97,225,269,459,524,671,676] [n1359,n1355,n902,n1358,v514,v515] (by decide +kernel)
-def n1361 := cc 9 [w164,w0,w1,w2,w3,w4,w9,w5] [179,184,269,521,524] [v514] (by decide +kernel)
-def n1362 := cc 7 [w0,w1,w2,w541,w3,w4,w5] [320,325,330,511] [] (by decide +kernel)
-def n1363 := cc 8 [w0,w1,w2,w540,w3,w4,w5] [97,351,511,550,627] [n1362] (by decide +kernel)
-def n1364 := cc 8 [w164,w0,w1,w2,w3,w4,w5,w13,w125] [83,90,645,671,685,687] [] (by decide +kernel)
-def n1365 := cc 8 [w164,w220,w0,w1,w2,w3,w4,w5] [356,511,671,687] [] (by decide +kernel)
-def n1366 := cc 9 [w164,w0,w1,w2,w3,w4,w5,w13] [83,143,231,351,521,524,607,671,687] [n1365,n1364,n907,n904,v345,n1353,n1363,n1358,n1357,v515] (by decide +kernel)
-def v516 : Closed T 9 := rotateClosed n1059 auto1 auto1ok
-def v517 : Closed T 9 := rotateClosed n908 auto1 auto1ok
-def v518 : Closed T 9 := rotateClosed n1361 auto1 auto1ok
-def v519 : Closed T 9 := rotateClosed n1360 auto1 auto1ok
-def n1367 := cc 10 [w164,w0,w1,w2,w3,w4,w5] [97,184,269,524,607] [n1059,v516,n462,n296,n908,v517,n1361,v518,n1366,n596,n1354,n1360,v519] (by decide +kernel)
-def n1368 := cc 7 [w166,w1,w542,w3,w9,w5] [103,178,179,184,530] [] (by decide +kernel)
-def n1369 := cc 7 [w167,w1,w542,w3,w9,w5] [254,512,597,671] [] (by decide +kernel)
-def n1370 := cc 7 [w0,w1,w543,w3,w9,w5] [103,178,179,530] [] (by decide +kernel)
-def n1371 := cc 7 [w545,w0,w1,w3,w4,w15] [179,258,518,655] [] (by decide +kernel)
-def v520 : Closed T 7 := rotateClosed n1371 auto1 auto1ok
-def n1372 := cc 8 [w0,w1,w542,w3,w9,w5] [184,524,671,672,675] [v520,n1369,n1368,n1370] (by decide +kernel)
-def n1373 := cc 8 [w546,w0,w1,w2,w3,w4,w5] [90,178,438,581] [] (by decide +kernel)
-def n1374 := cc 9 [w0,w1,w2,w542,w3,w4,w5] [184,459,524,675] [n1373,v366,n1372] (by decide +kernel)
-def n1375 := cc 7 [w548,w0,w2,w3,w4,w299] [102,192,538] [] (by decide +kernel)
-def n1376 := cc 7 [w549,w0,w1,w2,w4,w299] [102,196,285,398] [] (by decide +kernel)
-def n1377 := cc 7 [w550,w1,w2,w3,w397,w5] [83,106,189,619] [] (by decide +kernel)
-def v521 : Closed T 7 := rotateClosed n1375 auto1 auto1ok
-def v522 : Closed T 7 := rotateClosed n1376 auto1 auto1ok
-def n1378 := cc 8 [w550,w0,w1,w2,w3,w304,w5] [83,106,187,254,617] [v521,v522,n1377,v273,n653] (by decide +kernel)
-def v523 : Closed T 7 := rotateClosed n1377 auto1 auto1ok
-def n1379 := cc 8 [w0,w1,w2,w3,w4,w299,w551] [90,102,222,258,564] [v523] (by decide +kernel)
-def n1380 := cc 6 [w553,w1,w2,w3,w4] [102,178,673] [] (by decide +kernel)
-def n1381 := cc 7 [w552,w434,w1,w2,w3,w4] [102,243,518,584] [n1380] (by decide +kernel)
-def n1382 := cc 8 [w552,w0,w1,w2,w3,w4,w299] [90,102,241,581] [n1381] (by decide +kernel)
-def n1383 := cc 8 [w554,w0,w1,w2,w3,w304,w5] [83,106,254,659] [] (by decide +kernel)
-def v524 : Closed T 8 := rotateClosed n1383 auto1 auto1ok
-def v525 : Closed T 8 := rotateClosed n1378 auto1 auto1ok
-def n1384 := cc 9 [w0,w1,w2,w3,w4,w299] [184,524] [n1382,v524,v525,n1379] (by decide +kernel)
-def n1385 := cc 8 [w554,w0,w1,w2,w3,w4,w5] [83,106,254,659] [] (by decide +kernel)
-def v526 : Closed T 8 := rotateClosed n1063 auto1 auto1ok
-def v527 : Closed T 8 := rotateClosed n949 auto1 auto1ok
-def n1386 := cc 9 [w0,w1,w2,w3,w4,w304,w5] [83,97,184,512,607] [v526,n1105,n1385,n730,n950,v527] (by decide +kernel)
-def n1387 := cc 9 [w555,w0,w1,w2,w3,w5] [184,459,524] [] (by decide +kernel)
-def n1388 := cc 6 [w301,w557,w0,w3,w4] [518,615,668] [] (by decide +kernel)
-def n1389 := cc 7 [w557,w0,w300,w3,w4,w15] [108,179,615] [n1388] (by decide +kernel)
-def n1390 := cc 6 [w301,w558,w0,w1,w4] [196,518,671] [] (by decide +kernel)
-def n1391 := cc 7 [w558,w0,w1,w300,w4,w15] [108,179,196,289] [n1390] (by decide +kernel)
-def n1392 := cc 6 [w301,w0,w1,w3,w559] [178,193,518,613] [] (by decide +kernel)
-def v528 : Closed T 6 := rotateClosed n1392 auto1 auto1ok
-def n1393 := cc 7 [w0,w1,w298,w3,w9,w560] [103,179,531] [v528] (by decide +kernel)
-def n1394 := cc 6 [w301,w561,w0,w1,w3] [178,197,512,616] [] (by decide +kernel)
-def n1395 := cc 7 [w561,w0,w1,w300,w3,w15] [108,179,197,552] [n1394] (by decide +kernel)
-def n1396 := cc 6 [w166,w562,w1,w3,w5] [] [] (by decide +kernel)
-def v529 : Closed T 6 := rotateClosed n1396 auto1 auto1ok
-def n1397 := cc 7 [w301,w556,w0,w1,w3,w4] [178,192,512,518,612,666] [n1388,n1390,n1394,n1392,v529] (by decide +kernel)
-def v530 : Closed T 7 := rotateClosed n1397 auto1 auto1ok
-def v531 : Closed T 7 := rotateClosed n1389 auto1 auto1ok
-def v532 : Closed T 7 := rotateClosed n1391 auto1 auto1ok
-def v533 : Closed T 7 := rotateClosed n1395 auto1 auto1ok
-def n1398 := cc 8 [w166,w0,w1,w298,w3,w9,w5] [103,179,184,470,530,664] [v530,v531,v532,v533,n1368,n1393,n1370] (by decide +kernel)
-def n1399 := cc 7 [w301,w0,w1,w3,w4,w141] [178,179,222,517,632] [] (by decide +kernel)
-def n1400 := cc 6 [w563,w556,w1,w3,w4] [178,195,517,614] [] (by decide +kernel)
-def n1401 := cc 7 [w563,w0,w1,w3,w4,w15] [179,222,517,632] [n1400] (by decide +kernel)
-def v534 : Closed T 7 := rotateClosed n1399 auto1 auto1ok
-def v535 : Closed T 7 := rotateClosed n1401 auto1 auto1ok
-def n1402 := cc 8 [w0,w1,w298,w3,w9,w119,w5] [179,214,521,556] [v534,v535] (by decide +kernel)
-def n1403 := cc 7 [w0,w1,w565,w3,w9,w5] [83,103,178,577] [] (by decide +kernel)
-def n1404 := cc 6 [w567,w1,w300,w3,w4] [108,178,179,517] [] (by decide +kernel)
-def n1405 := cc 7 [w566,w174,w1,w300,w3,w4] [179,243,519,644] [n1404] (by decide +kernel)
-def n1406 := cc 7 [w566,w301,w0,w1,w3,w4] [178,222,241,517,641] [] (by decide +kernel)
-def v536 : Closed T 7 := rotateClosed n1403 auto1 auto1ok
-def n1407 := cc 8 [w566,w0,w1,w300,w3,w4,w15] [108,517,641] [n1406,n1405,v536] (by decide +kernel)
-def n1408 := cc 7 [w301,w174,w0,w1,w3,w4] [179,258,518,655] [] (by decide +kernel)
-def v537 : Closed T 7 := rotateClosed n1408 auto1 auto1ok
-def n1409 := cc 8 [w167,w0,w1,w298,w3,w9,w5] [179,254,512,597] [v520,v537,n1369] (by decide +kernel)
-def n1410 := cc 6 [w301,w0,w569,w3,w4] [518,615,668] [] (by decide +kernel)
-def n1411 := cc 6 [w301,w0,w1,w570,w4] [196,518,671] [] (by decide +kernel)
-def n1412 := cc 6 [w301,w0,w1,w3,w571] [178,193,518,613] [] (by decide +kernel)
-def n1413 := cc 6 [w301,w0,w1,w572,w3] [178,197,512,616] [] (by decide +kernel)
-def n1414 := cc 6 [w568,w573,w1,w3,w4] [178,195,521,614] [] (by decide +kernel)
-def n1415 := cc 7 [w568,w301,w0,w1,w3,w4] [178,192,512,518,612,666] [n1414,n1410,n1411,n1413,n1412] (by decide +kernel)
-def n1416 := cc 7 [w301,w0,w573,w1,w3,w4] [222,258,512,521,632,676] [n1414] (by decide +kernel)
-def n1417 := cc 7 [w545,w301,w0,w1,w3,w4] [258,518,655,672] [] (by decide +kernel)
-def n1418 := cc 7 [w301,w574,w0,w1,w3,w4] [178,241,512,521,641,666] [] (by decide +kernel)
-def n1419 := cc 5 [w0,w1,w577,w3] [671,678,685] [] (by decide +kernel)
-def n1420 := cc 6 [w575,w0,w1,w3,w576] [206,521,671] [n1419] (by decide +kernel)
-def n1421 := cc 7 [w575,w301,w0,w1,w3,w4] [204,518,627,671] [n1420] (by decide +kernel)
-def n1422 := cc 7 [w301,w0,w1,w3,w4,w576] [231,639,666,672] [n1420] (by decide +kernel)
-def n1423 := cc 6 [w578,w0,w1,w579,w3] [250,512,517,593] [n1419] (by decide +kernel)
-def n1424 := cc 7 [w578,w430,w0,w1,w3,w5] [247,512,589,675] [n1423] (by decide +kernel)
-def v538 : Closed T 6 := rotateClosed n1423 auto1 auto1ok
-def n1425 := cc 7 [w301,w0,w1,w580,w3,w4] [247,521,661,671] [v538] (by decide +kernel)
-def v539 : Closed T 7 := rotateClosed n1424 auto1 auto1ok
-def v540 : Closed T 7 := rotateClosed n1064 auto1 auto1ok
-def n1426 := cc 8 [w301,w0,w1,w3,w4] [184,607] [v539,v540,n1417,n1415,n1421,n1106,n1418,n733,n1416,n1425,n1422,n952] (by decide +kernel)
-def n1427 := cc 7 [w0,w573,w1,w3,w4,w15] [222,521,671] [v529] (by decide +kernel)
-def n1428 := cc 7 [w301,w0,w1,w3,w581,w4] [204,518,627,671] [] (by decide +kernel)
-def n1429 := cc 7 [w301,w0,w1,w3,w4,w44] [179,231,247,517,518,639] [] (by decide +kernel)
-def n1430 := cc 7 [w582,w301,w0,w1,w3,w4] [179,231,247,512,518,661] [] (by decide +kernel)
-def n1431 := cc 7 [w46,w430,w0,w1,w3,w5] [247,512,672] [] (by decide +kernel)
-def v541 : Closed T 7 := rotateClosed n1431 auto1 auto1ok
-def n1432 := cc 8 [w301,w0,w1,w3,w4,w15] [184,518,521,607,671] [n1406,n1430,v541,n1371,n1408,n1397,n1428,n1399,n1429,n1427] (by decide +kernel)
-def n1433 := cc 6 [w583,w0,w1,w3,w581] [179,206,521,629] [] (by decide +kernel)
-def n1434 := cc 6 [w585,w0,w1,w298,w3] [179,470,512,629] [] (by decide +kernel)
-def v542 : Closed T 6 := rotateClosed n1433 auto1 auto1ok
-def n1435 := cc 7 [w0,w1,w298,w3,w584,w44] [179,206,470] [n1434,v542] (by decide +kernel)
-def v543 : Closed T 7 := rotateClosed n1428 auto1 auto1ok
-def n1436 := cc 8 [w0,w1,w298,w3,w584,w9,w5] [204,550,672] [v543,n1435] (by decide +kernel)
-def n1437 := cc 7 [w583,w0,w1,w3,w4,w15] [179,231,517,518,639] [n1433] (by decide +kernel)
-def v544 : Closed T 7 := rotateClosed n1429 auto1 auto1ok
-def v545 : Closed T 7 := rotateClosed n1437 auto1 auto1ok
-def n1438 := cc 8 [w0,w1,w298,w3,w9,w5,w44] [179,231,247,470,574] [v544,v545,n1435] (by decide +kernel)
-def v546 : Closed T 6 := rotateClosed n1434 auto1 auto1ok
-def n1439 := cc 7 [w582,w586,w0,w1,w300,w3] [179,250,520] [v546] (by decide +kernel)
-def v547 : Closed T 7 := rotateClosed n1439 auto1 auto1ok
-def n1440 := cc 8 [w46,w0,w1,w298,w3,w9,w5] [247,512,672] [v547,n1431] (by decide +kernel)
-def n1441 := cc 7 [w0,w1,w588,w3,w9,w5] [179,470,513,603] [] (by decide +kernel)
-def v548 : Closed T 7 := rotateClosed n1441 auto1 auto1ok
-def n1442 := cc 8 [w582,w0,w1,w300,w3,w4,w15] [179,247,552] [n1439,n1430,v548] (by decide +kernel)
-def v549 : Closed T 8 := rotateClosed n1407 auto1 auto1ok
-def v550 : Closed T 8 := rotateClosed n1442 auto1 auto1ok
-def v551 : Closed T 8 := rotateClosed n1426 auto1 auto1ok
-def v552 : Closed T 8 := rotateClosed n1432 auto1 auto1ok
-def v553 : Closed T 8 := rotateClosed n1107 auto1 auto1ok
-def v554 : Closed T 8 := rotateClosed n734 auto1 auto1ok
-def n1443 := cc 9 [w0,w1,w298,w3,w9,w5] [184,524] [v549,v550,n1065,n1440,v551,v552,v553,n1409,v554,n1398,n1436,n1402,n953,n1438,n1372] (by decide +kernel)
-def v555 : Closed T 9 := rotateClosed n1387 auto1 auto1ok
-def v556 : Closed T 9 := rotateClosed n1108 auto1 auto1ok
-def v557 : Closed T 9 := rotateClosed n735 auto1 auto1ok
-def v558 : Closed T 9 := rotateClosed n1386 auto1 auto1ok
-def n1444 := cc 10 [w0,w1,w298,w2,w3,w4,w5] [97,184,459,524] [n1066,v555,v556,v557,n954,n1443,n1374,v558,n1384] (by decide +kernel)
-def n1445 := cc 8 [w557,w0,w2,w3,w4,w5,w15] [136,518,671] [n1389] (by decide +kernel)
-def n1446 := cc 8 [w558,w0,w1,w2,w4,w5,w15] [345,518,671] [n1391] (by decide +kernel)
-def n1447 := cc 8 [w0,w1,w2,w3,w4,w9,w560] [127,512,672] [n1393] (by decide +kernel)
-def n1448 := cc 8 [w561,w0,w1,w2,w3,w5,w15] [136,197,463,574] [n1395] (by decide +kernel)
-def n1449 := cc 7 [w567,w1,w2,w3,w4,w5] [90,136,179,517] [n1404] (by decide +kernel)
-def v559 : Closed T 7 := rotateClosed n1449 auto1 auto1ok
-def n1450 := cc 8 [w166,w1,w2,w3,w4,w119,w5] [83,127,179,521] [v559] (by decide +kernel)
-def v560 : Closed T 8 := rotateClosed n1445 auto1 auto1ok
-def v561 : Closed T 8 := rotateClosed n1446 auto1 auto1ok
-def v562 : Closed T 8 := rotateClosed n1448 auto1 auto1ok
-def n1451 := cc 9 [w166,w0,w1,w2,w3,w4,w9,w5] [127,184,331,512,524,672] [v560,v561,v562,n344,n1398,n1450,n909,n297,n1447] (by decide +kernel)
-def n1452 := cc 8 [w0,w168,w1,w2,w3,w4,w119,w5] [127,238,521,685] [] (by decide +kernel)
-def n1453 := cc 8 [w0,w140,w1,w2,w3,w4,w9,w5] [127,521,680] [] (by decide +kernel)
-def n1454 := cc 8 [w0,w1,w2,w172,w3,w4,w119,w5] [127,303,342,521,556,577] [] (by decide +kernel)
-def n1455 := cc 9 [w0,w1,w2,w3,w4,w9,w119,w5] [83,127,179,331,521,556] [v114,n922,n346,n1450,n1227,n1452,n1453,n1402,n1454] (by decide +kernel)
-def n1456 := cc 8 [w566,w174,w1,w2,w3,w4,w5] [90,136,179,517] [n1405,n1449] (by decide +kernel)
-def n1457 := cc 9 [w566,w0,w1,w2,w3,w4,w5,w15] [90,136,179,182,345,517,641] [n1456,n1407,v131,n436,n1031] (by decide +kernel)
-def n1458 := cc 8 [w589,w0,w1,w2,w3,w4,w5] [0,269,502,671] [] (by decide +kernel)
-def n1459 := cc 8 [w0,w1,w2,w3,w4,w491,w5] [83,179,247,267,269,503,656] [n1229] (by decide +kernel)
-def n1460 := cc 8 [w65,w167,w0,w1,w2,w3,w4,w5] [3,342,521,597,640] [] (by decide +kernel)
-def n1461 := cc 8 [w167,w0,w1,w2,w3,w5,w13] [131,459,597,672,676,682] [n1302,n1231] (by decide +kernel)
-def n1462 := cc 8 [w70,w167,w0,w1,w2,w3,w5] [73,448,671,672] [] (by decide +kernel)
-def v563 : Closed T 8 := rotateClosed n1074 auto1 auto1ok
-def v564 : Closed T 8 := rotateClosed n1458 auto1 auto1ok
-def v565 : Closed T 8 := rotateClosed n1459 auto1 auto1ok
-def n1463 := cc 9 [w167,w0,w1,w2,w3,w4,w5] [127,184,254,269,389,448,459,512,597,672,676] [n963,v563,n1303,n1460,n1462,n463,n61,n624,n1232,n1461,n312,n921,n346,v564,v565,n191] (by decide +kernel)
-def v566 : Closed T 8 := rotateClosed n1456 auto1 auto1ok
-def n1464 := cc 9 [w167,w0,w1,w2,w3,w4,w9,w5] [97,184,389,672,678] [v566,n1409,n346,n910,n298] (by decide +kernel)
-def n1465 := cc 7 [w0,w1,w399,w2,w3,w4,w5,w590] [90,127,682] [] (by decide +kernel)
-def n1466 := cc 6 [w400,w0,w1,w399,w2,w3,w13] [130,268] [] (by decide +kernel)
-def n1467 := cc 7 [w400,w0,w1,w399,w2,w3,w4,w5] [90,267,477] [n1466,n955] (by decide +kernel)
-def n1468 := cc 7 [w0,w1,w399,w2,w3,w5,w13] [131,217,405,459,682] [n1466,n956] (by decide +kernel)
-def n1469 := cc 8 [w0,w1,w399,w2,w3,w4,w5] [90,127,214,267,303,405,477,541] [n1467,n1238,n1465,n1468,n957] (by decide +kernel)
-def n1470 := cc 8 [w0,w168,w1,w399,w2,w3,w4,w5] [127,179,238,682] [] (by decide +kernel)
-def n1471 := cc 8 [w0,w1,w2,w3,w4,w591,w5] [231,269,624,676] [] (by decide +kernel)
-def n1472 := cc 8 [w0,w168,w1,w2,w3,w5,w13] [231,389,459,676,682] [n958,n1468] (by decide +kernel)
-def v567 : Closed T 8 := rotateClosed n1160 auto1 auto1ok
-def v568 : Closed T 8 := rotateClosed n1471 auto1 auto1ok
-def n1473 := cc 9 [w0,w168,w1,w2,w3,w4,w5] [0,127,184,331,389,459,682] [v567,n1301,n61,n1239,n1470,n959,n1472,n1469,v568] (by decide +kernel)
-def n1474 := cc 8 [w0,w1,w399,w2,w3,w4,w9,w5] [214,672,685] [] (by decide +kernel)
-def n1475 := cc 8 [w0,w1,w2,w3,w4,w591,w5,w15] [51,345,518,666,671] [] (by decide +kernel)
-def n1476 := cc 8 [w0,w168,w1,w2,w3,w9,w5,w13] [487,672,685] [] (by decide +kernel)
-def n1477 := cc 8 [w0,w168,w1,w2,w3,w4,w5,w44] [179,487,685] [] (by decide +kernel)
-def v569 : Closed T 8 := rotateClosed n1475 auto1 auto1ok
-def n1478 := cc 9 [w0,w168,w1,w2,w3,w4,w9,w5] [127,184,487,672,685] [v567,n1452,n1477,n911,n1476,n299,n1474,v569] (by decide +kernel)
-def n1479 := cc 9 [w40,w0,w1,w2,w3,w4,w5,w15] [179,184,345,459,517,648] [n1160] (by decide +kernel)
-def n1480 := cc 7 [w0,w1,w2,w226,w3,w9,w15,w13] [232,262,264,336,574] [] (by decide +kernel)
-def n1481 := cc 8 [w0,w1,w2,w3,w9,w15,w13] [86,180,231,389,574] [n1480] (by decide +kernel)
-def n1482 := cc 7 [w46,w586,w0,w1,w2,w3] [83,90,179,250] [] (by decide +kernel)
-def n1483 := cc 8 [w46,w0,w1,w2,w3,w4,w15] [83,90,179,247,592] [n1482] (by decide +kernel)
-def n1484 := cc 8 [w0,w1,w2,w3,w4,w5,w44] [0,90,179,269,427] [] (by decide +kernel)
-def v570 : Closed T 8 := rotateClosed n1483 auto1 auto1ok
-def n1485 := cc 9 [w0,w1,w2,w3,w4,w9,w5,w15] [179,184,331,345,389,459,517,521,639] [n1483,v570,n1484,n1481] (by decide +kernel)
-def n1486 := cc 8 [w0,w1,w2,w3,w4,w406,w15] [81,90,179,184,427] [] (by decide +kernel)
-def n1487 := cc 8 [w179,w0,w1,w2,w3,w15,w13] [180,231,518,574] [] (by decide +kernel)
-def n1488 := cc 8 [w46,w181,w0,w1,w2,w3,w4] [179,247,512] [] (by decide +kernel)
-def v571 : Closed T 8 := rotateClosed n1488 auto1 auto1ok
-def n1489 := cc 9 [w179,w0,w1,w2,w3,w4,w5,w15] [179,184,427,459,521,574] [v571,n1487,n1484,n1486] (by decide +kernel)
-def n1490 := cc 8 [w0,w1,w2,w3,w592,w4,w9,w5] [331,512,556,672] [] (by decide +kernel)
-def n1491 := cc 7 [w0,w1,w2,w3,w9,w593,w13] [337,512,672] [] (by decide +kernel)
-def n1492 := cc 8 [w0,w1,w2,w3,w4,w9,w5,w593] [331,512,574,672] [n1491] (by decide +kernel)
-def n1493 := cc 8 [w0,w1,w2,w172,w3,w9,w5,w13] [337,512,639,672] [n1491] (by decide +kernel)
-def n1494 := cc 8 [w0,w1,w2,w172,w3,w4,w5,w44] [83,179,339,639] [] (by decide +kernel)
-def n1495 := cc 9 [w0,w1,w2,w172,w3,w4,w9,w5] [182,331,512,524,639,672] [n1454,n1494,n915,n1493,n1490,n1492,n304] (by decide +kernel)
-def n1496 := cc 9 [w594,w0,w1,w2,w3,w4,w5,w15] [179,345,517,607] [n1356] (by decide +kernel)
-def n1497 := cc 8 [w0,w1,w2,w3,w4,w15,w61] [90,184,345,671] [] (by decide +kernel)
-def n1498 := cc 8 [w0,w1,w2,w3,w4,w595,w5] [179,487,574] [] (by decide +kernel)
-def n1499 := cc 8 [w596,w0,w1,w2,w3,w4,w5] [331,487,512,521,666] [] (by decide +kernel)
-def v572 : Closed T 8 := rotateClosed n1499 auto1 auto1ok
-def v573 : Closed T 8 := rotateClosed n1498 auto1 auto1ok
-def n1500 := cc 9 [w0,w1,w2,w60,w3,w4,w5,w15] [345,607,671] [v572,v573,n1497] (by decide +kernel)
-def n1501 := cc 9 [w65,w0,w1,w2,w3,w4,w9,w5] [159,245,331,524,639,672] [n520,n1460,n352,n914,n305] (by decide +kernel)
-def n1502 := cc 8 [w220,w0,w1,w2,w3,w4,w15] [137,184,602,671,675] [n1240] (by decide +kernel)
-def v574 : Closed T 7 := rotateClosed n1304 auto1 auto1ok
-def n1503 := cc 8 [w0,w134,w1,w2,w3,w4,w15,w13] [231,459,675,687] [v574] (by decide +kernel)
-def n1504 := cc 8 [w0,w1,w414,w3,w4,w15,w13] [231,627,662,675] [] (by decide +kernel)
-def n1505 := cc 8 [w47,w0,w1,w3,w4,w15,w13] [184,661,671,684] [] (by decide +kernel)
-def n1506 := cc 8 [w0,w1,w2,w226,w3,w4,w15,w13] [231,348,574,589,607,662,675] [n1480] (by decide +kernel)
-def n1507 := cc 8 [w0,w1,w2,w3,w581,w15,w13] [90,427,574,671] [] (by decide +kernel)
-def n1508 := cc 8 [w46,w0,w1,w2,w3,w9,w13] [83,459,672,678] [] (by decide +kernel)
-def v575 : Closed T 8 := rotateClosed n1305 auto1 auto1ok
-def v576 : Closed T 8 := rotateClosed n1508 auto1 auto1ok
-def v577 : Closed T 8 := rotateClosed n1461 auto1 auto1ok
-def v578 : Closed T 8 := rotateClosed n1476 auto1 auto1ok
-def v579 : Closed T 8 := rotateClosed n1472 auto1 auto1ok
-def v580 : Closed T 8 := rotateClosed n1493 auto1 auto1ok
-def n1509 := cc 9 [w0,w1,w2,w3,w4,w15,w13] [184,231,389,427,574,607,671,675] [n1163,v575,v576,n1487,n1505,n62,n521,n625,n1110,v577,n1502,n1243,n1292,v578,v579,n1503,n1504,v580,n1506,n1507,n916,n354,n961,n1481,n307] (by decide +kernel)
-def n1510 := cc 7 [w46,w47,w0,w1,w3,w4] [90,179,447] [] (by decide +kernel)
-def n1511 := cc 8 [w47,w0,w1,w3,w4,w9,w5] [83,90,179,455,603] [n1510] (by decide +kernel)
-def n1512 := cc 8 [w46,w0,w1,w2,w3,w4,w13] [445,512,589,675] [n1510] (by decide +kernel)
-def n1513 := cc 9 [w0,w1,w2,w3,w4,w9,w5,w13] [184,389,459,517,524,676] [n1512,n1511,n1484] (by decide +kernel)
-def n1514 := cc 8 [w0,w417,w1,w2,w3,w9,w5] [389,666,671] [] (by decide +kernel)
-def n1515 := cc 8 [w0,w1,w2,w3,w597,w4,w15] [459,512,521,607] [] (by decide +kernel)
-def n1516 := cc 8 [w0,w1,w2,w3,w4,w15,w13] [52,90,231,389,671] [] (by decide +kernel)
-def v581 : Closed T 8 := rotateClosed n1515 auto1 auto1ok
-def v582 : Closed T 8 := rotateClosed n1516 auto1 auto1ok
-def n1517 := cc 9 [w70,w0,w1,w2,w3,w9,w5] [184,389,459,524,672] [n522,n1462,n355,n308,n1514,v581,v582] (by decide +kernel)
-def n1518 := cc 8 [w0,w1,w229,w3,w4,w5,w15] [179,427,487] [] (by decide +kernel)
-def n1519 := cc 8 [w70,w586,w0,w1,w2,w3,w5] [90,427,517,518,574] [] (by decide +kernel)
-def n1520 := cc 9 [w70,w0,w1,w2,w3,w4,w5,w15] [184,459,574,671] [n1519,n1484,n1516,n1518] (by decide +kernel)
-def n1521 := cc 8 [w46,w0,w1,w2,w3,w4,w5] [50,90,247,343,445,521,666] [] (by decide +kernel)
-def n1522 := cc 7 [w585,w0,w1,w2,w3,w4] [83,179,487,639] [n1434] (by decide +kernel)
-def v583 : Closed T 7 := rotateClosed n1522 auto1 auto1ok
-def v584 : Closed T 7 := rotateClosed n1435 auto1 auto1ok
-def n1523 := cc 8 [w0,w1,w2,w3,w581,w5,w44] [90,179,427] [v583,v584] (by decide +kernel)
-def v585 : Closed T 8 := rotateClosed n1521 auto1 auto1ok
-def v586 : Closed T 8 := rotateClosed n1436 auto1 auto1ok
-def n1524 := cc 9 [w0,w1,w2,w3,w581,w4,w5,w15] [184,427,459,518,574,671] [v585,v586,n1523,n1507] (by decide +kernel)
-def n1525 := cc 8 [w45,w0,w1,w2,w3,w4,w5] [83,90,179,267,269,428,640] [n64,n628,n1244] (by decide +kernel)
-def n1526 := cc 7 [w0,w1,w598,w2,w3,w4,w5] [83,132,134,146,267] [] (by decide +kernel)
-def n1527 := cc 8 [w0,w496,w1,w2,w3,w4,w5] [97,231,267,427,487] [n1526] (by decide +kernel)
-def n1528 := cc 8 [w0,w496,w1,w2,w3,w4,w5,w44] [90,179,339,427,575] [n1248] (by decide +kernel)
-def n1529 := cc 8 [w47,w0,w1,w2,w3,w4,w5] [0,179,269,455,508] [] (by decide +kernel)
-def v587 : Closed T 7 := rotateClosed n1510 auto1 auto1ok
-def n1530 := cc 8 [w47,w0,w1,w3,w4,w5,w44] [0,179,684] [n1510,v587] (by decide +kernel)
-def n1531 := cc 8 [w0,w1,w2,w599,w3,w4,w5,w44] [90,179,339,574] [] (by decide +kernel)
-def n1532 := cc 8 [w46,w0,w1,w2,w3,w4,w44] [0,179,678] [n1482,n1510] (by decide +kernel)
-def v588 : Closed T 8 := rotateClosed n1532 auto1 auto1ok
-def v589 : Closed T 8 := rotateClosed n1101 auto1 auto1ok
-def n1533 := cc 9 [w0,w1,w2,w3,w4,w5,w44] [83,90,97,179,231,269,427,639] [n1162,n1521,v585,n1532,v588,n1529,n1530,n65,n523,n629,n1101,v589,n1525,n1249,n1527,n1528,n1531,n357,n918,v372,n309] (by decide +kernel)
-def n1534 := cc 8 [w0,w496,w1,w2,w3,w4,w9,w5] [179,487,680] [] (by decide +kernel)
-def v590 : Closed T 8 := rotateClosed n1523 auto1 auto1ok
-def n1535 := cc 9 [w0,w1,w2,w3,w4,w9,w5,w44] [83,90,179,331,487,512,517,639] [v570,n1532,n1511,n1251,n1477,n1534,n1438,n1494,v590] (by decide +kernel)
-def n1536 := cc 8 [w0,w479,w1,w2,w3,w4,w5] [134,267,269,590,666,672] [n1252] (by decide +kernel)
-def n1537 := cc 8 [w0,w600,w1,w2,w3,w4,w5] [267,500,671] [] (by decide +kernel)
-def v591 : Closed T 8 := rotateClosed n1519 auto1 auto1ok
-def v592 : Closed T 8 := rotateClosed n1537 auto1 auto1ok
-def n1538 := cc 9 [w46,w0,w1,w2,w3,w4,w5] [90,97,184,247,269,389,445,639,666,672] [n963,n1301,v591,n1488,n66,n524,n630,n1102,n1253,n1483,n1512,n1532,n919,n310,n1536,v592,n1484] (by decide +kernel)
-def n1539 := cc 8 [w582,w586,w0,w1,w2,w3,w5] [90,179,427,517] [n1439,v583] (by decide +kernel)
-def v593 : Closed T 8 := rotateClosed n1539 auto1 auto1ok
-def n1540 := cc 9 [w46,w0,w1,w2,w3,w4,w9,w5] [184,389,459,672,678] [v593,n1440,n1532,n1508] (by decide +kernel)
-def n1541 := cc 9 [w582,w0,w1,w2,w3,w4,w5,w15] [90,179,427,574] [n1539,n1442,n1484,n1486,n1518] (by decide +kernel)
-def v594 : Closed T 9 := rotateClosed n1457 auto1 auto1ok
-def v595 : Closed T 9 := rotateClosed n1479 auto1 auto1ok
-def v596 : Closed T 9 := rotateClosed n1496 auto1 auto1ok
-def v597 : Closed T 9 := rotateClosed n1541 auto1 auto1ok
-def v598 : Closed T 9 := rotateClosed n1075 auto1 auto1ok
-def v599 : Closed T 9 := rotateClosed n1520 auto1 auto1ok
-def v600 : Closed T 9 := rotateClosed n1489 auto1 auto1ok
-def v601 : Closed T 9 := rotateClosed n1111 auto1 auto1ok
-def v602 : Closed T 9 := rotateClosed n737 auto1 auto1ok
-def v603 : Closed T 9 := rotateClosed n1293 auto1 auto1ok
-def v604 : Closed T 9 := rotateClosed n1500 auto1 auto1ok
-def v605 : Closed T 9 := rotateClosed n1524 auto1 auto1ok
-def v606 : Closed T 9 := rotateClosed n964 auto1 auto1ok
-def v607 : Closed T 9 := rotateClosed n1509 auto1 auto1ok
-def n1542 := cc 10 [w0,w1,w2,w3,w4,w9,w5] [97,184,269,389,459,524] [v594,v447,v595,v596,v597,n1068,v598,n1306,n1501,v599,n1517,n1540,n1538,n464,n1361,v600,n67,n525,n631,v601,n1103,n1464,n1463,n17,n578,v602,n1451,n1254,v603,n1478,n1473,n1443,n315,v604,n1495,v605,n923,v606,n1455,n1485,n1513,n1535,n359,n1533,v408,v607,n311] (by decide +kernel)
-def n1543 := cc 8 [w602,w0,w1,w2,w3,w4,w5] [83,90,178,241,269,562] [] (by decide +kernel)
-def n1544 := cc 8 [w65,w0,w601,w1,w2,w3,w4,w5] [245,368,556,652] [] (by decide +kernel)
-def v608 : Closed T 8 := rotateClosed n1543 auto1 auto1ok
-def v609 : Closed T 8 := rotateClosed n1544 auto1 auto1ok
-def n1545 := cc 9 [w0,w292,w1,w2,w3,w4,w5] [184,269,389,521,632,675] [n1076,v608,n336,v609,n633,n966,v131,n924] (by decide +kernel)
-def n1546 := cc 8 [w603,w0,w1,w2,w3,w4,w5] [254,512,672] [] (by decide +kernel)
-def n1547 := cc 8 [w0,w1,w2,w3,w4,w403,w13] [231,389,666,671] [] (by decide +kernel)
-def n1548 := cc 8 [w70,w0,w1,w2,w3,w177,w5] [487,512,521,589,666] [] (by decide +kernel)
-def v610 : Closed T 8 := rotateClosed n1547 auto1 auto1ok
-def n1549 := cc 9 [w0,w1,w2,w3,w4,w177,w5] [83,97,184,269,389,589,664,672] [n1548,n1521,n634,n1113,n1546,n966,n1484,v374,v610,n317] (by decide +kernel)
-def n1550 := cc 9 [w0,w1,w2,w3,w4,w9,w5] [43,97,184,331,389,459,672] [n1521,n344,n191,n1484,v357,v582,n318] (by decide +kernel)
-def v611 : Closed T 8 := rotateClosed n1070 auto1 auto1ok
-def n1551 := cc 9 [w118,w181,w0,w1,w3,w4] [184,607] [v611,n1114,n741,n968,n1426] (by decide +kernel)
-def n1552 := cc 8 [w0,w1,w2,w604,w3,w4,w5] [369,512,521] [] (by decide +kernel)
-def n1553 := cc 7 [w118,w605,w0,w1,w3,w4] [179,199,373] [] (by decide +kernel)
-def n1554 := cc 8 [w118,w0,w1,w2,w3,w4,w61] [199,369,675] [n1553] (by decide +kernel)
-def n1555 := cc 9 [w118,w0,w1,w2,w60,w3,w4,w5] [198,269,607,675] [n1554,n1552] (by decide +kernel)
-def n1556 := cc 9 [w118,w178,w0,w1,w2,w3,w4,w5] [158,244,369,589,607] [n319,v609] (by decide +kernel)
-def n1557 := cc 8 [w118,w47,w0,w1,w3,w4,w5] [231,593,672] [] (by decide +kernel)
-def n1558 := cc 9 [w118,w0,w1,w2,w3,w4,w5,w13] [231,389,607,675] [n1557,n1484,v610,n1516] (by decide +kernel)
-def n1559 := cc 8 [w118,w0,w1,w229,w3,w4,w5] [487,512,521,589,666] [] (by decide +kernel)
-def n1560 := cc 9 [w118,w70,w0,w1,w2,w3,w4,w5] [247,459,589,675] [n1559,n1548,n1521] (by decide +kernel)
-def v612 : Closed T 9 := rotateClosed n1071 auto1 auto1ok
-def v613 : Closed T 9 := rotateClosed n1550 auto1 auto1ok
-def n1561 := cc 10 [w118,w0,w1,w2,w3,w4,w5] [97,184,269,389,607] [n1077,v612,n1560,n1556,n1551,n635,n1115,n580,n742,n1555,n969,n927,n1558,n320,n1545,n1549,v613] (by decide +kernel)
-def n1562 := cc 8 [w606,w0,w1,w2,w3,w4,w5] [90,179,438,581] [] (by decide +kernel)
-def n1563 := cc 8 [w0,w180,w1,w2,w3,w5,w13] [389,459,524,662,672] [] (by decide +kernel)
-def n1564 := cc 9 [w0,w180,w1,w2,w3,w4,w5] [97,389,459,524,672] [n1562,n465,n349,n1563,v377,n191,n321] (by decide +kernel)
-def n1565 := cc 8 [w607,w0,w1,w2,w3,w4,w5] [83,179,233,505,659] [] (by decide +kernel)
-def n1566 := cc 8 [w179,w0,w1,w2,w3,w393,w5] [179,469,508,603] [] (by decide +kernel)
-def v614 : Closed T 8 := rotateClosed n970 auto1 auto1ok
-def v615 : Closed T 8 := rotateClosed n1486 auto1 auto1ok
-def n1567 := cc 9 [w0,w1,w2,w3,w4,w393,w5] [83,97,231,459,517,607] [n1566,n1529,n1117,n1565,n929,n971,n1484,v614,v615] (by decide +kernel)
-def n1568 := cc 8 [w179,w181,w0,w1,w2,w3,w13] [180,231,401,469,603] [] (by decide +kernel)
-def v616 : Closed T 8 := rotateClosed n1566 auto1 auto1ok
-def n1569 := cc 9 [w179,w181,w0,w1,w2,w3,w4,w5] [179,184,455,508,603] [n1568,n1566,v616,n1529] (by decide +kernel)
-def n1570 := cc 8 [w0,w1,w2,w608,w3,w4,w13] [459,512,550,666] [] (by decide +kernel)
-def n1571 := cc 8 [w179,w220,w0,w1,w2,w3,w5] [452,662,672] [] (by decide +kernel)
-def v617 : Closed T 8 := rotateClosed n1570 auto1 auto1ok
-def n1572 := cc 9 [w179,w0,w1,w2,w3,w5,w13] [231,389,459,521,524,662,664] [n1568,n1118,n1571,n930,n973,n1487,n1563,v617,v582] (by decide +kernel)
-def v618 : Closed T 9 := rotateClosed n1551 auto1 auto1ok
-def v619 : Closed T 9 := rotateClosed n1567 auto1 auto1ok
-def n1573 := cc 10 [w179,w0,w1,w2,w3,w4,w5] [97,184,389,459,524] [n1073,v618,n466,n1569,n1119,n744,n323,n974,n1489,n932,n1572,n1564,v619,n1550] (by decide +kernel)
-def n1574 := cc 8 [w609,w0,w1,w2,w3,w4,w5] [90,179,360,431,459] [] (by decide +kernel)
-def n1575 := cc 8 [w610,w0,w1,w2,w3,w4,w5] [90,179,182,184,438] [] (by decide +kernel)
-def n1576 := cc 9 [w0,w1,w2,w3,w199,w4,w5] [184,269,389,636,671,675] [n1575,n468,n1574,n373,v379,n371] (by decide +kernel)
-def n1577 := cc 8 [w611,w0,w1,w2,w3,w4,w5] [90,179,377,448,459] [] (by decide +kernel)
-def n1578 := cc 8 [w612,w0,w1,w2,w3,w4,w5] [369,512,521] [] (by decide +kernel)
-def n1579 := cc 9 [w0,w1,w2,w3,w200,w4,w5] [97,269,389,459,672] [n1578,n527,n1577,n373,v573,n372] (by decide +kernel)
-def n1580 := cc 7 [w614,w0,w2,w3,w4,w61] [111,281,662] [] (by decide +kernel)
-def n1581 := cc 7 [w0,w1,w616,w3,w100,w5] [115,279,521] [] (by decide +kernel)
-def n1582 := cc 7 [w617,w0,w1,w3,w4,w61] [111,199,282,397] [] (by decide +kernel)
-def n1583 := cc 7 [w615,w1,w2,w3,w411,w5] [83,115,280,466] [] (by decide +kernel)
-def v620 : Closed T 7 := rotateClosed n1580 auto1 auto1ok
-def v621 : Closed T 7 := rotateClosed n1582 auto1 auto1ok
-def n1584 := cc 8 [w615,w0,w1,w2,w3,w100,w5] [115,202,278,459,521,524,662] [v620,v621,n1583,n1581] (by decide +kernel)
-def n1585 := cc 8 [w0,w1,w2,w3,w4,w61,w618] [90,199,327,385,420,671] [] (by decide +kernel)
-def n1586 := cc 7 [w619,w439,w1,w2,w3,w4] [111,366,662] [] (by decide +kernel)
-def n1587 := cc 8 [w619,w0,w1,w2,w3,w4,w61] [90,111,199,365,438,517] [n1586] (by decide +kernel)
-def n1588 := cc 8 [w620,w0,w1,w2,w3,w100,w5] [83,202,383,662,672] [] (by decide +kernel)
-def n1589 := cc 7 [w0,w1,w2,w622,w3,w100,w5] [284,662,672] [] (by decide +kernel)
-def n1590 := cc 6 [w625,w0,w1,w3,w4] [671,677] [] (by decide +kernel)
-def v622 : Closed T 6 := rotateClosed n1590 auto1 auto1ok
-def n1591 := cc 7 [w0,w1,w621,w3,w595,w5] [202,286,672] [v622] (by decide +kernel)
-def n1592 := cc 8 [w0,w1,w621,w2,w3,w100,w5] [115,202,283,459,524,662] [n1591,n1589] (by decide +kernel)
-def v623 : Closed T 7 := rotateClosed n1591 auto1 auto1ok
-def n1593 := cc 8 [w0,w1,w2,w3,w4,w61,w624] [90,345,671] [v623] (by decide +kernel)
-def n1594 := cc 7 [w626,w605,w0,w1,w3,w4] [199,373,517] [n1590] (by decide +kernel)
-def n1595 := cc 8 [w626,w0,w1,w2,w3,w4,w61] [199,369,675] [n1594] (by decide +kernel)
-def v624 : Closed T 7 := rotateClosed n1594 auto1 auto1ok
-def n1596 := cc 8 [w627,w0,w1,w2,w3,w100,w5] [388,662,672] [v624] (by decide +kernel)
-def v625 : Closed T 8 := rotateClosed n1596 auto1 auto1ok
-def v626 : Closed T 8 := rotateClosed n1588 auto1 auto1ok
-def v627 : Closed T 8 := rotateClosed n1584 auto1 auto1ok
-def v628 : Closed T 8 := rotateClosed n1592 auto1 auto1ok
-def n1597 := cc 9 [w0,w1,w2,w3,w4,w61] [269,389] [n1587,n1595,n469,v625,n528,v626,n147,v627,v628,n375,n1585,n1593] (by decide +kernel)
-def n1598 := cc 8 [w620,w0,w1,w2,w3,w4,w5] [83,184,383,662,672] [] (by decide +kernel)
-def v629 : Closed T 7 := rotateClosed n1553 auto1 auto1ok
-def n1599 := cc 8 [w627,w0,w1,w2,w3,w4,w5] [179,508,603] [v629] (by decide +kernel)
-def v630 : Closed T 8 := rotateClosed n1080 auto1 auto1ok
-def v631 : Closed T 8 := rotateClosed n1554 auto1 auto1ok
-def v632 : Closed T 8 := rotateClosed n977 auto1 auto1ok
-def v633 : Closed T 8 := rotateClosed n1497 auto1 auto1ok
-def n1600 := cc 9 [w0,w1,w2,w3,w4,w100,w5] [97,184,459,524,662,676] [v630,v631,n1599,n529,n1598,n376,n978,n1498,v632,v633] (by decide +kernel)
-def n1601 := cc 9 [w63,w0,w1,w2,w3,w5] [269,389,459] [n470,n530,n149,n377] (by decide +kernel)
-def n1602 := cc 8 [w64,w0,w1,w2,w4] [269,524,607] [n471,n531,n151,n378] (by decide +kernel)
-def v634 : Closed T 8 := rotateClosed n1602 auto1 auto1ok
-def n1603 := cc 9 [w0,w1,w2,w60,w12,w5] [269,607] [v634,n472,n532,n152,n379] (by decide +kernel)
-def v635 : Closed T 9 := rotateClosed n1601 auto1 auto1ok
-def v636 : Closed T 9 := rotateClosed n1600 auto1 auto1ok
-def n1604 := cc 10 [w0,w1,w2,w60,w3,w4,w5] [97,184,269,389,607] [n1081,n1555,v635,n473,n533,n153,n380,n980,n1500,n1603,n1576,n1579,v636,n1597] (by decide +kernel)
-def n1605 := cc 8 [w629,w0,w1,w2,w3,w4,w5] [179,183,184,504,525] [] (by decide +kernel)
-def n1606 := cc 8 [w0,w1,w2,w630,w3,w4,w5] [179,267,367,451,641] [] (by decide +kernel)
-def v637 : Closed T 8 := rotateClosed n1605 auto1 auto1ok
-def n1607 := cc 9 [w203,w0,w1,w2,w3,w4,w5] [138,183,184,524,607,681] [n392,n1166,n68,n535,n1145,n381,v637,n1606] (by decide +kernel)
-def n1608 := cc 6 [w631,w1,w205,w2,w3,w4,w5] [179] [] (by decide +kernel)
-def n1609 := cc 6 [w209,w0,w1,w205,w2,w3,w4] [] [] (by decide +kernel)
-def n1610 := cc 7 [w0,w1,w205,w2,w208,w3,w4,w5] [19,179,211,676] [n1609,n1608] (by decide +kernel)
-def n1611 := cc 7 [w206,w0,w1,w205,w2,w3,w4,w5] [179,211,267] [n382] (by decide +kernel)
-def n1612 := cc 8 [w0,w1,w205,w2,w3,w4,w5] [138,179,211,267,415,630] [n1611,n1610,n383] (by decide +kernel)
-def n1613 := cc 7 [w0,w1,w205,w2,w207,w3,w4,w5] [25,138,179,225,317,318] [n1608,n384] (by decide +kernel)
-def n1614 := cc 7 [w206,w0,w204,w1,w2,w3,w4,w5] [10,61,179,211] [] (by decide +kernel)
-def n1615 := cc 8 [w0,w204,w1,w205,w2,w3,w4,w5] [138,211,225,267,363,630] [n1614,n388,n1613,n385] (by decide +kernel)
-def n1616 := cc 8 [w0,w1,w2,w207,w3,w4,w5] [179,332,425,638] [] (by decide +kernel)
-def n1617 := cc 7 [w631,w0,w204,w1,w2,w3,w4,w5] [25,74,125,138] [n1608] (by decide +kernel)
-def n1618 := cc 8 [w0,w204,w1,w2,w207,w3,w4,w5] [125,138,225,267,331,367,638] [n1617,n388,n386,n1613] (by decide +kernel)
-def n1619 := cc 9 [w0,w204,w1,w2,w3,w4,w5] [138,225,267,269,270,271,389,607] [n1165,n68,n1615,n390,n1618,n1612,n1616] (by decide +kernel)
-def n1620 := cc 8 [w0,w632,w1,w2,w3,w4,w5] [97,179,267,597,655] [] (by decide +kernel)
-def n1621 := cc 8 [w0,w634,w1,w2,w3,w4,w5] [230,267,540,683] [] (by decide +kernel)
-def v638 : Closed T 8 := rotateClosed n1621 auto1 auto1ok
-def n1622 := cc 9 [w55,w0,w1,w2,w3,w4,w5] [97,179,225,511,524,607] [n392,n1165,n69,n636,n1620,v638] (by decide +kernel)
-def n1623 := cc 10 [w0,w1,w2,w3,w4,w12,w5] [97,184,389,524,607] [n475,n1167,n1622,n70,n536,n637,n1607,n19,n155,n1147,n1619,n393,n1603] (by decide +kernel)
-def n1624 := cc 9 [w65,w66,w0,w1,w2,w4] [269,524] [n476,n537,n157,n394,n1602] (by decide +kernel)
-def v639 : Closed T 9 := rotateClosed n1082 auto1 auto1ok
-def v640 : Closed T 9 := rotateClosed n1556 auto1 auto1ok
-def n1625 := cc 10 [w65,w0,w1,w2,w3,w4,w5] [269,524,607] [v639,v640,n1624,n477,n538,n158,n395,n981,n1501] (by decide +kernel)
-def n1626 := cc 8 [w636,w0,w1,w2,w3,w4,w5] [179,431,641] [] (by decide +kernel)
-def n1627 := cc 9 [w0,w635,w1,w2,w3,w4,w5] [184,389,607,671] [n1626,n397] (by decide +kernel)
-def n1628 := cc 8 [w637,w0,w1,w2,w3,w4,w5] [179,448,655] [] (by decide +kernel)
-def n1629 := cc 9 [w0,w1,w2,w214,w3,w4,w5] [97,179,389,607] [n540,n1628,n397,n396] (by decide +kernel)
-def v641 : Closed T 9 := rotateClosed n1624 auto1 auto1ok
-def n1630 := cc 10 [w67,w0,w1,w2,w3,w4,w5] [97,184,389,607] [v641,n479,n541,n160,n399,n1627,n1629] (by decide +kernel)
-def n1631 := cc 7 [w639,w0,w1,w2,w3,w13] [180,431,577,662] [] (by decide +kernel)
-def n1632 := cc 8 [w639,w0,w1,w2,w3,w4,w5] [179,431,491,577] [n1631] (by decide +kernel)
-def n1633 := cc 7 [w413,w1,w2,w3,w638,w13] [389,535,662,669] [] (by decide +kernel)
-def n1634 := cc 7 [w220,w1,w2,w3,w638,w13] [452,601,662,669,671] [] (by decide +kernel)
-def n1635 := cc 6 [w0,w1,w2,w3,w640,w13] [53,180,205,516] [] (by decide +kernel)
-def n1636 := cc 7 [w0,w1,w414,w2,w3,w638,w13] [17,55,205,291,662,671] [n1635] (by decide +kernel)
-def n1637 := cc 7 [w0,w1,w2,w3,w641,w13] [121,180,535,662] [] (by decide +kernel)
-def n1638 := cc 7 [w642,w0,w1,w2,w3,w13] [420,452,601,662,671] [] (by decide +kernel)
-def n1639 := cc 8 [w0,w1,w2,w3,w638,w13] [389,524,671,675] [n1638,n1631,n1634,n1633,n1636,n1637,n402] (by decide +kernel)
-def n1640 := cc 9 [w0,w1,w2,w3,w4,w638,w5] [184,389,459,524,671] [n1632,n403,n1639] (by decide +kernel)
-def n1641 := cc 7 [w643,w0,w1,w2,w3,w13] [180,448,512,597] [] (by decide +kernel)
-def n1642 := cc 8 [w643,w0,w1,w2,w3,w4,w5] [179,448,502,597] [n1641] (by decide +kernel)
-def n1643 := cc 7 [w0,w1,w2,w3,w217,w13,w125] [86,180,206,420,564] [] (by decide +kernel)
-def n1644 := cc 7 [w220,w0,w1,w2,w3,w217,w13] [180,452,601,662] [] (by decide +kernel)
-def n1645 := cc 6 [w0,w1,w644,w3,w217,w13] [180,206,516,551] [] (by decide +kernel)
-def n1646 := cc 7 [w0,w1,w414,w3,w217,w13] [180,206,445,550,662] [n1645] (by decide +kernel)
-def n1647 := cc 7 [w47,w0,w1,w3,w217,w13] [180,206,455,603] [] (by decide +kernel)
-def n1648 := cc 7 [w0,w1,w2,w3,w645,w13] [206,550,662] [n1635] (by decide +kernel)
-def n1649 := cc 7 [w646,w0,w1,w2,w3,w13] [180,206,455,603] [] (by decide +kernel)
-def n1650 := cc 8 [w0,w1,w2,w3,w217,w13] [180,389,512,524] [n1649,n1647,n544,n1641,n1644,n1646,n1648,n1643,n402,n400] (by decide +kernel)
-def n1651 := cc 9 [w0,w1,w2,w3,w4,w217,w5] [97,179,389,459,524] [n545,n1642,n403,n1650,n401] (by decide +kernel)
-def n1652 := cc 6 [w69,w647,w0,w2,w3] [538,662,669] [] (by decide +kernel)
-def n1653 := cc 7 [w647,w0,w2,w3,w68,w13] [121,180,538,662] [n1652] (by decide +kernel)
-def n1654 := cc 6 [w69,w0,w1,w648,w3] [517,536,669] [] (by decide +kernel)
-def n1655 := cc 7 [w0,w1,w648,w3,w68,w13] [121,517,536,662] [n1654] (by decide +kernel)
-def n1656 := cc 6 [w69,w649,w0,w1,w3] [397,512,539,662] [] (by decide +kernel)
-def n1657 := cc 7 [w649,w0,w1,w3,w68,w13] [121,206,539,662] [n1656] (by decide +kernel)
-def n1658 := cc 6 [w69,w650,w0,w1,w2] [662,669,671] [] (by decide +kernel)
-def n1659 := cc 7 [w650,w0,w1,w2,w68,w13] [121,180,293,662] [n1658] (by decide +kernel)
-def n1660 := cc 6 [w651,w413,w1,w2,w3] [396,537,662,664] [] (by decide +kernel)
-def n1661 := cc 7 [w413,w1,w2,w3,w68,w125] [83,121,180,537] [n1660] (by decide +kernel)
-def n1662 := cc 6 [w413,w652,w1,w2,w3] [396,537,662,664] [] (by decide +kernel)
-def n1663 := cc 7 [w69,w413,w0,w1,w2,w3] [389,512,517,535,662,669] [n1652,n1656,n1658,n1654,n1662] (by decide +kernel)
-def n1664 := cc 8 [w413,w0,w1,w2,w3,w68,w13] [121,180,206,389,517,535,662] [n1663,n1653,n1657,n1659,n1661,n1633,n1637,n1655] (by decide +kernel)
-def n1665 := cc 7 [w69,w0,w1,w2,w3,w125] [420,452,512,564,664,671] [] (by decide +kernel)
-def n1666 := cc 7 [w651,w0,w1,w2,w3,w13] [420,452,564,664,671] [n1660] (by decide +kernel)
-def n1667 := cc 8 [w0,w1,w2,w3,w68,w13,w125] [206,420,564,671,675] [n1665,n1666,n1661,n1643] (by decide +kernel)
-def n1668 := cc 7 [w0,w1,w2,w3,w653,w13] [121,180,581,664] [] (by decide +kernel)
-def n1669 := cc 7 [w521,w69,w0,w1,w2,w3] [512,517,581,664,669] [] (by decide +kernel)
-def n1670 := cc 8 [w521,w0,w1,w2,w3,w68,w13] [83,121,180,206,517,581] [n1669,n1668] (by decide +kernel)
-def n1671 := cc 7 [w69,w220,w0,w1,w2,w3] [83,452,512,601,662,671] [] (by decide +kernel)
-def n1672 := cc 8 [w220,w0,w1,w2,w3,w68,w13] [452,601,662,675] [n1638,n1671,n1644,n1634] (by decide +kernel)
-def n1673 := cc 6 [w0,w1,w2,w644,w3,w640,w13] [180,255] [] (by decide +kernel)
-def n1674 := cc 6 [w69,w0,w1,w2,w644,w3] [180,402,512,551,662] [] (by decide +kernel)
-def n1675 := cc 7 [w0,w1,w2,w644,w3,w68,w13] [206,551,662,671] [n1674,n1673,n1635,n1645] (by decide +kernel)
-def n1676 := cc 5 [w655,w654,w0,w1,w3] [180,678,685] [] (by decide +kernel)
-def n1677 := cc 6 [w654,w0,w1,w3,w68] [206,671,685] [n1676] (by decide +kernel)
-def n1678 := cc 6 [w656,w0,w1,w414,w3] [403,512,671] [] (by decide +kernel)
-def n1679 := cc 7 [w0,w1,w414,w3,w68,w44] [206,552,671] [n1678,n1677] (by decide +kernel)
-def n1680 := cc 6 [w0,w1,w414,w657,w3] [180,403,512] [] (by decide +kernel)
-def n1681 := cc 7 [w69,w0,w1,w414,w2,w3] [401,512,550,662,669] [n1674,n1680] (by decide +kernel)
-def n1682 := cc 8 [w0,w1,w414,w2,w3,w68,w13] [121,206,550,662] [n1681,n1636,n1679,n1646,n1675,n1648] (by decide +kernel)
-def n1683 := cc 7 [w69,w0,w1,w2,w3,w44] [427,445,574,671] [] (by decide +kernel)
-def n1684 := cc 7 [w656,w0,w1,w2,w3,w13] [18,83,427,671] [n1678] (by decide +kernel)
-def n1685 := cc 8 [w0,w1,w2,w3,w68,w13,w44] [83,427,574,671] [n1683,n1684,n1679] (by decide +kernel)
-def n1686 := cc 6 [w47,w0,w1,w3,w659] [206,512,517,593] [] (by decide +kernel)
-def n1687 := cc 7 [w0,w1,w2,w3,w659,w13] [206,589,675] [n1686] (by decide +kernel)
-def n1688 := cc 7 [w658,w47,w0,w1,w3,w68] [206,593,671] [n1686,n1677] (by decide +kernel)
-def n1689 := cc 7 [w658,w69,w0,w1,w2,w3] [445,512,589,675] [] (by decide +kernel)
-def n1690 := cc 8 [w658,w0,w1,w2,w3,w68,w13] [206,589,675] [n1689,n1688,n1687] (by decide +kernel)
-def n1691 := cc 7 [w69,w47,w0,w1,w2,w3] [455,603,662,671] [] (by decide +kernel)
-def n1692 := cc 8 [w47,w0,w1,w2,w3,w68,w13] [455,603,662,671] [n1688,n1649,n1691,n1647] (by decide +kernel)
-def n1693 := cc 6 [w69,w0,w661,w2,w3] [538,662,669] [] (by decide +kernel)
-def n1694 := cc 6 [w69,w0,w1,w662,w3] [517,536,669] [] (by decide +kernel)
-def n1695 := cc 6 [w69,w0,w1,w663,w3] [397,512,539,662] [] (by decide +kernel)
-def n1696 := cc 6 [w69,w0,w1,w2,w664] [662,669,671] [] (by decide +kernel)
-def n1697 := cc 7 [w660,w69,w0,w1,w2,w3] [389,512,517,535,662,669] [n1693,n1695,n1696,n1694] (by decide +kernel)
-def n1698 := cc 7 [w69,w0,w652,w1,w2,w3] [420,452,512,564,664,671] [] (by decide +kernel)
-def n1699 := cc 7 [w642,w69,w0,w1,w2,w3] [420,452,512,601,662,671] [] (by decide +kernel)
-def n1700 := cc 7 [w69,w665,w0,w1,w2,w3] [512,517,581,664,669] [] (by decide +kernel)
-def n1701 := cc 6 [w69,w0,w667,w1,w2,w3] [402,551,662,671] [] (by decide +kernel)
-def n1702 := cc 6 [w666,w0,w1,w657,w3] [403,512,671] [n1419] (by decide +kernel)
-def n1703 := cc 7 [w666,w69,w0,w1,w2,w3] [401,512,550,662,669] [n1702,n1701] (by decide +kernel)
-def n1704 := cc 7 [w69,w0,w1,w2,w657,w3] [427,574,664,671] [n1702] (by decide +kernel)
-def n1705 := cc 6 [w646,w0,w1,w668,w3] [447,512,517,593] [n1419] (by decide +kernel)
-def n1706 := cc 7 [w646,w69,w0,w1,w2,w3] [455,603,662,671] [n1705] (by decide +kernel)
-def n1707 := cc 7 [w69,w0,w1,w668,w2,w3] [445,512,589,675] [n1705] (by decide +kernel)
-def n1708 := cc 8 [w69,w0,w1,w2,w3] [389,524] [n1706,n1699,n1697,n1703,n482,n546,n166,n1700,n1698,n1707,n1704,n405] (by decide +kernel)
-def n1709 := cc 7 [w0,w652,w1,w2,w3,w13] [420,452,564,664,671] [n1662] (by decide +kernel)
-def n1710 := cc 7 [w0,w1,w2,w657,w3,w13] [180,427,574,662] [n1680] (by decide +kernel)
-def n1711 := cc 8 [w69,w0,w1,w2,w3,w13] [389,524,662,675] [n1669,n1689,n1649,n1638,n1691,n547,n1671,n1663,n1681,n406,n1665,n1683,n1709,n1710] (by decide +kernel)
-def n1712 := cc 9 [w0,w1,w2,w3,w68,w13] [389,524] [n1670,n1690,n1708,n1711,n483,n1692,n548,n1672,n167,n1664,n1682,n407,n1667,n1685,n1639,n1650] (by decide +kernel)
-def n1713 := cc 10 [w0,w1,w2,w3,w68,w4,w5] [97,184,389,459,524] [n484,n549,n168,n408,n1712,n1640,n1651] (by decide +kernel)
-def n1714 := cc 8 [w647,w0,w2,w3,w4,w5,w13] [143,178,671,672,687] [n1653] (by decide +kernel)
-def n1715 := cc 8 [w0,w1,w648,w3,w4,w5,w13] [143,178,517,521,687] [n1655] (by decide +kernel)
-def n1716 := cc 8 [w0,w1,w2,w648,w3,w4,w5,w13] [143,178,517,521,687] [] (by decide +kernel)
-def n1717 := cc 8 [w649,w0,w1,w3,w4,w5,w13] [143,182,231,539,621,662] [n1657] (by decide +kernel)
-def n1718 := cc 8 [w650,w0,w1,w2,w4,w5,w13] [143,178,351,662,671,672] [n1659] (by decide +kernel)
-def n1719 := cc 7 [w669,w1,w2,w3,w4,w5] [83,143,675,687] [] (by decide +kernel)
-def n1720 := cc 8 [w413,w1,w2,w3,w4,w5,w125] [83,90,143,687] [n1719,n1661] (by decide +kernel)
-def v642 : Closed T 8 := rotateClosed n982 auto1 auto1ok
-def n1721 := cc 9 [w413,w0,w1,w2,w3,w4,w5,w13] [143,178,231,389,459,524,671,672,687] [n1714,n1717,n1718,n1007,n1664,n1720,n982,v642,n1716,n1715] (by decide +kernel)
-def n1722 := cc 7 [w358,w0,w134,w1,w2,w3,w4,w5] [144,179,218] [] (by decide +kernel)
-def n1723 := cc 8 [w0,w134,w1,w2,w3,w4,w5,w125] [83,90,143,218,231,671,687] [n1722] (by decide +kernel)
-def n1724 := cc 8 [w0,w357,w1,w2,w3,w4,w5,w13] [83,90,143,231,517,680,684] [] (by decide +kernel)
-def n1725 := cc 8 [w0,w1,w414,w2,w3,w4,w5,w125] [39,55,83,179,218,320,355,483,675] [] (by decide +kernel)
-def n1726 := cc 8 [w47,w0,w1,w2,w3,w4,w5,w125] [83,178,320,357,420,606,671,684] [] (by decide +kernel)
-def n1727 := cc 7 [w358,w0,w1,w2,w226,w3,w4,w5] [179,218,570,637] [] (by decide +kernel)
-def n1728 := cc 8 [w358,w0,w1,w2,w3,w4,w5,w13] [83,90,146,184,351,521,637,671,680] [n1149,n1722,n1335,n1727] (by decide +kernel)
-def n1729 := cc 8 [w0,w1,w2,w226,w3,w4,w5,w125] [83,90,218,232,320,356,564,581,636,671] [n1727] (by decide +kernel)
-def v643 : Closed T 8 := rotateClosed n994 auto1 auto1ok
-def n1730 := cc 9 [w0,w1,w2,w3,w4,w5,w13,w125] [143,231,351,564,666,675] [n994,v643,n1169,n1364,n1726,n1728,n1008,n1720,n1150,n1256,n1723,n1724,n1336,n1725,n1729,n1667] (by decide +kernel)
-def n1731 := cc 8 [w0,w1,w2,w670,w3,w4,w5,w13] [83,90,143,182,231,351,517,582] [] (by decide +kernel)
-def n1732 := cc 8 [w521,w220,w1,w2,w3,w4,w5] [83,90,143,687] [n1719] (by decide +kernel)
-def n1733 := cc 9 [w521,w0,w1,w2,w3,w4,w5,w13] [143,178,182,231,351,581,664,666,671] [n1732,n1338,n1670,n1731,n754,n1043,v414] (by decide +kernel)
-def n1734 := cc 8 [w671,w0,w1,w2,w3,w4,w5] [143,179,184,267,452,505] [] (by decide +kernel)
-def n1735 := cc 8 [w0,w1,w2,w497,w3,w4,w5] [179,267,269,445,453,506,517,660] [n1258] (by decide +kernel)
-def v644 : Closed T 8 := rotateClosed n1083 auto1 auto1ok
-def v645 : Closed T 8 := rotateClosed n1571 auto1 auto1ok
-def v646 : Closed T 8 := rotateClosed n1502 auto1 auto1ok
-def v647 : Closed T 8 := rotateClosed n993 auto1 auto1ok
-def n1736 := cc 9 [w220,w0,w1,w2,w3,w4,w5] [143,184,269,389,459,505,601,662,675,676] [n1083,v644,n423,n1170,n1365,n1571,v645,n71,n551,n639,n1151,n1259,n1339,n409,n1502,v646,n993,v647,n1008,n1734,n1735,n754] (by decide +kernel)
-def v648 : Closed T 8 := rotateClosed n983 auto1 auto1ok
-def n1737 := cc 9 [w220,w0,w1,w2,w3,w4,w5,w13] [97,389,459,675,676,684,687] [n1732,n1672,n1008,n983,v648] (by decide +kernel)
-def n1738 := cc 6 [w672,w1,w135,w2,w3,w4,w5] [179] [] (by decide +kernel)
-def n1739 := cc 7 [w0,w1,w135,w2,w223,w3,w4,w5] [179,218,267,320,675,676] [n1738] (by decide +kernel)
-def n1740 := cc 7 [w221,w0,w1,w135,w2,w3,w4,w5] [179,218,267] [n410] (by decide +kernel)
-def n1741 := cc 8 [w0,w1,w135,w2,w3,w4,w5] [143,179,218,267,320,420,483,546] [n1740,n1262,n1739,n411] (by decide +kernel)
-def n1742 := cc 7 [w0,w1,w135,w2,w222,w3,w4,w5] [143,179,231] [n1738,n412] (by decide +kernel)
-def n1743 := cc 7 [w221,w0,w134,w1,w2,w3,w4,w5] [144,179,218] [] (by decide +kernel)
-def n1744 := cc 8 [w0,w134,w1,w135,w2,w3,w4,w5] [143,218,231,267,420,675] [n1743,n415,n1742,n413] (by decide +kernel)
-def n1745 := cc 8 [w0,w1,w2,w222,w3,w4,w5] [179,269,427,487,547] [] (by decide +kernel)
-def n1746 := cc 7 [w672,w0,w134,w1,w2,w3,w4,w5] [132,143,153] [n1738] (by decide +kernel)
-def n1747 := cc 8 [w0,w134,w1,w2,w222,w3,w4,w5] [132,143,231,267,427,445] [n1746,n415,n414,n1742] (by decide +kernel)
-def n1748 := cc 9 [w0,w134,w1,w2,w3,w4,w5] [0,143,231,267,351,389,459] [n1298,n1168,n71,n1263,n1744,n417,n1747,n1741,n1745] (by decide +kernel)
-def n1749 := cc 8 [w0,w1,w135,w2,w3,w4,w5,w13] [231,420,517,675,676,687] [n418] (by decide +kernel)
-def n1750 := cc 8 [w0,w1,w2,w222,w3,w4,w5,w13] [231,339,351,445,500,547,626,662,671] [] (by decide +kernel)
-def n1751 := cc 8 [w0,w134,w1,w2,w3,w4,w5,w44] [231,675,687] [] (by decide +kernel)
-def v649 : Closed T 8 := rotateClosed n1307 auto1 auto1ok
-def v650 : Closed T 8 := rotateClosed n984 auto1 auto1ok
-def v651 : Closed T 8 := rotateClosed n1503 auto1 auto1ok
-def n1752 := cc 9 [w0,w134,w1,w2,w3,w4,w5,w13] [143,231,389,459,687] [n1298,n1307,v649,n420,n1723,n1751,n984,v650,n1503,v651,n1749,n1750] (by decide +kernel)
-def n1753 := cc 9 [w50,w0,w1,w2,w3,w4,w5,w13] [83,351,389,459,650,675,684] [n1298] (by decide +kernel)
-def n1754 := cc 8 [w0,w1,w2,w644,w3,w4,w5,w13] [231,351,628,662,675,676] [n1675] (by decide +kernel)
-def n1755 := cc 7 [w654,w0,w1,w3,w4,w5] [83,231,675,687] [n1677] (by decide +kernel)
-def n1756 := cc 8 [w0,w1,w414,w3,w4,w5,w44] [83,231,552,675] [n1755,n1679] (by decide +kernel)
-def v652 : Closed T 8 := rotateClosed n985 auto1 auto1ok
-def v653 : Closed T 8 := rotateClosed n1504 auto1 auto1ok
-def n1757 := cc 9 [w0,w1,w414,w2,w3,w4,w5,w13] [143,178,231,389,459,687] [n1529,n1682,n1725,n985,v652,n1756,n1504,v653,n1754] (by decide +kernel)
-def n1758 := cc 8 [w0,w496,w1,w2,w3,w4,w5,w13] [83,231,675,680] [] (by decide +kernel)
-def n1759 := cc 8 [w0,w1,w2,w226,w3,w4,w5,w44] [231,339,357,589,639,675] [] (by decide +kernel)
-def v654 : Closed T 8 := rotateClosed n1512 auto1 auto1ok
-def n1760 := cc 9 [w0,w1,w2,w3,w4,w5,w13,w44] [231,351,517,574,662,666,675] [n1512,v654,n1530,n1265,n1751,n1758,n1756,n1759,n1685] (by decide +kernel)
-def n1761 := cc 8 [w658,w47,w0,w1,w3,w4,w5] [83,231,662,675] [n1688,n1755] (by decide +kernel)
-def n1762 := cc 9 [w658,w0,w1,w2,w3,w4,w5,w13] [83,231,351,589,675,677] [n1761,n1690,n1484,n1547,v610] (by decide +kernel)
-def n1763 := cc 8 [w0,w481,w1,w2,w3,w4,w5] [146,267,269,604,671,672] [n1266] (by decide +kernel)
-def n1764 := cc 8 [w0,w673,w1,w2,w3,w4,w5] [179,267,684] [] (by decide +kernel)
-def v655 : Closed T 8 := rotateClosed n1557 auto1 auto1ok
-def v656 : Closed T 8 := rotateClosed n1121 auto1 auto1ok
-def v657 : Closed T 8 := rotateClosed n986 auto1 auto1ok
-def v658 : Closed T 8 := rotateClosed n1511 auto1 auto1ok
-def n1765 := cc 9 [w47,w0,w1,w2,w3,w4,w5] [97,231,269,389,459,508,603,671,672,684,687] [n1557,v655,n423,n1168,n72,n640,n1121,v656,n1269,n986,v657,n1511,v658,n1530,n1763,n1764,n1484] (by decide +kernel)
-def n1766 := cc 8 [w0,w481,w1,w2,w3,w4,w5,w13] [351,604,662,671,675,676,680] [] (by decide +kernel)
-def v659 : Closed T 8 := rotateClosed n987 auto1 auto1ok
-def v660 : Closed T 8 := rotateClosed n1505 auto1 auto1ok
-def n1767 := cc 9 [w47,w0,w1,w2,w3,w4,w5,w13] [83,143,231,389,459,521,671,684,687] [n1761,n1692,n1726,n987,v659,n1530,n1505,v660,n1766] (by decide +kernel)
-def n1768 := cc 8 [w0,w1,w2,w3,w227,w4,w5,w13] [231,351,517,636,662,675,676] [n424] (by decide +kernel)
-def n1769 := cc 8 [w0,w1,w2,w3,w674,w4,w5,w13] [184,351,487,662,671] [] (by decide +kernel)
-def v661 : Closed T 8 := rotateClosed n988 auto1 auto1ok
-def v662 : Closed T 8 := rotateClosed n1506 auto1 auto1ok
-def n1770 := cc 9 [w0,w1,w2,w226,w3,w4,w5,w13] [182,231,351,524,607,662,675,677] [n552,n426,n1729,n1759,n988,v661,n1506,v662,n1768,n1769] (by decide +kernel)
-def n1771 := cc 9 [w675,w0,w1,w2,w3,w4,w5,w13] [83,351,524,607,675,687] [] (by decide +kernel)
-def v663 : Closed T 9 := rotateClosed n1084 auto1 auto1ok
-def v664 : Closed T 9 := rotateClosed n1308 auto1 auto1ok
-def v665 : Closed T 9 := rotateClosed n1558 auto1 auto1ok
-def v666 : Closed T 9 := rotateClosed n1572 auto1 auto1ok
-def v667 : Closed T 9 := rotateClosed n1122 auto1 auto1ok
-def v668 : Closed T 9 := rotateClosed n1294 auto1 auto1ok
-def v669 : Closed T 9 := rotateClosed n995 auto1 auto1ok
-def v670 : Closed T 9 := rotateClosed n1513 auto1 auto1ok
-def n1772 := cc 10 [w0,w1,w2,w3,w4,w5,w13] [97,184,269,389,459,524,607] [n1733,n1300,n1753,n1762,n1771,n1084,v663,n1308,v664,n1558,v665,n486,n1171,n1366,n1572,v666,n1765,n1767,n73,n553,n641,n1122,v667,n1736,n1737,n21,n170,n582,n1721,n1154,n1270,n1294,v668,n1748,n1752,n1342,n1757,n427,n1770,n1712,n995,v669,n1513,v670,n1730,n1760,n1019,n1533,n991,v409,n1509,v607] (by decide +kernel)
-def n1773 := cc 8 [w676,w0,w1,w2,w3,w4,w5] [90,97,179,431,577] [] (by decide +kernel)
-def n1774 := cc 9 [w0,w417,w1,w2,w3,w4,w5] [184,389,483,524,671,675] [n1085,n1003,n1773,n1514,n429,n754,n1000] (by decide +kernel)
-def n1775 := cc 8 [w677,w0,w1,w2,w3,w4,w5] [179,448,512,597] [] (by decide +kernel)
-def n1776 := cc 9 [w0,w1,w2,w229,w3,w4,w5] [97,184,389,524,672] [n1559,n1521,n555,n1775,n996,n429,n1484,n428,n1518] (by decide +kernel)
-def n1777 := cc 9 [w0,w1,w2,w3,w4,w5,w13] [53,83,143,231,351,389,459,662] [n1529,n1007,n431,n754,n1484,n998,v386,n1516,v582] (by decide +kernel)
-def n1778 := cc 9 [w70,w71,w0,w1,w2,w3] [389,459,524] [n488,n556,n173,n432,n1708] (by decide +kernel)
-def n1779 := cc 10 [w70,w0,w1,w2,w3,w4,w5] [97,184,389,459,524] [n1086,n1560,n1778,n489,n557,n174,n433,n1002,n1520,n999,n1517,n1774,n1776,n1777] (by decide +kernel)
-def v671 : Closed T 10 := rotateClosed n1087 auto1 auto1ok
-def v672 : Closed T 10 := rotateClosed n1309 auto1 auto1ok
-def v673 : Closed T 10 := rotateClosed n1561 auto1 auto1ok
-def v674 : Closed T 10 := rotateClosed n1625 auto1 auto1ok
-def v675 : Closed T 10 := rotateClosed n1779 auto1 auto1ok
-def v676 : Closed T 10 := rotateClosed n1630 auto1 auto1ok
-def v677 : Closed T 10 := rotateClosed n1573 auto1 auto1ok
-def v678 : Closed T 10 := rotateClosed n1313 auto1 auto1ok
-def v679 : Closed T 10 := rotateClosed n1123 auto1 auto1ok
-def v680 : Closed T 10 := rotateClosed n745 auto1 auto1ok
-def v681 : Closed T 10 := rotateClosed n1295 auto1 auto1ok
-def v682 : Closed T 10 := rotateClosed n1444 auto1 auto1ok
-def v683 : Closed T 10 := rotateClosed n1604 auto1 auto1ok
-def v684 : Closed T 10 := rotateClosed n1028 auto1 auto1ok
-def v685 : Closed T 10 := rotateClosed n1296 auto1 auto1ok
-def v686 : Closed T 10 := rotateClosed n1542 auto1 auto1ok
-def v687 : Closed T 10 := rotateClosed n1623 auto1 auto1ok
-def n1780 := cc 11 [w0,w1,w2,w3,w4,w5] [] [n1087,v671,n1309,v672,n1561,v673,n1625,v674,n1779,v675,n604,n1274,n1351,n1630,v676,n490,n1172,n1367,n1573,v677,n26,n1173,n1275,n1313,v678,n74,n558,n642,n1123,v679,n22,n175,n583,n745,v680,n1155,n1271,n1295,v681,n23,n1343,n1444,v682,n434,n1158,n1604,v683,n599,n1272,n1349,n1713,n1028,v684,n1296,v685,n1542,v686,n1623,v687,n1772] (by decide +kernel)
+def p4 := prefixPool s0 [(0,x1,x3)] (by decide +kernel)
+def p5 := prefixPool s0 [(0,x1,x3),(0,x4,x5)] (by decide +kernel)
+def p6 := prefixPool s0 [(0,x1,x3),(0,x4,x6)] (by decide +kernel)
+def p7 := prefixPool s0 [(0,x1,x3),(1,x0,x1),(1,x1,x3)] (by decide +kernel)
+def p8 := prefixPool s0 [(0,x1,x3),(1,x4,x0)] (by decide +kernel)
+def p9 := prefixPool s0 [(0,x1,x3),(1,x4,x0),(1,x1,x3)] (by decide +kernel)
+def p10 := prefixPool s0 [(0,x1,x3),(1,x4,x6)] (by decide +kernel)
+def p11 := prefixPool s0 [(0,x1,x3),(1,x1,x3)] (by decide +kernel)
+def p12 := prefixPool s0 [(0,x1,x5),(1,x7,x6)] (by decide +kernel)
+def p13 := prefixPool s0 [(0,x3,x5)] (by decide +kernel)
+def p14 := prefixPool s0 [(0,x3,x6)] (by decide +kernel)
+def p15 := prefixPool s0 [(1,x0,x1)] (by decide +kernel)
+def p16 := prefixPool s0 [(1,x0,x1),(0,x0,x1),(1,x2,x3)] (by decide +kernel)
+def p17 := prefixPool s0 [(1,x0,x1),(1,x0,x3)] (by decide +kernel)
+def p18 := prefixPool s0 [(1,x0,x1),(1,x0,x5)] (by decide +kernel)
+def p19 := prefixPool s0 [(1,x0,x1),(1,x0,x6),(1,x5,x6)] (by decide +kernel)
+def p20 := prefixPool s0 [(1,x0,x1),(1,x8,x3)] (by decide +kernel)
+def p21 := prefixPool s0 [(1,x0,x1),(3,x8,x3)] (by decide +kernel)
+def p22 := prefixPool s0 [(1,x0,x3)] (by decide +kernel)
+def p23 := prefixPool s0 [(1,x0,x3),(0,x9,x1)] (by decide +kernel)
+def p24 := prefixPool s0 [(1,x0,x3),(0,x9,x1),(1,x0,x1)] (by decide +kernel)
+def p25 := prefixPool s0 [(1,x0,x3),(0,x9,x1),(1,x0,x1),(1,x1,x3)] (by decide +kernel)
+def p26 := prefixPool s0 [(1,x0,x3),(1,x0,x6),(1,x5,x6)] (by decide +kernel)
+def p27 := prefixPool s0 [(1,x0,x3),(1,x3,x5)] (by decide +kernel)
+def p28 := prefixPool s0 [(1,x0,x3),(1,x3,x5),(1,x5,x6)] (by decide +kernel)
+def p29 := prefixPool s0 [(1,x0,x3),(1,x9,x5)] (by decide +kernel)
+def p30 := prefixPool s0 [(1,x0,x3),(1,x9,x5),(1,x5,x6)] (by decide +kernel)
+def p31 := prefixPool s0 [(1,x0,x3),(2,x9,x1)] (by decide +kernel)
+def p32 := prefixPool s0 [(1,x0,x3),(2,x9,x5)] (by decide +kernel)
+def p33 := prefixPool s0 [(1,x0,x5)] (by decide +kernel)
+def p34 := prefixPool s0 [(1,x0,x5),(1,x3,x5)] (by decide +kernel)
+def p35 := prefixPool s0 [(1,x0,x5),(1,x10,x6)] (by decide +kernel)
+def p36 := prefixPool s0 [(1,x0,x6),(1,x5,x6)] (by decide +kernel)
+def p37 := prefixPool s0 [(1,x1,x3),(1,x11,x5)] (by decide +kernel)
+def p38 := prefixPool s0 [(1,x3,x5)] (by decide +kernel)
+def p39 := prefixPool s0 [(1,x3,x5),(0,x12,x1)] (by decide +kernel)
+def p40 := prefixPool s0 [(1,x3,x5),(1,x5,x6)] (by decide +kernel)
+def p41 := prefixPool s0 [(1,x3,x5),(1,x12,x6)] (by decide +kernel)
+def p42 := prefixPool s0 [(1,x3,x5),(2,x12,x0)] (by decide +kernel)
+def p43 := prefixPool s0 [(1,x3,x5),(2,x12,x1)] (by decide +kernel)
+def p44 := prefixPool s0 [(1,x3,x5),(2,x12,x1),(1,x5,x6)] (by decide +kernel)
+def p45 := prefixPool s0 [(1,x3,x5),(2,x12,x6)] (by decide +kernel)
+def p46 := prefixPool s0 [(1,x3,x6)] (by decide +kernel)
+def p47 := prefixPool s0 [(1,x3,x6),(1,x5,x6)] (by decide +kernel)
+def p48 := prefixPool s0 [(1,x5,x6)] (by decide +kernel)
+def p49 := prefixPool s0 [(1,x5,x6),(0,x13,x1)] (by decide +kernel)
+def p50 := prefixPool s0 [(1,x5,x6),(0,x13,x3)] (by decide +kernel)
+def p51 := prefixPool s0 [(1,x5,x6),(2,x13,x0)] (by decide +kernel)
+def p52 := prefixPool s0 [(1,x5,x6),(2,x13,x1)] (by decide +kernel)
+def p53 := prefixPool s0 [(1,x5,x6),(2,x13,x3)] (by decide +kernel)
+def p54 := prefixPool s0 [(2,x0,x1),(1,x0,x3)] (by decide +kernel)
+def p55 := prefixPool s0 [(2,x0,x3)] (by decide +kernel)
+def p56 := prefixPool s0 [(2,x0,x3),(1,x14,x1)] (by decide +kernel)
+def p57 := prefixPool s0 [(2,x0,x3),(3,x0,x3)] (by decide +kernel)
+def p58 := prefixPool s0 [(2,x0,x6),(3,x15,x3)] (by decide +kernel)
+def p59 := prefixPool s0 [(2,x1,x3)] (by decide +kernel)
+def p60 := prefixPool s0 [(2,x1,x3),(0,x1,x3)] (by decide +kernel)
+def p61 := prefixPool s0 [(2,x1,x5),(2,x16,x6)] (by decide +kernel)
+def p62 := prefixPool s0 [(2,x1,x6)] (by decide +kernel)
+def p63 := prefixPool s0 [(2,x1,x6),(1,x5,x6)] (by decide +kernel)
+def p64 := prefixPool s0 [(2,x1,x6),(1,x5,x6),(0,x13,x1)] (by decide +kernel)
+def p65 := prefixPool s0 [(2,x1,x6),(3,x0,x1)] (by decide +kernel)
+def p66 := prefixPool s0 [(2,x1,x6),(3,x0,x1),(1,x5,x6)] (by decide +kernel)
+def p67 := prefixPool s0 [(2,x3,x6)] (by decide +kernel)
+def p68 := prefixPool s0 [(3,x0,x1)] (by decide +kernel)
+def p69 := prefixPool s0 [(3,x0,x1),(0,x0,x1)] (by decide +kernel)
+def p70 := prefixPool s0 [(3,x0,x1),(1,x0,x1),(1,x1,x3)] (by decide +kernel)
+def p71 := prefixPool s0 [(3,x0,x1),(1,x5,x6)] (by decide +kernel)
+def p72 := prefixPool s0 [(3,x0,x1),(2,x17,x6)] (by decide +kernel)
+def p73 := prefixPool s0 [(3,x0,x1),(2,x17,x6),(1,x5,x6)] (by decide +kernel)
+def p74 := prefixPool s0 [(3,x0,x3)] (by decide +kernel)
+def p75 := prefixPool s0 [(3,x0,x5)] (by decide +kernel)
+def p76 := prefixPool s0 [(3,x1,x3)] (by decide +kernel)
+def p77 := prefixPool s0 [(3,x1,x3),(1,x0,x3)] (by decide +kernel)
+def p78 := prefixPool s0 [(3,x3,x5)] (by decide +kernel)
+def p79 := prefixPool s0 [(3,x3,x5),(1,x18,x6)] (by decide +kernel)
+def p80 := prefixPool s0 [(3,x3,x6)] (by decide +kernel)
+def p81 := prefixPool s1 [] (by decide +kernel)
+def p82 := prefixPool s1 [(0,x1,x3)] (by decide +kernel)
+def p83 := prefixPool s1 [(0,x1,x19)] (by decide +kernel)
+def p84 := prefixPool s1 [(0,x1,x19),(1,x20,x0)] (by decide +kernel)
+def p85 := prefixPool s1 [(0,x3,x19)] (by decide +kernel)
+def p86 := prefixPool s1 [(0,x3,x19),(1,x21,x0)] (by decide +kernel)
+def p87 := prefixPool s1 [(1,x0,x3)] (by decide +kernel)
+def p88 := prefixPool s1 [(1,x0,x6)] (by decide +kernel)
+def p89 := prefixPool s1 [(1,x3,x6)] (by decide +kernel)
+def p90 := prefixPool s1 [(2,x1,x6)] (by decide +kernel)
+def p91 := prefixPool s1 [(3,x0,x1)] (by decide +kernel)
+def p92 := prefixPool s1 [(3,x0,x19)] (by decide +kernel)
+def p93 := prefixPool s2 [] (by decide +kernel)
+def p94 := prefixPool s2 [(1,x0,x3)] (by decide +kernel)
+def p95 := prefixPool s2 [(1,x0,x5)] (by decide +kernel)
+def p96 := prefixPool s2 [(1,x1,x3)] (by decide +kernel)
+def p97 := prefixPool s2 [(1,x3,x19)] (by decide +kernel)
+def p98 := prefixPool s2 [(1,x3,x5)] (by decide +kernel)
+def p99 := prefixPool s2 [(3,x0,x1)] (by decide +kernel)
+def p100 := prefixPool s2 [(3,x0,x19)] (by decide +kernel)
+def p101 := prefixPool s3 [] (by decide +kernel)
+def p102 := prefixPool s3 [(0,x3,x19)] (by decide +kernel)
+def p103 := prefixPool s3 [(0,x3,x6),(1,x22,x19),(1,x3,x6)] (by decide +kernel)
+def p104 := prefixPool s3 [(0,x3,x6),(1,x22,x5),(1,x3,x6)] (by decide +kernel)
+def p105 := prefixPool s3 [(0,x19,x6),(1,x23,x3),(1,x19,x6)] (by decide +kernel)
+def p106 := prefixPool s3 [(0,x19,x6),(1,x23,x5),(1,x19,x6)] (by decide +kernel)
+def p107 := prefixPool s3 [(0,x5,x6),(1,x24,x3),(1,x5,x6)] (by decide +kernel)
+def p108 := prefixPool s3 [(0,x5,x6),(1,x24,x19),(1,x5,x6)] (by decide +kernel)
+def p109 := prefixPool s3 [(1,x3,x19)] (by decide +kernel)
+def p110 := prefixPool s3 [(1,x3,x19),(0,x3,x19),(1,x21,x6)] (by decide +kernel)
+def p111 := prefixPool s3 [(1,x3,x19),(1,x25,x5)] (by decide +kernel)
+def p112 := prefixPool s3 [(1,x3,x19),(3,x25,x5)] (by decide +kernel)
+def p113 := prefixPool s3 [(1,x3,x5)] (by decide +kernel)
+def p114 := prefixPool s3 [(1,x3,x5),(0,x3,x5),(1,x26,x6)] (by decide +kernel)
+def p115 := prefixPool s3 [(1,x3,x5),(0,x12,x19)] (by decide +kernel)
+def p116 := prefixPool s3 [(1,x3,x5),(0,x12,x6),(1,x5,x6)] (by decide +kernel)
+def p117 := prefixPool s3 [(1,x3,x5),(1,x5,x6)] (by decide +kernel)
+def p118 := prefixPool s3 [(1,x3,x5),(1,x12,x6)] (by decide +kernel)
+def p119 := prefixPool s3 [(1,x3,x5),(2,x12,x19)] (by decide +kernel)
+def p120 := prefixPool s3 [(1,x3,x5),(2,x12,x6)] (by decide +kernel)
+def p121 := prefixPool s3 [(1,x3,x5),(3,x12,x6)] (by decide +kernel)
+def p122 := prefixPool s3 [(1,x3,x6)] (by decide +kernel)
+def p123 := prefixPool s3 [(1,x3,x6),(1,x5,x6)] (by decide +kernel)
+def p124 := prefixPool s3 [(1,x3,x6),(2,x27,x5)] (by decide +kernel)
+def p125 := prefixPool s3 [(1,x19,x5)] (by decide +kernel)
+def p126 := prefixPool s3 [(1,x19,x5),(0,x19,x5),(1,x28,x6)] (by decide +kernel)
+def p127 := prefixPool s3 [(1,x19,x5),(2,x29,x3)] (by decide +kernel)
+def p128 := prefixPool s3 [(1,x19,x6)] (by decide +kernel)
+def p129 := prefixPool s3 [(1,x5,x6)] (by decide +kernel)
+def p130 := prefixPool s3 [(1,x5,x6),(0,x13,x3)] (by decide +kernel)
+def p131 := prefixPool s3 [(1,x5,x6),(0,x13,x19)] (by decide +kernel)
+def p132 := prefixPool s3 [(1,x5,x6),(2,x13,x3)] (by decide +kernel)
+def p133 := prefixPool s3 [(1,x5,x6),(2,x13,x19)] (by decide +kernel)
+def p134 := prefixPool s3 [(2,x3,x5)] (by decide +kernel)
+def p135 := prefixPool s3 [(2,x3,x5),(2,x30,x6)] (by decide +kernel)
+def p136 := prefixPool s3 [(2,x3,x6)] (by decide +kernel)
+def p137 := prefixPool s3 [(2,x3,x6),(1,x31,x5)] (by decide +kernel)
+def p138 := prefixPool s3 [(2,x19,x5)] (by decide +kernel)
+def p139 := prefixPool s3 [(2,x19,x6)] (by decide +kernel)
+def p140 := prefixPool s3 [(3,x3,x19)] (by decide +kernel)
+def p141 := prefixPool s3 [(3,x3,x5)] (by decide +kernel)
+def p142 := prefixPool s3 [(3,x3,x5),(1,x18,x6)] (by decide +kernel)
+def p143 := prefixPool s3 [(3,x3,x5),(2,x18,x6)] (by decide +kernel)
+def p144 := prefixPool s3 [(3,x3,x6)] (by decide +kernel)
+def p145 := prefixPool s3 [(3,x3,x6),(1,x32,x5)] (by decide +kernel)
+def p146 := prefixPool s3 [(3,x19,x5),(1,x33,x3)] (by decide +kernel)
+def p147 := prefixPool s3 [(3,x5,x6)] (by decide +kernel)
+def p148 := prefixPool s4 [] (by decide +kernel)
+def p149 := prefixPool s5 [] (by decide +kernel)
+def p150 := prefixPool s5 [(1,x5,x6)] (by decide +kernel)
+def p151 := prefixPool s6 [] (by decide +kernel)
+def p152 := prefixPool s7 [] (by decide +kernel)
+def p153 := prefixPool s8 [] (by decide +kernel)
+def p154 := prefixPool s8 [(0,x1,x3)] (by decide +kernel)
+def p155 := prefixPool s8 [(0,x1,x3),(0,x4,x19)] (by decide +kernel)
+def p156 := prefixPool s8 [(0,x1,x3),(1,x4,x6)] (by decide +kernel)
+def p157 := prefixPool s8 [(0,x1,x3),(2,x4,x6)] (by decide +kernel)
+def p158 := prefixPool s8 [(0,x1,x3),(3,x4,x6)] (by decide +kernel)
+def p159 := prefixPool s8 [(0,x1,x19)] (by decide +kernel)
+def p160 := prefixPool s8 [(0,x1,x19),(1,x20,x3)] (by decide +kernel)
+def p161 := prefixPool s8 [(0,x1,x19),(1,x20,x6)] (by decide +kernel)
+def p162 := prefixPool s8 [(0,x1,x19),(1,x3,x6),(0,x27,x1)] (by decide +kernel)
+def p163 := prefixPool s8 [(0,x1,x19),(2,x20,x6)] (by decide +kernel)
+def p164 := prefixPool s8 [(0,x1,x19),(3,x20,x3)] (by decide +kernel)
+def p165 := prefixPool s8 [(0,x1,x19),(3,x20,x6)] (by decide +kernel)
+def p166 := prefixPool s8 [(0,x1,x6)] (by decide +kernel)
+def p167 := prefixPool s8 [(0,x1,x6),(1,x34,x3)] (by decide +kernel)
+def p168 := prefixPool s8 [(0,x1,x6),(3,x34,x3)] (by decide +kernel)
+def p169 := prefixPool s8 [(0,x3,x19)] (by decide +kernel)
+def p170 := prefixPool s8 [(0,x3,x19),(0,x21,x6)] (by decide +kernel)
+def p171 := prefixPool s8 [(0,x3,x19),(0,x3,x6)] (by decide +kernel)
+def p172 := prefixPool s8 [(0,x3,x19),(1,x21,x6)] (by decide +kernel)
+def p173 := prefixPool s8 [(0,x3,x19),(3,x21,x6)] (by decide +kernel)
+def p174 := prefixPool s8 [(0,x3,x6)] (by decide +kernel)
+def p175 := prefixPool s8 [(0,x3,x6),(1,x3,x6)] (by decide +kernel)
+def p176 := prefixPool s8 [(0,x19,x6)] (by decide +kernel)
+def p177 := prefixPool s8 [(0,x19,x6),(3,x23,x3)] (by decide +kernel)
+def p178 := prefixPool s8 [(1,x1,x6)] (by decide +kernel)
+def p179 := prefixPool s8 [(1,x3,x19)] (by decide +kernel)
+def p180 := prefixPool s8 [(1,x3,x6)] (by decide +kernel)
+def p181 := prefixPool s8 [(1,x3,x6),(0,x27,x1)] (by decide +kernel)
+def p182 := prefixPool s8 [(1,x19,x6)] (by decide +kernel)
+def p183 := prefixPool s8 [(2,x1,x3)] (by decide +kernel)
+def p184 := prefixPool s8 [(2,x1,x3),(2,x35,x6)] (by decide +kernel)
+def p185 := prefixPool s8 [(2,x1,x6)] (by decide +kernel)
+def p186 := prefixPool s8 [(2,x3,x19)] (by decide +kernel)
+def p187 := prefixPool s8 [(2,x3,x6)] (by decide +kernel)
+def p188 := prefixPool s8 [(2,x3,x6),(0,x1,x6)] (by decide +kernel)
+def p189 := prefixPool s8 [(2,x3,x6),(1,x31,x19)] (by decide +kernel)
+def p190 := prefixPool s8 [(2,x19,x6)] (by decide +kernel)
+def p191 := prefixPool s8 [(3,x1,x3)] (by decide +kernel)
+def p192 := prefixPool s8 [(3,x3,x19)] (by decide +kernel)
+def p193 := prefixPool s8 [(3,x3,x19),(0,x36,x6)] (by decide +kernel)
+def p194 := prefixPool s8 [(3,x3,x19),(3,x36,x6)] (by decide +kernel)
+def p195 := prefixPool s8 [(3,x3,x19),(3,x3,x6)] (by decide +kernel)
+def p196 := prefixPool s8 [(3,x3,x6)] (by decide +kernel)
+def p197 := prefixPool s8 [(3,x3,x6),(0,x1,x3)] (by decide +kernel)
+def p198 := prefixPool s8 [(3,x3,x6),(0,x3,x19)] (by decide +kernel)
+def p199 := prefixPool s8 [(3,x3,x6),(0,x3,x19),(0,x19,x6)] (by decide +kernel)
+def p200 := prefixPool s8 [(3,x3,x6),(3,x32,x19)] (by decide +kernel)
+def p201 := prefixPool s8 [(3,x19,x6)] (by decide +kernel)
+def p202 := prefixPool s9 [] (by decide +kernel)
+def p203 := prefixPool s9 [(0,x1,x3)] (by decide +kernel)
+def p204 := prefixPool s9 [(0,x1,x3),(1,x4,x5)] (by decide +kernel)
+def p205 := prefixPool s9 [(0,x1,x3),(3,x4,x5)] (by decide +kernel)
+def p206 := prefixPool s9 [(0,x1,x19)] (by decide +kernel)
+def p207 := prefixPool s9 [(0,x1,x19),(0,x20,x5)] (by decide +kernel)
+def p208 := prefixPool s9 [(0,x1,x19),(0,x1,x5)] (by decide +kernel)
+def p209 := prefixPool s9 [(0,x1,x19),(1,x20,x3)] (by decide +kernel)
+def p210 := prefixPool s9 [(0,x1,x19),(1,x20,x5)] (by decide +kernel)
+def p211 := prefixPool s9 [(0,x1,x19),(3,x20,x3)] (by decide +kernel)
+def p212 := prefixPool s9 [(0,x1,x19),(3,x20,x5)] (by decide +kernel)
+def p213 := prefixPool s9 [(0,x1,x5)] (by decide +kernel)
+def p214 := prefixPool s9 [(0,x3,x19)] (by decide +kernel)
+def p215 := prefixPool s9 [(0,x3,x19),(1,x21,x5)] (by decide +kernel)
+def p216 := prefixPool s9 [(0,x3,x19),(1,x3,x19)] (by decide +kernel)
+def p217 := prefixPool s9 [(0,x3,x19),(3,x21,x5)] (by decide +kernel)
+def p218 := prefixPool s9 [(0,x3,x5)] (by decide +kernel)
+def p219 := prefixPool s9 [(0,x3,x5),(1,x3,x5)] (by decide +kernel)
+def p220 := prefixPool s9 [(0,x19,x5)] (by decide +kernel)
+def p221 := prefixPool s9 [(1,x1,x3)] (by decide +kernel)
+def p222 := prefixPool s9 [(1,x1,x5)] (by decide +kernel)
+def p223 := prefixPool s9 [(1,x3,x19)] (by decide +kernel)
+def p224 := prefixPool s9 [(1,x3,x5)] (by decide +kernel)
+def p225 := prefixPool s9 [(1,x3,x5),(0,x12,x1)] (by decide +kernel)
+def p226 := prefixPool s9 [(1,x19,x5)] (by decide +kernel)
+def p227 := prefixPool s9 [(1,x19,x5),(0,x29,x1)] (by decide +kernel)
+def p228 := prefixPool s9 [(2,x1,x3)] (by decide +kernel)
+def p229 := prefixPool s9 [(2,x1,x3),(1,x35,x5)] (by decide +kernel)
+def p230 := prefixPool s9 [(2,x1,x19)] (by decide +kernel)
+def p231 := prefixPool s9 [(2,x1,x5)] (by decide +kernel)
+def p232 := prefixPool s9 [(2,x3,x5)] (by decide +kernel)
+def p233 := prefixPool s9 [(2,x3,x5),(0,x1,x5)] (by decide +kernel)
+def p234 := prefixPool s9 [(2,x3,x5),(3,x30,x1)] (by decide +kernel)
+def p235 := prefixPool s9 [(2,x19,x5)] (by decide +kernel)
+def p236 := prefixPool s9 [(3,x1,x5)] (by decide +kernel)
+def p237 := prefixPool s9 [(3,x3,x19)] (by decide +kernel)
+def p238 := prefixPool s9 [(3,x3,x19),(1,x36,x5)] (by decide +kernel)
+def p239 := prefixPool s9 [(3,x3,x19),(3,x36,x5)] (by decide +kernel)
+def p240 := prefixPool s9 [(3,x3,x5)] (by decide +kernel)
+def p241 := prefixPool s9 [(3,x3,x5),(0,x1,x3)] (by decide +kernel)
+def p242 := prefixPool s9 [(3,x3,x5),(0,x3,x19)] (by decide +kernel)
+def p243 := prefixPool s9 [(3,x19,x5)] (by decide +kernel)
+def p244 := prefixPool s10 [] (by decide +kernel)
+def p245 := prefixPool s10 [(0,x0,x5)] (by decide +kernel)
+def p246 := prefixPool s10 [(0,x0,x6)] (by decide +kernel)
+def p247 := prefixPool s10 [(0,x19,x5)] (by decide +kernel)
+def p248 := prefixPool s10 [(0,x19,x5),(1,x28,x6)] (by decide +kernel)
+def p249 := prefixPool s10 [(0,x19,x6)] (by decide +kernel)
+def p250 := prefixPool s10 [(0,x19,x6),(1,x23,x5)] (by decide +kernel)
+def p251 := prefixPool s10 [(0,x19,x6),(3,x23,x5)] (by decide +kernel)
+def p252 := prefixPool s10 [(0,x5,x6)] (by decide +kernel)
+def p253 := prefixPool s10 [(0,x5,x6),(1,x5,x6)] (by decide +kernel)
+def p254 := prefixPool s10 [(1,x0,x19)] (by decide +kernel)
+def p255 := prefixPool s10 [(1,x0,x19),(1,x0,x5)] (by decide +kernel)
+def p256 := prefixPool s10 [(1,x0,x19),(1,x0,x6)] (by decide +kernel)
+def p257 := prefixPool s10 [(1,x0,x19),(1,x37,x5)] (by decide +kernel)
+def p258 := prefixPool s10 [(1,x0,x19),(1,x37,x6)] (by decide +kernel)
+def p259 := prefixPool s10 [(1,x0,x19),(3,x37,x5)] (by decide +kernel)
+def p260 := prefixPool s10 [(1,x0,x5)] (by decide +kernel)
+def p261 := prefixPool s10 [(1,x0,x5),(1,x0,x6)] (by decide +kernel)
+def p262 := prefixPool s10 [(1,x0,x5),(1,x5,x6)] (by decide +kernel)
+def p263 := prefixPool s10 [(1,x0,x5),(1,x10,x6)] (by decide +kernel)
+def p264 := prefixPool s10 [(1,x0,x5),(2,x10,x6)] (by decide +kernel)
+def p265 := prefixPool s10 [(1,x0,x5),(3,x10,x6)] (by decide +kernel)
+def p266 := prefixPool s10 [(1,x0,x6)] (by decide +kernel)
+def p267 := prefixPool s10 [(1,x0,x6),(1,x5,x6)] (by decide +kernel)
+def p268 := prefixPool s10 [(1,x0,x6),(2,x38,x5)] (by decide +kernel)
+def p269 := prefixPool s10 [(1,x19,x5)] (by decide +kernel)
+def p270 := prefixPool s10 [(1,x19,x5),(1,x5,x6)] (by decide +kernel)
+def p271 := prefixPool s10 [(1,x19,x5),(1,x29,x6)] (by decide +kernel)
+def p272 := prefixPool s10 [(1,x19,x5),(2,x29,x0)] (by decide +kernel)
+def p273 := prefixPool s10 [(1,x19,x5),(3,x29,x6)] (by decide +kernel)
+def p274 := prefixPool s10 [(1,x19,x6)] (by decide +kernel)
+def p275 := prefixPool s10 [(1,x19,x6),(2,x39,x0)] (by decide +kernel)
+def p276 := prefixPool s10 [(1,x5,x6)] (by decide +kernel)
+def p277 := prefixPool s10 [(1,x5,x6),(0,x13,x19)] (by decide +kernel)
+def p278 := prefixPool s10 [(1,x5,x6),(2,x13,x0)] (by decide +kernel)
+def p279 := prefixPool s10 [(1,x5,x6),(2,x13,x19)] (by decide +kernel)
+def p280 := prefixPool s10 [(2,x0,x19)] (by decide +kernel)
+def p281 := prefixPool s10 [(2,x0,x19),(2,x40,x5)] (by decide +kernel)
+def p282 := prefixPool s10 [(2,x0,x5)] (by decide +kernel)
+def p283 := prefixPool s10 [(2,x0,x5),(1,x0,x19)] (by decide +kernel)
+def p284 := prefixPool s10 [(2,x0,x6)] (by decide +kernel)
+def p285 := prefixPool s10 [(2,x0,x6),(1,x15,x19)] (by decide +kernel)
+def p286 := prefixPool s10 [(2,x0,x6),(1,x15,x5)] (by decide +kernel)
+def p287 := prefixPool s10 [(2,x0,x6),(3,x0,x6)] (by decide +kernel)
+def p288 := prefixPool s10 [(2,x19,x5)] (by decide +kernel)
+def p289 := prefixPool s10 [(2,x19,x6)] (by decide +kernel)
+def p290 := prefixPool s10 [(2,x5,x6)] (by decide +kernel)
+def p291 := prefixPool s10 [(2,x5,x6),(1,x41,x0)] (by decide +kernel)
+def p292 := prefixPool s10 [(2,x5,x6),(1,x0,x5)] (by decide +kernel)
+def p293 := prefixPool s10 [(2,x5,x6),(3,x5,x6)] (by decide +kernel)
+def p294 := prefixPool s10 [(3,x0,x19)] (by decide +kernel)
+def p295 := prefixPool s10 [(3,x0,x19),(1,x42,x5)] (by decide +kernel)
+def p296 := prefixPool s10 [(3,x0,x5)] (by decide +kernel)
+def p297 := prefixPool s10 [(3,x0,x5),(1,x43,x6)] (by decide +kernel)
+def p298 := prefixPool s10 [(3,x0,x5),(1,x5,x6)] (by decide +kernel)
+def p299 := prefixPool s10 [(3,x0,x5),(2,x43,x6)] (by decide +kernel)
+def p300 := prefixPool s10 [(3,x0,x6)] (by decide +kernel)
+def p301 := prefixPool s10 [(3,x0,x6),(1,x44,x5)] (by decide +kernel)
+def p302 := prefixPool s10 [(3,x0,x6),(1,x5,x6)] (by decide +kernel)
+def p303 := prefixPool s10 [(3,x19,x5),(1,x5,x6)] (by decide +kernel)
+def p304 := prefixPool s10 [(3,x19,x6),(1,x5,x6)] (by decide +kernel)
+def p305 := prefixPool s10 [(3,x5,x6)] (by decide +kernel)
+def p306 := prefixPool s11 [] (by decide +kernel)
+def p307 := prefixPool s11 [(1,x0,x3)] (by decide +kernel)
+def p308 := prefixPool s11 [(1,x5,x6)] (by decide +kernel)
+def p309 := prefixPool s12 [] (by decide +kernel)
+def p310 := prefixPool s12 [(0,x0,x3)] (by decide +kernel)
+def p311 := prefixPool s12 [(0,x0,x6)] (by decide +kernel)
+def p312 := prefixPool s12 [(0,x3,x5)] (by decide +kernel)
+def p313 := prefixPool s12 [(0,x3,x5),(1,x3,x5)] (by decide +kernel)
+def p314 := prefixPool s12 [(1,x0,x3)] (by decide +kernel)
+def p315 := prefixPool s12 [(1,x0,x3),(1,x0,x5)] (by decide +kernel)
+def p316 := prefixPool s12 [(1,x0,x3),(1,x0,x5),(1,x3,x5)] (by decide +kernel)
+def p317 := prefixPool s12 [(1,x0,x3),(1,x0,x5),(1,x10,x6)] (by decide +kernel)
+def p318 := prefixPool s12 [(1,x0,x3),(1,x3,x5)] (by decide +kernel)
+def p319 := prefixPool s12 [(1,x0,x3),(1,x9,x5)] (by decide +kernel)
+def p320 := prefixPool s12 [(1,x0,x3),(1,x9,x6)] (by decide +kernel)
+def p321 := prefixPool s12 [(1,x0,x3),(1,x9,x6),(1,x5,x6)] (by decide +kernel)
+def p322 := prefixPool s12 [(1,x0,x3),(1,x5,x6)] (by decide +kernel)
+def p323 := prefixPool s12 [(1,x0,x3),(2,x9,x5)] (by decide +kernel)
+def p324 := prefixPool s12 [(1,x0,x3),(2,x9,x5),(1,x9,x5)] (by decide +kernel)
+def p325 := prefixPool s12 [(1,x0,x3),(2,x9,x6)] (by decide +kernel)
+def p326 := prefixPool s12 [(1,x0,x3),(3,x9,x5)] (by decide +kernel)
+def p327 := prefixPool s12 [(1,x0,x5)] (by decide +kernel)
+def p328 := prefixPool s12 [(1,x0,x5),(1,x3,x5)] (by decide +kernel)
+def p329 := prefixPool s12 [(1,x0,x5),(1,x5,x6)] (by decide +kernel)
+def p330 := prefixPool s12 [(1,x0,x5),(1,x10,x6)] (by decide +kernel)
+def p331 := prefixPool s12 [(1,x0,x5),(3,x10,x6)] (by decide +kernel)
+def p332 := prefixPool s12 [(1,x0,x6)] (by decide +kernel)
+def p333 := prefixPool s12 [(1,x0,x6),(1,x3,x6)] (by decide +kernel)
+def p334 := prefixPool s12 [(1,x0,x6),(1,x5,x6)] (by decide +kernel)
+def p335 := prefixPool s12 [(1,x0,x6),(2,x38,x5)] (by decide +kernel)
+def p336 := prefixPool s12 [(1,x3,x5)] (by decide +kernel)
+def p337 := prefixPool s12 [(1,x3,x5),(1,x3,x6),(1,x5,x6)] (by decide +kernel)
+def p338 := prefixPool s12 [(1,x3,x5),(1,x5,x6)] (by decide +kernel)
+def p339 := prefixPool s12 [(1,x3,x5),(1,x12,x6)] (by decide +kernel)
+def p340 := prefixPool s12 [(1,x3,x5),(2,x12,x0)] (by decide +kernel)
+def p341 := prefixPool s12 [(1,x3,x5),(2,x12,x6)] (by decide +kernel)
+def p342 := prefixPool s12 [(1,x3,x6)] (by decide +kernel)
+def p343 := prefixPool s12 [(1,x3,x6),(1,x5,x6)] (by decide +kernel)
+def p344 := prefixPool s12 [(1,x5,x6)] (by decide +kernel)
+def p345 := prefixPool s12 [(1,x5,x6),(0,x13,x3)] (by decide +kernel)
+def p346 := prefixPool s12 [(1,x5,x6),(2,x13,x0)] (by decide +kernel)
+def p347 := prefixPool s12 [(1,x5,x6),(2,x13,x3)] (by decide +kernel)
+def p348 := prefixPool s12 [(2,x0,x3)] (by decide +kernel)
+def p349 := prefixPool s12 [(2,x0,x3),(3,x0,x3)] (by decide +kernel)
+def p350 := prefixPool s12 [(2,x0,x6)] (by decide +kernel)
+def p351 := prefixPool s12 [(2,x3,x5)] (by decide +kernel)
+def p352 := prefixPool s12 [(2,x3,x5),(1,x30,x0)] (by decide +kernel)
+def p353 := prefixPool s12 [(2,x3,x6)] (by decide +kernel)
+def p354 := prefixPool s12 [(2,x3,x6),(1,x31,x5)] (by decide +kernel)
+def p355 := prefixPool s12 [(2,x3,x6),(1,x0,x3)] (by decide +kernel)
+def p356 := prefixPool s12 [(2,x5,x6)] (by decide +kernel)
+def p357 := prefixPool s12 [(3,x0,x3)] (by decide +kernel)
+def p358 := prefixPool s12 [(3,x0,x3),(1,x45,x5)] (by decide +kernel)
+def p359 := prefixPool s12 [(3,x0,x3),(1,x3,x5)] (by decide +kernel)
+def p360 := prefixPool s12 [(3,x0,x3),(2,x45,x5)] (by decide +kernel)
+def p361 := prefixPool s12 [(3,x0,x3),(2,x45,x6)] (by decide +kernel)
+def p362 := prefixPool s12 [(3,x0,x5)] (by decide +kernel)
+def p363 := prefixPool s12 [(3,x0,x5),(2,x43,x6)] (by decide +kernel)
+def p364 := prefixPool s12 [(3,x0,x6),(1,x3,x6)] (by decide +kernel)
+def p365 := prefixPool s12 [(3,x0,x6),(1,x5,x6)] (by decide +kernel)
+def p366 := prefixPool s12 [(3,x3,x5)] (by decide +kernel)
+def p367 := prefixPool s12 [(3,x3,x6)] (by decide +kernel)
+def p368 := prefixPool s13 [] (by decide +kernel)
+def p369 := prefixPool s13 [(0,x3,x6)] (by decide +kernel)
+def p370 := prefixPool s13 [(0,x3,x6),(1,x3,x6)] (by decide +kernel)
+def p371 := prefixPool s13 [(1,x0,x3)] (by decide +kernel)
+def p372 := prefixPool s13 [(1,x0,x3),(1,x9,x6)] (by decide +kernel)
+def p373 := prefixPool s13 [(1,x0,x6),(2,x38,x3)] (by decide +kernel)
+def p374 := prefixPool s13 [(1,x3,x19)] (by decide +kernel)
+def p375 := prefixPool s13 [(1,x3,x19),(3,x25,x6)] (by decide +kernel)
+def p376 := prefixPool s13 [(1,x3,x6)] (by decide +kernel)
+def p377 := prefixPool s13 [(1,x3,x6),(2,x27,x0)] (by decide +kernel)
+def p378 := prefixPool s13 [(1,x3,x6),(2,x27,x19)] (by decide +kernel)
+def p379 := prefixPool s13 [(2,x3,x19),(2,x46,x6)] (by decide +kernel)
+def p380 := prefixPool s13 [(2,x3,x6)] (by decide +kernel)
+def p381 := prefixPool s13 [(3,x3,x19)] (by decide +kernel)
+def p382 := prefixPool s13 [(3,x3,x6)] (by decide +kernel)
+def p383 := prefixPool s14 [] (by decide +kernel)
+def p384 := prefixPool s14 [(1,x0,x3)] (by decide +kernel)
+def p385 := prefixPool s14 [(1,x0,x3),(1,x9,x5)] (by decide +kernel)
+def p386 := prefixPool s14 [(1,x0,x3),(2,x9,x5)] (by decide +kernel)
+def p387 := prefixPool s14 [(1,x0,x5)] (by decide +kernel)
+def p388 := prefixPool s14 [(1,x0,x5),(1,x3,x5)] (by decide +kernel)
+def p389 := prefixPool s14 [(1,x3,x19)] (by decide +kernel)
+def p390 := prefixPool s14 [(1,x3,x5)] (by decide +kernel)
+def p391 := prefixPool s14 [(1,x3,x5),(2,x12,x0)] (by decide +kernel)
+def p392 := prefixPool s14 [(1,x3,x5),(2,x12,x19)] (by decide +kernel)
+def p393 := prefixPool s14 [(1,x19,x5)] (by decide +kernel)
+def p394 := prefixPool s14 [(2,x3,x19),(2,x46,x5)] (by decide +kernel)
+def p395 := prefixPool s14 [(2,x3,x5)] (by decide +kernel)
+def p396 := prefixPool s14 [(3,x3,x5)] (by decide +kernel)
+def p397 := prefixPool s14 [(3,x3,x5),(1,x18,x19)] (by decide +kernel)
+def p398 := prefixPool s15 [] (by decide +kernel)
+def p399 := prefixPool s15 [(1,x5,x6)] (by decide +kernel)
+def p400 := prefixPool s16 [] (by decide +kernel)
+def p401 := prefixPool s16 [(0,x1,x19)] (by decide +kernel)
+def p402 := prefixPool s17 [] (by decide +kernel)
+def p403 := prefixPool s18 [] (by decide +kernel)
+def p404 := prefixPool s19 [] (by decide +kernel)
+def p405 := prefixPool s19 [(1,x0,x5)] (by decide +kernel)
+def p406 := prefixPool s19 [(3,x0,x1)] (by decide +kernel)
+def p407 := prefixPool s20 [] (by decide +kernel)
+def p408 := prefixPool s20 [(0,x0,x1)] (by decide +kernel)
+def p409 := prefixPool s20 [(0,x1,x3)] (by decide +kernel)
+def p410 := prefixPool s20 [(0,x1,x3),(1,x4,x0)] (by decide +kernel)
+def p411 := prefixPool s20 [(0,x1,x3),(1,x4,x6)] (by decide +kernel)
+def p412 := prefixPool s20 [(0,x1,x3),(1,x1,x3)] (by decide +kernel)
+def p413 := prefixPool s20 [(0,x1,x3),(2,x4,x6)] (by decide +kernel)
+def p414 := prefixPool s20 [(0,x1,x3),(3,x4,x6)] (by decide +kernel)
+def p415 := prefixPool s20 [(0,x1,x6)] (by decide +kernel)
+def p416 := prefixPool s20 [(0,x1,x6),(1,x0,x3)] (by decide +kernel)
+def p417 := prefixPool s20 [(0,x1,x6),(1,x34,x0)] (by decide +kernel)
+def p418 := prefixPool s20 [(0,x1,x6),(1,x34,x3)] (by decide +kernel)
+def p419 := prefixPool s20 [(0,x1,x6),(3,x34,x3)] (by decide +kernel)
+def p420 := prefixPool s20 [(0,x3,x6)] (by decide +kernel)
+def p421 := prefixPool s20 [(0,x3,x6),(1,x3,x6)] (by decide +kernel)
+def p422 := prefixPool s20 [(1,x0,x1)] (by decide +kernel)
+def p423 := prefixPool s20 [(1,x0,x1),(1,x0,x3)] (by decide +kernel)
+def p424 := prefixPool s20 [(1,x0,x1),(1,x0,x6)] (by decide +kernel)
+def p425 := prefixPool s20 [(1,x0,x3)] (by decide +kernel)
+def p426 := prefixPool s20 [(1,x0,x3),(0,x9,x1)] (by decide +kernel)
+def p427 := prefixPool s20 [(1,x0,x3),(0,x9,x1),(1,x0,x1)] (by decide +kernel)
+def p428 := prefixPool s20 [(1,x0,x3),(1,x0,x6)] (by decide +kernel)
+def p429 := prefixPool s20 [(1,x0,x3),(1,x3,x6)] (by decide +kernel)
+def p430 := prefixPool s20 [(1,x0,x3),(1,x9,x6)] (by decide +kernel)
+def p431 := prefixPool s20 [(1,x0,x3),(2,x9,x6)] (by decide +kernel)
+def p432 := prefixPool s20 [(1,x0,x6)] (by decide +kernel)
+def p433 := prefixPool s20 [(1,x0,x6),(0,x38,x1)] (by decide +kernel)
+def p434 := prefixPool s20 [(1,x0,x6),(0,x38,x1),(1,x0,x1)] (by decide +kernel)
+def p435 := prefixPool s20 [(1,x0,x6),(0,x38,x3)] (by decide +kernel)
+def p436 := prefixPool s20 [(1,x0,x6),(1,x3,x6)] (by decide +kernel)
+def p437 := prefixPool s20 [(1,x0,x6),(2,x38,x1)] (by decide +kernel)
+def p438 := prefixPool s20 [(1,x0,x6),(2,x38,x3)] (by decide +kernel)
+def p439 := prefixPool s20 [(1,x1,x3)] (by decide +kernel)
+def p440 := prefixPool s20 [(1,x3,x6)] (by decide +kernel)
+def p441 := prefixPool s20 [(1,x3,x6),(0,x27,x1)] (by decide +kernel)
+def p442 := prefixPool s20 [(1,x3,x6),(2,x27,x0)] (by decide +kernel)
+def p443 := prefixPool s20 [(2,x1,x3)] (by decide +kernel)
+def p444 := prefixPool s20 [(2,x1,x3),(0,x35,x6)] (by decide +kernel)
+def p445 := prefixPool s20 [(2,x1,x3),(2,x35,x6)] (by decide +kernel)
+def p446 := prefixPool s20 [(2,x1,x3),(3,x0,x1)] (by decide +kernel)
+def p447 := prefixPool s20 [(2,x1,x6)] (by decide +kernel)
+def p448 := prefixPool s20 [(2,x1,x6),(1,x47,x0)] (by decide +kernel)
+def p449 := prefixPool s20 [(2,x1,x6),(3,x0,x1)] (by decide +kernel)
+def p450 := prefixPool s20 [(2,x3,x6)] (by decide +kernel)
+def p451 := prefixPool s20 [(2,x3,x6),(1,x31,x0)] (by decide +kernel)
+def p452 := prefixPool s20 [(2,x3,x6),(1,x0,x3)] (by decide +kernel)
+def p453 := prefixPool s20 [(2,x3,x6),(3,x0,x1)] (by decide +kernel)
+def p454 := prefixPool s20 [(3,x0,x1)] (by decide +kernel)
+def p455 := prefixPool s20 [(3,x0,x1),(2,x17,x3)] (by decide +kernel)
+def p456 := prefixPool s20 [(3,x0,x1),(2,x17,x6)] (by decide +kernel)
+def p457 := prefixPool s20 [(3,x0,x3)] (by decide +kernel)
+def p458 := prefixPool s20 [(3,x0,x3),(1,x0,x3)] (by decide +kernel)
+def p459 := prefixPool s20 [(3,x0,x3),(3,x45,x6)] (by decide +kernel)
+def p460 := prefixPool s20 [(3,x0,x6)] (by decide +kernel)
+def p461 := prefixPool s20 [(3,x0,x6),(1,x44,x3)] (by decide +kernel)
+def p462 := prefixPool s20 [(3,x0,x6),(1,x3,x6)] (by decide +kernel)
+def p463 := prefixPool s20 [(3,x0,x6),(3,x44,x1)] (by decide +kernel)
+def p464 := prefixPool s20 [(3,x3,x6)] (by decide +kernel)
+def p465 := prefixPool s20 [(3,x3,x6),(1,x32,x0)] (by decide +kernel)
+def p466 := prefixPool s20 [(3,x3,x6),(1,x32,x1)] (by decide +kernel)
+def p467 := prefixPool s20 [(3,x3,x6),(1,x0,x6)] (by decide +kernel)
+def p468 := prefixPool s20 [(3,x3,x6),(3,x0,x1)] (by decide +kernel)
+def p469 := prefixPool s21 [] (by decide +kernel)
+def p470 := prefixPool s21 [(0,x0,x1)] (by decide +kernel)
+def p471 := prefixPool s21 [(0,x1,x3)] (by decide +kernel)
+def p472 := prefixPool s21 [(0,x1,x3),(1,x4,x0)] (by decide +kernel)
+def p473 := prefixPool s21 [(0,x1,x3),(1,x4,x5)] (by decide +kernel)
+def p474 := prefixPool s21 [(0,x1,x3),(3,x4,x5)] (by decide +kernel)
+def p475 := prefixPool s21 [(0,x1,x5)] (by decide +kernel)
+def p476 := prefixPool s21 [(0,x1,x5),(1,x0,x3)] (by decide +kernel)
+def p477 := prefixPool s21 [(0,x1,x5),(1,x7,x0)] (by decide +kernel)
+def p478 := prefixPool s21 [(0,x1,x5),(1,x7,x3)] (by decide +kernel)
+def p479 := prefixPool s21 [(0,x3,x5)] (by decide +kernel)
+def p480 := prefixPool s21 [(0,x3,x5),(1,x26,x0)] (by decide +kernel)
+def p481 := prefixPool s21 [(1,x0,x1)] (by decide +kernel)
+def p482 := prefixPool s21 [(1,x0,x1),(1,x0,x3)] (by decide +kernel)
+def p483 := prefixPool s21 [(1,x0,x3)] (by decide +kernel)
+def p484 := prefixPool s21 [(1,x0,x3),(0,x9,x1)] (by decide +kernel)
+def p485 := prefixPool s21 [(1,x0,x3),(0,x9,x1),(1,x0,x1)] (by decide +kernel)
+def p486 := prefixPool s21 [(1,x0,x3),(1,x0,x5)] (by decide +kernel)
+def p487 := prefixPool s21 [(1,x0,x3),(1,x9,x5)] (by decide +kernel)
+def p488 := prefixPool s21 [(1,x0,x5)] (by decide +kernel)
+def p489 := prefixPool s21 [(1,x0,x5),(0,x10,x1)] (by decide +kernel)
+def p490 := prefixPool s21 [(1,x0,x5),(1,x3,x5)] (by decide +kernel)
+def p491 := prefixPool s21 [(1,x0,x5),(2,x10,x3)] (by decide +kernel)
+def p492 := prefixPool s21 [(1,x1,x3)] (by decide +kernel)
+def p493 := prefixPool s21 [(1,x3,x5)] (by decide +kernel)
+def p494 := prefixPool s21 [(1,x3,x5),(0,x12,x1)] (by decide +kernel)
+def p495 := prefixPool s21 [(1,x3,x5),(2,x12,x0)] (by decide +kernel)
+def p496 := prefixPool s21 [(2,x0,x3)] (by decide +kernel)
+def p497 := prefixPool s21 [(2,x1,x3)] (by decide +kernel)
+def p498 := prefixPool s21 [(2,x1,x3),(3,x0,x1)] (by decide +kernel)
+def p499 := prefixPool s21 [(2,x1,x5)] (by decide +kernel)
+def p500 := prefixPool s21 [(2,x3,x5),(1,x30,x0)] (by decide +kernel)
+def p501 := prefixPool s21 [(3,x0,x1)] (by decide +kernel)
+def p502 := prefixPool s21 [(3,x0,x1),(1,x1,x3)] (by decide +kernel)
+def p503 := prefixPool s21 [(3,x0,x1),(1,x1,x5)] (by decide +kernel)
+def p504 := prefixPool s21 [(3,x0,x1),(1,x3,x5)] (by decide +kernel)
+def p505 := prefixPool s21 [(3,x0,x1),(2,x17,x3)] (by decide +kernel)
+def p506 := prefixPool s21 [(3,x0,x3)] (by decide +kernel)
+def p507 := prefixPool s21 [(3,x0,x3),(1,x45,x5)] (by decide +kernel)
+def p508 := prefixPool s21 [(3,x0,x3),(1,x3,x5)] (by decide +kernel)
+def p509 := prefixPool s21 [(3,x0,x3),(3,x45,x1)] (by decide +kernel)
+def p510 := prefixPool s21 [(3,x1,x5),(1,x0,x3),(0,x9,x1)] (by decide +kernel)
+def p511 := prefixPool s21 [(3,x3,x5)] (by decide +kernel)
+def p512 := prefixPool s21 [(3,x3,x5),(3,x0,x1)] (by decide +kernel)
+def p513 := prefixPool s22 [] (by decide +kernel)
+def p514 := prefixPool s22 [(0,x1,x19)] (by decide +kernel)
+def p515 := prefixPool s23 [] (by decide +kernel)
+def p516 := prefixPool s24 [] (by decide +kernel)
+def p517 := prefixPool s24 [(1,x0,x3)] (by decide +kernel)
+def p518 := prefixPool s26 [] (by decide +kernel)
+def p519 := prefixPool s40 [] (by decide +kernel)
+def p520 := prefixPool s50 [] (by decide +kernel)
+def p521 := prefixPool s54 [] (by decide +kernel)
+def p522 := prefixPool s58 [] (by decide +kernel)
+def p523 := prefixPool s62 [] (by decide +kernel)
+def p524 := prefixPool s65 [] (by decide +kernel)
+def p525 := prefixPool s66 [] (by decide +kernel)
+def p526 := prefixPool s72 [] (by decide +kernel)
+def p527 := prefixPool s76 [] (by decide +kernel)
+def p528 := prefixPool s80 [] (by decide +kernel)
+def p529 := prefixPool s84 [] (by decide +kernel)
+def p530 := prefixPool s89 [] (by decide +kernel)
+def p531 := prefixPool s90 [] (by decide +kernel)
+def p532 := prefixPool s96 [] (by decide +kernel)
+def p533 := prefixPool s100 [] (by decide +kernel)
+def p534 := prefixPool s104 [] (by decide +kernel)
+def p535 := prefixPool s116 [] (by decide +kernel)
+def p536 := prefixPool s120 [] (by decide +kernel)
+def p537 := prefixPool s120 [(0,x0,x19)] (by decide +kernel)
+def p538 := prefixPool s121 [] (by decide +kernel)
+def p539 := prefixPool s121 [(0,x0,x19)] (by decide +kernel)
+def p540 := prefixPool s124 [] (by decide +kernel)
+def p541 := prefixPool s125 [] (by decide +kernel)
+def p542 := prefixPool s135 [] (by decide +kernel)
+def p543 := prefixPool s139 [] (by decide +kernel)
+def p544 := prefixPool s142 [] (by decide +kernel)
+def p545 := prefixPool s145 [] (by decide +kernel)
+def p546 := prefixPool s152 [] (by decide +kernel)
+def p547 := prefixPool s152 [(2,x0,x3)] (by decide +kernel)
+def p548 := prefixPool s158 [] (by decide +kernel)
+def p549 := prefixPool s158 [(1,x0,x3)] (by decide +kernel)
+def p550 := prefixPool s162 [] (by decide +kernel)
+def p551 := prefixPool s170 [] (by decide +kernel)
+def p552 := prefixPool s170 [(0,x3,x5)] (by decide +kernel)
+def p553 := prefixPool s170 [(0,x3,x5),(1,x3,x5)] (by decide +kernel)
+def p554 := prefixPool s170 [(1,x3,x5)] (by decide +kernel)
+def p555 := prefixPool s170 [(2,x3,x5)] (by decide +kernel)
+def p556 := prefixPool s170 [(2,x3,x5),(0,x3,x5)] (by decide +kernel)
+def p557 := prefixPool s170 [(3,x3,x5)] (by decide +kernel)
+def q0 := usePool p0
+def q1 := usePool p1
+def q2 := usePool p2
+def q3 := usePool p3
+def q4 := usePool p4
+def q5 := usePool p5
+def q6 := usePool p6
+def q7 := usePool p8
+def q8 := usePool p9
+def q9 := usePool p10
+def q10 := usePool p12
+def q11 := usePool p13
+def q12 := usePool p14
+def q13 := usePool p15
+def q14 := usePool p16
+def q15 := usePool p17
+def q16 := usePool p18
+def q17 := usePool p19
+def q18 := usePool p20
+def q19 := usePool p21
+def q20 := usePool p22
+def q21 := usePool p23
+def q22 := usePool p26
+def q23 := usePool p27
+def q24 := usePool p28
+def q25 := usePool p29
+def q26 := usePool p30
+def q27 := usePool p31
+def q28 := usePool p32
+def q29 := usePool p33
+def q30 := usePool p34
+def q31 := usePool p35
+def q32 := usePool p36
+def q33 := usePool p38
+def q34 := usePool p39
+def q35 := usePool p40
+def q36 := usePool p41
+def q37 := usePool p42
+def q38 := usePool p43
+def q39 := usePool p44
+def q40 := usePool p45
+def q41 := usePool p46
+def q42 := usePool p47
+def q43 := usePool p48
+def q44 := usePool p49
+def q45 := usePool p50
+def q46 := usePool p51
+def q47 := usePool p52
+def q48 := usePool p53
+def q49 := usePool p54
+def q50 := usePool p55
+def q51 := usePool p56
+def q52 := usePool p57
+def q53 := usePool p58
+def q54 := usePool p59
+def q55 := usePool p61
+def q56 := usePool p62
+def q57 := usePool p63
+def q58 := usePool p64
+def q59 := usePool p65
+def q60 := usePool p66
+def q61 := usePool p67
+def q62 := usePool p68
+def q63 := usePool p71
+def q64 := usePool p72
+def q65 := usePool p73
+def q66 := usePool p74
+def q67 := usePool p75
+def q68 := usePool p76
+def q69 := usePool p77
+def q70 := usePool p78
+def q71 := usePool p79
+def q72 := usePool p80
+def q73 := usePool p81
+def q74 := usePool p87
+def q75 := usePool p88
+def q76 := usePool p89
+def q77 := usePool p90
+def q78 := usePool p91
+def q79 := usePool p92
+def q80 := usePool p93
+def q81 := usePool p94
+def q82 := usePool p95
+def q83 := usePool p98
+def q84 := usePool p99
+def q85 := usePool p100
+def q86 := usePool p101
+def q87 := usePool p102
+def q88 := usePool p103
+def q89 := usePool p104
+def q90 := usePool p105
+def q91 := usePool p106
+def q92 := usePool p107
+def q93 := usePool p108
+def q94 := usePool p109
+def q95 := usePool p110
+def q96 := usePool p111
+def q97 := usePool p112
+def q98 := usePool p113
+def q99 := usePool p114
+def q100 := usePool p115
+def q101 := usePool p116
+def q102 := usePool p117
+def q103 := usePool p118
+def q104 := usePool p119
+def q105 := usePool p120
+def q106 := usePool p121
+def q107 := usePool p122
+def q108 := usePool p123
+def q109 := usePool p124
+def q110 := usePool p125
+def q111 := usePool p126
+def q112 := usePool p127
+def q113 := usePool p128
+def q114 := usePool p129
+def q115 := usePool p130
+def q116 := usePool p131
+def q117 := usePool p132
+def q118 := usePool p133
+def q119 := usePool p134
+def q120 := usePool p135
+def q121 := usePool p136
+def q122 := usePool p137
+def q123 := usePool p138
+def q124 := usePool p139
+def q125 := usePool p140
+def q126 := usePool p141
+def q127 := usePool p142
+def q128 := usePool p143
+def q129 := usePool p144
+def q130 := usePool p145
+def q131 := usePool p146
+def q132 := usePool p147
+def q133 := usePool p148
+def q134 := usePool p149
+def q135 := usePool p150
+def q136 := usePool p151
+def q137 := usePool p152
+def q138 := usePool p153
+def q139 := usePool p154
+def q140 := usePool p155
+def q141 := usePool p156
+def q142 := usePool p157
+def q143 := usePool p158
+def q144 := usePool p159
+def q145 := usePool p160
+def q146 := usePool p161
+def q147 := joinPools p162 p84
+def q148 := usePool p163
+def q149 := usePool p164
+def q150 := usePool p165
+def q151 := usePool p166
+def q152 := usePool p167
+def q153 := usePool p168
+def q154 := usePool p169
+def q155 := usePool p170
+def q156 := usePool p171
+def q157 := usePool p172
+def q158 := usePool p173
+def q159 := usePool p174
+def q160 := usePool p175
+def q161 := usePool p176
+def q162 := usePool p177
+def q163 := usePool p178
+def q164 := usePool p179
+def q165 := usePool p180
+def q166 := usePool p181
+def q167 := usePool p182
+def q168 := usePool p183
+def q169 := usePool p184
+def q170 := usePool p185
+def q171 := usePool p186
+def q172 := usePool p187
+def q173 := usePool p188
+def q174 := usePool p189
+def q175 := usePool p190
+def q176 := usePool p191
+def q177 := usePool p192
+def q178 := usePool p193
+def q179 := usePool p194
+def q180 := usePool p195
+def q181 := usePool p196
+def q182 := usePool p197
+def q183 := usePool p198
+def q184 := joinPools p199 p86
+def q185 := usePool p200
+def q186 := usePool p201
+def q187 := usePool p202
+def q188 := usePool p203
+def q189 := usePool p204
+def q190 := usePool p205
+def q191 := usePool p206
+def q192 := usePool p207
+def q193 := usePool p208
+def q194 := usePool p209
+def q195 := usePool p210
+def q196 := usePool p211
+def q197 := usePool p212
+def q198 := usePool p213
+def q199 := usePool p214
+def q200 := usePool p215
+def q201 := usePool p216
+def q202 := usePool p217
+def q203 := usePool p218
+def q204 := usePool p219
+def q205 := usePool p220
+def q206 := usePool p221
+def q207 := usePool p222
+def q208 := usePool p223
+def q209 := usePool p224
+def q210 := usePool p225
+def q211 := usePool p226
+def q212 := usePool p227
+def q213 := usePool p228
+def q214 := usePool p229
+def q215 := usePool p230
+def q216 := usePool p231
+def q217 := usePool p232
+def q218 := usePool p233
+def q219 := usePool p234
+def q220 := usePool p235
+def q221 := usePool p236
+def q222 := usePool p237
+def q223 := usePool p238
+def q224 := usePool p239
+def q225 := usePool p240
+def q226 := usePool p241
+def q227 := usePool p242
+def q228 := usePool p243
+def q229 := usePool p244
+def q230 := usePool p245
+def q231 := usePool p246
+def q232 := usePool p247
+def q233 := usePool p248
+def q234 := usePool p249
+def q235 := usePool p250
+def q236 := usePool p251
+def q237 := usePool p252
+def q238 := usePool p253
+def q239 := usePool p254
+def q240 := usePool p255
+def q241 := usePool p256
+def q242 := usePool p257
+def q243 := usePool p258
+def q244 := usePool p259
+def q245 := usePool p260
+def q246 := usePool p261
+def q247 := usePool p262
+def q248 := usePool p263
+def q249 := usePool p264
+def q250 := usePool p265
+def q251 := usePool p266
+def q252 := usePool p267
+def q253 := usePool p268
+def q254 := usePool p269
+def q255 := usePool p270
+def q256 := usePool p271
+def q257 := usePool p272
+def q258 := usePool p273
+def q259 := usePool p274
+def q260 := usePool p275
+def q261 := usePool p276
+def q262 := usePool p277
+def q263 := usePool p278
+def q264 := usePool p279
+def q265 := usePool p280
+def q266 := usePool p281
+def q267 := usePool p282
+def q268 := usePool p283
+def q269 := usePool p284
+def q270 := usePool p285
+def q271 := usePool p286
+def q272 := usePool p287
+def q273 := usePool p288
+def q274 := usePool p289
+def q275 := usePool p290
+def q276 := usePool p291
+def q277 := usePool p292
+def q278 := usePool p293
+def q279 := usePool p294
+def q280 := usePool p295
+def q281 := usePool p296
+def q282 := usePool p297
+def q283 := usePool p298
+def q284 := usePool p299
+def q285 := usePool p300
+def q286 := usePool p301
+def q287 := usePool p302
+def q288 := usePool p303
+def q289 := usePool p304
+def q290 := usePool p305
+def q291 := usePool p306
+def q292 := usePool p308
+def q293 := usePool p309
+def q294 := joinPools p309 p4
+def q295 := joinPools p309 p68
+def q296 := usePool p310
+def q297 := usePool p311
+def q298 := usePool p312
+def q299 := usePool p313
+def q300 := usePool p314
+def q301 := joinPools p314 p8
+def q302 := joinPools p314 p23
+def q303 := usePool p315
+def q304 := joinPools p315 p24
+def q305 := joinPools p316 p25
+def q306 := joinPools p317 p307
+def q307 := usePool p318
+def q308 := usePool p319
+def q309 := joinPools p319 p410
+def q310 := joinPools p319 p426
+def q311 := usePool p320
+def q312 := joinPools p321 p485
+def q313 := joinPools p321 p510
+def q314 := joinPools p322 p416
+def q315 := joinPools p322 p476
+def q316 := usePool p323
+def q317 := joinPools p324 p427
+def q318 := usePool p325
+def q319 := usePool p326
+def q320 := usePool p327
+def q321 := usePool p328
+def q322 := joinPools p328 p7
+def q323 := joinPools p328 p70
+def q324 := usePool p329
+def q325 := usePool p330
+def q326 := joinPools p330 p417
+def q327 := joinPools p330 p477
+def q328 := joinPools p330 p489
+def q329 := usePool p331
+def q330 := usePool p332
+def q331 := usePool p333
+def q332 := usePool p334
+def q333 := usePool p335
+def q334 := usePool p336
+def q335 := joinPools p336 p11
+def q336 := joinPools p336 p37
+def q337 := joinPools p336 p409
+def q338 := joinPools p336 p454
+def q339 := usePool p337
+def q340 := usePool p338
+def q341 := joinPools p338 p412
+def q342 := usePool p339
+def q343 := joinPools p339 p494
+def q344 := joinPools p339 p504
+def q345 := usePool p340
+def q346 := usePool p341
+def q347 := joinPools p341 p453
+def q348 := usePool p342
+def q349 := joinPools p342 p10
+def q350 := joinPools p342 p471
+def q351 := usePool p343
+def q352 := joinPools p343 p502
+def q353 := joinPools p343 p503
+def q354 := usePool p344
+def q355 := joinPools p344 p415
+def q356 := joinPools p344 p454
+def q357 := joinPools p344 p475
+def q358 := usePool p345
+def q359 := usePool p346
+def q360 := usePool p347
+def q361 := joinPools p347 p468
+def q362 := joinPools p347 p512
+def q363 := usePool p348
+def q364 := joinPools p348 p60
+def q365 := usePool p349
+def q366 := usePool p350
+def q367 := usePool p351
+def q368 := usePool p352
+def q369 := usePool p353
+def q370 := usePool p354
+def q371 := usePool p355
+def q372 := usePool p356
+def q373 := usePool p357
+def q374 := joinPools p357 p69
+def q375 := usePool p358
+def q376 := usePool p359
+def q377 := usePool p360
+def q378 := usePool p361
+def q379 := usePool p362
+def q380 := usePool p363
+def q381 := usePool p364
+def q382 := usePool p365
+def q383 := usePool p366
+def q384 := usePool p367
+def q385 := usePool p368
+def q386 := usePool p369
+def q387 := usePool p370
+def q388 := usePool p371
+def q389 := joinPools p372 p83
+def q390 := joinPools p373 p82
+def q391 := usePool p374
+def q392 := usePool p375
+def q393 := usePool p376
+def q394 := joinPools p377 p83
+def q395 := usePool p378
+def q396 := usePool p379
+def q397 := usePool p380
+def q398 := usePool p381
+def q399 := usePool p382
+def q400 := usePool p383
+def q401 := usePool p384
+def q402 := usePool p385
+def q403 := usePool p386
+def q404 := usePool p387
+def q405 := usePool p388
+def q406 := usePool p389
+def q407 := usePool p390
+def q408 := usePool p391
+def q409 := usePool p392
+def q410 := usePool p393
+def q411 := usePool p394
+def q412 := usePool p395
+def q413 := usePool p396
+def q414 := usePool p397
+def q415 := usePool p398
+def q416 := usePool p399
+def q417 := usePool p400
+def q418 := usePool p401
+def q419 := usePool p402
+def q420 := usePool p403
+def q421 := usePool p404
+def q422 := usePool p405
+def q423 := usePool p406
+def q424 := usePool p407
+def q425 := usePool p408
+def q426 := usePool p409
+def q427 := usePool p410
+def q428 := usePool p411
+def q429 := usePool p412
+def q430 := usePool p413
+def q431 := usePool p414
+def q432 := usePool p415
+def q433 := usePool p417
+def q434 := usePool p418
+def q435 := usePool p419
+def q436 := usePool p420
+def q437 := usePool p421
+def q438 := usePool p422
+def q439 := usePool p423
+def q440 := usePool p424
+def q441 := usePool p425
+def q442 := usePool p426
+def q443 := usePool p427
+def q444 := usePool p428
+def q445 := usePool p429
+def q446 := usePool p430
+def q447 := usePool p431
+def q448 := usePool p432
+def q449 := usePool p433
+def q450 := usePool p434
+def q451 := usePool p435
+def q452 := usePool p436
+def q453 := usePool p437
+def q454 := usePool p438
+def q455 := joinPools p438 p85
+def q456 := usePool p439
+def q457 := usePool p440
+def q458 := usePool p441
+def q459 := usePool p442
+def q460 := usePool p443
+def q461 := usePool p444
+def q462 := usePool p445
+def q463 := usePool p446
+def q464 := usePool p447
+def q465 := usePool p448
+def q466 := usePool p449
+def q467 := usePool p450
+def q468 := usePool p451
+def q469 := usePool p452
+def q470 := usePool p454
+def q471 := usePool p455
+def q472 := usePool p456
+def q473 := usePool p457
+def q474 := usePool p458
+def q475 := usePool p459
+def q476 := usePool p460
+def q477 := usePool p461
+def q478 := usePool p462
+def q479 := usePool p463
+def q480 := usePool p464
+def q481 := usePool p465
+def q482 := usePool p466
+def q483 := usePool p467
+def q484 := usePool p469
+def q485 := usePool p470
+def q486 := usePool p471
+def q487 := usePool p472
+def q488 := usePool p473
+def q489 := usePool p474
+def q490 := usePool p478
+def q491 := usePool p479
+def q492 := usePool p480
+def q493 := usePool p481
+def q494 := usePool p482
+def q495 := usePool p483
+def q496 := usePool p484
+def q497 := usePool p486
+def q498 := usePool p487
+def q499 := usePool p488
+def q500 := usePool p490
+def q501 := usePool p491
+def q502 := usePool p492
+def q503 := usePool p493
+def q504 := usePool p495
+def q505 := usePool p496
+def q506 := usePool p497
+def q507 := usePool p498
+def q508 := usePool p499
+def q509 := usePool p500
+def q510 := usePool p501
+def q511 := usePool p505
+def q512 := usePool p506
+def q513 := usePool p507
+def q514 := usePool p508
+def q515 := usePool p509
+def q516 := usePool p511
+def q517 := usePool p513
+def q518 := usePool p514
+def q519 := usePool p515
+def q520 := usePool p516
+def q521 := usePool p517
+def q522 := usePool p518
+def q523 := usePool p519
+def q524 := usePool p520
+def q525 := usePool p521
+def q526 := usePool p522
+def q527 := usePool p523
+def q528 := usePool p524
+def q529 := usePool p525
+def q530 := usePool p526
+def q531 := usePool p527
+def q532 := usePool p528
+def q533 := usePool p529
+def q534 := usePool p530
+def q535 := usePool p531
+def q536 := usePool p532
+def q537 := usePool p533
+def q538 := usePool p534
+def q539 := usePool p535
+def q540 := usePool p536
+def q541 := joinPools p536 p81
+def q542 := usePool p537
+def q543 := usePool p538
+def q544 := joinPools p538 p93
+def q545 := usePool p539
+def q546 := usePool p540
+def q547 := usePool p541
+def q548 := usePool p542
+def q549 := usePool p543
+def q550 := usePool p544
+def q551 := usePool p545
+def q552 := usePool p546
+def q553 := joinPools p547 p96
+def q554 := joinPools p547 p97
+def q555 := usePool p548
+def q556 := usePool p549
+def q557 := usePool p550
+def q558 := usePool p551
+def q559 := usePool p552
+def q560 := usePool p553
+def q561 := usePool p554
+def q562 := usePool p555
+def q563 := usePool p556
+def q564 := usePool p557
+def cc (k : Nat) (w : List (Observed (asRow Pos) (asRow Neg))) (ps : List (ChosenPool R T))
+    (ns : List (Closed T (k-1))) (h : stateCheck k w (fun _ => (ps,ns)) = true) : Closed T k :=
+  closeState (raw := R) correctPairs k w (fun _ => (ps,ns)) h
+def n0 := cc 8 [w0,w1,w7,w3,w8,w4,w5] [q2,q94,q164,q208,q300] [] (by decide +kernel)
+def n1 := cc 9 [w0,w1,w2,w7,w3,w4,w5] [q0,q133,q134,q138,q187,q229,q300] [n0] (by decide +kernel)
+def n2 := cc 8 [w9,w0,w1,w2,w3,w4,w5] [q94,q164,q208,q279] [] (by decide +kernel)
+def n3 := cc 9 [w6,w0,w1,w2,w3,w8,w4,w5] [q1,q94,q164,q208,q229,q293] [n2,n0] (by decide +kernel)
+def n4 := cc 10 [w6,w0,w1,w2,w3,w4,w5] [q0,q86,q138,q187,q229,q293] [n3,n1] (by decide +kernel)
+def n5 := cc 10 [w0,w1,w10,w2,w3,w4,w5] [q86,q229,q293,q385,q400] [] (by decide +kernel)
+def n6 := cc 9 [w0,w1,w2,w12,w4,w5] [q0,q86,q138,q187] [] (by decide +kernel)
+def n7 := cc 9 [w0,w1,w13,w2,w4,w5] [q86,q138,q187,q229] [] (by decide +kernel)
+def n8 := cc 10 [w11,w0,w1,w2,w3,w4,w5] [q86,q138,q187,q229,q293] [n7,n6] (by decide +kernel)
+def n9 := cc 8 [w15,w0,w16,w2,w3,w4,w5] [q86,q133,q229,q540,q543] [] (by decide +kernel)
+def n10 := cc 8 [w0,w1,w2,w3,w4,w17,w5] [q73,q80,q119,q214,q267,q316,q471] [] (by decide +kernel)
+def n11 := cc 8 [w18,w0,w1,w2,w3,w4,w5] [q73,q80,q107,q169,q213,q251,q311,q511] [] (by decide +kernel)
+def n12 := cc 8 [w15,w0,w1,w2,w3,w4,w5,w19] [q73,q114,q213,q261,q300,q354,q471,q511,q517,q540] [] (by decide +kernel)
+def v0 : Closed T 8 := rotateClosed n11 auto1 auto1ok
+def v1 : Closed T 8 := rotateClosed n10 auto1 auto1ok
+def n13 := cc 9 [w15,w0,w1,w2,w3,w4,w5] [q0,q86,q168,q213,q229,q291,q300,q540,q543] [n11,v0,n9,n12,n10,v1] (by decide +kernel)
+def n14 := cc 8 [w0,w1,w2,w21,w3,w4,w5] [q0,q129,q206,q293,q419] [] (by decide +kernel)
+def n15 := cc 8 [w0,w1,w2,w3,w4,w22,w5] [q73,q132,q207,q253,q333,q472,q540] [] (by decide +kernel)
+def n16 := cc 8 [w23,w0,w1,w2,w3,w4,w5] [q114,q216,q248,q325,q472,q541] [] (by decide +kernel)
+def n17 := cc 7 [w20,w0,w1,w2,w3,w24,w19] [q35,q65,q83,q102,q170,q252,q417] [] (by decide +kernel)
+def n18 := cc 8 [w20,w0,w1,w2,w3,w4,w24,w5] [q33,q64,q73,q209,q251,q330,q334,q417,q540] [n17] (by decide +kernel)
+def n19 := cc 8 [w20,w0,w1,w2,w3,w4,w19] [q80,q114,q170,q332,q419,q510] [n17] (by decide +kernel)
+def n20 := cc 9 [w20,w0,w1,w2,w3,w4,w5] [q86,q138,q187,q251,q330,q400,q510,q523,q540] [n16,n11,n18,n19,n14,n15] (by decide +kernel)
+def n21 := cc 8 [w26,w14,w0,w2,w3,w4,w5] [q107,q213,q293,q524] [] (by decide +kernel)
+def n22 := cc 8 [w25,w14,w0,w2,w3,w4,w5,w19] [q114,q261,q293,q463,q507,q524,q525] [] (by decide +kernel)
+def v2 : Closed T 8 := rotateClosed n21 auto1 auto1ok
+def n23 := cc 9 [w25,w14,w0,w2,w3,w4,w5] [q86,q168,q213,q229,q291,q293] [n21,v2,n22] (by decide +kernel)
+def n24 := cc 8 [w14,w0,w2,w28,w3,w4,w5] [q94,q293,q524,q525] [] (by decide +kernel)
+def n25 := cc 8 [w14,w0,w2,w3,w4,w29,w5] [q110,q134,q144,q293,q529] [] (by decide +kernel)
+def n26 := cc 7 [w14,w0,w27,w2,w3,w4,w30,w19] [q63,q108,q229,q352,q353,q542] [] (by decide +kernel)
+def n27 := cc 6 [w14,w32,w27,w2,w3,w4,w5] [q78,q84,q134] [] (by decide +kernel)
+def n28 := cc 7 [w14,w0,w27,w2,w3,w4,w5,w31] [q62,q78,q103,q134,q293,q344,q542] [n27] (by decide +kernel)
+def n29 := cc 7 [w33,w14,w0,w27,w2,w3,w4,w5] [q105,q347,q423] [] (by decide +kernel)
+def v3 : Closed T 7 := rotateClosed n26 auto1 auto1ok
+def n30 := cc 8 [w14,w0,w27,w2,w3,w4,w24,w5] [q98,q134,q191,q229,q291,q334,q338,q418,q470,q528] [n29,n28,v3] (by decide +kernel)
+def n31 := cc 6 [w14,w0,w35,w2,w3,w4,w5] [] [] (by decide +kernel)
+def n32 := cc 7 [w34,w14,w0,w27,w2,w3,w4,w5] [q62,q117,q293,q361,q362] [n31] (by decide +kernel)
+def n33 := cc 8 [w14,w0,w27,w2,w3,w4,w5,w19] [q114,q191,q229,q291,q354,q356,q470,q518,q524,q528] [n32,n28,n26,v3] (by decide +kernel)
+def v4 : Closed T 8 := rotateClosed n30 auto1 auto1ok
+def v5 : Closed T 8 := rotateClosed n25 auto1 auto1ok
+def n34 := cc 9 [w14,w0,w27,w2,w3,w4,w5] [q86,q144,q191,q229,q293] [n30,v4,n33,n24,n25,v5] (by decide +kernel)
+def n35 := cc 8 [w37,w14,w0,w2,w3,w4,w5] [q114,q134,q216,q354,q385,q466,q549] [] (by decide +kernel)
+def n36 := cc 7 [w36,w14,w0,w2,w3,w24,w19] [q60,q102,q261,q407,q517,q525] [] (by decide +kernel)
+def n37 := cc 8 [w36,w14,w0,w2,w3,w4,w24,w5] [q59,q78,q98,q170,q229,q334,q407,q549] [n36] (by decide +kernel)
+def n38 := cc 8 [w36,w14,w0,w2,w3,w4,w19] [q114,q354,q400,q510,q528] [n36] (by decide +kernel)
+def n39 := cc 9 [w36,w14,w0,w2,w3,w4,w5] [q86,q170,q229,q293,q400,q510] [n35,n21,n37,n38] (by decide +kernel)
+def n40 := cc 8 [w38,w0,w1,w2,w3,w4,w5] [q13,q279,q510,q540] [] (by decide +kernel)
+def n41 := cc 9 [w14,w0,w1,w2,w3,w8,w4,w5] [q94,q229,q295,q470,q510] [n40] (by decide +kernel)
+def n42 := cc 8 [w39,w0,w1,w2,w3,w4,w5] [q98,q139,q291,q543] [] (by decide +kernel)
+def v6 : Closed T 7 := rotateClosed n17 auto1 auto1ok
+def v7 : Closed T 7 := rotateClosed n36 auto1 auto1ok
+def n43 := cc 8 [w14,w0,w1,w2,w3,w4,w30,w19] [q84,q108,q261,q351,q510,q517,q524,q540] [v6,v7,n26] (by decide +kernel)
+def n44 := cc 6 [w40,w32,w1,w2,w3,w4,w5] [q73,q80,q134] [] (by decide +kernel)
+def n45 := cc 7 [w14,w32,w1,w2,w3,w4,w5] [q103,q134,q165,q209] [n44,n27] (by decide +kernel)
+def n46 := cc 8 [w14,w0,w1,w2,w3,w4,w5,w31] [q36,q62,q103,q134,q165,q209,q342,q540] [n45,n28] (by decide +kernel)
+def n47 := cc 8 [w33,w14,w0,w1,w2,w3,w4,w5] [q40,q80,q105,q134,q172,q209,q275,q291,q346,q423] [n29] (by decide +kernel)
+def v8 : Closed T 8 := rotateClosed n43 auto1 auto1ok
+def n48 := cc 9 [w14,w0,w1,w2,w3,w4,w24,w5] [q98,q138,q187,q229,q334,q417,q470,q525] [v0,v2,n18,n37,n47,n42,n30,n46,v8] (by decide +kernel)
+def n49 := cc 8 [w42,w0,w1,w2,w3,w4,w5] [q110,q134,q229,q510,q540] [] (by decide +kernel)
+def n50 := cc 8 [w43,w14,w0,w1,w2,w3,w4,w5] [q112,q134,q177,q510,q540] [] (by decide +kernel)
+def n51 := cc 9 [w14,w0,w1,w2,w3,w4,w41,w5] [q110,q138,q229,q291,q295,q510] [n50,n49] (by decide +kernel)
+def n52 := cc 8 [w44,w0,w1,w2,w3,w4,w5] [q134,q151,q198,q229,q291] [] (by decide +kernel)
+def n53 := cc 8 [w34,w14,w0,w1,w2,w3,w4,w5] [q48,q117,q134,q181,q225,q291,q360] [n32] (by decide +kernel)
+def v9 : Closed T 8 := rotateClosed n19 auto1 auto1ok
+def v10 : Closed T 8 := rotateClosed n38 auto1 auto1ok
+def n54 := cc 9 [w14,w0,w1,w2,w3,w4,w5,w19] [q114,q138,q187,q261,q354,q470,q510,q528,q536] [n16,n35,n19,v9,n38,v10,n12,n22,n53,n52,n33,n46,n43,v8] (by decide +kernel)
+def v11 : Closed T 9 := rotateClosed n20 auto1 auto1ok
+def v12 : Closed T 9 := rotateClosed n39 auto1 auto1ok
+def v13 : Closed T 9 := rotateClosed n48 auto1 auto1ok
+def v14 : Closed T 9 := rotateClosed n51 auto1 auto1ok
+def n55 := cc 10 [w14,w0,w1,w2,w3,w4,w5] [q0,q86,q138,q187,q229,q293] [n20,v11,n39,v12,n13,n23,n34,n41,n48,v13,n51,v14,n54] (by decide +kernel)
+def n56 := cc 9 [w0,w46,w2,w3,w4,w5] [q86,q138,q187,q229] [] (by decide +kernel)
+def n57 := cc 9 [w47,w0,w2,w3,w4,w5] [q86,q138,q187,q229] [] (by decide +kernel)
+def n58 := cc 9 [w0,w1,w2,w48,w4,w5] [q0,q86,q138,q187] [] (by decide +kernel)
+def n59 := cc 9 [w49,w0,w1,w2,w4,w5] [q86,q138,q187,q229] [] (by decide +kernel)
+def n60 := cc 9 [w0,w1,w2,w3,w4,w50] [q86,q138,q187,q229] [] (by decide +kernel)
+def n61 := cc 9 [w51,w0,w1,w2,w3,w5] [q86,q138,q187,q229] [] (by decide +kernel)
+def v15 : Closed T 9 := rotateClosed n61 auto1 auto1ok
+def v16 : Closed T 9 := rotateClosed n60 auto1 auto1ok
+def n62 := cc 10 [w45,w0,w1,w2,w3,w4,w5] [q0,q86,q138,q187,q229,q293] [n57,n59,n61,v15,n60,v16,n58,n56] (by decide +kernel)
+def n63 := cc 8 [w53,w0,w1,w54,w3,w4,w5] [q125,q177,q222,q239,q551] [] (by decide +kernel)
+def n64 := cc 9 [w0,w1,w2,w54,w3,w52,w4,w5] [q20,q86,q133,q134,q138,q187,q229,q239,q293] [n63] (by decide +kernel)
+def n65 := cc 8 [w0,w1,w56,w54,w3,w4,w5] [q164,q208,q300,q546] [] (by decide +kernel)
+def n66 := cc 9 [w55,w0,w1,w2,w54,w3,w4,w5] [q0,q134,q138,q187,q229,q300,q546] [n65] (by decide +kernel)
+def n67 := cc 8 [w0,w1,w2,w3,w4,w57,w5] [q73,q80,q139,q189,q245,q308,q442] [] (by decide +kernel)
+def n68 := cc 8 [w58,w0,w1,w2,w3,w4,w5] [q73,q80,q121,q142,q269,q318,q496] [] (by decide +kernel)
+def n69 := cc 8 [w0,w16,w1,w2,w3,w4,w5,w19] [q73,q80,q188,q261,q517,q533] [] (by decide +kernel)
+def v17 : Closed T 8 := rotateClosed n68 auto1 auto1ok
+def v18 : Closed T 8 := rotateClosed n67 auto1 auto1ok
+def n70 := cc 9 [w0,w16,w1,w2,w3,w4,w5] [q0,q86,q138,q188,q229,q300,q533,q534] [n68,v17,n9,n69,n67,v18] (by decide +kernel)
+def n71 := cc 8 [w0,w1,w2,w54,w3,w4,w57,w5] [q20,q133,q300,q419,q529] [] (by decide +kernel)
+def n72 := cc 8 [w0,w16,w1,w54,w3,w4,w24,w5] [q23,q133,q139,q307,q421] [] (by decide +kernel)
+def n73 := cc 8 [w0,w16,w1,w2,w3,w4,w59,w5] [q21,q25,q98,q133,q176,q308,q421] [] (by decide +kernel)
+def n74 := cc 7 [w60,w0,w1,w2,w54,w3,w4,w5] [q21,q27] [] (by decide +kernel)
+def n75 := cc 8 [w0,w16,w1,w2,w54,w3,w4,w41,w5] [q21,q133,q134,q138,q300,q302,q529,q540] [n74] (by decide +kernel)
+def n76 := cc 7 [w61,w0,w1,w2,w54,w3,w4,w5] [q103,q117] [] (by decide +kernel)
+def n77 := cc 6 [w16,w63,w2,w54,w3,w4,w5] [] [] (by decide +kernel)
+def n78 := cc 7 [w0,w16,w62,w2,w54,w3,w4,w5] [q114,q134,q549,q550] [n77] (by decide +kernel)
+def n79 := cc 8 [w0,w16,w1,w2,w54,w3,w4,w5,w19] [q114,q133,q419,q421,q528,q529] [n76,n78] (by decide +kernel)
+def v19 : Closed T 8 := rotateClosed n75 auto1 auto1ok
+def v20 : Closed T 8 := rotateClosed n73 auto1 auto1ok
+def v21 : Closed T 8 := rotateClosed n72 auto1 auto1ok
+def v22 : Closed T 8 := rotateClosed n71 auto1 auto1ok
+def n80 := cc 9 [w0,w16,w1,w2,w54,w3,w4,w5] [q20,q86,q133,q139,q188,q291,q300] [n9,n75,v19,n79,n73,v20,n72,v21,n71,v22] (by decide +kernel)
+def n81 := cc 9 [w15,w0,w1,w2,w54,w3,w4,w5] [q20,q86,q229,q291,q300,q419,q421] [n9] (by decide +kernel)
+def n82 := cc 6 [w1,w64,w54,w3,w4,w65,w30] [q136,q239] [] (by decide +kernel)
+def n83 := cc 6 [w67,w1,w64,w54,w3,w4,w5] [] [] (by decide +kernel)
+def v23 : Closed T 6 := rotateClosed n82 auto1 auto1ok
+def n84 := cc 7 [w1,w64,w2,w54,w3,w4,w66,w5] [q144,q242,q319,q320] [n83,v23] (by decide +kernel)
+def n85 := cc 6 [w1,w64,w54,w3,w4,w30,w19] [] [] (by decide +kernel)
+def n86 := cc 6 [w1,w64,w54,w3,w4,w5,w31] [q136] [] (by decide +kernel)
+def n87 := cc 6 [w33,w1,w64,w54,w3,w4,w5] [] [] (by decide +kernel)
+def v24 : Closed T 6 := rotateClosed n85 auto1 auto1ok
+def n88 := cc 7 [w1,w64,w54,w3,w4,w24,w5] [q136,q144,q417,q522] [n87,n86,v23,v24] (by decide +kernel)
+def n89 := cc 6 [w68,w64,w2,w3,w4,w59,w5] [q308,q317,q443] [] (by decide +kernel)
+def n90 := cc 6 [w1,w64,w2,w3,w4,w69,w19] [q312] [] (by decide +kernel)
+def n91 := cc 6 [w1,w64,w2,w3,w4,w5,w70] [q147,q293] [] (by decide +kernel)
+def n92 := cc 6 [w71,w1,w64,w2,w3,w4,w5] [] [] (by decide +kernel)
+def v25 : Closed T 6 := rotateClosed n90 auto1 auto1ok
+def n93 := cc 7 [w1,w64,w2,w3,w4,w59,w5] [q144,q308,q417,q439,q522,q540] [n92,n89,n91,v25] (by decide +kernel)
+def n94 := cc 6 [w68,w64,w2,w54,w3,w4,w5] [q308,q317,q443] [] (by decide +kernel)
+def n95 := cc 7 [w1,w64,w2,w54,w3,w4,w59,w5] [q15,q126,q244,q300,q522] [n94] (by decide +kernel)
+def n96 := cc 6 [w1,w64,w2,w3,w4,w73,w5] [] [] (by decide +kernel)
+def n97 := cc 7 [w72,w1,w64,w2,w3,w4,w5] [q107,q297,q522] [n96] (by decide +kernel)
+def n98 := cc 7 [w1,w64,w2,w54,w3,w4,w5,w19] [q144,q354,q522] [n91,n90,v25,n86,n85,v24] (by decide +kernel)
+def v26 : Closed T 7 := rotateClosed n97 auto1 auto1ok
+def v27 : Closed T 7 := rotateClosed n84 auto1 auto1ok
+def v28 : Closed T 7 := rotateClosed n95 auto1 auto1ok
+def v29 : Closed T 7 := rotateClosed n93 auto1 auto1ok
+def v30 : Closed T 7 := rotateClosed n88 auto1 auto1ok
+def n99 := cc 8 [w1,w64,w2,w54,w3,w4,w5] [q136,q144,q191,q239,q300,q522] [n97,v26,n84,v27,n95,v28,n98,n93,v29,n88,v30] (by decide +kernel)
+def n100 := cc 8 [w0,w1,w54,w28,w3,w4,w5] [q134,q300,q419,q421] [] (by decide +kernel)
+def n101 := cc 8 [w0,w1,w2,w74,w3,w4,w5] [q80,q94,q187,q239,q300,q419] [] (by decide +kernel)
+def n102 := cc 6 [w75,w0,w1,w3,w4,w30,w19] [q133] [] (by decide +kernel)
+def n103 := cc 6 [w75,w0,w1,w3,w4,w5,w31] [] [] (by decide +kernel)
+def n104 := cc 6 [w33,w75,w0,w1,w3,w4,w5] [] [] (by decide +kernel)
+def v31 : Closed T 6 := rotateClosed n102 auto1 auto1ok
+def n105 := cc 7 [w75,w0,w1,w3,w4,w24,w5] [q133,q140,q149] [n104,n103,v31] (by decide +kernel)
+def n106 := cc 6 [w75,w0,w62,w2,w3,w4,w5] [q306] [] (by decide +kernel)
+def n107 := cc 7 [w75,w0,w1,w2,w3,w4,w5,w19] [q27,q73,q80,q149,q265,q300,q517] [n106,n103,n102,v31] (by decide +kernel)
+def v32 : Closed T 7 := rotateClosed n105 auto1 auto1ok
+def n108 := cc 8 [w75,w0,w1,w2,w3,w4,w5] [q73,q80,q133,q149,q196,q300] [n107,n105,v32] (by decide +kernel)
+def n109 := cc 8 [w0,w1,w2,w54,w3,w4,w29,w5] [q133,q134,q144,q254,q300,q529] [] (by decide +kernel)
+def n110 := cc 6 [w76,w0,w1,w54,w3,w5,w19] [] [] (by decide +kernel)
+def n111 := cc 7 [w76,w0,w1,w54,w3,w4,w5] [q81,q87,q104,q417] [n110] (by decide +kernel)
+def n112 := cc 6 [w77,w0,w1,w54,w3,w4,w30] [q133] [] (by decide +kernel)
+def v33 : Closed T 6 := rotateClosed n110 auto1 auto1ok
+def n113 := cc 7 [w0,w27,w1,w54,w3,w4,w30,w19] [q108,q135,q165,q522,q529] [n102,v33,n112,n85] (by decide +kernel)
+def n114 := cc 6 [w78,w0,w1,w54,w3,w4,w5] [q86] [] (by decide +kernel)
+def n115 := cc 7 [w0,w27,w1,w54,w3,w4,w5,w31] [q74,q81,q103,q134,q165,q209] [n103,n114,n86] (by decide +kernel)
+def n116 := cc 7 [w33,w0,w27,w1,w54,w3,w4,w5] [q81,q105,q172,q421,q521] [n104,n87] (by decide +kernel)
+def v34 : Closed T 7 := rotateClosed n113 auto1 auto1ok
+def n117 := cc 8 [w0,w27,w1,w54,w3,w4,w24,w5] [q98,q134,q144,q307,q522,q528,q529,q531,q537] [n116,n105,n111,n115,v34,n88] (by decide +kernel)
+def n118 := cc 6 [w79,w0,w1,w2,w3,w5,w19] [q187] [] (by decide +kernel)
+def n119 := cc 7 [w79,w0,w1,w2,w3,w4,w5] [q4,q80,q104,q149,q187] [n118] (by decide +kernel)
+def n120 := cc 7 [w79,w0,w1,w2,w3,w4,w59,w5] [q73,q100,q138,q417] [] (by decide +kernel)
+def n121 := cc 7 [w0,w27,w68,w2,w3,w4,w59,w5] [q73,q134,q308,q442,q522] [n89] (by decide +kernel)
+def n122 := cc 6 [w77,w0,w1,w2,w3,w4,w69] [q313] [] (by decide +kernel)
+def v35 : Closed T 6 := rotateClosed n118 auto1 auto1ok
+def n123 := cc 7 [w0,w27,w1,w2,w3,w4,w69,w19] [q135,q144,q165,q252,q292,q557] [v35,n122,n90] (by decide +kernel)
+def n124 := cc 5 [w80,w0,w2,w81,w4,w5] [q548] [] (by decide +kernel)
+def n125 := cc 6 [w80,w0,w1,w2,w3,w4,w5] [q0,q86] [n124] (by decide +kernel)
+def n126 := cc 7 [w0,w27,w1,w2,w3,w4,w5,w70] [q0,q73,q80,q134,q165,q209,q248,q293,q389] [n125,n91] (by decide +kernel)
+def n127 := cc 7 [w71,w0,w27,w1,w2,w3,w4,w5] [q73,q80,q105,q172,q249,q421] [n92] (by decide +kernel)
+def v36 : Closed T 7 := rotateClosed n123 auto1 auto1ok
+def n128 := cc 8 [w0,w27,w1,w2,w3,w4,w59,w5] [q73,q134,q144,q191,q209,q245,q291,q308,q441,q522,q528,q531] [n127,n120,n119,n121,n126,v36,n93] (by decide +kernel)
+def n129 := cc 7 [w79,w0,w1,w2,w54,w3,w4,w5] [q21,q27,q97,q131,q244] [] (by decide +kernel)
+def n130 := cc 7 [w0,w27,w68,w2,w54,w3,w4,w5] [q20,q134,q310,q522] [n94] (by decide +kernel)
+def n131 := cc 8 [w0,w27,w1,w2,w54,w3,w4,w59,w5] [q20,q134,q144,q281,q300,q522,q529] [n129,n130,n95] (by decide +kernel)
+def n132 := cc 7 [w0,w27,w1,w2,w3,w4,w73,w5] [q73,q122,q271,q419,q519] [n96] (by decide +kernel)
+def n133 := cc 8 [w72,w0,w27,w1,w2,w3,w4,w5] [q144,q172,q191,q318,q421,q522,q529] [n97,n132] (by decide +kernel)
+def v37 : Closed T 6 := rotateClosed n122 auto1 auto1ok
+def v38 : Closed T 6 := rotateClosed n112 auto1 auto1ok
+def n134 := cc 7 [w77,w0,w1,w2,w54,w3,w4,w5] [q47,q133,q134,q150,q197,q354] [n122,v37,n112,v38] (by decide +kernel)
+def n135 := cc 6 [w27,w63,w2,w54,w3,w4,w5] [q306,q433] [] (by decide +kernel)
+def n136 := cc 7 [w0,w27,w62,w2,w54,w3,w4,w5] [q20,q44,q314,q315,q354] [n106,n135] (by decide +kernel)
+def n137 := cc 8 [w0,w27,w1,w2,w54,w3,w4,w5,w19] [q20,q43,q191,q261,q300,q354,q419,q522,q528,q529,q536] [n107,n134,n136,n126,n123,v36,n115,n113,v34,n98] (by decide +kernel)
+def v39 : Closed T 8 := rotateClosed n133 auto1 auto1ok
+def v40 : Closed T 8 := rotateClosed n131 auto1 auto1ok
+def v41 : Closed T 8 := rotateClosed n128 auto1 auto1ok
+def v42 : Closed T 8 := rotateClosed n117 auto1 auto1ok
+def v43 : Closed T 8 := rotateClosed n109 auto1 auto1ok
+def n138 := cc 9 [w0,w27,w1,w2,w54,w3,w4,w5] [q0,q86,q134,q144,q191,q229,q300,q522] [n133,v39,n108,n131,v40,n137,n128,v41,n117,v42,n109,v43,n101,n100,n99] (by decide +kernel)
+def n139 := cc 9 [w82,w0,w1,w2,w54,w3,w4,w5] [q86,q229,q300,q441,q495] [] (by decide +kernel)
+def n140 := cc 8 [w37,w0,w1,w2,w54,w3,w4,w5] [q20,q55,q133,q134,q216,q261,q300,q354,q388,q549] [] (by decide +kernel)
+def n141 := cc 7 [w36,w0,w1,w54,w3,w24,w19] [q24,q421,q522,q528] [] (by decide +kernel)
+def n142 := cc 8 [w36,w0,w1,w54,w3,w4,w24,w5] [q23,q170,q307,q421] [n141] (by decide +kernel)
+def n143 := cc 7 [w36,w0,w1,w2,w3,w59,w19] [q26,q57,q77,q170,q247,q402] [] (by decide +kernel)
+def n144 := cc 8 [w36,w0,w1,w2,w3,w4,w59,w5] [q25,q56,q80,q170,q308,q402,q421] [n143] (by decide +kernel)
+def n145 := cc 8 [w36,w83,w0,w1,w2,w3,w4,w5] [q28,q56,q77,q80,q170,q267,q316,q403,q419,q421] [] (by decide +kernel)
+def n146 := cc 8 [w36,w72,w0,w1,w2,w3,w4] [q121,q269,q519] [] (by decide +kernel)
+def n147 := cc 8 [w36,w0,w1,w2,w54,w3,w4,w19] [q261,q354,q401,q421,q495,q522,q528] [n143,n141] (by decide +kernel)
+def n148 := cc 9 [w36,w0,w1,w2,w54,w3,w4,w5] [q86,q170,q229,q300,q401,q421,q495,q522] [n140,n11,n68,n146,n145,n147,n144,n142] (by decide +kernel)
+def n149 := cc 8 [w84,w1,w2,w54,w3,w4,w5] [q94,q279,q441,q495,q546] [] (by decide +kernel)
+def n150 := cc 9 [w0,w1,w2,w54,w3,w8,w4,w5] [q86,q134,q229,q293,q441,q495] [n149] (by decide +kernel)
+def n151 := cc 8 [w86,w1,w2,w54,w3,w4,w5] [q134,q239,q300,q419] [] (by decide +kernel)
+def n152 := cc 9 [w85,w0,w1,w2,w54,w3,w4,w5] [q0,q86,q134,q229,q300,q419,q421] [n151] (by decide +kernel)
+def n153 := cc 8 [w87,w1,w54,w3,w4,w24,w5] [q421,q531] [] (by decide +kernel)
+def n154 := cc 8 [w0,w88,w1,w54,w3,w4,w24,w5] [q134,q421,q537] [] (by decide +kernel)
+def n155 := cc 8 [w0,w1,w89,w54,w3,w4,w24,w5] [q133,q154,q307,q421] [] (by decide +kernel)
+def n156 := cc 8 [w72,w0,w1,w54,w3,w4,w30] [q187,q419,q522] [] (by decide +kernel)
+def n157 := cc 8 [w0,w1,w54,w90,w3,w4,w24,w5] [q134,q307,q417,q421] [] (by decide +kernel)
+def n158 := cc 8 [w91,w0,w1,w54,w3,w4,w24,w5] [q175,q307,q421] [] (by decide +kernel)
+def n159 := cc 7 [w0,w1,w92,w3,w4,w30] [q419,q522] [] (by decide +kernel)
+def v44 : Closed T 7 := rotateClosed n141 auto1 auto1ok
+def n160 := cc 8 [w0,w1,w54,w3,w4,w30,w19] [q108,q419,q495,q528] [v44,n113,n159] (by decide +kernel)
+def n161 := cc 8 [w0,w1,w54,w3,w4,w5,w31] [q103,q134,q165,q209,q445] [n115] (by decide +kernel)
+def n162 := cc 8 [w33,w0,w1,w54,w3,w4,w5] [q105,q172,q421,q469] [n116] (by decide +kernel)
+def v45 : Closed T 8 := rotateClosed n156 auto1 auto1ok
+def v46 : Closed T 8 := rotateClosed n160 auto1 auto1ok
+def n163 := cc 9 [w0,w1,w54,w3,w4,w24,w5] [q138,q229,q421,q441] [n142,v45,n158,n162,n153,n72,n117,n154,n155,n157,n161,v46] (by decide +kernel)
+def n164 := cc 8 [w87,w1,w2,w54,w3,w4,w5] [q134,q138,q281,q421,q474] [] (by decide +kernel)
+def n165 := cc 7 [w72,w93,w1,w2,w3,w4] [q80,q134,q272,q419] [] (by decide +kernel)
+def n166 := cc 8 [w72,w0,w1,w2,w3,w4,w30] [q80,q187,q269,q419] [n165] (by decide +kernel)
+def v47 : Closed T 8 := rotateClosed n166 auto1 auto1ok
+def n167 := cc 9 [w0,w1,w2,w54,w3,w4,w24,w5] [q138,q229,q300,q334,q421,q441] [v47,n164] (by decide +kernel)
+def n168 := cc 8 [w0,w1,w54,w3,w4,w95,w5] [q74,q133,q209,q229,q419,q469,q556] [] (by decide +kernel)
+def n169 := cc 8 [w94,w96,w0,w1,w54,w3,w4,w5] [q172,q220,q273,q371,q469] [] (by decide +kernel)
+def n170 := cc 9 [w94,w0,w1,w54,w3,w4,w5] [q133,q172,q187,q229,q421,q495] [n169,n168] (by decide +kernel)
+def n171 := cc 8 [w0,w1,w2,w54,w3,w4,w97,w5] [q133,q300,q419,q529] [] (by decide +kernel)
+def n172 := cc 8 [w0,w1,w2,w89,w98,w4,w5] [q201,q300,q363,q441,q495,q546] [] (by decide +kernel)
+def n173 := cc 8 [w0,w1,w2,w89,w3,w4,w59,w5] [q154,q171,q308,q421] [] (by decide +kernel)
+def n174 := cc 7 [w99,w0,w1,w2,w54,w3,w4,w5] [q20,q103,q117] [] (by decide +kernel)
+def n175 := cc 8 [w0,w1,w2,w89,w54,w3,w4,w5,w19] [q133,q300,q419,q421,q441,q528,q529] [n174] (by decide +kernel)
+def v48 : Closed T 8 := rotateClosed n173 auto1 auto1ok
+def v49 : Closed T 8 := rotateClosed n171 auto1 auto1ok
+def v50 : Closed T 8 := rotateClosed n155 auto1 auto1ok
+def n176 := cc 9 [w0,w1,w2,w89,w54,w3,w4,w5] [q0,q133,q154,q199,q300] [n175,n173,v48,n172,n171,v49,n155,v50] (by decide +kernel)
+def n177 := cc 8 [w0,w100,w1,w2,w54,w3,w4,w5] [q134,q300,q441,q495] [] (by decide +kernel)
+def n178 := cc 9 [w0,w1,w2,w54,w3,w98,w4,w5] [q134,q291,q300,q441,q495] [n63,n149,n177,n172] (by decide +kernel)
+def n179 := cc 9 [w101,w0,w1,w2,w54,w3,w4,w5] [q293,q441,q495,q522,q546] [] (by decide +kernel)
+def n180 := cc 9 [w102,w0,w1,w2,w54,w3,w4,w5] [q0,q134,q300,q419,q421,q546] [n65,n151] (by decide +kernel)
+def n181 := cc 8 [w87,w1,w2,w3,w4,w59,w5] [q138,q421,q531] [] (by decide +kernel)
+def n182 := cc 8 [w0,w68,w1,w2,w3,w4,w5] [q98,q139,q534] [] (by decide +kernel)
+def n183 := cc 8 [w0,w68,w1,w2,w3,w4,w59,w5] [q73,q98,q308,q421,q442,q522] [n121] (by decide +kernel)
+def n184 := cc 8 [w0,w1,w2,w103,w3,w4,w59,w5] [q0,q154,q308,q421] [] (by decide +kernel)
+def n185 := cc 8 [w91,w0,w1,w2,w3,w4,w59,w5] [q80,q175,q308,q421,q498] [] (by decide +kernel)
+def n186 := cc 8 [w72,w0,w1,w2,w3,w4,w69] [q187,q419,q522] [n165] (by decide +kernel)
+def v51 : Closed T 7 := rotateClosed n143 auto1 auto1ok
+def n187 := cc 8 [w0,w1,w2,w3,w4,w69,w19] [q80,q135,q165,q181,q252,q495,q533] [v51,n123] (by decide +kernel)
+def n188 := cc 8 [w0,w1,w2,w3,w4,w5,w70] [q0,q73,q103,q134,q209,q293,q446,q541] [n126] (by decide +kernel)
+def n189 := cc 8 [w71,w0,w1,w2,w3,w4,w5] [q73,q80,q134,q209,q249,q293,q447,q543] [n127] (by decide +kernel)
+def v52 : Closed T 8 := rotateClosed n186 auto1 auto1ok
+def v53 : Closed T 8 := rotateClosed n187 auto1 auto1ok
+def n190 := cc 9 [w0,w1,w2,w3,w4,w59,w5] [q138,q187,q245,q293,q421,q441] [v0,n144,v52,n185,n189,n181,n128,n183,n182,n184,n188,v53] (by decide +kernel)
+def n191 := cc 8 [w0,w68,w1,w2,w54,w3,w4,w5] [q20,q139,q300,q421,q522] [n130] (by decide +kernel)
+def n192 := cc 9 [w0,w1,w2,w54,w3,w4,w59,w5] [q98,q138,q300,q421,q441] [v52,n164,n73,n131,n191,n173] (by decide +kernel)
+def n193 := cc 8 [w0,w104,w1,w2,w3,w4,w5] [q80,q168,q219,q267,q316,q471,q540] [] (by decide +kernel)
+def n194 := cc 8 [w0,w1,w2,w3,w4,w73,w5] [q73,q209,q271,q419,q447,q519] [n132] (by decide +kernel)
+def n195 := cc 8 [w105,w0,w1,w2,w3,w4,w5] [q0,q73,q80,q293,q522] [] (by decide +kernel)
+def n196 := cc 8 [w72,w96,w0,w1,w2,w3,w4,w5] [q12,q172,q318,q419,q447] [] (by decide +kernel)
+def v54 : Closed T 8 := rotateClosed n145 auto1 auto1ok
+def v55 : Closed T 8 := rotateClosed n193 auto1 auto1ok
+def n197 := cc 9 [w72,w0,w1,w2,w3,w4,w5] [q80,q172,q187,q269,q293,q421,q495] [n195,n68,n146,v54,n196,n133,n166,n186,v55,n194] (by decide +kernel)
+def n198 := cc 8 [w72,w96,w0,w1,w2,w54,w3,w4,w5] [q220,q318,q419,q447] [] (by decide +kernel)
+def n199 := cc 9 [w72,w0,w1,w2,w54,w3,w4,w5] [q172,q187,q421,q495,q522] [n198,n186,n156] (by decide +kernel)
+def n200 := cc 6 [w108,w1,w107,w54,w3,w4,w5] [] [] (by decide +kernel)
+def n201 := cc 7 [w1,w107,w2,w54,w3,w4,w5] [q144,q242,q304,q494,q540] [n200] (by decide +kernel)
+def n202 := cc 6 [w1,w107,w54,w109,w3,w4,w5] [q8,q14,q305] [] (by decide +kernel)
+def n203 := cc 7 [w106,w1,w107,w2,w54,w3,w4,w5] [q49,q242,q291] [n202] (by decide +kernel)
+def n204 := cc 7 [w0,w106,w1,w54,w109,w3,w4,w5] [q69,q96,q291] [n202] (by decide +kernel)
+def n205 := cc 6 [w111,w0,w106,w1,w2,w3,w4] [] [] (by decide +kernel)
+def n206 := cc 7 [w0,w106,w1,w2,w110,w3,w4,w5] [q0,q212,q316] [n205] (by decide +kernel)
+def n207 := cc 7 [w114,w0,w113,w1,w2,w3,w4,w5] [q18,q27] [] (by decide +kernel)
+def v56 : Closed T 7 := rotateClosed n207 auto1 auto1ok
+def n208 := cc 8 [w0,w106,w1,w2,w54,w3,w4,w5] [q110,q133,q134,q144,q254,q291,q302,q495] [v56,n206,n204,n203,n201] (by decide +kernel)
+def n209 := cc 8 [w0,w1,w2,w115,w3,w4,w5] [q86,q133,q154,q291,q495] [] (by decide +kernel)
+def n210 := cc 8 [w116,w0,w1,w2,w3,w4,w5] [q50,q66,q112,q257,q291,q495,q547] [] (by decide +kernel)
+def n211 := cc 9 [w0,w1,w2,w54,w3,w4,w41,w5] [q133,q138,q254,q291,q419,q495] [n210,n75,n208,n209] (by decide +kernel)
+def v57 : Closed T 8 := rotateClosed n169 auto1 auto1ok
+def v58 : Closed T 8 := rotateClosed n198 auto1 auto1ok
+def v59 : Closed T 8 := rotateClosed n196 auto1 auto1ok
+def n212 := cc 9 [w91,w0,w1,w2,w54,w3,w4,w5] [q175,q187,q274,q300,q421,q495] [v57,v58,v59,n185,n158] (by decide +kernel)
+def n213 := cc 6 [w117,w1,w63,w54,w3,w4,w5] [] [] (by decide +kernel)
+def n214 := cc 7 [w1,w63,w2,w54,w3,w4,w5] [q151,q198,q248,q433,q540] [n213,n77,n135] (by decide +kernel)
+def n215 := cc 6 [w1,w63,w54,w118,w3,w4,w5] [q291] [] (by decide +kernel)
+def n216 := cc 7 [w62,w1,w63,w2,w54,w3,w4,w5] [q248,q291,q549] [n215] (by decide +kernel)
+def n217 := cc 7 [w0,w62,w1,w54,w118,w3,w4,w5] [q103,q120,q291] [n215] (by decide +kernel)
+def n218 := cc 7 [w0,w62,w1,w2,w119,w3,w4,w5] [q44,q73,q120,q173,q354] [] (by decide +kernel)
+def n219 := cc 7 [w120,w0,w62,w1,w2,w3,w4,w5] [q73,q103,q114] [] (by decide +kernel)
+def n220 := cc 8 [w0,w62,w1,w2,w54,w3,w4,w5] [q20,q133,q134,q151,q198,q261,q291,q300,q354,q549] [n219,n78,n136,n218,n217,n216,n214] (by decide +kernel)
+def n221 := cc 7 [w1,w63,w2,w54,w3,w4,w5,w19] [q151,q517,q528,q529,q540] [] (by decide +kernel)
+def n222 := cc 7 [w120,w0,w1,w2,w3,w4,w5,w19] [q114,q120,q153,q165,q209] [] (by decide +kernel)
+def n223 := cc 8 [w0,w62,w1,w2,w54,w3,w4,w5,w19] [q151,q261,q419,q517,q528,q529,q533] [n222,n221] (by decide +kernel)
+def v60 : Closed T 7 := rotateClosed n159 auto1 auto1ok
+def n224 := cc 8 [w0,w1,w2,w92,w3,w4,w5] [q0,q159,q203,q293,q522] [n159,v60] (by decide +kernel)
+def n225 := cc 8 [w0,w1,w2,w92,w54,w3,w4,w5,w19] [q133,q172,q419,q421] [] (by decide +kernel)
+def n226 := cc 8 [w121,w0,w1,w2,w3,w4,w5] [q0,q134,q293,q536] [] (by decide +kernel)
+def n227 := cc 7 [w1,w2,w54,w3,w123,w4,w5,w19] [q354,q497,q517,q528,q529] [] (by decide +kernel)
+def n228 := cc 7 [w124,w0,w1,w2,w3,w4,w5,w19] [q43,q120,q162,q165,q209] [] (by decide +kernel)
+def n229 := cc 8 [w0,w1,w2,w54,w122,w3,w4,w5,w19] [q261,q354,q419,q495,q517,q528,q529] [n228,n227] (by decide +kernel)
+def v61 : Closed T 8 := rotateClosed n147 auto1 auto1ok
+def n230 := cc 9 [w0,w1,w2,w54,w3,w4,w5,w19] [q133,q138,q187,q229,q261,q300,q354,q419,q421,q441,q495,q517,q528] [n140,n195,n147,v61,n12,n226,n79,n69,n137,n220,n223,n175,n225,n224,n229,n188,n187,v53,n161,n160,v46] (by decide +kernel)
+def v62 : Closed T 9 := rotateClosed n148 auto1 auto1ok
+def v63 : Closed T 9 := rotateClosed n170 auto1 auto1ok
+def v64 : Closed T 9 := rotateClosed n199 auto1 auto1ok
+def v65 : Closed T 9 := rotateClosed n197 auto1 auto1ok
+def v66 : Closed T 9 := rotateClosed n212 auto1 auto1ok
+def v67 : Closed T 9 := rotateClosed n167 auto1 auto1ok
+def v68 : Closed T 9 := rotateClosed n192 auto1 auto1ok
+def v69 : Closed T 9 := rotateClosed n211 auto1 auto1ok
+def v70 : Closed T 9 := rotateClosed n190 auto1 auto1ok
+def v71 : Closed T 9 := rotateClosed n163 auto1 auto1ok
+def n231 := cc 10 [w0,w1,w2,w54,w3,w4,w5] [q0,q86,q138,q187,q229,q293] [n148,v62,n170,v63,n199,v64,n197,v65,n212,v66,n139,n179,n81,n13,n180,n152,n66,n80,n70,n138,n176,n64,n150,n178,n167,v67,n192,v68,n211,v69,n230,n190,v70,n163,v71] (by decide +kernel)
+def n232 := cc 9 [w0,w1,w2,w54,w3,w4,w5] [q20,q138,q187,q229,q300] [] (by decide +kernel)
+def n233 := cc 9 [w125,w126,w1,w3,w4,w5] [q86,q138,q187,q229] [] (by decide +kernel)
+def n234 := cc 8 [w125,w84,w1,w2,w3,w4,w5] [q3,q50,q94,q164,q208,q279,q365] [] (by decide +kernel)
+def n235 := cc 9 [w125,w0,w1,w2,w3,w8,w4,w5] [q50,q94,q164,q208,q229,q293] [n234] (by decide +kernel)
+def n236 := cc 8 [w125,w86,w1,w2,w3,w4,w5] [q52,q125,q177,q222,q239,q296] [] (by decide +kernel)
+def n237 := cc 9 [w125,w85,w0,w1,w2,w3,w4,w5] [q0,q125,q177,q222,q229,q363] [n236] (by decide +kernel)
+def n238 := cc 10 [w125,w0,w1,w2,w3,w4,w5] [q0,q86,q138,q187,q229,q293] [n237,n233,n235,n232] (by decide +kernel)
+def n239 := cc 8 [w91,w0,w1,w2,w3,w4,w127,w5] [q175,q209,q274,q375,q513] [] (by decide +kernel)
+def n240 := cc 8 [w0,w1,w2,w3,w4,w128,w19] [q80,q165,q261,q512] [] (by decide +kernel)
+def n241 := cc 8 [w0,w1,w2,w3,w4,w5,w129] [q0,q73,q165,q209,q261,q293] [] (by decide +kernel)
+def n242 := cc 8 [w130,w0,w1,w2,w3,w4,w5] [q0,q80,q172,q275,q293] [] (by decide +kernel)
+def v72 : Closed T 8 := rotateClosed n240 auto1 auto1ok
+def n243 := cc 9 [w0,w1,w2,w3,w4,w127,w5] [q73,q138,q209,q229,q293,q417,q473] [n239,n242,n241,v72] (by decide +kernel)
+def n244 := cc 8 [w53,w126,w0,w1,w3,w4,w5] [q3,q177,q222,q239,q365] [] (by decide +kernel)
+def n245 := cc 9 [w126,w0,w1,w2,w3,w52,w4,w5] [q66,q138,q187,q239,q293] [n244] (by decide +kernel)
+def n246 := cc 8 [w126,w0,w1,w56,w3,w4,w5] [q52,q164,q208,q279,q296] [] (by decide +kernel)
+def n247 := cc 9 [w126,w55,w0,w1,w2,w3,w4,w5] [q0,q138,q187,q279,q373] [n246] (by decide +kernel)
+def n248 := cc 8 [w91,w126,w0,w1,w3,w4,w24,w5] [q175,q209,q274,q376,q514] [] (by decide +kernel)
+def n249 := cc 8 [w126,w0,w1,w3,w4,w30,w19] [q261,q512,q528] [] (by decide +kernel)
+def n250 := cc 8 [w126,w0,w1,w3,w4,w5,w31] [q134,q165,q209,q261] [] (by decide +kernel)
+def n251 := cc 8 [w33,w126,w0,w1,w3,w4,w5] [q209,q275,q417] [] (by decide +kernel)
+def v73 : Closed T 8 := rotateClosed n249 auto1 auto1ok
+def n252 := cc 9 [w126,w0,w1,w3,w4,w24,w5] [q134,q138,q209,q229,q417,q473] [n248,n251,n250,v73] (by decide +kernel)
+def n253 := cc 8 [w0,w131,w1,w2,w3,w4,w5] [q177,q254,q512] [] (by decide +kernel)
+def n254 := cc 9 [w126,w0,w1,w2,w3,w4,w41,w5] [q138,q254,q512] [n253] (by decide +kernel)
+def n255 := cc 9 [w91,w126,w0,w1,w2,w3,w4,w5] [q175,q187,q274,q373,q512] [n248,n239] (by decide +kernel)
+def n256 := cc 8 [w0,w132,w1,w2,w3,w4,w5] [q134,q225,q261,q293,q475] [] (by decide +kernel)
+def n257 := cc 8 [w126,w0,w1,w2,w122,w3,w4,w5,w19] [q262,q512,q517,q524,q528,q529] [] (by decide +kernel)
+def n258 := cc 9 [w126,w0,w1,w2,w3,w4,w5,w19] [q138,q187,q261,q354,q373,q473,q512,q517,q528] [n257,n250,n249,v73,n256,n241,n240,v72] (by decide +kernel)
+def v74 : Closed T 9 := rotateClosed n255 auto1 auto1ok
+def v75 : Closed T 9 := rotateClosed n254 auto1 auto1ok
+def v76 : Closed T 9 := rotateClosed n252 auto1 auto1ok
+def v77 : Closed T 9 := rotateClosed n243 auto1 auto1ok
+def n259 := cc 10 [w126,w0,w1,w2,w3,w4,w5] [q0,q138,q187,q229,q293] [n255,v74,n233,n247,n245,n254,v75,n258,n252,v76,n232,n243,v77] (by decide +kernel)
+def n260 := cc 9 [w0,w1,w2,w134,w3,w4,w5] [q86,q138,q187,q293] [] (by decide +kernel)
+def n261 := cc 8 [w135,w1,w2,w4,w5] [q86,q138,q546] [] (by decide +kernel)
+def n262 := cc 9 [w133,w1,w2,w52,w4,w5] [q0,q86,q138,q187] [n261] (by decide +kernel)
+def n263 := cc 10 [w133,w0,w1,w2,w3,w4,w5] [q86,q138,q187,q229,q293] [n262,n260] (by decide +kernel)
+def n264 := cc 8 [w1,w137,w2,w3,w52,w4,w5] [q239,q300,q427,q487] [] (by decide +kernel)
+def n265 := cc 8 [w138,w0,w1,w2,w3,w4,w5] [q125,q363,q426,q486] [] (by decide +kernel)
+def n266 := cc 8 [w53,w0,w136,w1,w3,w4,w5] [q68,q125,q239,q426,q486] [] (by decide +kernel)
+def n267 := cc 9 [w0,w136,w1,w2,w3,w52,w4,w5] [q86,q239,q293,q426,q486] [n266,n265,n264] (by decide +kernel)
+def n268 := cc 8 [w139,w0,w1,w2,w3,w4,w5] [q239,q460,q506,q551] [] (by decide +kernel)
+def n269 := cc 8 [w25,w53,w0,w1,w3,w4,w5] [q125,q364,q460,q506] [] (by decide +kernel)
+def n270 := cc 9 [w25,w0,w1,w2,w3,w52,w4,w5] [q86,q239,q293,q460,q506] [n268,n269] (by decide +kernel)
+def n271 := cc 8 [w0,w1,w2,w28,w52,w4,w5] [q94,q239,q293,q456,q502] [] (by decide +kernel)
+def n272 := cc 9 [w0,w27,w1,w2,w52,w4,w5] [q86,q229,q293,q424,q484] [n271] (by decide +kernel)
+def n273 := cc 8 [w0,w1,w2,w141,w3,w4,w5] [q94,q239,q456,q502,q551] [] (by decide +kernel)
+def n274 := cc 8 [w0,w140,w1,w2,w141,w3,w4,w5] [q136,q239,q456,q502] [] (by decide +kernel)
+def n275 := cc 9 [w0,w140,w1,w2,w3,w4,w5] [q86,q136,q239,q424,q484] [n268,n274,n273] (by decide +kernel)
+def n276 := cc 9 [w85,w0,w1,w2,w52,w4,w5] [q134,q222,q239,q293,q424,q484] [] (by decide +kernel)
+def n277 := cc 8 [w0,w142,w1,w2,w3,w4,w5] [q125,q239,q364,q426,q486] [] (by decide +kernel)
+def n278 := cc 9 [w53,w0,w1,w2,w3,w4,w5] [q125,q134,q293,q415,q424,q484] [n268,n269,n244,n266,n63,n277] (by decide +kernel)
+def n279 := cc 10 [w0,w1,w2,w3,w52,w4,w5] [q86,q229,q293,q424,q484] [n270,n276,n278,n245,n262,n267,n272,n275,n64] (by decide +kernel)
+def n280 := cc 9 [w0,w144,w2,w3,w4,w5] [q0,q86,q138,q187] [] (by decide +kernel)
+def n281 := cc 9 [w0,w145,w2,w3,w4,w5] [q0,q86,q138,q187] [] (by decide +kernel)
+def n282 := cc 9 [w0,w1,w2,w146,w3,w4,w5] [q0,q86,q138,q187] [] (by decide +kernel)
+def n283 := cc 9 [w143,w55,w1,w2,w4,w5] [q86,q138,q187,q293] [n261] (by decide +kernel)
+def n284 := cc 10 [w143,w0,w1,w2,w3,w4,w5] [q0,q86,q138,q187,q229] [n283,n281,n282,n280] (by decide +kernel)
+def n285 := cc 8 [w0,w1,w2,w3,w4,w147,w5] [q73,q80,q134,q164,q187,q334] [] (by decide +kernel)
+def n286 := cc 8 [w148,w0,w1,w2,w3,w4,w5] [q73,q138,q208,q369,q546] [] (by decide +kernel)
+def n287 := cc 8 [w0,w1,w2,w56,w3,w4,w5,w19] [q73,q80,q135,q164,q208,q354,q517,q546] [] (by decide +kernel)
+def v78 : Closed T 8 := rotateClosed n286 auto1 auto1ok
+def v79 : Closed T 8 := rotateClosed n285 auto1 auto1ok
+def n288 := cc 9 [w0,w1,w2,w56,w3,w4,w5] [q0,q134,q164,q208,q293,q546] [n286,v78,n246,n287,n285,v79,n65] (by decide +kernel)
+def n289 := cc 8 [w150,w0,w1,w2,w3,w4,w5] [q134,q177,q383,q421] [] (by decide +kernel)
+def n290 := cc 7 [w0,w1,w2,w3,w149,w30,w19] [q76,q135,q211,q351,q420] [] (by decide +kernel)
+def n291 := cc 8 [w0,w1,w2,w3,w4,w149,w5,w30] [q73,q134,q165,q211,q280,q348,q420,q547] [n290] (by decide +kernel)
+def n292 := cc 8 [w94,w0,w1,w2,w3,w4,w149,w5] [q73,q211,q280,q369,q547] [] (by decide +kernel)
+def v80 : Closed T 7 := rotateClosed n290 auto1 auto1ok
+def n293 := cc 8 [w0,w1,w2,w3,w4,w151,w19] [q80,q167,q354,q419] [v80] (by decide +kernel)
+def n294 := cc 8 [w0,w1,w2,w3,w4,w5,w152] [q73,q134,q167,q211,q229,q354] [] (by decide +kernel)
+def n295 := cc 8 [w153,w0,w1,w2,w3,w4,w5] [q80,q134,q175,q229,q372] [] (by decide +kernel)
+def v81 : Closed T 8 := rotateClosed n293 auto1 auto1ok
+def n296 := cc 9 [w0,w1,w2,w3,w4,w149,w5] [q73,q138,q211,q229,q293,q547] [n292,n295,n289,n291,n285,n294,v81] (by decide +kernel)
+def n297 := cc 9 [w55,w0,w1,w2,w8,w4,w5] [q134,q208,q279,q293,q424,q484] [] (by decide +kernel)
+def n298 := cc 8 [w0,w154,w1,w2,w3,w4,w5] [q171,q334,q527] [] (by decide +kernel)
+def n299 := cc 8 [w55,w0,w1,w2,w3,w4,w30,w19] [q279,q351,q484,q524,q526,q528] [n290] (by decide +kernel)
+def n300 := cc 6 [w32,w155,w1,w2,w3,w4,w5] [] [] (by decide +kernel)
+def n301 := cc 6 [w55,w32,w27,w1,w2,w4,w5] [q79,q85,q134] [] (by decide +kernel)
+def n302 := cc 7 [w55,w32,w1,w2,w3,w4,w5] [q134,q209,q459] [n44,n301,n300] (by decide +kernel)
+def n303 := cc 8 [w55,w0,w1,w2,w3,w4,w5,w31] [q134,q137,q165,q209,q342] [n302] (by decide +kernel)
+def n304 := cc 8 [w33,w55,w0,w1,w2,w3,w4,w5] [q80,q134,q137,q172,q209,q275,q346,q421,q467] [] (by decide +kernel)
+def v82 : Closed T 8 := rotateClosed n299 auto1 auto1ok
+def v83 : Closed T 8 := rotateClosed n291 auto1 auto1ok
+def n305 := cc 9 [w55,w0,w1,w2,w3,w4,w24,w5] [q138,q187,q279,q334,q417,q424,q525] [n304,n303,v82,n298,v83,n285] (by decide +kernel)
+def n306 := cc 8 [w156,w0,w1,w2,w3,w4,w5] [q73,q174,q208,q279,q369,q546] [] (by decide +kernel)
+def n307 := cc 8 [w55,w0,w1,w2,w3,w4,w95,w5] [q73,q209,q279,q370,q467,q555] [] (by decide +kernel)
+def n308 := cc 9 [w94,w55,w0,w1,w2,w3,w4,w5] [q172,q187,q279,q369,q484] [n292,n307,n306] (by decide +kernel)
+def n309 := cc 8 [w43,w55,w0,w1,w2,w4,w5] [q177,q383,q484] [] (by decide +kernel)
+def n310 := cc 9 [w55,w0,w1,w2,w4,w41,w5] [q138,q293,q484] [n309] (by decide +kernel)
+def n311 := cc 8 [w0,w157,w1,w2,w3,w4,w5] [q134,q137,q186,q228,q229,q354] [] (by decide +kernel)
+def n312 := cc 8 [w34,w55,w0,w1,w2,w3,w4,w5] [q134,q137,q225,q360,q480] [] (by decide +kernel)
+def n313 := cc 9 [w55,w0,w1,w2,w3,w4,w5,w19] [q138,q261,q279,q354,q424,q484,q528,q539] [n312,n303,n299,v82,n311,n287,n294,n293,v81] (by decide +kernel)
+def v84 : Closed T 9 := rotateClosed n308 auto1 auto1ok
+def v85 : Closed T 9 := rotateClosed n305 auto1 auto1ok
+def v86 : Closed T 9 := rotateClosed n310 auto1 auto1ok
+def v87 : Closed T 9 := rotateClosed n296 auto1 auto1ok
+def n314 := cc 10 [w55,w0,w1,w2,w3,w4,w5] [q0,q138,q187,q229,q293] [n308,v84,n283,n247,n66,n305,v85,n313,n297,n310,v86,n288,n296,v87] (by decide +kernel)
+def n315 := cc 9 [w0,w159,w2,w3,w4,w5] [q86,q138,q187,q229] [] (by decide +kernel)
+def n316 := cc 9 [w161,w0,w2,w3,w4,w5] [q86,q138,q484] [] (by decide +kernel)
+def n317 := cc 9 [w0,w1,w162,w3,w4,w5] [q86,q187,q424] [] (by decide +kernel)
+def n318 := cc 9 [w0,w1,w2,w162,w3,w4,w5] [q86,q187,q424] [] (by decide +kernel)
+def n319 := cc 9 [w163,w0,w1,w3,w4,w5] [q86,q138,q187,q229] [] (by decide +kernel)
+def n320 := cc 9 [w0,w1,w2,w164,w4,w5] [q0,q86,q138,q187] [] (by decide +kernel)
+def n321 := cc 9 [w165,w0,w1,w2,w4,w5] [q86,q138,q187,q293] [] (by decide +kernel)
+def n322 := cc 9 [w0,w1,w2,w3,w4,w166] [q86,q187,q424] [] (by decide +kernel)
+def n323 := cc 9 [w167,w0,w1,w2,w3,w5] [q86,q187,q424] [] (by decide +kernel)
+def n324 := cc 9 [w158,w1,w2,w3,w168,w5] [q86,q138,q187,q424] [] (by decide +kernel)
+def v88 : Closed T 9 := rotateClosed n316 auto1 auto1ok
+def v89 : Closed T 9 := rotateClosed n319 auto1 auto1ok
+def v90 : Closed T 9 := rotateClosed n321 auto1 auto1ok
+def v91 : Closed T 9 := rotateClosed n323 auto1 auto1ok
+def n325 := cc 10 [w158,w0,w1,w2,w3,w4,w5] [q86,q187,q229,q424] [v88,v89,v90,v91,n324,n318,n322,n320,n317,n315] (by decide +kernel)
+def n326 := cc 6 [w1,w137,w2,w3,w168,w169,w19] [q133,q139] [] (by decide +kernel)
+def n327 := cc 6 [w171,w1,w137,w2,w3,w4,w172] [] [] (by decide +kernel)
+def v92 : Closed T 6 := rotateClosed n327 auto1 auto1ok
+def n328 := cc 7 [w1,w137,w2,w3,w4,w168,w5,w169] [q141,q250] [v92,n326] (by decide +kernel)
+def v93 : Closed T 6 := rotateClosed n326 auto1 auto1ok
+def n329 := cc 7 [w1,w137,w2,w3,w4,w172,w19] [q133,q139,q188,q252,q487,q517] [v93] (by decide +kernel)
+def n330 := cc 6 [w174,w137,w2,w3,w4,w5,w173] [q248] [] (by decide +kernel)
+def n331 := cc 6 [w175,w1,w137,w3,w4,w5,w173] [q115] [] (by decide +kernel)
+def n332 := cc 7 [w1,w137,w2,w3,w4,w5,w173] [q7,q139,q188,q248,q517] [n331,n330] (by decide +kernel)
+def v94 : Closed T 7 := rotateClosed n329 auto1 auto1ok
+def n333 := cc 8 [w1,w137,w2,w3,w4,w168,w5] [q133,q139,q188,q245,q303,q427] [n328,n332,v94] (by decide +kernel)
+def n334 := cc 8 [w0,w1,w2,w3,w4,w172,w176] [q9,q107,q251,q519] [] (by decide +kernel)
+def n335 := cc 8 [w0,w1,w2,w3,w4,w170,w5] [q73,q80,q139,q189,q245,q308,q427] [] (by decide +kernel)
+def n336 := cc 7 [w177,w0,w1,w2,w3,w4,w172] [q103,q117,q190,q489,q517] [] (by decide +kernel)
+def n337 := cc 8 [w0,w136,w1,w2,w3,w4,w172,w19] [q80,q114,q139,q188,q252,q332,q486,q529,q536] [n336,n329] (by decide +kernel)
+def n338 := cc 7 [w178,w0,w1,w2,w3,w4,w5] [q5,q6,q103,q106,q117,q127,q128,q130,q293] [] (by decide +kernel)
+def n339 := cc 7 [w178,w0,w1,w2,w3,w4,w5,w173] [q115,q138,q187,q517] [] (by decide +kernel)
+def n340 := cc 7 [w0,w136,w174,w2,w3,w4,w5,w173] [q73,q80,q248,q390,q524] [n330] (by decide +kernel)
+def n341 := cc 6 [w175,w179,w0,w1,w3,w4,w5] [] [] (by decide +kernel)
+def n342 := cc 7 [w175,w0,w136,w1,w3,w4,w5] [q134,q182,q226,q248] [n341] (by decide +kernel)
+def n343 := cc 7 [w175,w0,w136,w1,w3,w4,w5,w173] [q73,q80,q248,q390] [n331] (by decide +kernel)
+def n344 := cc 8 [w0,w136,w1,w2,w3,w4,w5,w173] [q31,q73,q80,q114,q139,q188,q248,q291,q325,q536] [n342,n343,n338,n339,n340,n332] (by decide +kernel)
+def v95 : Closed T 8 := rotateClosed n337 auto1 auto1ok
+def v96 : Closed T 8 := rotateClosed n334 auto1 auto1ok
+def n345 := cc 9 [w0,w136,w1,w2,w3,w4,w168,w5] [q86,q139,q188,q245,q320,q426,q528] [n344,v95,n335,v96,n333] (by decide +kernel)
+def n346 := cc 8 [w25,w0,w1,w2,w3,w4,w172,w19] [q80,q187,q252,q506,q525,q536] [] (by decide +kernel)
+def n347 := cc 8 [w25,w0,w1,w2,w3,w4,w5,w173] [q54,q213,q248,q293,q524,q536] [] (by decide +kernel)
+def v97 : Closed T 8 := rotateClosed n346 auto1 auto1ok
+def n348 := cc 9 [w25,w0,w1,w2,w3,w4,w168,w5] [q86,q138,q213,q245,q320,q460,q524] [v0,n347,v97] (by decide +kernel)
+def n349 := cc 6 [w1,w64,w74,w3,w4,w172,w30] [q136,q191] [] (by decide +kernel)
+def n350 := cc 6 [w180,w1,w64,w2,w3,w4,w172] [] [] (by decide +kernel)
+def v98 : Closed T 6 := rotateClosed n350 auto1 auto1ok
+def v99 : Closed T 6 := rotateClosed n349 auto1 auto1ok
+def n351 := cc 7 [w1,w64,w2,w74,w3,w4,w168,w5] [q16,q145,q240,q377] [v98,v99] (by decide +kernel)
+def n352 := cc 6 [w1,w64,w2,w3,w168,w65,w19] [q136,q144] [] (by decide +kernel)
+def n353 := cc 6 [w181,w1,w64,w2,w3,w4,w172] [] [] (by decide +kernel)
+def v100 : Closed T 6 := rotateClosed n353 auto1 auto1ok
+def n354 := cc 7 [w1,w64,w2,w3,w4,w168,w5,w65] [q146,q329] [v100,n352] (by decide +kernel)
+def n355 := cc 6 [w1,w64,w2,w3,w4,w30,w173] [] [] (by decide +kernel)
+def n356 := cc 6 [w1,w64,w2,w3,w4,w172,w31] [q136] [] (by decide +kernel)
+def n357 := cc 6 [w33,w1,w64,w2,w3,w168,w5] [] [] (by decide +kernel)
+def v101 : Closed T 6 := rotateClosed n357 auto1 auto1ok
+def n358 := cc 7 [w1,w64,w2,w3,w4,w172,w30] [q136,q191,q241,q420] [v101,n356,n355,n349] (by decide +kernel)
+def n359 := cc 6 [w1,w64,w2,w3,w168,w30,w19] [] [] (by decide +kernel)
+def v102 : Closed T 6 := rotateClosed n356 auto1 auto1ok
+def n360 := cc 7 [w1,w64,w2,w3,w4,w168,w5,w30] [q144,q165,q191] [n91,v102,n355,n359] (by decide +kernel)
+def n361 := cc 6 [w34,w1,w64,w2,w3,w4,w172] [] [] (by decide +kernel)
+def v103 : Closed T 6 := rotateClosed n352 auto1 auto1ok
+def v104 : Closed T 6 := rotateClosed n359 auto1 auto1ok
+def n362 := cc 7 [w1,w64,w2,w3,w4,w172,w19] [q17,q114,q136,q144,q191,q517] [n361,n356,n90,v103,v104] (by decide +kernel)
+def n363 := cc 6 [w174,w64,w2,w3,w4,w5,w173] [q325,q450] [] (by decide +kernel)
+def n364 := cc 6 [w175,w1,w64,w2,w3,w4,w5] [] [] (by decide +kernel)
+def v105 : Closed T 6 := rotateClosed n355 auto1 auto1ok
+def n365 := cc 7 [w1,w64,w2,w3,w4,w5,w173] [q144,q191,q325,q440,q517,q540] [n364,n363,n91,n355,v105] (by decide +kernel)
+def v106 : Closed T 7 := rotateClosed n358 auto1 auto1ok
+def v107 : Closed T 7 := rotateClosed n362 auto1 auto1ok
+def n366 := cc 8 [w1,w64,w2,w3,w4,w168,w5] [q136,q144,q191,q240,q320] [n351,n354,n360,n93,n365,v106,v107] (by decide +kernel)
+def n367 := cc 8 [w0,w1,w2,w3,w4,w172,w182] [q113,q134,q191,q330,q519] [] (by decide +kernel)
+def n368 := cc 8 [w0,w1,w2,w3,w4,w66,w5] [q110,q134,q144,q229,q320,q520] [] (by decide +kernel)
+def n369 := cc 6 [w76,w0,w1,w2,w3,w5,w173] [] [] (by decide +kernel)
+def n370 := cc 7 [w76,w0,w1,w2,w3,w168,w5] [q82,q149,q417] [n369] (by decide +kernel)
+def n371 := cc 6 [w183,w0,w1,w2,w3,w4,w30] [q229] [] (by decide +kernel)
+def v108 : Closed T 6 := rotateClosed n369 auto1 auto1ok
+def n372 := cc 7 [w0,w27,w1,w2,w3,w4,w30,w173] [q76,q135,q165,q248] [v108,n371,n355] (by decide +kernel)
+def n373 := cc 6 [w78,w0,w1,w2,w3,w4,w172] [q86] [] (by decide +kernel)
+def n374 := cc 7 [w0,w27,w1,w2,w3,w4,w172,w31] [q75,q80,q103,q134,q165,q209,q252] [n373,n356] (by decide +kernel)
+def n375 := cc 7 [w33,w0,w27,w1,w2,w3,w168,w5] [q73,q82,q105,q172,q277,q422] [n357] (by decide +kernel)
+def v109 : Closed T 7 := rotateClosed n375 auto1 auto1ok
+def v110 : Closed T 7 := rotateClosed n370 auto1 auto1ok
+def n376 := cc 8 [w0,w27,w1,w2,w3,w4,w172,w30] [q80,q134,q165,q191,q251,q331,q529,q532,q538] [v109,v110,n374,n372,n358] (by decide +kernel)
+def n377 := cc 6 [w76,w0,w1,w2,w3,w172,w19] [q187] [] (by decide +kernel)
+def n378 := cc 7 [w76,w0,w1,w2,w3,w4,w5,w172] [q80,q149,q187] [n369,n377] (by decide +kernel)
+def n379 := cc 6 [w77,w0,w1,w2,w3,w168,w30] [] [] (by decide +kernel)
+def v111 : Closed T 6 := rotateClosed n377 auto1 auto1ok
+def n380 := cc 7 [w0,w27,w1,w2,w3,w168,w30,w19] [q76,q135,q144,q165,q247,q533] [v111,n379,n359] (by decide +kernel)
+def v112 : Closed T 7 := rotateClosed n378 auto1 auto1ok
+def v113 : Closed T 7 := rotateClosed n374 auto1 auto1ok
+def n381 := cc 8 [w0,w27,w1,w2,w3,w4,w168,w5,w30] [q134,q144,q165,q191,q245,q320,q519,q520,q532,q533] [v112,n126,v113,n372,n380,n360] (by decide +kernel)
+def v114 : Closed T 6 := rotateClosed n379 auto1 auto1ok
+def n382 := cc 7 [w77,w0,w1,w2,w3,w4,w172] [q118,q134,q197,q517] [n122,v114] (by decide +kernel)
+def n383 := cc 6 [w0,w1,w35,w2,w3,w4,w172] [] [] (by decide +kernel)
+def n384 := cc 7 [w34,w0,w27,w1,w2,w3,w4,w172] [q80,q117,q181,q529,q552] [n361,n383] (by decide +kernel)
+def v115 : Closed T 7 := rotateClosed n380 auto1 auto1ok
+def n385 := cc 8 [w0,w27,w1,w2,w3,w4,w172,w19] [q80,q191,q252,q332,q448,q524,q529,q539] [n384,n382,n374,n123,v115,n362] (by decide +kernel)
+def v116 : Closed T 6 := rotateClosed n371 auto1 auto1ok
+def n386 := cc 7 [w183,w0,w1,w2,w3,w4,w5] [q134,q150,q197,q229,q325,q453] [n371,v116] (by decide +kernel)
+def n387 := cc 7 [w183,w0,w1,w2,w3,w4,w5,w173] [q116,q138,q187,q517] [] (by decide +kernel)
+def n388 := cc 7 [w0,w27,w174,w2,w3,w4,w5,w173] [q73,q325,q328,q449] [n363] (by decide +kernel)
+def n389 := cc 6 [w0,w1,w184,w2,w3,w4,w5] [q73] [] (by decide +kernel)
+def n390 := cc 7 [w175,w0,w27,w1,w2,w3,w4,w5] [q0,q73,q80,q134,q181,q225,q248,q293] [n364,n389] (by decide +kernel)
+def v117 : Closed T 7 := rotateClosed n372 auto1 auto1ok
+def n391 := cc 8 [w0,w27,w1,w2,w3,w4,w5,w173] [q73,q80,q144,q191,q248,q291,q325,q448,q524,q536] [n390,n386,n387,n388,n126,n372,v117,n365] (by decide +kernel)
+def v118 : Closed T 8 := rotateClosed n376 auto1 auto1ok
+def v119 : Closed T 8 := rotateClosed n385 auto1 auto1ok
+def v120 : Closed T 8 := rotateClosed n367 auto1 auto1ok
+def n392 := cc 9 [w0,w27,w1,w2,w3,w4,w168,w5] [q86,q144,q191,q245,q320,q524,q528] [n381,n128,n391,v118,v119,n368,v120,n366] (by decide +kernel)
+def n393 := cc 8 [w36,w0,w1,w2,w3,w168,w24,w5] [q30,q170,q245,q321,q405,q520] [] (by decide +kernel)
+def n394 := cc 8 [w36,w0,w1,w2,w3,w168,w19] [q324,q404,q464,q528] [n143] (by decide +kernel)
+def n395 := cc 9 [w36,w0,w1,w2,w3,w4,w168,w5] [q86,q170,q245,q320,q404,q464,q524] [n16,n144,n393,n394] (by decide +kernel)
+def n396 := cc 6 [w1,w2,w186,w3,w168,w187,w19] [q133,q154] [] (by decide +kernel)
+def n397 := cc 6 [w189,w1,w2,w186,w3,w4,w172] [] [] (by decide +kernel)
+def v121 : Closed T 6 := rotateClosed n397 auto1 auto1ok
+def n398 := cc 7 [w1,w2,w186,w3,w4,w168,w5,w187] [q157,q250] [v121,n396] (by decide +kernel)
+def v122 : Closed T 6 := rotateClosed n396 auto1 auto1ok
+def n399 := cc 7 [w1,w2,w186,w3,w4,w172,w19] [q22,q133,q154,q199,q252,q517] [v122] (by decide +kernel)
+def n400 := cc 6 [w175,w1,w186,w3,w4,w5,w173] [q156,q184] [] (by decide +kernel)
+def n401 := cc 7 [w1,w2,w186,w3,w4,w5,w173] [q154,q199,q248,q325,q444,q517] [n400] (by decide +kernel)
+def v123 : Closed T 7 := rotateClosed n399 auto1 auto1ok
+def n402 := cc 8 [w1,w2,w186,w3,w4,w168,w5] [q133,q154,q199,q245,q320] [n398,n401,v123] (by decide +kernel)
+def n403 := cc 8 [w0,w1,w2,w3,w4,w172,w190] [q199,q251,q519] [] (by decide +kernel)
+def n404 := cc 8 [w0,w1,w2,w3,w4,w188,w5] [q73,q80,q154,q187,q245,q320] [] (by decide +kernel)
+def n405 := cc 7 [w191,w0,w1,w2,w3,w4,w172] [q202,q252,q517] [] (by decide +kernel)
+def n406 := cc 8 [w0,w1,w185,w2,w3,w4,w172,w19] [q80,q199,q252,q448,q529,q539] [n405,n399] (by decide +kernel)
+def n407 := cc 7 [w192,w0,w1,w2,w3,w4,w5] [q0,q158,q178,q185,q248] [] (by decide +kernel)
+def n408 := cc 7 [w192,w0,w1,w2,w3,w4,w5,w173] [q155,q187,q517] [] (by decide +kernel)
+def n409 := cc 7 [w175,w0,w1,w185,w3,w4,w5] [q134,q227,q248,q454] [] (by decide +kernel)
+def n410 := cc 7 [w175,w0,w1,w185,w3,w4,w5,w173] [q73,q80,q156,q454,q455] [n400] (by decide +kernel)
+def n411 := cc 8 [w0,w1,w185,w2,w3,w4,w5,w173] [q73,q80,q154,q199,q248,q325,q448,q539] [n409,n410,n407,n408,n401] (by decide +kernel)
+def v124 : Closed T 8 := rotateClosed n406 auto1 auto1ok
+def v125 : Closed T 8 := rotateClosed n403 auto1 auto1ok
+def n412 := cc 9 [w0,w1,w185,w2,w3,w4,w168,w5] [q154,q199,q245,q424,q528] [n411,v124,n404,v125,n402] (by decide +kernel)
+def n413 := cc 8 [w0,w1,w2,w3,w4,w193,w5] [q73,q80,q134,q177,q223,q242,q320] [] (by decide +kernel)
+def n414 := cc 8 [w85,w0,w1,w2,w3,w4,w172,w19] [q80,q135,q138,q222,q252,q332,q529,q539] [] (by decide +kernel)
+def n415 := cc 7 [w0,w1,w2,w194,w3,w4,w5,w173] [q178] [] (by decide +kernel)
+def n416 := cc 7 [w85,w0,w1,w195,w3,w4,w5,w173] [q73,q180] [] (by decide +kernel)
+def n417 := cc 8 [w85,w0,w1,w2,w3,w4,w5,w173] [q73,q222,q325,q415,q524,q539] [n416,n415] (by decide +kernel)
+def v126 : Closed T 8 := rotateClosed n414 auto1 auto1ok
+def n418 := cc 9 [w85,w0,w1,w2,w3,w4,w168,w5] [q134,q177,q222,q245,q320,q424,q528] [n417,v126,n413] (by decide +kernel)
+def n419 := cc 8 [w87,w1,w2,w3,w168,w24,w5] [q86,q520,q531] [] (by decide +kernel)
+def n420 := cc 8 [w0,w88,w1,w2,w3,w168,w24,w5] [q98,q520,q537] [] (by decide +kernel)
+def n421 := cc 8 [w91,w0,w1,w2,w3,w168,w24,w5] [q175,q321,q500,q520] [] (by decide +kernel)
+def n422 := cc 8 [w0,w1,w2,w90,w3,w168,w24,w5] [q154,q321,q417,q520] [] (by decide +kernel)
+def n423 := cc 8 [w0,w1,w2,w3,w4,w30,w173] [q80,q135,q165,q181,q229,q248,q452] [n372] (by decide +kernel)
+def n424 := cc 8 [w0,w1,w2,w3,w4,w172,w31] [q80,q103,q134,q165,q452] [n374] (by decide +kernel)
+def n425 := cc 8 [w33,w0,w1,w2,w3,w168,w5] [q82,q134,q172,q277,q422,q467] [n375] (by decide +kernel)
+def v127 : Closed T 8 := rotateClosed n393 auto1 auto1ok
+def v128 : Closed T 8 := rotateClosed n421 auto1 auto1ok
+def v129 : Closed T 8 := rotateClosed n425 auto1 auto1ok
+def v130 : Closed T 8 := rotateClosed n419 auto1 auto1ok
+def v131 : Closed T 8 := rotateClosed n420 auto1 auto1ok
+def v132 : Closed T 8 := rotateClosed n422 auto1 auto1ok
+def n426 := cc 9 [w0,w1,w2,w3,w4,w172,w30] [q134,q187,q251,q484,q519] [v127,v128,v129,v130,n376,v131,v132,n424,n423] (by decide +kernel)
+def n427 := cc 6 [w197,w1,w196,w2,w3,w4,w172] [] [] (by decide +kernel)
+def n428 := cc 6 [w1,w196,w2,w3,w172,w19] [q102,q198,q221,q534] [] (by decide +kernel)
+def n429 := cc 7 [w1,w196,w2,w3,w4,w5,w172] [q98,q139,q246,q534] [n427,n428] (by decide +kernel)
+def n430 := cc 7 [w0,w88,w1,w2,w3,w172,w19] [q252,q529,q534] [n428] (by decide +kernel)
+def n431 := cc 8 [w0,w88,w1,w2,w3,w4,w5,w172] [q80,q139,q210,q251,q534] [n430,n429] (by decide +kernel)
+def v133 : Closed T 7 := rotateClosed n430 auto1 auto1ok
+def n432 := cc 8 [w0,w1,w2,w3,w168,w30,w19] [q108,q138,q457,q524,q528] [v6,n380,v133] (by decide +kernel)
+def n433 := cc 8 [w198,w0,w1,w2,w3,w4,w5] [q0,q209,q293,q531] [] (by decide +kernel)
+def v134 : Closed T 8 := rotateClosed n18 auto1 auto1ok
+def v135 : Closed T 8 := rotateClosed n433 auto1 auto1ok
+def v136 : Closed T 8 := rotateClosed n431 auto1 auto1ok
+def v137 : Closed T 8 := rotateClosed n424 auto1 auto1ok
+def n434 := cc 9 [w0,w1,w2,w3,w4,w168,w5,w30] [q107,q138,q187,q320,q348,q457,q524] [v134,v135,n381,v136,n188,v137,n423,n432] (by decide +kernel)
+def n435 := cc 8 [w0,w1,w2,w3,w4,w200,w172] [q80,q165,q251] [] (by decide +kernel)
+def n436 := cc 8 [w0,w1,w2,w3,w4,w201,w5] [q0,q73,q209,q245,q293] [] (by decide +kernel)
+def v138 : Closed T 8 := rotateClosed n435 auto1 auto1ok
+def n437 := cc 9 [w94,w0,w1,w2,w3,w4,w168,w5] [q29,q61,q172,q187,q245,q320,q369] [n436,v138] (by decide +kernel)
+def n438 := cc 9 [w91,w0,w1,w2,w3,w4,w168,w5] [q175,q187,q274,q320,q499] [n185,n421] (by decide +kernel)
+def n439 := cc 8 [w202,w1,w2,w3,w4,w172,w19] [q86,q529,q536,q539] [] (by decide +kernel)
+def n440 := cc 8 [w0,w62,w1,w2,w3,w4,w172,w19] [q80,q114,q252,q524,q529,q539] [] (by decide +kernel)
+def n441 := cc 8 [w0,w1,w203,w2,w3,w4,w172,w19] [q159,q181,q252,q332,q491,q529] [] (by decide +kernel)
+def n442 := cc 8 [w34,w0,w1,w2,w3,w4,w172] [q117,q134,q181,q225,q483] [n384] (by decide +kernel)
+def n443 := cc 8 [w34,w0,w1,w2,w3,w4,w172,w19] [q32,q80,q138,q332,q529,q536] [] (by decide +kernel)
+def n444 := cc 8 [w0,w1,w2,w122,w3,w4,w172,w19] [q80,q161,q252,q332,q517,q524,q529] [] (by decide +kernel)
+def v139 : Closed T 8 := rotateClosed n394 auto1 auto1ok
+def v140 : Closed T 8 := rotateClosed n432 auto1 auto1ok
+def n445 := cc 9 [w0,w1,w2,w3,w4,w172,w19] [q80,q114,q138,q187,q484] [n19,v139,n346,n414,n442,n443,n439,n337,n385,n440,n406,n441,n444,n424,n187,v140] (by decide +kernel)
+def n446 := cc 8 [w202,w1,w2,w3,w4,w5,w173] [q73,q80,q138,q536,q539] [] (by decide +kernel)
+def n447 := cc 8 [w0,w174,w1,w2,w3,w4,w5] [q114,q134,q151,q198,q229,q291] [] (by decide +kernel)
+def n448 := cc 7 [w175,w0,w174,w1,w2,w3,w4,w5] [q134,q248,q390] [] (by decide +kernel)
+def n449 := cc 8 [w0,w174,w1,w2,w3,w4,w5,w173] [q73,q80,q114,q151,q198,q248,q325,q449,q524] [n448,n340,n388] (by decide +kernel)
+def n450 := cc 8 [w0,w1,w195,w2,w3,w4,w5,w173] [q73,q80,q181,q203,q248,q325,q451,q546] [n416] (by decide +kernel)
+def n451 := cc 8 [w175,w0,w1,w2,w3,w4,w5] [q117,q134,q181,q225,q291,q293,q454] [n342,n390,n409] (by decide +kernel)
+def n452 := cc 7 [w0,w204,w1,w2,w3,w4,w5,w173] [q115,q117,q163,q207,q390,q536] [] (by decide +kernel)
+def n453 := cc 7 [w175,w0,w1,w2,w205,w3,w4,w5] [q31,q134,q248,q293,q455] [] (by decide +kernel)
+def n454 := cc 8 [w175,w0,w1,w2,w3,w4,w5,w173] [q73,q80,q138,q248,q325,q454,q524] [n343,n448,n410,n453,n452] (by decide +kernel)
+def n455 := cc 8 [w0,w1,w2,w205,w3,w4,w5,w173] [q73,q80,q205,q248,q325,q448,q524,q546] [n453] (by decide +kernel)
+def v141 : Closed T 8 := rotateClosed n423 auto1 auto1ok
+def n456 := cc 9 [w0,w1,w2,w3,w4,w5,w173] [q73,q114,q138,q187,q229,q293,q448] [n16,n347,n417,n451,n454,n446,n344,n391,n447,n449,n411,n450,n455,n188,n423,v141] (by decide +kernel)
+def v142 : Closed T 9 := rotateClosed n426 auto1 auto1ok
+def v143 : Closed T 9 := rotateClosed n445 auto1 auto1ok
+def n457 := cc 10 [w0,w1,w2,w3,w4,w168,w5] [q86,q138,q187,q229,q293,q424] [v11,n395,n437,n438,n348,n418,n324,n345,n392,n412,n434,n190,n456,v142,v143] (by decide +kernel)
+def n458 := cc 9 [w0,w1,w2,w207,w3,w4,w5] [q86,q133,q134,q138,q187,q293,q495] [] (by decide +kernel)
+def n459 := cc 9 [w206,w208,w1,w2,w3,w4] [q86,q138,q187,q484] [] (by decide +kernel)
+def n460 := cc 8 [w0,w1,w209,w2,w3,w4,w5] [q87,q154,q199,q269,q366] [] (by decide +kernel)
+def n461 := cc 8 [w206,w1,w2,w186,w3,w4,w5] [q87,q154,q199,q231,q269,q366] [] (by decide +kernel)
+def n462 := cc 9 [w206,w0,w1,w185,w2,w3,w4,w5] [q87,q154,q269,q484] [n461,n460] (by decide +kernel)
+def n463 := cc 8 [w210,w0,w1,w2,w3,w4,w5] [q53,q125,q177,q222,q270] [] (by decide +kernel)
+def n464 := cc 9 [w206,w85,w0,w1,w2,w3,w4,w5] [q134,q177,q366,q484] [n463] (by decide +kernel)
+def n465 := cc 10 [w206,w0,w1,w2,w3,w4,w5] [q86,q138,q187,q229,q293,q484] [n464,n459,n462,n458] (by decide +kernel)
+def n466 := cc 8 [w0,w1,w2,w3,w4,w212,w5] [q73,q165,q181,q407,q503] [] (by decide +kernel)
+def n467 := cc 8 [w215,w0,w1,w2,w3,w4,w5] [q80,q172,q209,q284,q397,q467] [] (by decide +kernel)
+def n468 := cc 8 [w0,w1,w2,w214,w3,w5,w19] [q135,q209,q385,q417,q424,q517] [] (by decide +kernel)
+def v144 : Closed T 8 := rotateClosed n466 auto1 auto1ok
+def n469 := cc 9 [w0,w1,w2,w214,w3,w4,w5] [q134,q138,q209,q385,q417,q424] [n467,n468,v144] (by decide +kernel)
+def n470 := cc 8 [w0,w1,w2,w3,w4,w216,w30] [q80,q135,q165,q181,q229,q282,q393,q457] [] (by decide +kernel)
+def n471 := cc 8 [w218,w0,w1,w2,w3,w4,w5] [q73,q181,q225,q413,q516] [] (by decide +kernel)
+def n472 := cc 8 [w0,w1,w2,w3,w4,w217,w30] [q135,q165,q229,q400,q420,q484,q517] [] (by decide +kernel)
+def v145 : Closed T 8 := rotateClosed n470 auto1 auto1ok
+def n473 := cc 9 [w0,w1,w2,w3,w4,w217,w5] [q73,q138,q229,q400,q484,q517] [n471,n472,n466,v145] (by decide +kernel)
+def n474 := cc 8 [w0,w219,w1,w2,w3,w4,w30] [q133,q231,q421,q484] [] (by decide +kernel)
+def n475 := cc 8 [w213,w0,w1,w2,w3,w5,w31] [q134,q209,q393] [] (by decide +kernel)
+def n476 := cc 8 [w33,w213,w0,w1,w2,w3,w5] [q165,q172,q397,q467,q555] [] (by decide +kernel)
+def v146 : Closed T 8 := rotateClosed n474 auto1 auto1ok
+def v147 : Closed T 8 := rotateClosed n472 auto1 auto1ok
+def n477 := cc 9 [w213,w0,w1,w2,w3,w24,w5] [q134,q138,q229,q385,q417,q424] [n476,n475,v146,v147] (by decide +kernel)
+def n478 := cc 8 [w220,w0,w1,w2,w3,w4,w5] [q134,q172,q407,q503] [] (by decide +kernel)
+def n479 := cc 8 [w213,w0,w1,w2,w3,w30,w19] [q165,q187,q393,q419,q457,q517] [] (by decide +kernel)
+def v148 : Closed T 8 := rotateClosed n478 auto1 auto1ok
+def n480 := cc 9 [w213,w0,w1,w2,w3,w4,w5,w30] [q187,q393,q419,q457] [n475,n479,v148,v144,n470] (by decide +kernel)
+def n481 := cc 8 [w221,w0,w1,w2,w3,w4,w5] [q209,q281,q467] [] (by decide +kernel)
+def n482 := cc 8 [w213,w0,w1,w2,w3,w95,w5] [q172,q209,q230,q281,q467] [] (by decide +kernel)
+def n483 := cc 9 [w94,w213,w0,w1,w2,w3,w4,w5] [q61,q67,q172,q187,q281,q369,q379] [n482,n481] (by decide +kernel)
+def n484 := cc 8 [w34,w213,w0,w1,w2,w3,w5] [q165,q181,q399,q480,q555] [] (by decide +kernel)
+def n485 := cc 9 [w213,w0,w1,w2,w3,w5,w19] [q138,q187,q385,q424,q517,q519] [n484,n475,n479,n468] (by decide +kernel)
+def v149 : Closed T 9 := rotateClosed n473 auto1 auto1ok
+def n486 := cc 10 [w213,w0,w1,w2,w3,w4,w5] [q138,q187,q229,q385,q424] [n483,n480,n477,n485,n469,v149] (by decide +kernel)
+def n487 := cc 8 [w0,w1,w137,w2,w3,w222,w4,w5] [q125,q239,q279,q300,q427,q487] [] (by decide +kernel)
+def n488 := cc 6 [w0,w1,w2,w3,w170,w169,w19] [q89,q92,q99] [] (by decide +kernel)
+def n489 := cc 7 [w0,w1,w2,w3,w4,w170,w5,w169] [q73,q80,q139,q188] [n488] (by decide +kernel)
+def n490 := cc 7 [w0,w1,w137,w2,w3,w4,w169,w19] [q133,q141,q287] [n488,n326] (by decide +kernel)
+def n491 := cc 7 [w0,w1,w137,w2,w3,w4,w5,w223] [q7,q117,q263,q300,q540] [] (by decide +kernel)
+def n492 := cc 7 [w171,w0,w1,w137,w2,w3,w4,w5] [q80,q189,q284] [n327] (by decide +kernel)
+def v150 : Closed T 7 := rotateClosed n490 auto1 auto1ok
+def v151 : Closed T 7 := rotateClosed n328 auto1 auto1ok
+def n493 := cc 8 [w0,w1,w137,w2,w3,w4,w170,w5] [q133,q139,q189,q308,q427,q540] [n492,n491,v150,n489,v151] (by decide +kernel)
+def n494 := cc 8 [w224,w0,w1,w2,w3,w4,w5] [q73,q80,q121,q142,q269,q318,q487] [] (by decide +kernel)
+def n495 := cc 7 [w225,w0,w1,w137,w2,w3,w4,w5] [q242] [] (by decide +kernel)
+def n496 := cc 8 [w0,w1,w137,w2,w3,w4,w41,w5] [q133,q139,q254,q300,q301,q487,q547] [n495] (by decide +kernel)
+def n497 := cc 7 [w1,w137,w2,w3,w4,w5,w19,w173] [q139,q188,q261,q517] [] (by decide +kernel)
+def n498 := cc 7 [w226,w0,w1,w137,w2,w3,w4,w5] [q248] [] (by decide +kernel)
+def n499 := cc 8 [w0,w1,w137,w2,w3,w4,w5,w19] [q73,q80,q133,q139,q188,q261,q300,q354,q427,q487,q517] [n498,n491,n490,v150,n497,n332,n329,v94] (by decide +kernel)
+def v152 : Closed T 8 := rotateClosed n494 auto1 auto1ok
+def v153 : Closed T 8 := rotateClosed n493 auto1 auto1ok
+def v154 : Closed T 8 := rotateClosed n496 auto1 auto1ok
+def v155 : Closed T 8 := rotateClosed n335 auto1 auto1ok
+def v156 : Closed T 8 := rotateClosed n333 auto1 auto1ok
+def n500 := cc 9 [w0,w1,w137,w2,w3,w4,w5] [q0,q86,q133,q139,q188,q229,q300] [n494,v152,n487,n493,v153,n496,v154,n499,n335,v155,n264,n333,v156] (by decide +kernel)
+def n501 := cc 8 [w228,w0,w1,w2,w3,w4,w5] [q281,q529,q540] [] (by decide +kernel)
+def n502 := cc 8 [w0,w1,w2,w3,w4,w176,w112] [q229,q348,q349,q528] [] (by decide +kernel)
+def n503 := cc 8 [w0,w1,w2,w3,w4,w176,w19] [q138,q261,q486,q528] [] (by decide +kernel)
+def n504 := cc 8 [w0,w1,w2,w3,w4,w5,w229] [q73,q261,q293,q428,q528] [] (by decide +kernel)
+def n505 := cc 8 [w230,w0,w1,w2,w3,w4,w5] [q80,q275,q346,q397,q488,q520] [] (by decide +kernel)
+def v157 : Closed T 8 := rotateClosed n502 auto1 auto1ok
+def v158 : Closed T 8 := rotateClosed n503 auto1 auto1ok
+def n506 := cc 9 [w0,w1,w2,w3,w4,w227,w5] [q187,q229,q334,q385,q426,q529] [n505,n501,n335,n504,v96,v157,v158] (by decide +kernel)
+def n507 := cc 9 [w0,w136,w231,w3,w4,w5] [q86,q229,q293,q385] [] (by decide +kernel)
+def n508 := cc 8 [w232,w0,w136,w1,w2,w3,w4,w5] [q139,q257,q379,q486,q529,q547] [] (by decide +kernel)
+def n509 := cc 8 [w233,w0,w1,w2,w3,w4,w5] [q86,q254,q291,q383,q398,q486,q547] [] (by decide +kernel)
+def n510 := cc 9 [w0,w136,w1,w2,w3,w4,w41,w5] [q110,q254,q293,q294,q385,q486] [n509,n508,n496,v157] (by decide +kernel)
+def n511 := cc 7 [w178,w0,w1,w2,w3,w4,w5,w19] [q115,q143,q187] [] (by decide +kernel)
+def n512 := cc 7 [w175,w0,w136,w1,w3,w4,w5,w19] [q73,q80,q114,q182] [] (by decide +kernel)
+def n513 := cc 8 [w0,w136,w1,w2,w3,w4,w5,w19,w173] [q73,q80,q139,q188,q261,q533,q536] [n512,n511,n497] (by decide +kernel)
+def n514 := cc 8 [w202,w0,w136,w1,w2,w3,w4,w5] [q4,q46,q114,q263,q359,q528,q529,q536] [] (by decide +kernel)
+def n515 := cc 7 [w0,w234,w1,w2,w3,w4,w5] [q0,q103,q117,q293,q517] [] (by decide +kernel)
+def v159 : Closed T 7 := rotateClosed n336 auto1 auto1ok
+def n516 := cc 8 [w177,w0,w1,w2,w3,w4,w5] [q86,q261,q360,q431,q489,q517] [n336,v159,n515] (by decide +kernel)
+def n517 := cc 9 [w0,w136,w1,w2,w3,w4,w5,w19] [q73,q188,q261,q354,q385,q400,q426,q486,q536] [n516,n514,n513,n344,n337,v95,n499,n504,n503,v158] (by decide +kernel)
+def v160 : Closed T 9 := rotateClosed n345 auto1 auto1ok
+def v161 : Closed T 9 := rotateClosed n510 auto1 auto1ok
+def v162 : Closed T 9 := rotateClosed n506 auto1 auto1ok
+def n518 := cc 10 [w0,w136,w1,w2,w3,w4,w5] [q0,q86,q229,q293,q385,q400] [n267,n345,v160,n510,v161,n517,n507,n500,n506,v162] (by decide +kernel)
+def n519 := cc 9 [w0,w1,w2,w235,w4,w5] [q86,q229,q293,q385] [] (by decide +kernel)
+def n520 := cc 9 [w236,w0,w1,w2,w4,w5] [q0,q86,q229,q385] [] (by decide +kernel)
+def n521 := cc 10 [w0,w1,w2,w231,w3,w4,w5] [q86,q229,q293,q385,q400] [n520,n507,n519] (by decide +kernel)
+def n522 := cc 8 [w0,w237,w1,w2,w3,w4,w5] [q0,q213,q285,q293,q524] [] (by decide +kernel)
+def n523 := cc 8 [w26,w0,w238,w2,w3,w4,w5] [q80,q229,q291,q400,q550] [] (by decide +kernel)
+def n524 := cc 8 [w0,w1,w2,w3,w4,w239,w5] [q73,q412,q524] [] (by decide +kernel)
+def n525 := cc 8 [w240,w0,w1,w2,w3,w4,w5] [q73,q261,q293,q407,q462,q549] [] (by decide +kernel)
+def n526 := cc 8 [w26,w0,w1,w2,w3,w4,w19] [q80,q393,q506,q524] [] (by decide +kernel)
+def n527 := cc 9 [w26,w0,w1,w2,w3,w4,w5] [q138,q229,q348,q400,q506,q524] [n525,n11,n21,n523,n526,n522,n524] (by decide +kernel)
+def n528 := cc 8 [w241,w0,w1,w2,w3,w4,w5] [q134,q254,q506] [] (by decide +kernel)
+def n529 := cc 8 [w25,w232,w0,w1,w2,w3,w4,w5] [q137,q168,q257,q506,q547] [] (by decide +kernel)
+def n530 := cc 9 [w25,w0,w1,w2,w3,w4,w41,w5] [q86,q254,q291,q293,q385,q506] [n528,n529] (by decide +kernel)
+def n531 := cc 8 [w242,w0,w1,w2,w3,w4,w5] [q0,q134,q293,q399,q413] [] (by decide +kernel)
+def n532 := cc 8 [w25,w0,w1,w2,w3,w4,w5,w19,w173] [q73,q80,q168,q213,q261,q419,q536] [] (by decide +kernel)
+def n533 := cc 8 [w25,w202,w0,w1,w2,w3,w4,w5] [q54,q263,q293,q524,q536] [] (by decide +kernel)
+def v163 : Closed T 8 := rotateClosed n526 auto1 auto1ok
+def n534 := cc 9 [w25,w0,w1,w2,w3,w4,w5,w19] [q73,q213,q261,q354,q385,q400,q460,q506,q536] [n525,n526,v163,n12,n531,n22,n533,n532,n347,n346,v97] (by decide +kernel)
+def v164 : Closed T 9 := rotateClosed n527 auto1 auto1ok
+def v165 : Closed T 9 := rotateClosed n348 auto1 auto1ok
+def v166 : Closed T 9 := rotateClosed n530 auto1 auto1ok
+def n535 := cc 10 [w25,w0,w1,w2,w3,w4,w5] [q0,q86,q229,q293,q385,q400] [n527,v164,n13,n23,n270,n348,v165,n530,v166,n534] (by decide +kernel)
+def n536 := cc 10 [w243,w0,w1,w2,w3,w4,w5] [q86,q229,q293,q385,q400] [] (by decide +kernel)
+def n537 := cc 6 [w0,w1,w74,w3,w4,w65,w30] [q88,q90,q95] [] (by decide +kernel)
+def v167 : Closed T 6 := rotateClosed n537 auto1 auto1ok
+def n538 := cc 7 [w0,w1,w2,w74,w3,w4,w66,w5] [q73,q110,q134,q144,q239] [v167] (by decide +kernel)
+def n539 := cc 7 [w0,w1,w64,w74,w3,w4,w24,w5] [q136,q145,q376] [v167,v99] (by decide +kernel)
+def n540 := cc 6 [w245,w0,w1,w64,w2,w3,w4] [] [] (by decide +kernel)
+def n541 := cc 7 [w0,w1,w64,w2,w3,w4,w244,w5] [q13,q104,q191,q345] [n540] (by decide +kernel)
+def n542 := cc 7 [w180,w0,w1,w64,w2,w3,w4,w5] [q80,q194,q378] [n350] (by decide +kernel)
+def v168 : Closed T 7 := rotateClosed n542 auto1 auto1ok
+def v169 : Closed T 7 := rotateClosed n541 auto1 auto1ok
+def v170 : Closed T 7 := rotateClosed n539 auto1 auto1ok
+def v171 : Closed T 7 := rotateClosed n538 auto1 auto1ok
+def v172 : Closed T 7 := rotateClosed n351 auto1 auto1ok
+def n543 := cc 8 [w0,w1,w64,w2,w74,w3,w4,w5] [q136,q145,q194,q239,q546] [n542,v168,n541,v169,n539,v170,n538,v171,n351,v172] (by decide +kernel)
+def n544 := cc 8 [w246,w0,w1,w2,w3,w4,w5] [q80,q125,q187,q363,q419] [] (by decide +kernel)
+def n545 := cc 6 [w0,w1,w2,w3,w66,w65,w19] [q91,q93,q111] [] (by decide +kernel)
+def n546 := cc 7 [w0,w1,w2,w3,w4,w66,w5,w65] [q73,q80,q144,q191] [n545] (by decide +kernel)
+def n547 := cc 7 [w0,w1,w64,w2,w3,w4,w65,w30] [q136,q243,q381] [n537,n82] (by decide +kernel)
+def n548 := cc 7 [w67,w0,w1,w64,w2,w3,w4,w5] [q134,q242,q319] [n83] (by decide +kernel)
+def n549 := cc 7 [w0,w1,w64,w2,w3,w4,w65,w19] [q136,q146,q382] [n545,n352] (by decide +kernel)
+def n550 := cc 6 [w248,w0,w1,w64,w3,w4,w5] [] [] (by decide +kernel)
+def n551 := cc 7 [w0,w1,w64,w2,w3,w4,w5,w247] [q13,q118,q239,q359] [n550] (by decide +kernel)
+def n552 := cc 7 [w181,w0,w1,w64,w2,w3,w4,w5] [q80,q195,q380] [n353] (by decide +kernel)
+def v173 : Closed T 7 := rotateClosed n547 auto1 auto1ok
+def v174 : Closed T 7 := rotateClosed n549 auto1 auto1ok
+def v175 : Closed T 7 := rotateClosed n354 auto1 auto1ok
+def n553 := cc 8 [w0,w1,w64,w2,w3,w4,w66,w5] [q136,q144,q195,q242,q540] [n552,n548,n541,n551,v173,v174,n538,n546,n84,v175] (by decide +kernel)
+def n554 := cc 8 [w249,w0,w1,w2,w3,w4,w5] [q124,q134,q229,q366,q519] [] (by decide +kernel)
+def n555 := cc 7 [w1,w64,w2,w3,w4,w24,w59,w5] [q144,q268,q334,q417,q540] [] (by decide +kernel)
+def n556 := cc 7 [w250,w0,w1,w64,w2,w3,w4,w5] [q308] [] (by decide +kernel)
+def n557 := cc 7 [w0,w1,w64,w2,w3,w4,w30,w19] [q76,q135,q144,q239,q420,q517] [n355,n90,n359,n85] (by decide +kernel)
+def n558 := cc 6 [w251,w0,w1,w2,w3,w4,w5] [] [] (by decide +kernel)
+def n559 := cc 7 [w0,w1,w64,w2,w3,w4,w5,w31] [q73,q80,q134,q136,q165,q209,q261] [n558,n91,n356,v102,n86] (by decide +kernel)
+def n560 := cc 6 [w252,w1,w64,w2,w3,w4,w5] [q80] [] (by decide +kernel)
+def n561 := cc 7 [w33,w0,w1,w64,w2,w3,w4,w5] [q73,q80,q86,q172,q275,q421] [n357,n87,n560] (by decide +kernel)
+def v176 : Closed T 7 := rotateClosed n557 auto1 auto1ok
+def v177 : Closed T 7 := rotateClosed n360 auto1 auto1ok
+def n562 := cc 8 [w0,w1,w64,w2,w3,w4,w24,w5] [q73,q134,q136,q144,q191,q209,q239,q334,q417,q519] [n561,n556,n541,n559,v173,v176,n539,v177,n555,n93,v106,n88] (by decide +kernel)
+def n563 := cc 7 [w1,w64,w2,w3,w4,w5,w19,w173] [q144,q191,q354,q517,q540] [] (by decide +kernel)
+def n564 := cc 7 [w253,w0,w1,w64,w2,w3,w4,w5] [q325] [] (by decide +kernel)
+def n565 := cc 6 [w254,w1,w64,w2,w3,w4,w5] [q134] [] (by decide +kernel)
+def n566 := cc 6 [w0,w1,w255,w2,w3,w4,w5] [q73] [] (by decide +kernel)
+def v178 : Closed T 6 := rotateClosed n361 auto1 auto1ok
+def n567 := cc 7 [w34,w0,w1,w64,w2,w3,w4,w5] [q13,q73,q80,q134,q136,q181,q225,q261] [n361,v178,n566,n565] (by decide +kernel)
+def n568 := cc 8 [w0,w1,w64,w2,w3,w4,w5,w19] [q73,q80,q136,q144,q191,q239,q261,q354,q419,q517] [n567,n564,n551,n559,n549,v174,n557,v176,n98,n563,n365,n362,v107] (by decide +kernel)
+def v179 : Closed T 8 := rotateClosed n554 auto1 auto1ok
+def v180 : Closed T 8 := rotateClosed n553 auto1 auto1ok
+def v181 : Closed T 8 := rotateClosed n562 auto1 auto1ok
+def v182 : Closed T 8 := rotateClosed n368 auto1 auto1ok
+def v183 : Closed T 8 := rotateClosed n366 auto1 auto1ok
+def n569 := cc 9 [w0,w1,w64,w2,w3,w4,w5] [q86,q136,q144,q191,q239,q293] [n554,v179,n544,n543,n553,v180,n562,v181,n568,n101,n368,v182,n99,n366,v183] (by decide +kernel)
+def n570 := cc 8 [w256,w0,w1,w2,w3,w4,w5] [q373,q524,q546] [] (by decide +kernel)
+def n571 := cc 7 [w0,w88,w28,w3,w4,w5] [q134,q291,q341,q429] [] (by decide +kernel)
+def n572 := cc 8 [w0,w1,w28,w3,w4,w24,w5] [q134,q334,q391,q421] [n571] (by decide +kernel)
+def n573 := cc 8 [w0,w1,w2,w3,w4,w257,w5] [q73,q80,q134,q187,q336,q391] [] (by decide +kernel)
+def n574 := cc 8 [w258,w0,w1,w2,w3,w4,w5] [q80,q369,q525] [] (by decide +kernel)
+def n575 := cc 8 [w0,w1,w2,w28,w3,w4,w5,w19] [q73,q261,q354,q421,q517,q524] [] (by decide +kernel)
+def v184 : Closed T 8 := rotateClosed n574 auto1 auto1ok
+def v185 : Closed T 8 := rotateClosed n573 auto1 auto1ok
+def v186 : Closed T 8 := rotateClosed n572 auto1 auto1ok
+def n576 := cc 9 [w0,w1,w2,w28,w3,w4,w5] [q138,q229,q293,q406,q524,q525] [n574,v184,n24,n570,n575,n271,n101,n573,v185,n100,n572,v186] (by decide +kernel)
+def n577 := cc 8 [w259,w0,w1,w2,w3,w4,w5] [q379,q529,q540] [] (by decide +kernel)
+def n578 := cc 8 [w0,w1,w2,w3,w4,w182,w30] [q259,q293,q350,q528] [] (by decide +kernel)
+def n579 := cc 8 [w260,w0,w1,w2,w3,w4,w5] [q87,q134,q398,q421] [] (by decide +kernel)
+def n580 := cc 7 [w0,w1,w2,w3,w29,w30,w19] [q255,q351,q420,q529] [] (by decide +kernel)
+def n581 := cc 8 [w0,w1,w2,w3,w4,w29,w5,w30] [q80,q254,q348,q393,q420,q529] [n580] (by decide +kernel)
+def n582 := cc 7 [w34,w0,w1,w2,w3,w4,w182] [q360,q528] [] (by decide +kernel)
+def v187 : Closed T 7 := rotateClosed n580 auto1 auto1ok
+def n583 := cc 8 [w0,w1,w2,w3,w4,w182,w19] [q138,q354,q357,q419,q528] [n582,v187] (by decide +kernel)
+def n584 := cc 8 [w0,w1,w2,w3,w4,w5,w261] [q0,q73,q134,q229,q354,q410,q528] [] (by decide +kernel)
+def n585 := cc 8 [w262,w0,w1,w2,w3,w4,w5] [q372,q520,q528] [] (by decide +kernel)
+def v188 : Closed T 8 := rotateClosed n578 auto1 auto1ok
+def v189 : Closed T 8 := rotateClosed n583 auto1 auto1ok
+def n586 := cc 9 [w0,w1,w2,w3,w4,w29,w5] [q187,q254,q293,q424,q529,q533] [n585,n579,n25,n577,n109,n581,n368,n573,n584,v120,v188,v189] (by decide +kernel)
+def n587 := cc 8 [w263,w0,w2,w4,w5] [q86,q229,q293,q385] [] (by decide +kernel)
+def n588 := cc 9 [w0,w27,w2,w81,w4,w5] [q86,q229,q293,q385] [n587] (by decide +kernel)
+def n589 := cc 7 [w79,w0,w1,w2,w3,w4,w24,w5] [q34,q149,q266] [] (by decide +kernel)
+def n590 := cc 8 [w0,w27,w1,w2,w3,w4,w24,w59,w5] [q73,q134,q144,q267,q334,q531,q533,q537] [n589,n555] (by decide +kernel)
+def n591 := cc 6 [w265,w0,w1,w2,w3,w4,w5] [] [] (by decide +kernel)
+def n592 := cc 7 [w0,w27,w1,w2,w3,w4,w264,w5] [q0,q73,q134,q209,q286,q293,q394,q519] [n591] (by decide +kernel)
+def n593 := cc 6 [w77,w87,w0,w1,w2,w3,w5] [] [] (by decide +kernel)
+def n594 := cc 7 [w87,w0,w27,w1,w2,w3,w5,w19] [q43,q135,q191,q209,q283,q417,q528,q545] [n593] (by decide +kernel)
+def v190 : Closed T 7 := rotateClosed n592 auto1 auto1ok
+def n595 := cc 8 [w87,w0,w27,w1,w2,w3,w4,w5] [q98,q134,q191,q291,q345,q528,q529,q531] [n594,v190] (by decide +kernel)
+def n596 := cc 6 [w0,w266,w1,w2,w3,w5,w19] [q187] [] (by decide +kernel)
+def n597 := cc 7 [w0,w266,w1,w2,w3,w4,w5] [q0,q80,q104,q187,q417] [n596] (by decide +kernel)
+def n598 := cc 6 [w76,w202,w0,w1,w2,w3,w5] [] [] (by decide +kernel)
+def n599 := cc 7 [w76,w0,w1,w2,w3,w5,w19] [q39,q192,q409,q417] [n598,n369,n377,n110,n596] (by decide +kernel)
+def n600 := cc 8 [w76,w0,w1,w2,w3,w4,w5] [q80,q104,q334,q409,q417] [n378,n370,n599,n111,n597] (by decide +kernel)
+def n601 := cc 7 [w0,w27,w196,w2,w3,w4,w5] [q134,q308,q309,q534] [] (by decide +kernel)
+def n602 := cc 8 [w0,w27,w88,w2,w3,w4,w5] [q229,q334,q337,q426,q534] [n601,n571] (by decide +kernel)
+def v191 : Closed T 6 := rotateClosed n598 auto1 auto1ok
+def n603 := cc 7 [w202,w0,w27,w1,w2,w3,w4,w30] [q135,q263,q517,q528,q529] [v191] (by decide +kernel)
+def n604 := cc 6 [w0,w267,w1,w2,w3,w4,w30] [q229] [] (by decide +kernel)
+def v192 : Closed T 6 := rotateClosed n593 auto1 auto1ok
+def n605 := cc 7 [w77,w0,w1,w2,w3,w4,w30] [q234,q264,q517] [v192,n122,n379,n112,n604] (by decide +kernel)
+def v193 : Closed T 7 := rotateClosed n599 auto1 auto1ok
+def v194 : Closed T 7 := rotateClosed n594 auto1 auto1ok
+def n606 := cc 8 [w0,w27,w1,w2,w3,w4,w30,w19] [q80,q108,q261,q351,q419,q457,q533,q538,q539] [v193,n605,n26,v194,n603,n372,n123,n380,n113,n557,n580] (by decide +kernel)
+def n607 := cc 7 [w32,w0,w27,w1,w2,w3,w4,w5] [q0,q73,q80,q134,q165,q209,q263,q293,q542] [n558,n44,n27,n301] (by decide +kernel)
+def n608 := cc 6 [w0,w268,w1,w2,w3,w4,w5] [q0,q86] [] (by decide +kernel)
+def v195 : Closed T 6 := rotateClosed n373 auto1 auto1ok
+def n609 := cc 7 [w78,w0,w1,w2,w3,w4,w5] [q0,q86,q264,q395,q409] [n558,n373,v195,n114,n608] (by decide +kernel)
+def n610 := cc 7 [w78,w0,w1,w2,w3,w4,w5,w31] [q80,q165,q262,q552] [] (by decide +kernel)
+def n611 := cc 7 [w0,w27,w269,w2,w3,w4,w5,w31] [q73,q134,q342,q343,q458] [] (by decide +kernel)
+def n612 := cc 8 [w0,w27,w1,w2,w3,w4,w5,w31] [q73,q80,q86,q134,q261,q291,q342,q407,q457,q531,q532,q536] [n609,n610,n28,n607,n611,n126,n374,v113,n115,n559] (by decide +kernel)
+def n613 := cc 7 [w78,w0,w1,w2,w3,w4,w24,w5] [q34,q38,q209,q258,q264,q392] [] (by decide +kernel)
+def n614 := cc 8 [w0,w27,w1,w2,w3,w4,w24,w5,w31] [q73,q134,q209,q290,q342,q399,q457,q519,q531,q533,q537] [n613] (by decide +kernel)
+def n615 := cc 7 [w0,w252,w27,w1,w2,w3,w4,w5] [q276,q421,q520,q528] [n560] (by decide +kernel)
+def n616 := cc 8 [w33,w0,w27,w1,w2,w3,w4,w5] [q105,q346,q407,q421,q467,q520,q531] [n29,n375,n116,n561,n615] (by decide +kernel)
+def v196 : Closed T 8 := rotateClosed n381 auto1 auto1ok
+def v197 : Closed T 8 := rotateClosed n606 auto1 auto1ok
+def v198 : Closed T 8 := rotateClosed n581 auto1 auto1ok
+def n617 := cc 9 [w0,w27,w1,w2,w3,w4,w24,w5] [q73,q98,q229,q334,q407,q424,q537] [n616,n600,n30,n595,n602,v196,n590,n614,n128,n612,v118,v197,n117,n562,v198,n573,v188,n572] (by decide +kernel)
+def n618 := cc 7 [w183,w0,w1,w2,w3,w4,w5,w19] [q44,q150,q187] [] (by decide +kernel)
+def n619 := cc 8 [w0,w27,w1,w2,w3,w4,w5,w19,w173] [q73,q80,q144,q191,q354,q533,q536,q539] [n618,n563] (by decide +kernel)
+def n620 := cc 6 [w271,w0,w1,w2,w3,w4,w5] [] [] (by decide +kernel)
+def n621 := cc 7 [w0,w27,w1,w2,w270,w3,w4,w5] [q134,q263,q291,q293,q528,q529] [n620] (by decide +kernel)
+def v199 : Closed T 7 := rotateClosed n603 auto1 auto1ok
+def n622 := cc 8 [w202,w0,w27,w1,w2,w3,w4,w5] [q114,q263,q291,q359,q524,q528,q529,q536] [n603,v199,n621] (by decide +kernel)
+def v200 : Closed T 6 := rotateClosed n604 auto1 auto1ok
+def n623 := cc 7 [w0,w267,w1,w2,w3,w4,w5] [q0,q118,q134,q229,q517] [n604,v200] (by decide +kernel)
+def v201 : Closed T 7 := rotateClosed n382 auto1 auto1ok
+def v202 : Closed T 7 := rotateClosed n605 auto1 auto1ok
+def n624 := cc 8 [w77,w0,w1,w2,w3,w4,w5] [q118,q134,q264,q354,q517] [n134,n382,v201,n605,v202,n623] (by decide +kernel)
+def n625 := cc 7 [w0,w27,w63,w2,w3,w4,w5] [q193,q325,q326,q327,q433,q542] [n135] (by decide +kernel)
+def n626 := cc 8 [w0,w27,w62,w2,w3,w4,w5] [q114,q261,q291,q354,q355,q357,q400,q432] [n136,n625] (by decide +kernel)
+def n627 := cc 7 [w78,w0,w1,w2,w3,w4,w5,w19] [q44,q47,q261,q395,q396,q411] [] (by decide +kernel)
+def n628 := cc 8 [w0,w27,w1,w2,w3,w4,w5,w19,w31] [q73,q80,q261,q354,q393,q397,q412,q419,q533,q536,q539] [n627] (by decide +kernel)
+def n629 := cc 7 [w0,w254,w27,w1,w2,w3,w4,w5] [q0,q117,q134,q293,q528,q529] [n566,n565] (by decide +kernel)
+def n630 := cc 6 [w272,w0,w1,w2,w3,w4,w5] [] [] (by decide +kernel)
+def v203 : Closed T 6 := rotateClosed n383 auto1 auto1ok
+def n631 := cc 7 [w0,w1,w35,w2,w3,w4,w5] [q148,q256,q360,q414,q482] [n31,n630,n383,v203,n566] (by decide +kernel)
+def v204 : Closed T 7 := rotateClosed n384 auto1 auto1ok
+def v205 : Closed T 7 := rotateClosed n582 auto1 auto1ok
+def n632 := cc 8 [w34,w0,w27,w1,w2,w3,w4,w5] [q117,q261,q360,q480,q536] [n32,n384,v204,n567,n582,v205,n629,n631] (by decide +kernel)
+def n633 := cc 9 [w0,w27,w1,w2,w3,w4,w5,w19] [q73,q191,q261,q354,q400,q424,q539] [n632,n624,n33,n622,n626,n137,n619,n628,n391,n612,n385,v119,n606,v197,n568,n575,n584,n583,v189] (by decide +kernel)
+def v206 : Closed T 9 := rotateClosed n392 auto1 auto1ok
+def v207 : Closed T 9 := rotateClosed n617 auto1 auto1ok
+def v208 : Closed T 9 := rotateClosed n586 auto1 auto1ok
+def n634 := cc 10 [w0,w27,w1,w2,w3,w4,w5] [q86,q229,q293,q385,q400] [n34,n138,n392,v206,n617,v207,n633,n272,n588,n569,n576,n586,v208] (by decide +kernel)
+def n635 := cc 10 [w0,w1,w2,w3,w81,w4,w5] [q0,q86,q229,q385,q400] [n588] (by decide +kernel)
+def n636 := cc 9 [w82,w273,w0,w2,w4,w5] [q0,q86,q229,q385] [n587] (by decide +kernel)
+def n637 := cc 10 [w82,w0,w1,w2,w3,w4,w5] [q86,q229,q293,q424,q484] [n636,n139] (by decide +kernel)
+def n638 := cc 10 [w273,w0,w1,w2,w3,w4,w5] [q86,q229,q293,q385,q400] [n636] (by decide +kernel)
+def n639 := cc 7 [w0,w1,w275,w3,w30,w19] [q165,q261,q407,q457] [] (by decide +kernel)
+def n640 := cc 8 [w0,w1,w275,w3,w4,w5,w30] [q165,q407,q457,q555] [n639] (by decide +kernel)
+def n641 := cc 8 [w0,w1,w2,w3,w4,w278,w5] [q0,q73,q209,q261,q293] [] (by decide +kernel)
+def n642 := cc 8 [w279,w0,w1,w2,w3,w4,w5] [q80,q172,q407,q467] [] (by decide +kernel)
+def n643 := cc 8 [w0,w1,w2,w275,w3,w5,w19] [q138,q261,q407,q417,q424,q552] [n639] (by decide +kernel)
+def v209 : Closed T 8 := rotateClosed n641 auto1 auto1ok
+def n644 := cc 9 [w0,w1,w2,w275,w3,w4,w5] [q134,q138,q229,q407,q417,q424] [n642,n643,v209,n640] (by decide +kernel)
+def n645 := cc 8 [w0,w1,w2,w3,w4,w280,w30] [q10,q80,q165,q261] [] (by decide +kernel)
+def n646 := cc 8 [w282,w0,w1,w2,w3,w4,w5] [q73,q225,q261,q360,q461] [] (by decide +kernel)
+def v210 : Closed T 8 := rotateClosed n645 auto1 auto1ok
+def n647 := cc 9 [w0,w1,w2,w3,w4,w281,w5] [q73,q187,q261,q385,q484,q517] [n646,n641,v210] (by decide +kernel)
+def n648 := cc 8 [w283,w0,w1,w2,w3,w4,w5] [q209,q346,q397,q435] [] (by decide +kernel)
+def n649 := cc 8 [w0,w274,w1,w2,w3,w30,w19] [q165,q261,q400,q419,q457] [n639] (by decide +kernel)
+def v211 : Closed T 8 := rotateClosed n648 auto1 auto1ok
+def n650 := cc 9 [w0,w274,w1,w2,w3,w4,w5,w30] [q165,q229,q400,q419,q457] [v211,n649,v209,n645,n640] (by decide +kernel)
+def n651 := cc 9 [w0,w274,w1,w2,w3,w5,w19] [q138,q261,q385,q400,q424,q517,q519] [n649,n643] (by decide +kernel)
+def v212 : Closed T 9 := rotateClosed n647 auto1 auto1ok
+def n652 := cc 10 [w0,w274,w1,w2,w3,w4,w5] [q138,q229,q385,q400,q424] [n650,n651,n644,v212] (by decide +kernel)
+def n653 := cc 10 [w0,w1,w2,w3,w4,w284,w5] [q86,q229,q293,q385,q400] [] (by decide +kernel)
+def n654 := cc 8 [w0,w285,w1,w2,w3,w4,w5] [q73,q114,q134,q216,q229,q359,q465,q549] [] (by decide +kernel)
+def n655 := cc 8 [w37,w0,w62,w2,w3,w4,w5] [q291,q385,q400,q549] [] (by decide +kernel)
+def n656 := cc 8 [w0,w1,w2,w286,w3,w4,w5] [q0,q134,q293,q399,q413] [] (by decide +kernel)
+def n657 := cc 9 [w37,w0,w1,w2,w3,w4,w5] [q216,q261,q354,q385,q400,q464,q536,q549] [n525,n16,n35,n655,n140,n654,n656] (by decide +kernel)
+def n658 := cc 8 [w287,w0,w1,w2,w3,w4,w5] [q80,q105,q275,q346,q397,q430,q544] [] (by decide +kernel)
+def n659 := cc 7 [w36,w87,w0,w1,w2,w3,w19] [q57,q77,q283,q408,q528] [] (by decide +kernel)
+def n660 := cc 8 [w36,w87,w0,w1,w2,w3,w4,w5] [q37,q56,q134,q170,q345,q408,q417,q421] [n659] (by decide +kernel)
+def n661 := cc 7 [w36,w0,w62,w2,w3,w24,w19] [q58,q517,q528] [] (by decide +kernel)
+def n662 := cc 8 [w36,w0,w1,w2,w3,w24,w19] [q261,q340,q407,q417,q464,q525,q528,q536] [n17,n36,n659,n661,n143,n141] (by decide +kernel)
+def n663 := cc 9 [w36,w0,w1,w2,w3,w4,w24,w5] [q170,q229,q334,q385,q407,q417,q464,q525] [n525,n18,n658,n37,n660,n144,n393,n662,n142] (by decide +kernel)
+def n664 := cc 8 [w36,w0,w62,w2,w3,w4,w19] [q261,q292,q354,q517,q528] [n661] (by decide +kernel)
+def n665 := cc 9 [w36,w0,w1,w2,w3,w4,w19] [q261,q354,q385,q400,q484,q528,q536] [n526,n19,n38,n664,n147,n394,n662] (by decide +kernel)
+def n666 := cc 10 [w36,w0,w1,w2,w3,w4,w5] [q86,q229,q293,q385,q400,q484] [n657,n527,n20,n39,n148,n395,n663,n665] (by decide +kernel)
+def n667 := cc 9 [w0,w1,w2,w3,w4,w289] [q86,q138,q229,q293] [] (by decide +kernel)
+def n668 := cc 9 [w0,w291,w1,w2,w3,w5] [q86,q138,q187,q229] [] (by decide +kernel)
+def n669 := cc 9 [w36,w290,w0,w2,w3,w4] [] [] (by decide +kernel)
+def v213 : Closed T 9 := rotateClosed n669 auto1 auto1ok
+def v214 : Closed T 9 := rotateClosed n668 auto1 auto1ok
+def n670 := cc 10 [w288,w0,w1,w2,w3,w4,w5] [q86,q138,q229,q293,q400] [v213,v214,n667] (by decide +kernel)
+def n671 := cc 6 [w0,w1,w2,w3,w188,w187,w19] [q154,q199] [] (by decide +kernel)
+def n672 := cc 7 [w0,w1,w2,w3,w4,w188,w5,w187] [q73,q80,q157,q199] [n671] (by decide +kernel)
+def n673 := cc 7 [w0,w1,w2,w186,w3,w4,w187,w19] [q133,q157,q287] [n671,n396] (by decide +kernel)
+def n674 := cc 6 [w0,w293,w2,w186,w3,w4,w5] [] [] (by decide +kernel)
+def n675 := cc 7 [w0,w1,w2,w186,w3,w4,w5,w292] [q20,q183,q263,q293] [n674] (by decide +kernel)
+def n676 := cc 7 [w189,w0,w1,w2,w186,w3,w4,w5] [q80,q200,q284] [n397] (by decide +kernel)
+def v215 : Closed T 7 := rotateClosed n673 auto1 auto1ok
+def v216 : Closed T 7 := rotateClosed n398 auto1 auto1ok
+def n677 := cc 8 [w0,w1,w2,w186,w3,w4,w188,w5] [q133,q154,q200,q320,q547] [n676,n675,v215,n672,v216] (by decide +kernel)
+def n678 := cc 8 [w294,w0,w1,w2,w3,w4,w5] [q73,q80,q138,q199,q269,q366] [] (by decide +kernel)
+def n679 := cc 7 [w1,w2,w186,w3,w4,w5,w19,w173] [q154,q199,q261,q354,q517] [] (by decide +kernel)
+def n680 := cc 7 [w295,w0,w1,w2,w186,w3,w4,w5] [q248] [] (by decide +kernel)
+def n681 := cc 8 [w0,w1,w2,w186,w3,w4,w5,w19] [q73,q80,q133,q154,q199,q261,q354,q517] [n680,n675,n673,v215,n679,n401,n399,v123] (by decide +kernel)
+def v217 : Closed T 8 := rotateClosed n461 auto1 auto1ok
+def v218 : Closed T 8 := rotateClosed n678 auto1 auto1ok
+def v219 : Closed T 8 := rotateClosed n677 auto1 auto1ok
+def v220 : Closed T 8 := rotateClosed n404 auto1 auto1ok
+def v221 : Closed T 8 := rotateClosed n402 auto1 auto1ok
+def n682 := cc 9 [w0,w1,w2,w186,w3,w4,w5] [q133,q154,q199,q229,q293] [n461,v217,n678,v218,n677,v219,n681,n404,v220,n402,v221] (by decide +kernel)
+def n683 := cc 8 [w297,w0,w1,w2,w3,w4,w5] [q154,q281,q529] [] (by decide +kernel)
+def n684 := cc 8 [w0,w1,w2,w3,w4,w190,w19] [q261,q457,q528] [] (by decide +kernel)
+def n685 := cc 8 [w0,w1,w2,w3,w4,w5,w298] [q261,q354,q528] [] (by decide +kernel)
+def n686 := cc 8 [w299,w0,w1,w2,w3,w4,w5] [q80,q275,q467,q520] [] (by decide +kernel)
+def v222 : Closed T 8 := rotateClosed n684 auto1 auto1ok
+def n687 := cc 9 [w0,w1,w2,w3,w4,w296,w5] [q187,q229,q424,q529] [n686,n683,n404,n685,v125,v222] (by decide +kernel)
+def n688 := cc 9 [w0,w1,w185,w8,w4,w5] [q229,q424,q484] [] (by decide +kernel)
+def n689 := cc 7 [w192,w0,w1,w2,w3,w4,w5,w19] [q45,q158,q187] [] (by decide +kernel)
+def n690 := cc 7 [w175,w0,w1,w185,w3,w4,w5,w19] [q43,q73,q80,q183] [] (by decide +kernel)
+def n691 := cc 8 [w0,w1,w185,w2,w3,w4,w5,w19,w173] [q73,q80,q154,q199,q261,q354,q539] [n690,n689,n679] (by decide +kernel)
+def n692 := cc 8 [w202,w0,w1,w185,w2,w3,w4,w5] [q154,q263,q528,q529,q539] [] (by decide +kernel)
+def n693 := cc 7 [w0,w300,w1,w2,w3,w4,w5] [q0,q178,q185,q248,q517] [] (by decide +kernel)
+def v223 : Closed T 7 := rotateClosed n405 auto1 auto1ok
+def n694 := cc 8 [w191,w0,w1,w2,w3,w4,w5] [q86,q261,q354,q517] [n405,v223,n693] (by decide +kernel)
+def n695 := cc 9 [w0,w1,w185,w2,w3,w4,w5,w19] [q73,q199,q261,q424,q484,q539] [n694,n692,n691,n411,n406,v124,n681,n685,n684,v222] (by decide +kernel)
+def v224 : Closed T 9 := rotateClosed n462 auto1 auto1ok
+def v225 : Closed T 9 := rotateClosed n412 auto1 auto1ok
+def v226 : Closed T 9 := rotateClosed n687 auto1 auto1ok
+def n696 := cc 10 [w0,w1,w185,w2,w3,w4,w5] [q86,q229,q293,q424,q484] [n462,v224,n412,v225,n695,n688,n682,n687,v226] (by decide +kernel)
+def n697 := cc 8 [w301,w0,w1,w2,w3,w4,w5] [q94,q279,q374,q425,q485] [] (by decide +kernel)
+def n698 := cc 9 [w84,w0,w1,w2,w3,w4,w5] [q94,q134,q279,q293,q424,q484,q546] [n234,n40,n149,n697] (by decide +kernel)
+def n699 := cc 8 [w0,w1,w303,w2,w3,w4,w5] [q94,q239,q438,q493,q540] [] (by decide +kernel)
+def n700 := cc 8 [w0,w302,w1,w303,w2,w3,w4,w5] [q94,q239,q291,q438,q493] [] (by decide +kernel)
+def n701 := cc 9 [w0,w302,w1,w2,w3,w4,w5] [q94,q229,q291,q293,q295,q424,q484] [n40,n700,n699] (by decide +kernel)
+def n702 := cc 10 [w0,w1,w2,w3,w8,w4,w5] [q86,q229,q293,q424,q484] [n235,n41,n297,n698,n3,n701,n688,n150] (by decide +kernel)
+def n703 := cc 9 [w0,w305,w1,w2,w3,w4,w5] [q229,q424,q484] [] (by decide +kernel)
+def n704 := cc 10 [w304,w0,w1,w2,w3,w4,w5] [q86,q229,q424,q484] [n703] (by decide +kernel)
+def n705 := cc 8 [w306,w0,w1,w2,w3,w4,w5] [q73,q80,q134,q138,q366] [] (by decide +kernel)
+def n706 := cc 8 [w0,w86,w1,w2,w3,w4,w5,w19] [q73,q80,q134,q135,q177,q222,q354,q415,q416,q419,q517] [] (by decide +kernel)
+def v227 : Closed T 8 := rotateClosed n705 auto1 auto1ok
+def v228 : Closed T 8 := rotateClosed n413 auto1 auto1ok
+def n707 := cc 9 [w0,w86,w1,w2,w3,w4,w5] [q0,q86,q134,q177,q222,q293,q415] [n705,v227,n236,n706,n413,v228,n151] (by decide +kernel)
+def n708 := cc 8 [w308,w0,w1,w2,w3,w4,w5] [q177,q379,q529] [] (by decide +kernel)
+def n709 := cc 8 [w0,w1,w2,w3,w4,w309,w30] [q134,q222,q348,q419] [] (by decide +kernel)
+def n710 := cc 8 [w0,w1,w2,w3,w4,w309,w19] [q138,q354,q419,q421,q528] [] (by decide +kernel)
+def n711 := cc 8 [w0,w1,w2,w3,w4,w5,w310] [q354,q415,q528] [] (by decide +kernel)
+def n712 := cc 8 [w311,w0,w1,w2,w3,w4,w5] [q372,q419,q457,q520] [] (by decide +kernel)
+def v229 : Closed T 8 := rotateClosed n709 auto1 auto1ok
+def v230 : Closed T 8 := rotateClosed n710 auto1 auto1ok
+def n713 := cc 9 [w0,w1,w2,w3,w4,w307,w5] [q187,q254,q293,q419,q424,q529] [n712,n708,n413,n711,v229,v230] (by decide +kernel)
+def n714 := cc 9 [w85,w0,w1,w2,w3,w4,w24,w5] [q134,q229,q293,q421,q424] [v229] (by decide +kernel)
+def n715 := cc 7 [w0,w1,w2,w313,w3,w4,w5] [q179,q325,q415] [] (by decide +kernel)
+def n716 := cc 8 [w0,w1,w2,w312,w3,w4,w5] [q179,q224,q354,q415] [n715] (by decide +kernel)
+def n717 := cc 8 [w85,w0,w1,w2,w3,w4,w5,w19,w173] [q73,q80,q177,q222,q419,q537,q539] [] (by decide +kernel)
+def n718 := cc 8 [w85,w202,w0,w1,w2,w3,w4,w5] [q135,q177,q359,q415,q539] [] (by decide +kernel)
+def n719 := cc 9 [w85,w0,w1,w2,w3,w4,w5,w19] [q73,q222,q261,q354,q419,q421,q424,q484,q539] [n718,n717,n417,n414,v126,n706,n716,n711,n710,v230] (by decide +kernel)
+def v231 : Closed T 9 := rotateClosed n464 auto1 auto1ok
+def v232 : Closed T 9 := rotateClosed n418 auto1 auto1ok
+def v233 : Closed T 9 := rotateClosed n714 auto1 auto1ok
+def v234 : Closed T 9 := rotateClosed n713 auto1 auto1ok
+def n720 := cc 10 [w85,w0,w1,w2,w3,w4,w5] [q86,q229,q293,q424,q484] [n464,v231,n237,n152,n418,v232,n714,v233,n719,n276,n707,n713,v234] (by decide +kernel)
+def n721 := cc 9 [w0,w1,w2,w3,w4,w315] [q138,q229,q424] [] (by decide +kernel)
+def n722 := cc 9 [w0,w1,w2,w3,w4,w317,w5] [q187,q229,q484] [] (by decide +kernel)
+def n723 := cc 9 [w318,w0,w1,w2,w3,w5] [q138,q187,q229] [] (by decide +kernel)
+def n724 := cc 8 [w319,w0,w1,w3,w4] [q187,q229,q555] [] (by decide +kernel)
+def n725 := cc 8 [w319,w0,w1,w3,w4,w30] [q187,q229,q484,q555] [] (by decide +kernel)
+def n726 := cc 7 [w0,w1,w314,w3,w320,w31] [q160,q238,q437,q552,q555] [] (by decide +kernel)
+def n727 := cc 8 [w0,w1,w314,w3,w320,w24,w5] [q73,q172,q204,q237,q436,q552] [n726] (by decide +kernel)
+def n728 := cc 8 [w0,w1,w314,w3,w24,w5,w31] [q73,q165,q172,q261,q457,q552] [n726] (by decide +kernel)
+def n729 := cc 8 [w33,w0,w1,w314,w3,w24,w5] [q73,q172,q275,q467,q552,q555] [] (by decide +kernel)
+def n730 := cc 7 [w0,w1,w322,w3,w24,w5] [q204,q290,q480,q555] [] (by decide +kernel)
+def v235 : Closed T 7 := rotateClosed n730 auto1 auto1ok
+def n731 := cc 8 [w323,w0,w1,w316,w3,w4,w30] [q80,q160,q275,q437,q552,q555] [v235] (by decide +kernel)
+def v236 : Closed T 8 := rotateClosed n731 auto1 auto1ok
+def v237 : Closed T 8 := rotateClosed n724 auto1 auto1ok
+def v238 : Closed T 8 := rotateClosed n725 auto1 auto1ok
+def n732 := cc 9 [w0,w1,w314,w3,w24,w5] [q138,q229,q424] [v236,n729,v237,v238,n727,n728] (by decide +kernel)
+def v239 : Closed T 9 := rotateClosed n723 auto1 auto1ok
+def v240 : Closed T 9 := rotateClosed n722 auto1 auto1ok
+def n733 := cc 10 [w0,w1,w314,w2,w3,w4,w5] [q138,q187,q229,q424] [v239,n732,v240,n721] (by decide +kernel)
+def n734 := cc 8 [w0,w88,w1,w2,w3,w4,w59,w5] [q98,q267,q421,q537] [] (by decide +kernel)
+def n735 := cc 8 [w0,w68,w1,w2,w3,w4,w24,w5] [q98,q421,q533] [] (by decide +kernel)
+def n736 := cc 8 [w0,w1,w2,w90,w3,w4,w59,w5] [q154,q171,q308,q421] [] (by decide +kernel)
+def n737 := cc 9 [w0,w1,w2,w3,w4,w24,w59,w5] [q98,q134,q138,q334,q421,q441] [v47,n181,n590,n734,n735,n736] (by decide +kernel)
+def n738 := cc 8 [w324,w0,w1,w2,w3,w4,w5] [q285,q293,q515,q524] [] (by decide +kernel)
+def n739 := cc 8 [w0,w1,w2,w3,w4,w264,w5] [q103,q134,q165,q209,q293,q459,q540] [n592] (by decide +kernel)
+def n740 := cc 8 [w91,w87,w0,w1,w2,w3,w4,w5] [q175,q209,q345,q421,q504] [] (by decide +kernel)
+def n741 := cc 8 [w87,w0,w1,w2,w3,w5,w19] [q102,q187,q473,q525,q529,q543] [n659,n594] (by decide +kernel)
+def v241 : Closed T 8 := rotateClosed n738 auto1 auto1ok
+def v242 : Closed T 8 := rotateClosed n739 auto1 auto1ok
+def n742 := cc 9 [w87,w0,w1,w2,w3,w4,w5] [q134,q138,q209,q281,q293,q417,q473] [n433,n660,n740,n42,n595,n741,n164,n181,v241,v242] (by decide +kernel)
+def n743 := cc 9 [w87,w0,w1,w2,w3,w4,w24,w5] [q138,q229,q525,q531] [n181,n419,n153] (by decide +kernel)
+def n744 := cc 7 [w0,w1,w196,w2,w3,w4,w5,w325] [q80,q543] [] (by decide +kernel)
+def n745 := cc 6 [w197,w0,w1,w196,w2,w3,w19] [q101,q540] [] (by decide +kernel)
+def n746 := cc 7 [w197,w0,w1,w196,w2,w3,w4,w5] [q80,q210,q540] [n745,n427] (by decide +kernel)
+def n747 := cc 7 [w0,w1,w196,w2,w3,w5,w19] [q139,q198,q221,q247,q534] [n745,n428] (by decide +kernel)
+def n748 := cc 8 [w0,w1,w196,w2,w3,w4,w5] [q80,q98,q139,q210,q245,q308,q427,q540] [n746,n601,n744,n747,n429] (by decide +kernel)
+def n749 := cc 8 [w0,w88,w1,w196,w2,w3,w4,w5] [q98,q139,q534,q549] [] (by decide +kernel)
+def n750 := cc 8 [w0,w1,w2,w3,w4,w326,w5] [q73,q189,q261,q275,q342,q393,q488,q540] [] (by decide +kernel)
+def n751 := cc 8 [w0,w88,w1,w2,w3,w5,w19] [q139,q221,q261,q529,q534] [n430,n747] (by decide +kernel)
+def v243 : Closed T 8 := rotateClosed n523 auto1 auto1ok
+def v244 : Closed T 8 := rotateClosed n750 auto1 auto1ok
+def n752 := cc 9 [w0,w88,w1,w2,w3,w4,w5] [q0,q98,q187,q229,q334,q385,q534] [v243,n658,n42,n602,n749,n431,n751,n748,v244] (by decide +kernel)
+def n753 := cc 8 [w0,w1,w196,w2,w3,w4,w24,w5] [q245,q525,q537] [] (by decide +kernel)
+def n754 := cc 8 [w0,w1,w2,w3,w4,w326,w5,w30] [q41,q348,q420,q520,q524] [] (by decide +kernel)
+def n755 := cc 8 [w0,w88,w1,w2,w3,w24,w5,w19] [q407,q525,q537] [] (by decide +kernel)
+def n756 := cc 8 [w0,w88,w1,w2,w3,w4,w5,w31] [q134,q407,q537] [] (by decide +kernel)
+def v245 : Closed T 8 := rotateClosed n754 auto1 auto1ok
+def n757 := cc 9 [w0,w88,w1,w2,w3,w4,w24,w5] [q98,q229,q407,q525,q537] [v243,n734,n756,n420,n755,n154,n753,v245] (by decide +kernel)
+def n758 := cc 9 [w26,w0,w1,w2,w3,w4,w5,w30] [q134,q229,q348,q400,q419,q506] [n523] (by decide +kernel)
+def n759 := cc 7 [w0,w1,w2,w122,w3,w24,w30,w19] [q262,q288,q289,q339,q457] [] (by decide +kernel)
+def n760 := cc 8 [w0,w1,w2,w3,w24,w30,w19] [q76,q135,q138,q261,q457] [n759] (by decide +kernel)
+def n761 := cc 7 [w33,w327,w0,w1,w2,w3] [q134,q278,q562] [] (by decide +kernel)
+def n762 := cc 8 [w33,w0,w1,w2,w3,w4,w30] [q134,q275,q555] [n761] (by decide +kernel)
+def n763 := cc 8 [w0,w1,w2,w3,w4,w5,w31] [q0,q73,q165,q209,q261,q293] [] (by decide +kernel)
+def v246 : Closed T 8 := rotateClosed n762 auto1 auto1ok
+def n764 := cc 9 [w0,w1,w2,w3,w4,w24,w5,w30] [q134,q138,q187,q229,q334,q348,q419,q421,q503] [n762,v246,n763,n760] (by decide +kernel)
+def n765 := cc 8 [w0,w1,w2,w3,w4,w329,w30] [q71,q80,q165,q261] [] (by decide +kernel)
+def n766 := cc 8 [w328,w0,w1,w2,w3,w30,w19] [q165,q261,q420,q457,q552] [] (by decide +kernel)
+def n767 := cc 9 [w328,w0,w1,w2,w3,w4,w5,w30] [q165,q187,q229,q421,q457,q552] [n766,n763,n765] (by decide +kernel)
+def n768 := cc 8 [w0,w1,w2,w3,w330,w4,w24,w5] [q154,q334,q417,q525] [] (by decide +kernel)
+def n769 := cc 7 [w0,w1,w2,w3,w24,w331,w19] [q340,q417,q525] [] (by decide +kernel)
+def n770 := cc 8 [w0,w1,w2,w3,w4,w24,w5,w331] [q334,q417,q457,q525] [n769] (by decide +kernel)
+def n771 := cc 8 [w0,w1,w2,w90,w3,w24,w5,w19] [q340,q417,q503,q525] [n769] (by decide +kernel)
+def n772 := cc 8 [w0,w1,w2,w90,w3,w4,w5,w31] [q73,q134,q342,q503] [] (by decide +kernel)
+def n773 := cc 9 [w0,w1,w2,w90,w3,w4,w24,w5] [q154,q334,q417,q424,q503,q525] [n736,n772,n422,n771,n768,n770,n157] (by decide +kernel)
+def n774 := cc 9 [w332,w0,w1,w2,w3,w4,w5,w30] [q134,q348,q419,q484] [n709] (by decide +kernel)
+def n775 := cc 8 [w0,w1,w2,w3,w4,w30,w334] [q80,q165,q181,q229,q348] [] (by decide +kernel)
+def n776 := cc 8 [w0,w1,w2,w3,w4,w336,w5] [q73,q209,q225,q235,q334] [] (by decide +kernel)
+def n777 := cc 8 [w337,w0,w1,w2,w3,w4,w5] [q162,q209,q236,q334] [] (by decide +kernel)
+def v247 : Closed T 8 := rotateClosed n777 auto1 auto1ok
+def v248 : Closed T 8 := rotateClosed n776 auto1 auto1ok
+def n778 := cc 9 [w0,w1,w2,w333,w3,w4,w5,w30] [q165,q348,q419,q484] [v247,v248,n775] (by decide +kernel)
+def n779 := cc 9 [w91,w0,w1,w2,w3,w4,w24,w5] [q175,q274,q334,q424,q503,q525] [n248,n740,n185,n421,n158] (by decide +kernel)
+def n780 := cc 8 [w202,w0,w1,w2,w3,w4,w30] [q108,q229,q478,q524,q528] [n603] (by decide +kernel)
+def v249 : Closed T 7 := rotateClosed n661 auto1 auto1ok
+def n781 := cc 8 [w0,w62,w1,w2,w3,w4,w30,w19] [q187,q261,q528,q539] [v249] (by decide +kernel)
+def n782 := cc 8 [w0,w1,w203,w3,w4,w30,w19] [q261,q491,q517,q528] [] (by decide +kernel)
+def n783 := cc 8 [w34,w0,w1,w3,w4,w30,w19] [q229,q516,q524,q536] [] (by decide +kernel)
+def n784 := cc 8 [w0,w1,w2,w122,w3,w4,w30,w19] [q261,q351,q457,q467,q484,q517,q528] [n759] (by decide +kernel)
+def n785 := cc 8 [w0,w1,w2,w3,w338,w30,w19] [q80,q165,q181,q187,q393,q457] [] (by decide +kernel)
+def n786 := cc 8 [w33,w0,w1,w2,w3,w24,w19] [q73,q187,q525,q531] [] (by decide +kernel)
+def v250 : Closed T 8 := rotateClosed n662 auto1 auto1ok
+def v251 : Closed T 8 := rotateClosed n786 auto1 auto1ok
+def v252 : Closed T 8 := rotateClosed n741 auto1 auto1ok
+def v253 : Closed T 8 := rotateClosed n755 auto1 auto1ok
+def v254 : Closed T 8 := rotateClosed n751 auto1 auto1ok
+def v255 : Closed T 8 := rotateClosed n771 auto1 auto1ok
+def n787 := cc 9 [w0,w1,w2,w3,w4,w30,w19] [q138,q229,q261,q393,q457,q484,q524,q528] [n526,v250,v251,n766,n783,n43,n249,n299,n479,v252,n780,n606,n649,v253,v254,n781,n782,v255,n784,n785,n423,n187,n432,n760,n160] (by decide +kernel)
+def n788 := cc 8 [w34,w0,w1,w3,w4,w24,w5] [q73,q181,q399,q480,q555] [] (by decide +kernel)
+def n789 := cc 8 [w33,w0,w1,w2,w3,w4,w19] [q73,q172,q397,q467,q555] [] (by decide +kernel)
+def n790 := cc 9 [w0,w1,w2,w3,w4,w24,w5,w19] [q73,q80,q138,q187,q229,q261,q385,q419,q424] [n789,n788,n763] (by decide +kernel)
+def n791 := cc 8 [w0,w1,w2,w3,w340,w4,w30] [q187,q237,q484,q555] [] (by decide +kernel)
+def n792 := cc 8 [w0,w1,w2,w3,w4,w30,w19] [q42,q80,q165,q261] [] (by decide +kernel)
+def v256 : Closed T 8 := rotateClosed n791 auto1 auto1ok
+def v257 : Closed T 8 := rotateClosed n792 auto1 auto1ok
+def n793 := cc 9 [w341,w0,w1,w2,w3,w24,w5] [q138,q209,q275,q385,q417,q419,q424] [v256,v257] (by decide +kernel)
+def n794 := cc 8 [w0,w1,w342,w3,w4,w5,w30] [q80,q165,q209,q393,q457] [] (by decide +kernel)
+def n795 := cc 8 [w341,w327,w0,w1,w2,w3,w5] [q165,q278,q393,q457,q552] [] (by decide +kernel)
+def n796 := cc 9 [w341,w0,w1,w2,w3,w4,w5,w30] [q187,q229,q393,q419,q457] [n795,n763,n792,n794] (by decide +kernel)
+def n797 := cc 8 [w33,w0,w1,w2,w3,w4,w5] [q40,q73,q172,q275,q346] [] (by decide +kernel)
+def v258 : Closed T 7 := rotateClosed n726 auto1 auto1ok
+def n798 := cc 8 [w0,w1,w2,w3,w338,w5,w31] [q80,q165,q238,q457,q552] [v258] (by decide +kernel)
+def v259 : Closed T 8 := rotateClosed n797 auto1 auto1ok
+def v260 : Closed T 8 := rotateClosed n727 auto1 auto1ok
+def n799 := cc 9 [w0,w1,w2,w3,w338,w4,w5,w30] [q80,q165,q172,q187,q203,q229,q393,q419,q457] [v259,v260,n798,n785] (by decide +kernel)
+def n800 := cc 8 [w32,w0,w1,w2,w3,w4,w5] [q103,q134,q165,q209,q293,q459,q540] [n45,n302,n607] (by decide +kernel)
+def n801 := cc 7 [w0,w1,w343,w2,w3,w4,w5] [q103,q105,q109,q117,q291] [] (by decide +kernel)
+def n802 := cc 8 [w0,w269,w1,w2,w3,w4,w5] [q166,q210,q261,q291] [n801] (by decide +kernel)
+def n803 := cc 8 [w0,w269,w1,w2,w3,w4,w5,w31] [q80,q134,q342,q393,q458] [n611] (by decide +kernel)
+def n804 := cc 8 [w34,w0,w1,w2,w3,w4,w5] [q48,q73,q181,q225,q261,q360] [] (by decide +kernel)
+def n805 := cc 8 [w34,w0,w1,w3,w4,w5,w31] [q0,q134,q536,q552,q555] [] (by decide +kernel)
+def n806 := cc 8 [w0,w1,w2,w344,w3,w4,w5,w31] [q80,q134,q342,q457] [] (by decide +kernel)
+def n807 := cc 8 [w33,w0,w1,w2,w3,w4,w31] [q0,q134,q531,q555] [n761] (by decide +kernel)
+def v261 : Closed T 8 := rotateClosed n807 auto1 auto1ok
+def v262 : Closed T 8 := rotateClosed n475 auto1 auto1ok
+def n808 := cc 9 [w0,w1,w2,w3,w4,w5,w31] [q73,q80,q86,q134,q261,q293,q393,q503] [n525,n797,v259,n807,v261,n804,n805,n46,n250,n303,n475,v262,n800,n612,n802,n803,n806,n188,n424,v137,n161] (by decide +kernel)
+def n809 := cc 8 [w0,w269,w1,w2,w3,w4,w24,w5] [q134,q407,q533] [] (by decide +kernel)
+def v263 : Closed T 8 := rotateClosed n798 auto1 auto1ok
+def n810 := cc 9 [w0,w1,w2,w3,w4,w24,w5,w31] [q73,q80,q134,q334,q407,q417,q419,q503] [v246,n807,n788,n614,n756,n809,n728,n772,v263] (by decide +kernel)
+def n811 := cc 8 [w0,w252,w1,w2,w3,w4,w5] [q105,q172,q293,q421,q468,q550] [n615] (by decide +kernel)
+def n812 := cc 8 [w0,w345,w1,w2,w3,w4,w5] [q291,q412,q524] [] (by decide +kernel)
+def v264 : Closed T 8 := rotateClosed n795 auto1 auto1ok
+def v265 : Closed T 8 := rotateClosed n812 auto1 auto1ok
+def n813 := cc 9 [w33,w0,w1,w2,w3,w4,w5] [q80,q138,q172,q229,q275,q293,q397,q417,q421,q467,q555] [n433,n658,v264,n47,n251,n304,n476,n616,n762,n789,n807,n425,n162,n811,v265,n763] (by decide +kernel)
+def n814 := cc 9 [w33,w0,w1,w2,w3,w4,w24,w5] [q138,q187,q229,q525,q531,q555] [n729,n807,n786] (by decide +kernel)
+def n815 := cc 9 [w323,w0,w1,w2,w3,w4,w5,w30] [q80,q134,q393,q457,q552] [n731,n763,n765,n794] (by decide +kernel)
+def v266 : Closed T 9 := rotateClosed n758 auto1 auto1ok
+def v267 : Closed T 9 := rotateClosed n774 auto1 auto1ok
+def v268 : Closed T 9 := rotateClosed n815 auto1 auto1ok
+def v269 : Closed T 9 := rotateClosed n796 auto1 auto1ok
+def v270 : Closed T 9 := rotateClosed n767 auto1 auto1ok
+def v271 : Closed T 9 := rotateClosed n480 auto1 auto1ok
+def v272 : Closed T 9 := rotateClosed n650 auto1 auto1ok
+def v273 : Closed T 9 := rotateClosed n778 auto1 auto1ok
+def v274 : Closed T 9 := rotateClosed n799 auto1 auto1ok
+def v275 : Closed T 9 := rotateClosed n434 auto1 auto1ok
+def v276 : Closed T 9 := rotateClosed n787 auto1 auto1ok
+def n816 := cc 10 [w0,w1,w2,w3,w4,w24,w5] [q138,q187,q229,q293,q385,q424] [v164,v266,v267,v268,n663,n779,v269,n793,n814,n813,n714,v270,n48,n252,n305,v271,n477,n743,n742,n617,v272,n757,n752,n732,n167,v273,n773,v274,v275,n737,n764,n790,n810,n190,n808,v142,v276,n163] (by decide +kernel)
+def n817 := cc 8 [w347,w0,w1,w2,w3,w4,w5] [q0,q80,q172,q269,q293] [] (by decide +kernel)
+def n818 := cc 8 [w91,w0,w346,w1,w2,w3,w4,w5] [q175,q217,q274,q368,q509] [] (by decide +kernel)
+def v277 : Closed T 8 := rotateClosed n817 auto1 auto1ok
+def v278 : Closed T 8 := rotateClosed n818 auto1 auto1ok
+def n819 := cc 9 [w0,w348,w1,w2,w3,w4,w5] [q133,q172,q187,q229,q293,q421,q495] [v277,v278,n436] (by decide +kernel)
+def n820 := cc 8 [w349,w0,w1,w2,w3,w4,w5] [q0,q209,q281,q293,q555] [] (by decide +kernel)
+def n821 := cc 8 [w0,w1,w2,w3,w4,w200,w19] [q73,q165,q261,q457] [] (by decide +kernel)
+def n822 := cc 8 [w341,w0,w1,w2,w3,w95,w5] [q172,q209,q237,q275,q561] [] (by decide +kernel)
+def v279 : Closed T 8 := rotateClosed n821 auto1 auto1ok
+def n823 := cc 9 [w0,w1,w2,w3,w4,w95,w5] [q73,q209,q229,q293,q467,q503,q555] [n822,n797,n307,n482,n820,n436,n763,v138,v279,n168] (by decide +kernel)
+def n824 := cc 9 [w0,w1,w2,w3,w4,w24,w5] [q33,q73,q138,q209,q229,q334,q417] [n797,n763,v257] (by decide +kernel)
+def n825 := cc 9 [w94,w350,w0,w1,w3,w4] [q187,q229,q484] [n724] (by decide +kernel)
+def n826 := cc 8 [w0,w1,w2,w351,w3,w4,w5] [q172,q232,q503,q555] [] (by decide +kernel)
+def n827 := cc 8 [w94,w0,w1,w2,w3,w4,w334] [q80,q172,q233,q369,q555] [] (by decide +kernel)
+def n828 := cc 9 [w94,w0,w1,w2,w333,w3,w4,w5] [q172,q232,q484] [n827,n826] (by decide +kernel)
+def n829 := cc 9 [w94,w96,w0,w1,w2,w3,w4,w5] [q123,q273,q369,q467,q484] [n169,v278] (by decide +kernel)
+def n830 := cc 9 [w94,w0,w1,w2,w3,w4,w5,w19] [q73,q80,q138,q187,q261,q484,q555] [n763,v279,n792] (by decide +kernel)
+def n831 := cc 8 [w94,w0,w1,w342,w3,w4,w5] [q80,q159,q209,q275,q467] [] (by decide +kernel)
+def n832 := cc 9 [w94,w341,w0,w1,w2,w3,w4,w5] [q172,q187,q275,q467] [n831,n822,n797] (by decide +kernel)
+def v280 : Closed T 9 := rotateClosed n824 auto1 auto1ok
+def n833 := cc 10 [w94,w0,w1,w2,w3,w4,w5] [q138,q187,q229,q293,q484] [n832,n829,n825,n308,n483,n828,n437,n830,n170,n819,n823,v280] (by decide +kernel)
+def n834 := cc 8 [w328,w0,w1,w2,w3,w352,w5] [q73,q181,q203,q225,q261,q480] [] (by decide +kernel)
+def v281 : Closed T 8 := rotateClosed n765 auto1 auto1ok
+def n835 := cc 9 [w0,w1,w2,w3,w4,w352,w5] [q73,q187,q261,q400,q484,q555] [n834,n804,n763,v281] (by decide +kernel)
+def n836 := cc 8 [w328,w350,w0,w1,w2,w3,w19] [q159,q181,q203,q261,q480,q552] [] (by decide +kernel)
+def v282 : Closed T 8 := rotateClosed n834 auto1 auto1ok
+def n837 := cc 9 [w328,w350,w0,w1,w2,w3,w4,w5] [q70,q72,q181,q225,q229,q383,q384] [n836,n834,v282,n804] (by decide +kernel)
+def n838 := cc 8 [w0,w1,w2,w353,w3,w4,w19] [q187,q386,q417,q436] [] (by decide +kernel)
+def v283 : Closed T 8 := rotateClosed n838 auto1 auto1ok
+def n839 := cc 9 [w328,w0,w1,w2,w3,w5,w19] [q138,q187,q261,q385,q421,q424] [n836,n766,v283,v257] (by decide +kernel)
+def v284 : Closed T 9 := rotateClosed n825 auto1 auto1ok
+def v285 : Closed T 9 := rotateClosed n835 auto1 auto1ok
+def n840 := cc 10 [w328,w0,w1,w2,w3,w4,w5] [q138,q187,q229,q385,q424] [v284,n837,n767,n839,v285,n824] (by decide +kernel)
+def n841 := cc 8 [w355,w0,w1,w2,w3,w4,w5] [q80,q172,q369,q503] [] (by decide +kernel)
+def n842 := cc 9 [w0,w1,w2,w3,w354,w4,w5] [q134,q138,q293,q417,q503] [n841,v248] (by decide +kernel)
+def n843 := cc 7 [w0,w1,w357,w3,w336,w5] [q204,q235,q299,q552] [] (by decide +kernel)
+def n844 := cc 8 [w0,w1,w357,w2,w3,w356,w5] [q73,q203,q225,q235,q298,q424] [n843] (by decide +kernel)
+def v286 : Closed T 7 := rotateClosed n843 auto1 auto1ok
+def n845 := cc 8 [w0,w1,w2,w3,w4,w334,w358] [q80,q165,q181,q233,q348] [v286] (by decide +kernel)
+def n846 := cc 8 [w359,w0,w1,w2,w3,w4,w334] [q80,q172,q233,q369,q555] [] (by decide +kernel)
+def n847 := cc 8 [w360,w0,w1,w2,w3,w356,w5] [q73,q203,q225,q383,q552] [] (by decide +kernel)
+def v287 : Closed T 8 := rotateClosed n847 auto1 auto1ok
+def v288 : Closed T 8 := rotateClosed n844 auto1 auto1ok
+def n848 := cc 9 [w0,w1,w2,w3,w4,w334] [q138,q293] [n846,v287,v288,n845] (by decide +kernel)
+def n849 := cc 8 [w360,w0,w1,w2,w3,w4,w5] [q11,q73,q225,q383,q552] [] (by decide +kernel)
+def v289 : Closed T 8 := rotateClosed n827 auto1 auto1ok
+def v290 : Closed T 8 := rotateClosed n775 auto1 auto1ok
+def n850 := cc 9 [w0,w1,w2,w3,w4,w356,w5] [q73,q187,q229,q293,q424,q517] [v289,n849,n776,v290] (by decide +kernel)
+def n851 := cc 9 [w361,w0,w1,w2,w3,w5] [q138,q187,q293] [] (by decide +kernel)
+def n852 := cc 8 [w362,w0,w1,w2,w4] [q187,q293,q424,q484] [] (by decide +kernel)
+def v291 : Closed T 8 := rotateClosed n852 auto1 auto1ok
+def n853 := cc 9 [w0,w1,w2,w333,w41,w5] [q138,q293,q484] [v291] (by decide +kernel)
+def v292 : Closed T 9 := rotateClosed n851 auto1 auto1ok
+def v293 : Closed T 9 := rotateClosed n850 auto1 auto1ok
+def n854 := cc 10 [w0,w1,w2,w333,w3,w4,w5] [q138,q229,q293,q484] [n828,v292,n778,n853,n842,v293,n848] (by decide +kernel)
+def n855 := cc 8 [w364,w0,w1,w2,w3,w4,w5] [q62,q134,q215,q260,q425,q550] [] (by decide +kernel)
+def n856 := cc 8 [w0,w1,w2,w365,w3,w4,w5] [q86,q134,q164,q291,q505] [] (by decide +kernel)
+def v294 : Closed T 8 := rotateClosed n855 auto1 auto1ok
+def n857 := cc 9 [w232,w0,w1,w2,w3,w4,w5] [q110,q137,q138,q229,q484,q547] [n210,n529,n49,n508,v294,n856] (by decide +kernel)
+def n858 := cc 6 [w366,w1,w107,w2,w3,w4,w5] [q134] [] (by decide +kernel)
+def n859 := cc 6 [w111,w0,w1,w107,w2,w3,w4] [] [] (by decide +kernel)
+def n860 := cc 7 [w0,w1,w107,w2,w110,w3,w4,w5] [q13,q134,q242,q529] [n859,n858] (by decide +kernel)
+def n861 := cc 7 [w108,w0,w1,w107,w2,w3,w4,w5] [q134,q242,q540] [n200] (by decide +kernel)
+def n862 := cc 8 [w0,w1,w107,w2,w3,w4,w5] [q134,q144,q242,q493,q540] [n861,n860,n201] (by decide +kernel)
+def n863 := cc 7 [w0,w1,w107,w2,w109,w3,w4,w5] [q19,q110,q134,q254,q322,q323] [n858,n202] (by decide +kernel)
+def n864 := cc 7 [w108,w0,w106,w1,w2,w3,w4,w5] [q4,q51,q134,q242] [] (by decide +kernel)
+def n865 := cc 8 [w0,w106,w1,w107,w2,w3,w4,w5] [q110,q144,q242,q254,q291,q493] [n864,n206,n863,n203] (by decide +kernel)
+def n866 := cc 8 [w0,w1,w2,w109,w3,w4,w5] [q134,q335,q391,q502] [] (by decide +kernel)
+def n867 := cc 7 [w366,w0,w106,w1,w2,w3,w4,w5] [q19,q62,q96,q110] [n858] (by decide +kernel)
+def n868 := cc 8 [w0,w106,w1,w2,w109,w3,w4,w5] [q145,q254,q291,q334,q367,q502] [n867,n206,n204,n863] (by decide +kernel)
+def n869 := cc 9 [w0,w106,w1,w2,w3,w4,w5] [q110,q254,q291,q293,q294,q295,q385,q484] [n528,n49,n865,n208,n868,n862,n866] (by decide +kernel)
+def n870 := cc 8 [w0,w367,w1,w2,w3,w4,w5] [q86,q134,q177,q512,q540] [] (by decide +kernel)
+def n871 := cc 8 [w0,w369,w1,w2,w3,w4,w5] [q259,q291,q426,q535] [] (by decide +kernel)
+def v295 : Closed T 8 := rotateClosed n871 auto1 auto1ok
+def n872 := cc 9 [w43,w0,w1,w2,w3,w4,w5] [q86,q134,q254,q415,q424,q484] [n210,n528,n50,n309,n870,v295] (by decide +kernel)
+def n873 := cc 10 [w0,w1,w2,w3,w4,w41,w5] [q138,q229,q293,q424,q484] [n530,n872,n51,n254,n310,n857,n510,n869,n211,n853] (by decide +kernel)
+def n874 := cc 9 [w91,w370,w0,w1,w2,w4] [q187,q293,q424] [n852] (by decide +kernel)
+def v296 : Closed T 9 := rotateClosed n829 auto1 auto1ok
+def n875 := cc 10 [w91,w0,w1,w2,w3,w4,w5] [q187,q293,q424,q484] [v296,n874,n255,n212,n438,n779] (by decide +kernel)
+def n876 := cc 9 [w0,w1,w2,w372,w3,w4,w5] [q138,q385,q484] [] (by decide +kernel)
+def v297 : Closed T 9 := rotateClosed n874 auto1 auto1ok
+def n877 := cc 10 [w371,w0,w1,w2,w3,w4,w5] [q138,q229,q385,q484] [v297,n876] (by decide +kernel)
+def n878 := cc 7 [w0,w1,w203,w3,w374,w19] [q159,q172,q181,q238,q436,q560] [] (by decide +kernel)
+def n879 := cc 7 [w34,w0,w1,w3,w374,w19] [q159,q181,q399,q480,q552] [] (by decide +kernel)
+def n880 := cc 8 [w0,w1,w2,w3,w374,w19] [q135,q138,q385,q417,q424,q558] [n879,n878] (by decide +kernel)
+def n881 := cc 9 [w0,w1,w2,w3,w4,w374,w5] [q138,q187,q385,q424] [n880] (by decide +kernel)
+def n882 := cc 6 [w375,w0,w1,w203,w3] [q160,q387,q563] [] (by decide +kernel)
+def n883 := cc 7 [w0,w1,w203,w3,w373,w31] [q73,q160,q238,q437,q552] [n882] (by decide +kernel)
+def n884 := cc 8 [w0,w1,w203,w2,w3,w373,w19] [q73,q159,q181,q238,q436,q558,q559] [n883,n878] (by decide +kernel)
+def n885 := cc 7 [w375,w0,w1,w2,w3,w19] [q73,q165,q393,q417,q562] [n882] (by decide +kernel)
+def n886 := cc 8 [w0,w1,w2,w3,w373,w19,w31] [q73,q135,q165,q181,q238,q393,q457,q561] [n885,n883] (by decide +kernel)
+def n887 := cc 7 [w0,w1,w2,w3,w377,w19] [q172,q238,q467,q552] [] (by decide +kernel)
+def n888 := cc 8 [w376,w0,w1,w2,w3,w373,w19] [q73,q172,q238,q467,q552,q562] [n887] (by decide +kernel)
+def n889 := cc 8 [w34,w0,w1,w2,w3,w373,w19] [q73,q135,q159,q181,q399,q480,q552,q564] [n879] (by decide +kernel)
+def n890 := cc 9 [w0,w1,w2,w3,w373,w19] [q138,q385,q424,q558] [n888,n889,n884,n886,n880] (by decide +kernel)
+def n891 := cc 10 [w0,w1,w2,w3,w373,w4,w5] [q138,q187,q229,q385,q424] [n890,n881] (by decide +kernel)
+def n892 := cc 7 [w175,w0,w62,w1,w2,w3,w4,w5] [q115,q117,q248,q553] [] (by decide +kernel)
+def n893 := cc 8 [w0,w62,w1,w2,w3,w4,w5,w173] [q73,q80,q114,q248,q261,q524,q539] [n892] (by decide +kernel)
+def n894 := cc 8 [w0,w174,w1,w2,w3,w4,w5,w19] [q73,q80,q114,q261,q419,q533,q536] [] (by decide +kernel)
+def n895 := cc 8 [w0,w1,w203,w2,w3,w4,w5,w173] [q31,q45,q73,q80,q181,q203,q248,q325,q358] [] (by decide +kernel)
+def n896 := cc 8 [w34,w0,w1,w2,w3,w4,w5,w173] [q73,q80,q159,q181,q261,q325,q360,q483,q536] [] (by decide +kernel)
+def n897 := cc 7 [w175,w0,w1,w2,w122,w3,w4,w5] [q48,q248,q454,q501,q554] [] (by decide +kernel)
+def n898 := cc 8 [w175,w0,w1,w2,w3,w4,w5,w19] [q73,q80,q117,q159,q225,q354,q419,q454,q533] [n512,n892,n690,n897] (by decide +kernel)
+def n899 := cc 8 [w0,w1,w2,w122,w3,w4,w5,w173] [q73,q80,q161,q186,q205,q248,q262,q325,q524] [n897] (by decide +kernel)
+def n900 := cc 9 [w0,w1,w2,w3,w4,w5,w19,w173] [q73,q80,q114,q138,q187,q261,q354,q448] [n532,n717,n896,n898,n446,n513,n619,n893,n894,n691,n895,n899] (by decide +kernel)
+def n901 := cc 8 [w378,w0,w1,w2,w3,w4,w5] [q114,q134,q170,q216,q229,q359,q479,q549] [] (by decide +kernel)
+def n902 := cc 8 [w0,w1,w2,w270,w3,w4,w5] [q103,q134,q165,q209,q291,q293,q477] [n621] (by decide +kernel)
+def v298 : Closed T 8 := rotateClosed n780 auto1 auto1ok
+def n903 := cc 9 [w202,w0,w1,w2,w3,w4,w5] [q114,q138,q187,q229,q293,q476,q517,q528] [n226,n533,n718,n52,n514,n622,n692,n780,v298,n446,n901,n902] (by decide +kernel)
+def v299 : Closed T 8 := rotateClosed n439 auto1 auto1ok
+def n904 := cc 9 [w202,w0,w1,w2,w3,w4,w5,w19] [q138,q187,q528,q529,q536,q539] [n446,n439,v299] (by decide +kernel)
+def n905 := cc 6 [w379,w1,w63,w2,w3,w4,w5] [q134] [] (by decide +kernel)
+def n906 := cc 7 [w0,w1,w63,w2,w119,w3,w4,w5] [q134,q173,q218,q248,q325,q433,q540] [n905] (by decide +kernel)
+def n907 := cc 7 [w117,w0,w1,w63,w2,w3,w4,w5] [q134,q248,q540] [n213] (by decide +kernel)
+def n908 := cc 8 [w0,w1,w63,w2,w3,w4,w5] [q114,q134,q151,q198,q248,q325,q433,q540] [n907,n625,n906,n214] (by decide +kernel)
+def n909 := cc 7 [w0,w1,w63,w2,w118,w3,w4,w5] [q114,q134,q261] [n905,n215] (by decide +kernel)
+def n910 := cc 7 [w117,w0,w62,w1,w2,w3,w4,w5] [q115,q134,q248] [] (by decide +kernel)
+def n911 := cc 8 [w0,w62,w1,w63,w2,w3,w4,w5] [q114,q151,q248,q261,q291,q549] [n910,n218,n909,n216] (by decide +kernel)
+def n912 := cc 8 [w0,w1,w2,w118,w3,w4,w5] [q134,q293,q393,q407,q434] [] (by decide +kernel)
+def n913 := cc 7 [w379,w0,w62,w1,w2,w3,w4,w5] [q103,q114,q120] [n905] (by decide +kernel)
+def n914 := cc 8 [w0,w62,w1,w2,w118,w3,w4,w5] [q152,q261,q291,q393,q397] [n913,n218,n217,n909] (by decide +kernel)
+def n915 := cc 9 [w0,w62,w1,w2,w3,w4,w5] [q0,q198,q261,q291,q354,q385,q400] [n655,n531,n52,n626,n911,n220,n914,n908,n912] (by decide +kernel)
+def n916 := cc 8 [w0,w1,w63,w2,w3,w4,w5,w19] [q114,q151,q261,q419,q528,q529,q539] [n221] (by decide +kernel)
+def n917 := cc 8 [w0,w1,w2,w118,w3,w4,w5,w19] [q172,q217,q261,q342,q354,q434,q490,q517,q524] [] (by decide +kernel)
+def n918 := cc 8 [w0,w62,w1,w2,w3,w4,w5,w31] [q261,q528,q539] [] (by decide +kernel)
+def v300 : Closed T 8 := rotateClosed n664 auto1 auto1ok
+def v301 : Closed T 8 := rotateClosed n440 auto1 auto1ok
+def v302 : Closed T 8 := rotateClosed n781 auto1 auto1ok
+def n919 := cc 9 [w0,w62,w1,w2,w3,w4,w5,w19] [q198,q261,q385,q539] [n655,n664,v300,n223,n893,n918,n440,v301,n781,v302,n916,n917] (by decide +kernel)
+def n920 := cc 9 [w37,w0,w1,w2,w3,w4,w5,w19] [q73,q354,q385,q400,q508,q528,q536] [n655] (by decide +kernel)
+def n921 := cc 8 [w0,w1,w2,w380,w3,w4,w5,w19] [q203,q261,q354,q492,q517,q528,q529] [] (by decide +kernel)
+def n922 := cc 8 [w0,w1,w203,w3,w4,w5,w31] [q73,q261,q437,q528,q552] [n883] (by decide +kernel)
+def v303 : Closed T 8 := rotateClosed n441 auto1 auto1ok
+def v304 : Closed T 8 := rotateClosed n782 auto1 auto1ok
+def n923 := cc 9 [w0,w1,w203,w2,w3,w4,w5,w19] [q138,q159,q187,q261,q539] [n804,n884,n895,n441,v303,n922,n782,v304,n921] (by decide +kernel)
+def n924 := cc 8 [w0,w269,w1,w2,w3,w4,w5,w19] [q73,q261,q528,q533] [] (by decide +kernel)
+def n925 := cc 8 [w0,w1,w2,w122,w3,w4,w5,w31] [q261,q342,q360,q467,q503,q528] [] (by decide +kernel)
+def v305 : Closed T 8 := rotateClosed n789 auto1 auto1ok
+def n926 := cc 9 [w0,w1,w2,w3,w4,w5,w19,w31] [q261,q354,q419,q457,q517,q520,q528] [n789,v305,n805,n628,n918,n924,n922,n925,n886] (by decide +kernel)
+def n927 := cc 9 [w376,w0,w1,w2,w3,w4,w5,w19] [q73,q261,q354,q467,q528,q530,q552] [n888,n763,n821,v279] (by decide +kernel)
+def n928 := cc 8 [w0,w254,w1,w2,w3,w4,w5] [q117,q134,q181,q225,q293,q481,q540] [n629] (by decide +kernel)
+def n929 := cc 8 [w0,w381,w1,w2,w3,w4,w5] [q261,q291,q536] [] (by decide +kernel)
+def v306 : Closed T 8 := rotateClosed n484 auto1 auto1ok
+def v307 : Closed T 8 := rotateClosed n442 auto1 auto1ok
+def v308 : Closed T 8 := rotateClosed n788 auto1 auto1ok
+def n930 := cc 9 [w34,w0,w1,w2,w3,w4,w5] [q134,q138,q181,q187,q225,q261,q293,q480,q536,q539,q552,q555] [n226,n531,n53,n312,n484,v306,n632,n442,v307,n788,v308,n805,n928,n929,n763] (by decide +kernel)
+def n931 := cc 8 [w0,w254,w1,w2,w3,w4,w5,w19] [q354,q481,q517,q524,q528,q529,q540] [] (by decide +kernel)
+def v309 : Closed T 8 := rotateClosed n443 auto1 auto1ok
+def v310 : Closed T 8 := rotateClosed n783 auto1 auto1ok
+def n932 := cc 9 [w34,w0,w1,w2,w3,w4,w5,w19] [q73,q138,q181,q187,q261,q419,q421,q536,q539,q552] [n889,n896,n443,v309,n805,n783,v310,n931] (by decide +kernel)
+def n933 := cc 8 [w0,w1,w2,w3,w123,w4,w5,w19] [q261,q354,q419,q499,q517,q528,q529] [n227] (by decide +kernel)
+def n934 := cc 8 [w0,w1,w2,w3,w382,w4,w5,w19] [q172,q209,q354,q517,q524] [] (by decide +kernel)
+def v311 : Closed T 8 := rotateClosed n444 auto1 auto1ok
+def v312 : Closed T 8 := rotateClosed n784 auto1 auto1ok
+def n935 := cc 9 [w0,w1,w2,w122,w3,w4,w5,w19] [q161,q261,q354,q424,q484,q517,q530] [n257,n229,n899,n925,n444,v311,n784,v312,n933,n934] (by decide +kernel)
+def n936 := cc 9 [w383,w0,w1,w2,w3,w4,w5,w19] [q73,q354,q424,q484,q528,q539] [] (by decide +kernel)
+def v313 : Closed T 9 := rotateClosed n665 auto1 auto1ok
+def v314 : Closed T 9 := rotateClosed n830 auto1 auto1ok
+def v315 : Closed T 9 := rotateClosed n839 auto1 auto1ok
+def v316 : Closed T 9 := rotateClosed n485 auto1 auto1ok
+def v317 : Closed T 9 := rotateClosed n651 auto1 auto1ok
+def v318 : Closed T 9 := rotateClosed n790 auto1 auto1ok
+def n937 := cc 10 [w0,w1,w2,w3,w4,w5,w19] [q138,q187,q229,q293,q385,q400,q424,q484] [n657,n920,n927,n936,n665,v313,n830,v314,n534,n719,n839,v315,n930,n932,n54,n258,n313,n485,v316,n903,n904,n517,n633,n651,v317,n915,n919,n695,n923,n230,n935,n890,n790,v318,n900,n926,n456,n808,n445,v143,n787,v276] (by decide +kernel)
+def n938 := cc 9 [w0,w1,w2,w342,w3,w4,w5] [q134,q138,q209,q385,q417,q424] [n831,n797,n763,n794] (by decide +kernel)
+def n939 := cc 9 [w0,w1,w2,w3,w4,w5,w19] [q43,q73,q138,q187,q261,q354,q385,q517] [n804,n763,n792,v257] (by decide +kernel)
+def n940 := cc 10 [w341,w0,w1,w2,w3,w4,w5] [q138,q187,q229,q385,q424,q558] [n832,n796,n793,n938,n939] (by decide +kernel)
+def v319 : Closed T 10 := rotateClosed n465 auto1 auto1ok
+def v320 : Closed T 10 := rotateClosed n666 auto1 auto1ok
+def v321 : Closed T 10 := rotateClosed n833 auto1 auto1ok
+def v322 : Closed T 10 := rotateClosed n875 auto1 auto1ok
+def v323 : Closed T 10 := rotateClosed n940 auto1 auto1ok
+def v324 : Closed T 10 := rotateClosed n877 auto1 auto1ok
+def v325 : Closed T 10 := rotateClosed n840 auto1 auto1ok
+def v326 : Closed T 10 := rotateClosed n670 auto1 auto1ok
+def v327 : Closed T 10 := rotateClosed n486 auto1 auto1ok
+def v328 : Closed T 10 := rotateClosed n325 auto1 auto1ok
+def v329 : Closed T 10 := rotateClosed n652 auto1 auto1ok
+def v330 : Closed T 10 := rotateClosed n733 auto1 auto1ok
+def v331 : Closed T 10 := rotateClosed n854 auto1 auto1ok
+def v332 : Closed T 10 := rotateClosed n457 auto1 auto1ok
+def v333 : Closed T 10 := rotateClosed n653 auto1 auto1ok
+def v334 : Closed T 10 := rotateClosed n816 auto1 auto1ok
+def v335 : Closed T 10 := rotateClosed n873 auto1 auto1ok
+def n941 := cc 11 [w0,w1,w2,w3,w4,w5] [] [n465,v319,n666,v320,n833,v321,n875,v322,n940,v323,n284,n637,n704,n877,v324,n238,n535,n720,n840,v325,n8,n536,n638,n670,v326,n55,n259,n314,n486,v327,n4,n62,n263,n325,v328,n518,n634,n652,v329,n5,n696,n733,v330,n231,n521,n854,v331,n279,n635,n702,n891,n457,v332,n653,v333,n816,v334,n873,v335,n937] (by decide +kernel)
 theorem independentlyEnumeratedBound : Lower true R T 12 :=
-  fromClosed n1780 (by decide +kernel) [(0xaaaaaaaaaaaaaaaa, 5, 4), (0xcccccccccccccccc, 11, 9), (0xf0f0f0f0f0f0f0f0, 5, 1), (0xff00ff00ff00ff00, 11, 3), (0xffff0000ffff0000, 17, 1), (0xffffffff00000000, 33, 1)]
+  fromClosed n941 (by decide +kernel) [(0xaaaaaaaaaaaaaaaa, 5, 4), (0xcccccccccccccccc, 11, 9), (0xf0f0f0f0f0f0f0f0, 5, 1), (0xff00ff00ff00ff00, 11, 3), (0xffff0000ffff0000, 17, 1), (0xffffffff00000000, 33, 1)]
     (proper_of _ (by decide)) (by decide +kernel) (by decide +kernel)
 end B51
 
